@@ -353,11 +353,12 @@ public class CanvasController {
   }
 
   @FXML
-  private void onSwitchToPen() {
+  private void onSwitchToPen() { //"https://www.flaticon.com/free-icons/brush" title="brush icons">Brush icons created by Freepik - Flaticon
     pen = true;
     setTool();
   }
 
+  //"https://www.flaticon.com/free-icons/eraser" title="eraser icons">Eraser icons created by Freepik - Flaticon
   @FXML
   private void onSwitchToEraser() {
     pen = false;
@@ -368,7 +369,7 @@ public class CanvasController {
   @FXML
   private void onClear() {
     graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-  }
+  } //https://www.flaticon.com/free-icons/recycle-bin title="recycle bin icons">Recycle bin icons created by lakonicon - Flaticon
 }
 
 

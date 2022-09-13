@@ -25,14 +25,6 @@
     <RowConstraints minHeight="10.0" prefHeight="250.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="130.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
-  <Button mnemonicParsing="false" onAction="#onClear" onMouseEntered="#onHoverClear" prefWidth="100.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #667302 #667302; -fx-border-width: 3;" text="Clear" GridPane.columnIndex="1" GridPane.rowIndex="2">
-    <font>
-      <Font size="20.0" />
-    </font>
-    <GridPane.margin>
-      <Insets left="220.0" />
-    </GridPane.margin>
-  </Button>
   <Label fx:id="timerLabel" onMouseEntered="#onHoverTimer" text="10000">
     <font>
       <Font size="25.0" />
@@ -77,28 +69,6 @@
       <Font name="American Typewriter" size="22.0" />
     </font>
   </Label>
-  <Button mnemonicParsing="false" onAction="#onSwitchToPen" onMouseEntered="#onHoverPen" prefWidth="100.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 3; -fx-border-color: #667302 #667302;" text="  Pen  " GridPane.columnIndex="1" GridPane.rowIndex="2">
-    <font>
-      <Font size="20.0" />
-    </font>
-    <opaqueInsets>
-      <Insets />
-    </opaqueInsets>
-    <GridPane.margin>
-      <Insets right="220.0" />
-    </GridPane.margin>
-  </Button>
-  <Button layoutX="71.0" layoutY="133.0" mnemonicParsing="false" onAction="#onSwitchToEraser" onMouseEntered="#onHoverEraser" prefWidth="100.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 3; -fx-border-color: #667302 #667302;" text="Eraser" GridPane.columnIndex="1" GridPane.rowIndex="2">
-    <font>
-      <Font size="20.0" />
-    </font>
-    <opaqueInsets>
-      <Insets />
-    </opaqueInsets>
-    <GridPane.margin>
-      <Insets />
-    </GridPane.margin>
-  </Button>
   <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech" GridPane.rowIndex="2">
     <GridPane.margin>
       <Insets bottom="30.0" />
@@ -110,4 +80,37 @@
       <Insets top="40.0" />
     </GridPane.margin>
   </Label>
+   <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSwitchToEraser" onMouseEntered="#onHoverEraser" prefHeight="60.0" prefWidth="60.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: #FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <graphic>
+         <ImageView fitHeight="45.0" fitWidth="45.0">
+            <image>
+               <Image url="@../images/eraser.png" />
+            </image>
+         </ImageView>
+      </graphic>
+   </Button>
+   <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSwitchToPen" onMouseEntered="#onHoverPen" prefHeight="60.0" prefWidth="60.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: #FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <GridPane.margin>
+         <Insets right="220.0" />
+      </GridPane.margin>
+      <graphic>
+         <ImageView fitHeight="43.0" fitWidth="43.0">
+            <image>
+               <Image url="@../images/paintbrush.png" />
+            </image>
+         </ImageView>
+      </graphic>
+   </Button>
+   <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onClear" onMouseEntered="#onHoverClear" prefHeight="60.0" prefWidth="60.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: #FFFFFF;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <GridPane.margin>
+         <Insets left="220.0" />
+      </GridPane.margin>
+      <graphic>
+         <ImageView fitHeight="50.0" fitWidth="50.0">
+            <image>
+               <Image url="@../images/Bin.png" />
+            </image>
+         </ImageView>
+      </graphic>
+   </Button>
 </GridPane>
