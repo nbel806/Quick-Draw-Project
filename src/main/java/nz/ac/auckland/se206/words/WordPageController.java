@@ -4,9 +4,14 @@ import com.opencsv.exceptions.CsvException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import nz.ac.auckland.se206.App;
+import nz.ac.auckland.se206.CanvasController;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class WordPageController {
@@ -76,6 +81,20 @@ public class WordPageController {
   }
 
   @FXML
-  private void onReady(){
+  private void onReady() throws IOException {
+    Stage stage =
+        (Stage) readyButton.getScene().getWindow(); // uses the ready button to fine the stage
+    FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/canvas.fxml"));
+    Scene scene = new Scene(loader.load(), 800, 480);
+    stage.setScene(scene);
+    stage.show();
+    CanvasController canvasController =
+        loader.getController(); // gets the newly created controller for next page
+    canvasController.setWordLabel(
+        currentWord); // passes the current word so that the next screen can display it
+    canvasController.give(
+        textToSpeechBackground,
+        textToSpeech); // passes the background threaded text to speech and whether it is on or not
   }
-}
+  }
+

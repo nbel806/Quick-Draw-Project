@@ -1,37 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/18"
-  xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.CanvasController"
-  style="-fx-background-color: white;">
-  <children>
-    <Label alignment="CENTER" layoutX="124.0" layoutY="14.0" prefHeight="23.0" prefWidth="355.0"
-      text="Quick, Draw! SE206  Edition" textAlignment="CENTER">
-      <font>
-        <Font size="18.0"/>
-      </font>
-    </Label>
-    <Canvas fx:id="canvas" height="243.0" layoutX="101.0" layoutY="65.0" width="400.0">
+<?import javafx.scene.text.Text?>
+
+<GridPane style="-fx-background-color: #f9f9d1;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.CanvasController">
+  <columnConstraints>
+    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0" />
+    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="155.0" prefWidth="200.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="100.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="250.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="130.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+  <Button mnemonicParsing="false" onAction="#onClear" onMouseEntered="#onHoverClear" prefWidth="100.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #667302 #667302; -fx-border-width: 3;" text="Clear" GridPane.columnIndex="1" GridPane.rowIndex="2">
+    <font>
+      <Font size="20.0" />
+    </font>
+    <GridPane.margin>
+      <Insets left="220.0" />
+    </GridPane.margin>
+  </Button>
+  <Label fx:id="timerLabel" onMouseEntered="#onHoverTimer" text="10000">
+    <font>
+      <Font size="25.0" />
+    </font>
+  </Label>
+  <Label fx:id="topTenLabel" onMouseEntered="#onHoverTop10" prefHeight="237.0" prefWidth="177.0" text="1.&#10;2.&#10;3.&#10;4.&#10;5.&#10;6.&#10;7.&#10;8.&#10;9.&#10;10." GridPane.columnIndex="2" GridPane.rowIndex="1">
+    <font>
+      <Font size="16.0" />
+    </font>
+    <opaqueInsets>
+      <Insets bottom="100.0" />
+    </opaqueInsets>
+    <GridPane.margin>
+      <Insets />
+    </GridPane.margin>
+  </Label>
+  <Pane style="-fx-border-color: #000000; -fx-border-width: 3; -fx-background-color: #FFFFFF; -fx-border-radius: 3;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <GridPane.margin>
+      <Insets />
+    </GridPane.margin>
+    <Canvas fx:id="canvas" height="243.0" onMouseEntered="#onHoverCanvas" width="400.0">
       <cursor>
-        <Cursor fx:constant="HAND"/>
+        <Cursor fx:constant="HAND" />
       </cursor>
     </Canvas>
-    <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="400.0">
-      <children>
-        <Button fx:id="predictButton" mnemonicParsing="false" onAction="#onPredict" text="Predict"/>
-        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#onClear" text="Clear"/>
-      </children>
-    </HBox>
-
-  </children>
-  <padding>
-    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-  </padding>
-</VBox>
+  </Pane>
+  <Text fill="#784b04" onMouseEntered="#onHoverTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Speed Drawing" GridPane.columnIndex="1">
+    <font>
+      <Font size="45.0" />
+    </font>
+  </Text>
+  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Top 10" underline="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+    <GridPane.margin>
+      <Insets bottom="240.0" />
+    </GridPane.margin>
+    <font>
+      <Font name="System Bold" size="25.0" />
+    </font>
+  </Text>
+  <Label fx:id="wordLabel" onMouseEntered="#onHoverWord" text="Animal Migration" GridPane.rowIndex="1">
+    <font>
+      <Font name="American Typewriter" size="22.0" />
+    </font>
+  </Label>
+  <Button mnemonicParsing="false" onAction="#onSwitchToPen" onMouseEntered="#onHoverPen" prefWidth="100.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 3; -fx-border-color: #667302 #667302;" text="  Pen  " GridPane.columnIndex="1" GridPane.rowIndex="2">
+    <font>
+      <Font size="20.0" />
+    </font>
+    <opaqueInsets>
+      <Insets />
+    </opaqueInsets>
+    <GridPane.margin>
+      <Insets right="220.0" />
+    </GridPane.margin>
+  </Button>
+  <Button layoutX="71.0" layoutY="133.0" mnemonicParsing="false" onAction="#onSwitchToEraser" onMouseEntered="#onHoverEraser" prefWidth="100.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 3; -fx-border-color: #667302 #667302;" text="Eraser" GridPane.columnIndex="1" GridPane.rowIndex="2">
+    <font>
+      <Font size="20.0" />
+    </font>
+    <opaqueInsets>
+      <Insets />
+    </opaqueInsets>
+    <GridPane.margin>
+      <Insets />
+    </GridPane.margin>
+  </Button>
+  <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech" GridPane.rowIndex="2">
+    <GridPane.margin>
+      <Insets bottom="30.0" />
+    </GridPane.margin>
+    <Image url="@../images/speaker-filled-audio-tool.png" />
+  </ImageView>
+  <Label fx:id="textToSpeechLabel" onMouseEntered="#onHoverTextToSpeechLabel" text="OFF" GridPane.rowIndex="2">
+    <GridPane.margin>
+      <Insets top="40.0" />
+    </GridPane.margin>
+  </Label>
+</GridPane>
