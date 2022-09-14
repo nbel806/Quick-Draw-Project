@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane prefHeight="480.0" prefWidth="640.0" style="-fx-background-color: #f9f9d1;"
+  xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="nz.ac.auckland.se206.MainMenuController">
+  <columnConstraints>
+    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0"/>
+    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0"/>
+    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0"/>
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="125.0" minHeight="10.0" prefHeight="125.0" valignment="CENTER"
+      vgrow="SOMETIMES"/>
+    <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="93.0" valignment="CENTER"
+      vgrow="SOMETIMES"/>
+    <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="97.0" valignment="CENTER"
+      vgrow="SOMETIMES"/>
+    <RowConstraints maxHeight="171.0" minHeight="10.0" prefHeight="165.0" valignment="CENTER"
+      vgrow="SOMETIMES"/>
+  </rowConstraints>
+  <Text fill="#784b04" onMouseEntered="#onHoverTitle" strokeType="OUTSIDE" strokeWidth="0.0"
+    text="The Speed Drawing Game" textAlignment="CENTER" GridPane.columnIndex="1">
+    <font>
+      <Font name="System Bold" size="42.0"/>
+    </font>
+  </Text>
+
+  <Text fill="#784b04" onMouseEntered="#onHoverCreators" strokeType="OUTSIDE" strokeWidth="0.0"
+    text="Brought to you by Speedy Sketchers&#10;and Nathan Bell" textAlignment="CENTER"
+    GridPane.columnIndex="1" GridPane.rowIndex="3">
+    <font>
+      <Font name="System Bold Italic" size="22.0"/>
+    </font>
+    <GridPane.margin>
+      <Insets right="200.0"/>
+    </GridPane.margin>
+  </Text>
+  <ImageView fitHeight="210.0" fitWidth="210.0" onMouseEntered="#onHoverLogo"
+    GridPane.columnIndex="2" GridPane.rowIndex="3">
+    <GridPane.margin>
+      <Insets bottom="60.0" right="80.0"/>
+    </GridPane.margin>
+    <Image url="@../images/logo-speedy-sketchers.png"/>
+  </ImageView>
+  <Button fx:id="playButton" mnemonicParsing="false" onAction="#onPlay"
+    onMouseEntered="#onHoverPlay"
+    style="-fx-background-radius: 20; -fx-border-color: #667302; -fx-border-radius: 20; -fx-border-width: 3;"
+    text="Play" textFill="#667302" GridPane.columnIndex="1" GridPane.rowIndex="2">
+    <font>
+      <Font name="System Bold Italic" size="30.0"/>
+    </font>
+  </Button>
+  <Text fill="#403a31" onMouseEntered="#onHoverStartLabel" strokeType="OUTSIDE" strokeWidth="0.0"
+    text="Start a new game" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <font>
+      <Font name="Haettenschweiler" size="52.0"/>
+    </font>
+  </Text>
+  <Label fx:id="textToSpeechLabel" onMouseEntered="#onHoverTextToSpeechLabel" text="OFF"
+    GridPane.rowIndex="2">
+    <GridPane.margin>
+      <Insets top="40.0"/>
+    </GridPane.margin>
+  </Label>
+  <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#onTextToSpeech"
+    onMouseDragEntered="#onHoverTextToSpeech" GridPane.rowIndex="2">
+
+    <GridPane.margin>
+      <Insets bottom="40.0"/>
+    </GridPane.margin>
+    <Image url="@../images/speaker-filled-audio-tool.png"/>
+  </ImageView>
+</GridPane>
+

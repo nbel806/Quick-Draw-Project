@@ -15,11 +15,14 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
@@ -281,7 +284,18 @@ public class CanvasController {
 
   /** When timer reaches 60secs */
   private void whenTimerEnds() throws IOException {
- //goes to next page
+    Stage stage =
+        (Stage) wordLabel.getScene().getWindow(); // finds current stage from the word label
+    FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/game_over.fxml"));
+    Scene scene = new Scene(loader.load(), 800, 480);
+    stage.setScene(scene);
+    stage.show();
+    GameOverController gameOverController =
+        loader.getController(); // gets controller from loader to pass through information
+    gameOverController.setWinLoseLabel(
+        winLose, this); // passes if user won or lost and current instance of canvas controller
+    gameOverController.give(
+        textToSpeechBackground, textToSpeech); // passes text to speech and boolean
   }
 
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
