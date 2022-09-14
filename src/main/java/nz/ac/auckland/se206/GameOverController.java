@@ -14,7 +14,8 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 import nz.ac.auckland.se206.words.WordPageController;
 
 public class GameOverController {
-
+  @FXML
+  private Label winLoseLabel2;
   @FXML private Label winLoseLabel;
   @FXML private Button playAgainButton;
   @FXML private Label textToSpeechLabel;
@@ -22,7 +23,11 @@ public class GameOverController {
   private CanvasController canvasController;
   private Boolean textToSpeech;
   private TextToSpeechBackground textToSpeechBackground;
-  private String winLose;
+  private boolean win;
+
+  private String winLoseString;
+
+  private int timeLeft;
 
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
     this.textToSpeechBackground = textToSpeechBackground;
@@ -32,10 +37,23 @@ public class GameOverController {
     }
   }
 
-  public void setWinLoseLabel(String winLose, CanvasController ctrl) {
-    this.winLose = winLose;
-    winLoseLabel.setText(winLose);
+  public void setWinLoseLabel(boolean winLose, CanvasController ctrl) {
+    this.win = winLose;
+    if(win){
+      winLoseLabel.setText("You won with " + timeLeft);
+      winLoseLabel2.setText("seconds left!");
+
+      winLoseString = "You won with " + timeLeft + "Seconds left!";
+    } else {
+      winLoseLabel.setText("You lost!");
+      winLoseLabel2.setText("");
+      winLoseString = "You lost!";
+    }
     canvasController = ctrl;
+  }
+
+  public void timeLeft(int sec) {
+    timeLeft = sec;
   }
 
   @FXML
@@ -84,7 +102,7 @@ public class GameOverController {
 
   @FXML
   private void onHoverWinLose() {
-    textToSpeechBackground.backgroundSpeak("You " + winLose, textToSpeech);
+    textToSpeechBackground.backgroundSpeak("You " + winLoseString, textToSpeech);
   }
 
   @FXML
@@ -121,4 +139,5 @@ public class GameOverController {
   private void onHoverLogo() {
     textToSpeechBackground.backgroundSpeak("Speedy Sketchers logo", textToSpeech);
   }
+
 }

@@ -57,7 +57,7 @@ public class CanvasController {
   private String currentWord;
 
   private int seconds = 60;
-  private String winLose = "You lose!";
+  private boolean winLose = false;
 
   private boolean end = false;
 
@@ -257,7 +257,7 @@ public class CanvasController {
               .replace("_", " "); // replaces _ with spaces to ensure a standard format
       if (strNew.equals(
           currentWord)) { // tests to see if the word the user is trying to draw is in the top 3
-        winLose = "YOU WIN";
+        winLose = true;
         whenTimerEnds(); // called early to end game
         end = true;
       }
@@ -292,10 +292,12 @@ public class CanvasController {
     stage.show();
     GameOverController gameOverController =
         loader.getController(); // gets controller from loader to pass through information
+    gameOverController.timeLeft(seconds);
     gameOverController.setWinLoseLabel(
         winLose, this); // passes if user won or lost and current instance of canvas controller
     gameOverController.give(
         textToSpeechBackground, textToSpeech); // passes text to speech and boolean
+
   }
 
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
