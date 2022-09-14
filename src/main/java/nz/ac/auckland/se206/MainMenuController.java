@@ -32,7 +32,7 @@ public class MainMenuController {
     FXMLLoader loader =
         new FXMLLoader(
             App.class.getResource("/fxml/word_page.fxml")); // creates a new instance of word page
-    Scene scene = new Scene(loader.load(), 800, 480);
+    Scene scene = new Scene(loader.load(), 1000, 680);
     WordPageController ctrl = loader.getController(); // need controller to pass information
     ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
     stage.setScene(scene);
@@ -45,7 +45,7 @@ public class MainMenuController {
     FXMLLoader loader =
         new FXMLLoader(
             App.class.getResource("/fxml/profile_page.fxml")); // creates a new instance of word page
-    Scene scene = new Scene(loader.load(), 800, 480);
+    Scene scene = new Scene(loader.load(), 1000, 680);
     ProfilePageController ctrl = loader.getController(); // need controller to pass information
     //may need to add code to pass though tts here
     stage.setScene(scene);

@@ -287,7 +287,7 @@ public class CanvasController {
     Stage stage =
         (Stage) wordLabel.getScene().getWindow(); // finds current stage from the word label
     FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/game_over.fxml"));
-    Scene scene = new Scene(loader.load(), 800, 480);
+    Scene scene = new Scene(loader.load(), 1000, 680);
     stage.setScene(scene);
     stage.show();
     GameOverController gameOverController =

@@ -85,7 +85,7 @@ public class WordPageController {
     Stage stage =
         (Stage) readyButton.getScene().getWindow(); // uses the ready button to fine the stage
     FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/canvas.fxml"));
-    Scene scene = new Scene(loader.load(), 800, 480);
+    Scene scene = new Scene(loader.load(), 1000, 680);
     stage.setScene(scene);
     stage.show();
     CanvasController canvasController =

@@ -66,7 +66,7 @@ public class GameOverController {
             App.class.getResource(
                 "/fxml/word_page.fxml")); // reset to a new word_page where a new word will be
     // generated
-    Scene scene = new Scene(loader.load(), 800, 480);
+    Scene scene = new Scene(loader.load(), 1000, 680);
     stage.setScene(scene);
     stage.show();
 
