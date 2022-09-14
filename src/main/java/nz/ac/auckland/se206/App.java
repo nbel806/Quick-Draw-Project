@@ -29,7 +29,7 @@ public class App extends Application {
   @Override
   public void start(final Stage stage) throws IOException {
     FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml"));
-    Scene scene = new Scene(loader.load(), 840, 680);
+    Scene scene = new Scene(loader.load(), 1000, 680);
     stage.setScene(scene);
     stage.show();
     MainMenuController ctrl = loader.getController(); // gets controller of the main menu to pass text to speech

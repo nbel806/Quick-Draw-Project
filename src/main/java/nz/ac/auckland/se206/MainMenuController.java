@@ -40,6 +40,19 @@ public class MainMenuController {
   }
 
   @FXML
+  private void onProfile() throws IOException {
+    Stage stage = (Stage) playButton.getScene().getWindow();
+    FXMLLoader loader =
+        new FXMLLoader(
+            App.class.getResource("/fxml/profile_page.fxml")); // creates a new instance of word page
+    Scene scene = new Scene(loader.load(), 800, 480);
+    ProfilePageController ctrl = loader.getController(); // need controller to pass information
+    //may need to add code to pass though tts here
+    stage.setScene(scene);
+    stage.show();
+  }
+
+  @FXML
   private void onTextToSpeech() {
     textToSpeech = !textToSpeech; // inverts boolean
     if (textToSpeech) { // then sets label accordingly
@@ -48,6 +61,7 @@ public class MainMenuController {
       textToSpeechLabel.setText("OFF");
     }
   }
+
 
   @FXML
   private void onHoverTitle() {
@@ -84,4 +98,5 @@ public class MainMenuController {
   private void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
   }
+
 }
