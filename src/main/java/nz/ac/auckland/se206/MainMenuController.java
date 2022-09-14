@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import nz.ac.auckland.se206.speech.TextToSpeech;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 import nz.ac.auckland.se206.words.WordPageController;
 
@@ -19,9 +18,8 @@ public class MainMenuController {
   private Boolean textToSpeech = false;
   private TextToSpeechBackground textToSpeechBackground;
 
-  public void give(TextToSpeech tts, Boolean textToSpeech) {
-    textToSpeechBackground =
-        new TextToSpeechBackground(tts); // this is the first and only time this is made
+  public void give(TextToSpeechBackground tts, Boolean textToSpeech) {
+    textToSpeechBackground = tts; //passes through the text to speech instance
     this.textToSpeech = textToSpeech;
     if (textToSpeech) {
       textToSpeechLabel.setText("ON");

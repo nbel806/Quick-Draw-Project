@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
-import nz.ac.auckland.se206.words.WordPageController;
 
 /**
  * This is the entry point of the JavaFX application, while you can change this class, it should
@@ -29,11 +28,11 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) throws IOException {
-    FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/word_page.fxml"));
+    FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml"));
     Scene scene = new Scene(loader.load(), 840, 680);
     stage.setScene(scene);
     stage.show();
-    WordPageController ctrl = loader.getController(); // gets controller of the main menu to pass text to speech
+    MainMenuController ctrl = loader.getController(); // gets controller of the main menu to pass text to speech
     stage.setOnCloseRequest(
         e -> {
           Platform.exit();
