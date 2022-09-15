@@ -24,22 +24,22 @@
             <Font name="Algerian" size="60.0" />
          </font>
       </Label>
-      <Button fx:id="back" layoutX="40.0" layoutY="592.0" mnemonicParsing="false" onAction="#onBack" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #667302 #667302; -fx-border-width: 3;" text="Back">
+      <Button fx:id="back" layoutX="40.0" layoutY="592.0" mnemonicParsing="false" onAction="#onMainMenu" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #667302 #667302; -fx-border-width: 3;" text="Back">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="118.0" layoutY="255.0" onMouseEntered="#onHoverLogo">
+      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="118.0" layoutY="255.0">
          <image>
             <Image url="@../images/logo-speedy-sketchers.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="743.0" layoutY="255.0" onMouseEntered="#onHoverLogo">
+      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="743.0" layoutY="255.0">
          <image>
             <Image url="@../images/logo-speedy-sketchers.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="415.0" layoutY="468.0" onMouseEntered="#onHoverLogo">
+      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="415.0" layoutY="468.0">
          <image>
             <Image url="@../images/logo-speedy-sketchers.png" />
          </image>
