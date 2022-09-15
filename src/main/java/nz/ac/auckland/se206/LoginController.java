@@ -34,7 +34,7 @@ public class LoginController {
 	@FXML
 	private Label outputLabel;
 
-	private String currentUsername = null;
+	private String currentUsername = null; // The username currently logged in
 
 	/**
 	 * This method creates a blank csv file
@@ -47,18 +47,6 @@ public class LoginController {
 
 		// file creation
 		file.createNewFile();
-
-	}
-
-	/**
-	 * This method appends the statistics of the current user into the csv file
-	 * 
-	 * @param history
-	 * @param results
-	 * @param timeDuration
-	 * @throws IOException
-	 */
-	public void appendData(String history, String results, int timeDuration) throws IOException {
 
 	}
 
@@ -108,6 +96,14 @@ public class LoginController {
 
 	}
 
+	/**
+	 * This method searches in the csv file for the username passed and returns a
+	 * flag
+	 * 
+	 * @param username
+	 * @return
+	 * @throws IOException
+	 */
 	private static Boolean searchUsername(String username) throws IOException {
 		Boolean flag = false;
 		String line;
@@ -134,35 +130,10 @@ public class LoginController {
 		return flag;
 	}
 
-	private static void accessProfile(String[] currentRecord) throws IOException {
-		String line;
-		String username = currentRecord[0];
-
-		// Check if username is valid
-		if (searchUsername(username) == true) {
-			FileReader fr = new FileReader(fileName);
-			BufferedReader br = new BufferedReader(fr);
-
-			while ((line = br.readLine()) != null) {
-				// Check if current line contains the username to be found
-				if (line.contains(username)) {
-					currentRecord = line.split(",");
-				}
-			}
-
-			br.close();
-		} else {
-			System.out.println("INVALID USERNAME");
-		}
-
-	}
-
 	@FXML
 	private void onCreate(ActionEvent event) throws IOException {
 		String username = null;
 		username = usernameText.getText();
-
-		System.out.println(usernameText.getText().trim().isEmpty());
 
 		if (usernameText.getText().trim().isEmpty()) {
 			outputLabel.setText("The textbox is empty");
@@ -205,6 +176,12 @@ public class LoginController {
 
 	}
 
+	/**
+	 * This method goes to the previous page
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	@FXML
 	private void onBack(ActionEvent event) throws IOException {
 
