@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane style="-fx-background-color: #f9f9d1 #f9f9d1;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.GameOverController">
+  <columnConstraints>
+    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" />
+    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" prefWidth="400.0" />
+    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints />
+    <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="200.0" valignment="CENTER" vgrow="ALWAYS" />
+    <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="140.0" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="140.0" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="200.0" vgrow="ALWAYS" />
+  </rowConstraints>
+  <Text fill="#784b04" onMouseEntered="#onHoverTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Over" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <font>
+      <Font size="81.0" />
+    </font>
+  </Text>
+  <Label fx:id="winLoseLabel" onMouseEntered="#onHoverWinLose" prefHeight="55.0" prefWidth="430.0" text="You won with 28" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+    <font>
+      <Font size="44.0" />
+    </font>
+    <GridPane.margin>
+      <Insets />
+    </GridPane.margin>
+      <padding>
+         <Insets top="70.0" />
+      </padding>
+  </Label>
+  <Button mnemonicParsing="false" onAction="#onSave" onMouseEntered="#onHoverSave" prefWidth="150.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #667302 #667302; -fx-border-width: 3;" text="Save Drawing" GridPane.rowIndex="4">
+    <font>
+      <Font size="20.0" />
+    </font>
+  </Button>
+  <Button fx:id="playAgainButton" mnemonicParsing="false" onAction="#onPlayAgain" onMouseEntered="#onHoverPlayAgain" prefWidth="150.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 3; -fx-border-color: #667302 #667302;" text="Play Again" GridPane.columnIndex="2" GridPane.rowIndex="4">
+    <font>
+      <Font size="20.0" />
+    </font>
+  </Button>
+  <Label fx:id="textToSpeechLabel" onMouseEntered="#onHoverTextToSpeechLabel" text="OFF" GridPane.rowIndex="2">
+    <GridPane.margin>
+      <Insets top="40.0" />
+    </GridPane.margin>
+  </Label>
+  <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech" GridPane.rowIndex="2">
+    <Image url="@../images/speaker-filled-audio-tool.png" />
+    <GridPane.margin>
+      <Insets bottom="40.0" />
+    </GridPane.margin>
+  </ImageView>
+  <ImageView fitHeight="170.0" fitWidth="170.0" onMouseEntered="#onHoverLogo" GridPane.columnIndex="1" GridPane.rowIndex="4">
+    <Image url="@../images/logo-speedy-sketchers.png" />
+    <GridPane.margin>
+      <Insets bottom="40.0" />
+    </GridPane.margin>
+  </ImageView>
+   <Label fx:id="winLoseLabel2" onMouseEntered="#onHoverWinLose" prefHeight="55.0" prefWidth="430.0" text="seconds left!" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <font>
+         <Font size="44.0" />
+      </font>
+      <opaqueInsets>
+         <Insets top="10.0" />
+      </opaqueInsets>
+      <padding>
+         <Insets bottom="100.0" />
+      </padding>
+   </Label>
+</GridPane>
