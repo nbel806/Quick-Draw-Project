@@ -28,16 +28,15 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) throws IOException {
-    FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml"));
+    FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/login_page.fxml"));
     Scene scene = new Scene(loader.load(), 1000, 680);
     stage.setScene(scene);
     stage.show();
-    MainMenuController ctrl = loader.getController(); // gets controller of the main menu to pass text to speech
     stage.setOnCloseRequest(
         e -> {
           Platform.exit();
           tts.terminate(); // ensures that upon close the tts will terminate
         });
-    ctrl.give(new TextToSpeechBackground(tts), false); // passes the text to speech and the boolean weather to enable it or not
+    LoginController.createDataBase(); // Create csv file
   }
 }
