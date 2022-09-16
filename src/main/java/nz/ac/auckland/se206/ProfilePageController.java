@@ -35,6 +35,7 @@ public class ProfilePageController {
 		Scene scene = new Scene(loader.load(), 1000, 680);
 		MainMenuController ctrl = loader.getController(); // need controller to pass information
 		// may need to add code to pass though tts here
+		ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
 		stage.setScene(scene);
 		stage.show();
 
