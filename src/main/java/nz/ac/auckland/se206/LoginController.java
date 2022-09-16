@@ -222,9 +222,11 @@ public class LoginController {
 	}
 
 	public void onHoverTextToSpeechLabel() {
+		textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
 	}
 
 	public void onHoverTextToSpeech() {
+		textToSpeechBackground.backgroundSpeak("On", textToSpeech);
 	}
 
 	public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
@@ -233,5 +235,17 @@ public class LoginController {
 		if (textToSpeech) { // updates text to speech label to ensure it is up-to-date
 			textToSpeechLabel.setText("ON");
 		}
+	}
+	@FXML
+	private void onHoverLogin() {
+		textToSpeechBackground.backgroundSpeak("login Button", textToSpeech);
+	}
+	@FXML
+	private void onHoverCreate() {
+		textToSpeechBackground.backgroundSpeak("Create Button", textToSpeech);
+	}
+	@FXML
+	private void onHoverBack() {
+		textToSpeechBackground.backgroundSpeak("Back Button", textToSpeech);
 	}
 }
