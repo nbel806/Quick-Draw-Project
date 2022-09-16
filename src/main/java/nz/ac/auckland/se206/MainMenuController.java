@@ -106,7 +106,7 @@ public class MainMenuController {
 
 	@FXML
 	private void onHoverCreators() {
-		textToSpeechBackground.backgroundSpeak("Bought to you by speedy sketcher and Nathan Bell", textToSpeech);
+		textToSpeechBackground.backgroundSpeak("Bought to you by speedy sketcher and Team 15", textToSpeech);
 	}
 
 	@FXML
@@ -119,10 +119,6 @@ public class MainMenuController {
 		textToSpeechBackground.backgroundSpeak("Play Button", textToSpeech);
 	}
 
-	@FXML
-	private void onHoverStartLabel() {
-		textToSpeechBackground.backgroundSpeak("Start a new game", textToSpeech);
-	}
 
 	@FXML
 	private void onHoverTextToSpeech() {

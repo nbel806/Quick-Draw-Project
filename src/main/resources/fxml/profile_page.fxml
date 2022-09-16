@@ -49,5 +49,11 @@
             <Font name="Algerian" size="60.0" />
          </font>
       </Label>
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="263.0" layoutY="487.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech">
+         <image>
+            <Image url="@../images/speaker-filled-audio-tool.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="textToSpeechLabel" layoutX="276.0" layoutY="545.0" onMouseEntered="#onHoverTextToSpeechLabel" text="OFF" />
    </children>
 </Pane>
