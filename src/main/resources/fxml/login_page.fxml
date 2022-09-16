@@ -50,12 +50,12 @@
                   <Font name="Arial Black" size="15.0" />
                </font>
             </TextField>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="81.0" layoutY="22.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech">
+            <ImageView fitHeight="22.0" fitWidth="19.0" layoutX="6.0" layoutY="24.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech">
                <image>
                   <Image url="@../images/speaker-filled-audio-tool.png" />
                </image>
             </ImageView>
-            <Label fx:id="textToSpeechLabel" layoutX="97.0" layoutY="6.0" onMouseEntered="#onHoverTextToSpeechLabel" text="OFF" />
+            <Label fx:id="textToSpeechLabel" layoutX="4.0" layoutY="5.0" onMouseEntered="#onHoverTextToSpeechLabel" prefHeight="21.0" prefWidth="23.0" text="OFF" />
          </children>
       </AnchorPane>
    </right>

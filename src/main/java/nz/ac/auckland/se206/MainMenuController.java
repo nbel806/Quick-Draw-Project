@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206;
 
 import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,91 +13,125 @@ import nz.ac.auckland.se206.words.WordPageController;
 
 public class MainMenuController {
 
-  @FXML private Button playButton;
-  @FXML private Label textToSpeechLabel;
+	@FXML
+	private Button playButton;
+	@FXML
+	private Button profileButton;
+	@FXML
+	private Button loginButton;
+	@FXML
+	private Label textToSpeechLabel;
+	@FXML
+	private Label userLabel;
 
-  private Boolean textToSpeech = false;
-  private TextToSpeechBackground textToSpeechBackground;
+	private Boolean textToSpeech = false;
+	private TextToSpeechBackground textToSpeechBackground;
+	private String currentUsername = null;
 
-  public void give(TextToSpeechBackground tts, Boolean textToSpeech) {
-    textToSpeechBackground = tts; //passes through the text to speech instance
-    this.textToSpeech = textToSpeech;
-    if (textToSpeech) {
-      textToSpeechLabel.setText("ON");
-    }
-  }
+	public void give(TextToSpeechBackground tts, Boolean textToSpeech) {
+		textToSpeechBackground = tts; // passes through the text to speech instance
+		this.textToSpeech = textToSpeech;
+		if (textToSpeech) {
+			textToSpeechLabel.setText("ON");
+		}
+	}
 
-  @FXML
-  private void onPlay() throws IOException {
-    Stage stage = (Stage) playButton.getScene().getWindow();
-    FXMLLoader loader =
-        new FXMLLoader(
-            App.class.getResource("/fxml/word_page.fxml")); // creates a new instance of word page
-    Scene scene = new Scene(loader.load(), 1000, 680);
-    WordPageController ctrl = loader.getController(); // need controller to pass information
-    ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
-    stage.setScene(scene);
-    stage.show();
-  }
+	public void getUsername(String username) {
+		// Check if username is not null
+		if (username != null) {
+			// If not null, update label as current username
+			currentUsername = username;
+			userLabel.setText(currentUsername);
 
-  @FXML
-  private void onProfile() throws IOException {
-    Stage stage = (Stage) playButton.getScene().getWindow();
-    FXMLLoader loader =
-        new FXMLLoader(
-            App.class.getResource("/fxml/profile_page.fxml")); // creates a new instance of word page
-    Scene scene = new Scene(loader.load(), 1000, 680);
-    ProfilePageController ctrl = loader.getController(); // need controller to pass information
-    //may need to add code to pass though tts here
-    stage.setScene(scene);
-    stage.show();
-  }
+		} else {
+			userLabel.setText("Guest");
+		}
+	}
 
-  @FXML
-  private void onTextToSpeech() {
-    textToSpeech = !textToSpeech; // inverts boolean
-    if (textToSpeech) { // then sets label accordingly
-      textToSpeechLabel.setText("ON");
-    } else {
-      textToSpeechLabel.setText("OFF");
-    }
-  }
+	@FXML
+	private void onPlay() throws IOException {
+		Stage stage = (Stage) playButton.getScene().getWindow();
+		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/word_page.fxml")); // creates a new instance of
+																							// word page
+		Scene scene = new Scene(loader.load(), 1000, 680);
+		WordPageController ctrl = loader.getController(); // need controller to pass information
+		ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
+		stage.setScene(scene);
+		stage.show();
+	}
 
+	@FXML
+	private void onProfile() throws IOException {
+		Stage stage = (Stage) profileButton.getScene().getWindow();
+		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/profile_page.fxml")); // creates a new instance
+																								// of word page
+		Scene scene = new Scene(loader.load(), 1000, 680);
+		ProfilePageController ctrl = loader.getController(); // need controller to pass information
+		ctrl.give(textToSpeechBackground, textToSpeech);
+		// may need to add code to pass though tts here
+		stage.setScene(scene);
+		stage.show();
+	}
 
-  @FXML
-  private void onHoverTitle() {
-    textToSpeechBackground.backgroundSpeak("The speed drawing game", textToSpeech);
-  }
+	@FXML
+	private void onLogin() throws IOException {
+		Stage stage = (Stage) loginButton.getScene().getWindow();
+		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/login_page.fxml")); // creates a new instance
+																							// of word page
+		Scene scene = new Scene(loader.load(), 500, 200);
+		LoginController ctrl = loader.getController(); // need controller to pass information
+		ctrl.give(textToSpeechBackground, textToSpeech);
+		// may need to add code to pass though tts here
 
-  @FXML
-  private void onHoverCreators() {
-    textToSpeechBackground.backgroundSpeak(
-        "Bought to you by speedy sketcher and Nathan Bell", textToSpeech);
-  }
+		// Pass current username
+		ctrl.setUsername(currentUsername);
+		stage.setScene(scene);
+		stage.show();
+	}
 
-  @FXML
-  private void onHoverLogo() {
-    textToSpeechBackground.backgroundSpeak("Speedy Sketchers logo", textToSpeech);
-  }
+	@FXML
+	private void onTextToSpeech() {
+		textToSpeech = !textToSpeech; // inverts boolean
+		if (textToSpeech) { // then sets label accordingly
+			textToSpeechLabel.setText("ON");
+		} else {
+			textToSpeechLabel.setText("OFF");
+		}
+	}
 
-  @FXML
-  private void onHoverPlay() {
-    textToSpeechBackground.backgroundSpeak("Play Button", textToSpeech);
-  }
+	@FXML
+	private void onHoverTitle() {
+		textToSpeechBackground.backgroundSpeak("The speed drawing game", textToSpeech);
+	}
 
-  @FXML
-  private void onHoverStartLabel() {
-    textToSpeechBackground.backgroundSpeak("Start a new game", textToSpeech);
-  }
+	@FXML
+	private void onHoverCreators() {
+		textToSpeechBackground.backgroundSpeak("Bought to you by speedy sketcher and Nathan Bell", textToSpeech);
+	}
 
-  @FXML
-  private void onHoverTextToSpeech() {
-    textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
-  }
+	@FXML
+	private void onHoverLogo() {
+		textToSpeechBackground.backgroundSpeak("Speedy Sketchers logo", textToSpeech);
+	}
 
-  @FXML
-  private void onHoverTextToSpeechLabel() {
-    textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
-  }
+	@FXML
+	private void onHoverPlay() {
+		textToSpeechBackground.backgroundSpeak("Play Button", textToSpeech);
+	}
+
+	@FXML
+	private void onHoverStartLabel() {
+		textToSpeechBackground.backgroundSpeak("Start a new game", textToSpeech);
+	}
+
+	@FXML
+	private void onHoverTextToSpeech() {
+		textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
+	}
+
+	@FXML
+	private void onHoverTextToSpeechLabel() {
+		textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
+	}
 
 }

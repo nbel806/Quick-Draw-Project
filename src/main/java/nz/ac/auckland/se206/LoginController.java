@@ -8,7 +8,6 @@ import java.io.IOException;
 
 import com.opencsv.CSVWriter;
 
-import java.text.CollationElementIterator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,8 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseDragEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
@@ -47,7 +44,6 @@ public class LoginController {
 	private String currentUsername = null; // The username currently logged in
 	private Boolean textToSpeech;
 	private TextToSpeechBackground textToSpeechBackground;
-
 
 	/**
 	 * This method creates a blank csv file
@@ -143,6 +139,11 @@ public class LoginController {
 		return flag;
 	}
 
+	public void setUsername(String username) {
+		// Set current username
+		currentUsername = username;
+	}
+
 	@FXML
 	private void onCreate(ActionEvent event) throws IOException {
 		String username = null;
@@ -186,17 +187,6 @@ public class LoginController {
 
 			}
 		}
-		
-		// switch to the main menu after login
-		Stage stage = (Stage) loginButton.getScene().getWindow();
-	    FXMLLoader loader =
-	        new FXMLLoader(
-	            App.class.getResource("/fxml/main_menu.fxml")); // creates a new instance of menu page
-	    Scene scene = new Scene(loader.load(), 1000, 680);
-	    MainMenuController ctrl = loader.getController(); // need controller to pass information
-	    ctrl.give(textToSpeechBackground, textToSpeech);
-	    stage.setScene(scene);
-	    stage.show();
 
 	}
 
@@ -208,7 +198,19 @@ public class LoginController {
 	 */
 	@FXML
 	private void onBack(ActionEvent event) throws IOException {
+		// switch to the main menu after login
+		Stage stage = (Stage) backButton.getScene().getWindow();
+		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml")); // creates a new instance of
+																							// menu page
+		Scene scene = new Scene(loader.load(), 1000, 680);
+		MainMenuController ctrl = loader.getController(); // need controller to pass information
+		ctrl.give(textToSpeechBackground, textToSpeech);
 
+		// Pass username
+		ctrl.getUsername(currentUsername);
+
+		stage.setScene(scene);
+		stage.show();
 	}
 
 	@FXML
@@ -236,14 +238,17 @@ public class LoginController {
 			textToSpeechLabel.setText("ON");
 		}
 	}
+
 	@FXML
 	private void onHoverLogin() {
 		textToSpeechBackground.backgroundSpeak("login Button", textToSpeech);
 	}
+
 	@FXML
 	private void onHoverCreate() {
 		textToSpeechBackground.backgroundSpeak("Create Button", textToSpeech);
 	}
+
 	@FXML
 	private void onHoverBack() {
 		textToSpeechBackground.backgroundSpeak("Back Button", textToSpeech);
