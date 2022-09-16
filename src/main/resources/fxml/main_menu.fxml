@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -23,55 +24,75 @@
     <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="147.0" valignment="CENTER" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="215.0" valignment="CENTER" vgrow="SOMETIMES" />
   </rowConstraints>
-  <Text fill="#784b04" onMouseEntered="#onHoverTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="The Speed Drawing Game" textAlignment="CENTER" GridPane.columnIndex="1">
+  <Text fill="#784b04" onMouseEntered="#onHoverTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="The Speed Drawing Game (Temp Layout)" textAlignment="CENTER" GridPane.columnIndex="1">
     <font>
       <Font name="System Bold" size="42.0" />
     </font>
   </Text>
-
-  <Text fill="#784b04" onMouseEntered="#onHoverCreators" strokeType="OUTSIDE" strokeWidth="0.0" text="Brought to you by Speedy Sketchers&#10;and Team 15" textAlignment="CENTER" wrappingWidth="363.48252868652344" GridPane.columnIndex="1" GridPane.rowIndex="3">
-    <font>
-      <Font name="System Bold Italic" size="22.0" />
-    </font>
-    <GridPane.margin>
-      <Insets right="200.0" />
-    </GridPane.margin>
-  </Text>
-  <ImageView fitHeight="210.0" fitWidth="210.0" onMouseEntered="#onHoverLogo" GridPane.columnIndex="2" GridPane.rowIndex="3">
-    <GridPane.margin>
-      <Insets bottom="60.0" right="80.0" />
-    </GridPane.margin>
-    <Image url="@../images/logo-speedy-sketchers.png" />
-  </ImageView>
-  <Button fx:id="playButton" mnemonicParsing="false" onAction="#onPlay" onMouseEntered="#onHoverPlay" style="-fx-background-radius: 20; -fx-border-color: #667302; -fx-border-radius: 20; -fx-border-width: 3;" text="Play" textFill="#667302" GridPane.columnIndex="1" GridPane.rowIndex="2">
-    <font>
-      <Font name="System Bold Italic" size="30.0" />
-    </font>
-  </Button>
-  <Text fill="#403a31" onMouseEntered="#onHoverStartLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Start a new game" GridPane.columnIndex="1" GridPane.rowIndex="1">
-    <font>
-      <Font name="Haettenschweiler" size="52.0" />
-    </font>
-  </Text>
-  <Label fx:id="textToSpeechLabel" onMouseEntered="#onHoverTextToSpeechLabel" text="OFF" GridPane.rowIndex="2">
-    <GridPane.margin>
-      <Insets top="40.0" />
-    </GridPane.margin>
-  </Label>
-  <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech" GridPane.rowIndex="2">
-
-    <GridPane.margin>
-      <Insets bottom="40.0" />
-    </GridPane.margin>
-    <Image url="@../images/speaker-filled-audio-tool.png" />
-  </ImageView>
-   <Button mnemonicParsing="false" onAction="#onProfile" prefHeight="120.0" prefWidth="120.0" style="-fx-background-radius: 100; -fx-border-radius: 100; -fx-background-color: #FFFFFF;" GridPane.columnIndex="2">
-      <graphic>
-         <ImageView fitHeight="90.0" fitWidth="90.0">
-            <image>
-               <Image url="@../images/profile.png" />
-            </image>
-         </ImageView>
-      </graphic>
-   </Button>
+   <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <children>
+        <Button fx:id="playButton" layoutX="64.0" layoutY="60.0" mnemonicParsing="false" onAction="#onPlay" onMouseEntered="#onHoverPlay" prefHeight="71.0" prefWidth="265.0" style="-fx-background-radius: 20; -fx-border-color: #667302; -fx-border-radius: 20; -fx-border-width: 3;" text="Play" textFill="#667302">
+          <font>
+            <Font name="System Bold Italic" size="30.0" />
+          </font>
+        </Button>
+      </children>
+   </AnchorPane>
+   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+      <children>
+      
+        <Text fill="#784b04" layoutX="96.0" layoutY="143.0" onMouseEntered="#onHoverCreators" strokeType="OUTSIDE" strokeWidth="0.0" text="Brought to you by Speedy Sketchers&#10;and Team 15" textAlignment="CENTER" wrappingWidth="72.0643007253665">
+          <font>
+            <Font name="Arial Bold Italic" size="10.0" />
+          </font>
+        </Text>
+        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="128.0" onMouseEntered="#onHoverLogo">
+          <Image url="@../images/logo-speedy-sketchers.png" />
+        </ImageView>
+        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="202.0" layoutY="135.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech">
+          <Image url="@../images/speaker-filled-audio-tool.png" />
+        </ImageView>
+        <Label fx:id="textToSpeechLabel" layoutX="215.0" layoutY="112.0" onMouseEntered="#onHoverTextToSpeechLabel" prefHeight="35.0" prefWidth="54.0" text="OFF" />
+      </children>
+   </AnchorPane>
+   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <children>
+         <HBox alignment="CENTER" layoutY="73.0" prefHeight="120.0" prefWidth="274.0" spacing="30.0">
+            <children>
+               <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLogin" prefHeight="120.0" prefWidth="120.0" style="-fx-background-radius: 100; -fx-border-radius: 100; -fx-background-color: #FFFFFF;">
+                  <graphic>
+                     <ImageView fitHeight="90.0" fitWidth="90.0">
+                        <image>
+                           <Image url="@../images/loginicon.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+               <Button fx:id="profileButton" mnemonicParsing="false" onAction="#onProfile" prefHeight="120.0" prefWidth="120.0" style="-fx-background-radius: 100; -fx-border-radius: 100; -fx-background-color: #FFFFFF;">
+                  <graphic>
+                     <ImageView fitHeight="90.0" fitWidth="90.0">
+                        <image>
+                           <Image url="@../images/usericon.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+            </children>
+         </HBox>
+      </children>
+   </AnchorPane>
+   <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <children>
+         <Label alignment="CENTER" layoutX="5.0" layoutY="-23.0" prefHeight="84.0" prefWidth="444.0" text="Current User: ">
+            <font>
+               <Font name="Arial" size="31.0" />
+            </font>
+         </Label>
+         <Label fx:id="userLabel" alignment="CENTER" layoutX="-2.0" layoutY="26.0" prefHeight="84.0" prefWidth="455.0" text="Guest" textAlignment="CENTER">
+            <font>
+               <Font name="Arial Black" size="31.0" />
+            </font>
+         </Label>
+      </children>
+   </AnchorPane>
 </GridPane>
