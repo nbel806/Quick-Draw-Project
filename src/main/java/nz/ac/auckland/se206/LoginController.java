@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import com.opencsv.CSVWriter;
 
+import java.text.CollationElementIterator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +17,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class LoginController {
 	// Set name of the file to set user data
@@ -37,7 +41,13 @@ public class LoginController {
 	@FXML
 	private Label outputLabel;
 
+	@FXML
+	private Label textToSpeechLabel;
+
 	private String currentUsername = null; // The username currently logged in
+	private Boolean textToSpeech;
+	private TextToSpeechBackground textToSpeechBackground;
+
 
 	/**
 	 * This method creates a blank csv file
@@ -184,7 +194,7 @@ public class LoginController {
 	            App.class.getResource("/fxml/main_menu.fxml")); // creates a new instance of menu page
 	    Scene scene = new Scene(loader.load(), 1000, 680);
 	    MainMenuController ctrl = loader.getController(); // need controller to pass information
-	    //may need to add code to pass though tts here
+	    ctrl.give(textToSpeechBackground, textToSpeech);
 	    stage.setScene(scene);
 	    stage.show();
 
@@ -199,5 +209,29 @@ public class LoginController {
 	@FXML
 	private void onBack(ActionEvent event) throws IOException {
 
+	}
+
+	@FXML
+	private void onTextToSpeech() {
+		textToSpeech = !textToSpeech; // inverts boolean of text to speech
+		if (textToSpeech) { // sets label accordingly
+			textToSpeechLabel.setText("ON");
+		} else {
+			textToSpeechLabel.setText("OFF");
+		}
+	}
+
+	public void onHoverTextToSpeechLabel() {
+	}
+
+	public void onHoverTextToSpeech() {
+	}
+
+	public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
+		this.textToSpeech = textToSpeech;
+		this.textToSpeechBackground = (textToSpeechBackground);
+		if (textToSpeech) { // updates text to speech label to ensure it is up-to-date
+			textToSpeechLabel.setText("ON");
+		}
 	}
 }

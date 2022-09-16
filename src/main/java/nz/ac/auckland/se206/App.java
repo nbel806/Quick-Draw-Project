@@ -31,6 +31,8 @@ public class App extends Application {
     FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/login_page.fxml"));
     Scene scene = new Scene(loader.load(), 1000, 680);
     stage.setScene(scene);
+    LoginController ctrl = loader.getController(); // need controller to pass information
+    ctrl.give(new TextToSpeechBackground(tts), false);
     stage.show();
     stage.setOnCloseRequest(
         e -> {
