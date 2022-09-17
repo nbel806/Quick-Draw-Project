@@ -1,8 +1,12 @@
 package nz.ac.auckland.se206.words;
 
 import com.opencsv.exceptions.CsvException;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Random;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -27,15 +31,43 @@ public class WordPageController {
 
   private String currentUsername = null;
 
-  public void initialize() throws IOException, URISyntaxException, CsvException {
-    setWordToDraw();
-  }
 
   /** Picks a random word from the easy category using category selector */
   private void setWordToDraw() throws IOException, URISyntaxException, CsvException {
-    CategorySelector categorySelector = new CategorySelector();
-    currentWord = categorySelector.getRandomCategory(CategorySelector.Difficulty.E);
+    if(currentUsername == null) {
+      CategorySelector categorySelector = new CategorySelector();
+      currentWord = categorySelector.getRandomCategory(CategorySelector.Difficulty.E);
+    } else {
+      currentWord = findWordsLeft();
+    }
     wordToDraw.setText(currentWord);
+  }
+
+  private String findWordsLeft() throws IOException {
+    String line;
+
+    BufferedReader br = new BufferedReader(new FileReader("userdata.csv"));
+
+    while ((line = br.readLine()) != null) {
+      // Check if current line contains the username to be found
+      String[] record = line.split("\"");
+      String tempUsername = record[1];
+
+      if (currentUsername.equals(tempUsername)) {
+        ArrayList<String> wordsLeftFormatted = new ArrayList<>();
+        String[] wordsLeft = record[3].split(",");
+        wordsLeft[0] = wordsLeft[0].substring(1);
+        wordsLeft[wordsLeft.length - 1] = wordsLeft[wordsLeft.length - 1].substring(0,
+            wordsLeft[wordsLeft.length - 1].length() - 1);
+        for (String word : wordsLeft) {
+          wordsLeftFormatted.add(word.trim());
+        }
+        Random randomGenerator = new Random();
+        int index = randomGenerator.nextInt(wordsLeftFormatted.size());
+        return wordsLeftFormatted.get(index);
+      }
+    }
+    return null;
   }
 
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
@@ -47,12 +79,13 @@ public class WordPageController {
     }
   }
 
-  public void getUsername(String username) {
+  public void getUsername(String username) throws IOException, URISyntaxException, CsvException {
     // Check if username is not null
     if (username != null) {
       // If not null, update label as current username
       currentUsername = username;
     }
+    setWordToDraw();
   }
 
 

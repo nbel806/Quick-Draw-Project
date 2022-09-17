@@ -1,7 +1,9 @@
 package nz.ac.auckland.se206;
 
+import com.opencsv.exceptions.CsvException;
 import java.io.IOException;
 
+import java.net.URISyntaxException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -49,7 +51,7 @@ public class MainMenuController {
 	}
 
 	@FXML
-	private void onPlay() throws IOException {
+	private void onPlay() throws IOException, URISyntaxException, CsvException {
 		Stage stage = (Stage) playButton.getScene().getWindow();
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/word_page.fxml")); // creates a new instance of
 																							// word page
