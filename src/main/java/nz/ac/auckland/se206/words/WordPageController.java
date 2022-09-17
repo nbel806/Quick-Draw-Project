@@ -112,6 +112,7 @@ public class WordPageController {
     canvasController.give(
         textToSpeechBackground,
         textToSpeech); // passes the background threaded text to speech and whether it is on or not
+    canvasController.getUsername(currentUsername);
   }
   }
 

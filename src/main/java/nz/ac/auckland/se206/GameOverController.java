@@ -1,7 +1,9 @@
 package nz.ac.auckland.se206;
 
+import com.opencsv.exceptions.CsvException;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -28,6 +30,7 @@ public class GameOverController {
   private String winLoseString;
 
   private int timeLeft;
+  private String currentUsername;
 
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
     this.textToSpeechBackground = textToSpeechBackground;
@@ -55,6 +58,13 @@ public class GameOverController {
   public void timeLeft(int sec) {
     timeLeft = sec;
   }
+  public void getUsername(String username){
+    // Check if username is not null
+    if (username != null) {
+      // If not null, update label as current username
+      currentUsername = username;
+    }
+  }
 
   @FXML
   private void onSave() {
@@ -77,7 +87,7 @@ public class GameOverController {
   }
 
   @FXML
-  private void onPlayAgain() throws IOException {
+  private void onPlayAgain() throws IOException, URISyntaxException, CsvException {
     Stage stage = (Stage) playAgainButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(
@@ -93,6 +103,7 @@ public class GameOverController {
     ctrl.give(
         textToSpeechBackground,
         textToSpeech); // passes text to speech instance and boolean to next page
+    ctrl.getUsername(currentUsername);
   }
 
   @FXML

@@ -69,6 +69,8 @@ public class CanvasController {
   // mouse coordinates
   private double currentX;
   private double currentY;
+  private String currentUsername;
+
   /**
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
    * the drawing, and we load the ML model.
@@ -297,6 +299,7 @@ public class CanvasController {
         winLose, this); // passes if user won or lost and current instance of canvas controller
     gameOverController.give(
         textToSpeechBackground, textToSpeech); // passes text to speech and boolean
+    gameOverController.getUsername(currentUsername);
 
   }
 
@@ -305,6 +308,14 @@ public class CanvasController {
     this.textToSpeechBackground = (textToSpeechBackground);
     if (textToSpeech) { // updates text to speech label to ensure it is up-to-date
       textToSpeechLabel.setText("ON");
+    }
+  }
+
+  public void getUsername(String username){
+    // Check if username is not null
+    if (username != null) {
+      // If not null, update label as current username
+      currentUsername = username;
     }
   }
 
