@@ -25,6 +25,8 @@ public class WordPageController {
   private Boolean textToSpeech;
   private TextToSpeechBackground textToSpeechBackground;
 
+  private String currentUsername = null;
+
   public void initialize() throws IOException, URISyntaxException, CsvException {
     setWordToDraw();
   }
@@ -44,6 +46,15 @@ public class WordPageController {
       textToSpeechLabel.setText("ON");
     }
   }
+
+  public void getUsername(String username) {
+    // Check if username is not null
+    if (username != null) {
+      // If not null, update label as current username
+      currentUsername = username;
+    }
+  }
+
 
   @FXML
   private void onHoverTitle() {

@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206;
 
+import com.opencsv.exceptions.CsvException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -8,6 +9,7 @@ import java.io.IOException;
 
 import com.opencsv.CSVWriter;
 
+import java.net.URISyntaxException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
+import nz.ac.auckland.se206.words.CategorySelector;
+import nz.ac.auckland.se206.words.CategorySelector.Difficulty;
 
 public class LoginController {
 	// Set name of the file to set user data
@@ -71,7 +75,7 @@ public class LoginController {
 			FileWriter csvwriter = new FileWriter(fileName, true);
 			try (CSVWriter writer = new CSVWriter(csvwriter)) {
 				// Check if username exists
-				if (searchUsername(username) == false) {
+				if (!searchUsername(username)) {
 					this.currentUsername = username;
 					usernameText.clear();
 					usernameText.setPromptText("Hi, " + username);
@@ -82,6 +86,11 @@ public class LoginController {
 
 					// create profile
 					profile[0] = username;
+
+					//adds all the easy words to the csv
+					CategorySelector category = new CategorySelector();
+					profile[1] = category.getCategory(Difficulty.E).toString();
+
 					writer.writeNext(profile);
 
 					// Set current username
@@ -94,6 +103,8 @@ public class LoginController {
 					outputLabel.setStyle("-fx-text-fill: red;");
 					outputLabel.setOpacity(0.5);
 				}
+			} catch (URISyntaxException | CsvException e) {
+				throw new RuntimeException(e);
 			}
 
 			csvwriter.close();

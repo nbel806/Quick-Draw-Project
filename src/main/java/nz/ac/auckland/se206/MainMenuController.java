@@ -56,6 +56,7 @@ public class MainMenuController {
 		Scene scene = new Scene(loader.load(), 1000, 680);
 		WordPageController ctrl = loader.getController(); // need controller to pass information
 		ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
+		ctrl.getUsername(currentUsername); //passes username
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -68,7 +69,6 @@ public class MainMenuController {
 		Scene scene = new Scene(loader.load(), 1000, 680);
 		ProfilePageController ctrl = loader.getController(); // need controller to pass information
 		ctrl.give(textToSpeechBackground, textToSpeech);
-		// may need to add code to pass though tts here
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -81,7 +81,6 @@ public class MainMenuController {
 		Scene scene = new Scene(loader.load(), 500, 200);
 		LoginController ctrl = loader.getController(); // need controller to pass information
 		ctrl.give(textToSpeechBackground, textToSpeech);
-		// may need to add code to pass though tts here
 
 		// Pass current username
 		ctrl.setUsername(currentUsername);
