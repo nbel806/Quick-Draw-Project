@@ -10,7 +10,6 @@ import java.io.IOException;
 import com.opencsv.CSVWriter;
 
 import java.net.URISyntaxException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,7 +24,7 @@ import nz.ac.auckland.se206.words.CategorySelector.Difficulty;
 
 public class LoginController {
 	// Set name of the file to set user data
-	private static String fileName = "userdata.csv";
+	private static final String fileName = "userdata.csv";
 
 	@FXML
 	private Button createButton;
@@ -52,7 +51,7 @@ public class LoginController {
 	/**
 	 * This method creates a blank csv file
 	 * 
-	 * @throws IOException
+	 * @throws IOException throws if there is no name
 	 */
 	public static void createDataBase() throws IOException {
 		// file object creation
@@ -66,7 +65,7 @@ public class LoginController {
 	/**
 	 * This method creates a new record/profile and appends into the csv file
 	 * 
-	 * @param username
+	 * @param username the name of the person using the app
 	 */
 	private void createProfile(String username) {
 		String[] profile = { null, null, null, null };
@@ -90,6 +89,8 @@ public class LoginController {
 					//adds all the easy words to the csv
 					CategorySelector category = new CategorySelector();
 					profile[1] = category.getCategory(Difficulty.E).toString();
+					profile[2] = "Wins";
+					profile[3] = "TimesPlayed";
 
 					writer.writeNext(profile);
 
@@ -120,12 +121,12 @@ public class LoginController {
 	 * This method searches in the csv file for the username passed and returns a
 	 * flag
 	 * 
-	 * @param username
-	 * @return
-	 * @throws IOException
+	 * @param username the name of the person using the app
+	 * @return if name was found or not
+	 * @throws IOException if file name was empty
 	 */
 	private static Boolean searchUsername(String username) throws IOException {
-		Boolean flag = false;
+		boolean flag = false;
 		String line;
 		FileReader fr;
 
@@ -140,7 +141,7 @@ public class LoginController {
 			String tempUsername = record[0];
 			tempUsername = tempUsername.substring(1, (tempUsername.length() - 1));
 
-			if ((username.equals(tempUsername) == true) && (username.equals(null)) == false) {
+			if (username.equals(tempUsername)) {
 				flag = true;
 			}
 
@@ -156,9 +157,8 @@ public class LoginController {
 	}
 
 	@FXML
-	private void onCreate(ActionEvent event) throws IOException {
-		String username = null;
-		username = usernameText.getText();
+	private void onCreate(){
+		String username = usernameText.getText();
 
 		if (usernameText.getText().trim().isEmpty()) {
 			outputLabel.setText("The textbox is empty");
@@ -171,16 +171,15 @@ public class LoginController {
 	}
 
 	@FXML
-	private void onLogin(ActionEvent event) throws IOException {
-		String username = null;
-		username = usernameText.getText();
+	private void onLogin() throws IOException {
+		String username = usernameText.getText();
 
 		if (usernameText.getText().trim().isEmpty()) {
 			outputLabel.setText("The textbox is empty");
 			outputLabel.setStyle("-fx-text-fill: red;");
 			outputLabel.setOpacity(0.5);
 		} else {
-			if (searchUsername(username) == false) {
+			if (!searchUsername(username)) {
 				usernameText.clear();
 
 				outputLabel.setText("Invalid Username");
@@ -203,12 +202,11 @@ public class LoginController {
 
 	/**
 	 * This method goes to the previous page
-	 * 
-	 * @param event
-	 * @throws IOException
+	 *
+	 * @throws IOException if name of file is not found
 	 */
 	@FXML
-	private void onBack(ActionEvent event) throws IOException {
+	private void onBack() throws IOException {
 		// switch to the main menu after login
 		Stage stage = (Stage) backButton.getScene().getWindow();
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml")); // creates a new instance of

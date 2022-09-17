@@ -1,12 +1,8 @@
 package nz.ac.auckland.se206.words;
 
 import com.opencsv.exceptions.CsvException;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Random;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
+import nz.ac.auckland.se206.CSVReaderWriter;
 import nz.ac.auckland.se206.CanvasController;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
@@ -37,38 +34,14 @@ public class WordPageController {
     if(currentUsername == null) {
       CategorySelector categorySelector = new CategorySelector();
       currentWord = categorySelector.getRandomCategory(CategorySelector.Difficulty.E);
-    } else {
-      currentWord = findWordsLeft();
+    } else{
+     CSVReaderWriter csvReaderWriter = new CSVReaderWriter();
+      currentWord = csvReaderWriter.findWordsLeft(currentUsername);
     }
     wordToDraw.setText(currentWord);
   }
 
-  private String findWordsLeft() throws IOException {
-    String line;
 
-    BufferedReader br = new BufferedReader(new FileReader("userdata.csv"));
-
-    while ((line = br.readLine()) != null) {
-      // Check if current line contains the username to be found
-      String[] record = line.split("\"");
-      String tempUsername = record[1];
-
-      if (currentUsername.equals(tempUsername)) {
-        ArrayList<String> wordsLeftFormatted = new ArrayList<>();
-        String[] wordsLeft = record[3].split(",");
-        wordsLeft[0] = wordsLeft[0].substring(1);
-        wordsLeft[wordsLeft.length - 1] = wordsLeft[wordsLeft.length - 1].substring(0,
-            wordsLeft[wordsLeft.length - 1].length() - 1);
-        for (String word : wordsLeft) {
-          wordsLeftFormatted.add(word.trim());
-        }
-        Random randomGenerator = new Random();
-        int index = randomGenerator.nextInt(wordsLeftFormatted.size());
-        return wordsLeftFormatted.get(index);
-      }
-    }
-    return null;
-  }
 
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
     this.textToSpeechBackground = textToSpeechBackground;
