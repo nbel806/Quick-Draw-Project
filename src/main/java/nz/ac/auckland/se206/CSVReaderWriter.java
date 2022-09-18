@@ -96,4 +96,25 @@ public class CSVReaderWriter {
     csvWriter.writeAll(allData); // writes all the data back
     csvWriter.flush();
   }
+
+  public int getWins(String username) throws IOException, CsvException {
+    int index = findUserName(username);
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+    return Integer.parseInt(allData.get(index)[2]);
+  }
+  public int getLosses(String username) throws IOException, CsvException {
+    int index = findUserName(username);
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+    return Integer.parseInt(allData.get(index)[3]);
+  }
+
+  public int getFastest(String currentUsername) throws IOException, CsvException {
+    int index = findUserName(currentUsername);
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+    return Integer.parseInt(allData.get(index)[4]);
+  }
 }
+
