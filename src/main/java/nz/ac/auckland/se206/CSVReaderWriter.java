@@ -6,15 +6,23 @@ import com.opencsv.exceptions.CsvException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import nz.ac.auckland.se206.words.CategorySelector;
+import nz.ac.auckland.se206.words.CategorySelector.Difficulty;
 
 public class CSVReaderWriter {
-  public String findWordsLeft(String currentUsername) throws IOException, CsvException {
+  public String findWordsLeft(String currentUsername)
+      throws IOException, CsvException, URISyntaxException {
     int index = findUserName(currentUsername);
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
     List<String[]> allData = csvReader.readAll();
+    if (allData.get(index)[1].isEmpty()){
+      CategorySelector category = new CategorySelector();
+      allData.get(index)[1] = category.getCategory(Difficulty.E).toString();
+    }
     String[] wordsLeft = allData.get(index)[1].split(",");
     ArrayList<String> wordsLeftFormatted = new ArrayList<>();
 
@@ -41,8 +49,6 @@ public class CSVReaderWriter {
     CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
     csvWriter.writeAll(allData);
     csvWriter.flush();
-
-
   }
 
   private int findUserName(String currentUsername) throws IOException, CsvException {
