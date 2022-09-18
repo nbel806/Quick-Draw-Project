@@ -25,12 +25,12 @@ public class GameOverController {
   private CanvasController canvasController;
   private Boolean textToSpeech;
   private TextToSpeechBackground textToSpeechBackground;
-  private boolean win;
 
   private String winLoseString;
 
   private int timeLeft;
   private String currentUsername;
+
 
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
     this.textToSpeechBackground = textToSpeechBackground;
@@ -40,9 +40,9 @@ public class GameOverController {
     }
   }
 
-  public void setWinLoseLabel(boolean winLose, CanvasController ctrl) {
-    this.win = winLose;
-    if(win){
+  public void setWinLoseLabel(boolean winLose, CanvasController ctrl)
+      throws IOException, CsvException {
+    if(winLose){
       winLoseLabel.setText("You won with " + timeLeft);
       winLoseLabel2.setText("seconds left!");
 
@@ -53,16 +53,22 @@ public class GameOverController {
       winLoseString = "You lost!";
     }
     canvasController = ctrl;
+    CSVReaderWriter csvRW = new CSVReaderWriter();
+    csvRW.updateResult(winLose, currentUsername);
   }
 
-  public void timeLeft(int sec) {
+  public void timeLeft(int sec) throws IOException, CsvException {
     timeLeft = sec;
+    CSVReaderWriter csvRW = new CSVReaderWriter();
+    csvRW.updateTime(60 - timeLeft, currentUsername);
+
   }
   public void getUsername(String username){
     // Check if username is not null
     if (username != null) {
       // If not null, update label as current username
       currentUsername = username;
+
     }
   }
 
@@ -85,6 +91,7 @@ public class GameOverController {
       }
     }
   }
+
 
   @FXML
   private void onPlayAgain() throws IOException, URISyntaxException, CsvException {

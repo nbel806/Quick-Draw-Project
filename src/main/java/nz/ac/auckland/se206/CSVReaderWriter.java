@@ -45,7 +45,7 @@ public class CSVReaderWriter {
 
   }
 
-  public int findUserName(String currentUsername) throws IOException, CsvException {
+  private int findUserName(String currentUsername) throws IOException, CsvException {
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
     List<String[]> allData = csvReader.readAll();
     int i = 0;
@@ -55,4 +55,39 @@ public class CSVReaderWriter {
     return i;
   }
 
+  public void updateResult(boolean win, String currentUsername) throws IOException, CsvException {
+    if(currentUsername == null){
+      return;
+    }
+    int index = findUserName(currentUsername);
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+
+    if(win){
+      allData.get(index)[2] = String.valueOf(Integer.parseInt(allData.get(index)[2]) + 1); // increment wins
+    } else{
+      allData.get(index)[3] = String.valueOf(Integer.parseInt(allData.get(index)[3]) + 1); // increment losses
+    }
+
+
+    CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
+    csvWriter.writeAll(allData); // writes all the data back
+    csvWriter.flush();
+  }
+
+  public void updateTime(int timeTaken, String currentUsername) throws IOException, CsvException {
+    if(currentUsername == null){
+      return;
+    }
+    int index = findUserName(currentUsername);
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+    if(Integer.parseInt(allData.get(index)[4]) > timeTaken){
+      allData.get(index)[4] = String.valueOf(timeTaken);
+    }
+
+    CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
+    csvWriter.writeAll(allData); // writes all the data back
+    csvWriter.flush();
+  }
 }

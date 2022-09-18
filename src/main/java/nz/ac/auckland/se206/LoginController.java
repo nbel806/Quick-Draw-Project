@@ -68,7 +68,7 @@ public class LoginController {
 	 * @param username the name of the person using the app
 	 */
 	private void createProfile(String username) {
-		String[] profile = { null, null, null, null };
+		String[] profile = { null, null, null, null, null };
 
 		try {
 			FileWriter csvwriter = new FileWriter(fileName, true);
@@ -89,8 +89,9 @@ public class LoginController {
 					//adds all the easy words to the csv
 					CategorySelector category = new CategorySelector();
 					profile[1] = category.getCategory(Difficulty.E).toString();
-					profile[2] = "Wins";
-					profile[3] = "TimesPlayed";
+					profile[2] = "0";//number of wins
+					profile[3] = "0";//number of losses
+					profile[4] = "100";//fastest time
 
 					writer.writeNext(profile);
 
