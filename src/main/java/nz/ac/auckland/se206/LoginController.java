@@ -200,6 +200,13 @@ public class LoginController {
 		}
 
 	}
+	
+	@FXML
+	private void onLogout() throws IOException{
+		currentUsername = null;
+		outputLabel.setText("Logout Success");
+		outputLabel.setStyle("-fx-text-fill: green;");
+	}
 
 	/**
 	 * This method goes to the previous page
