@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane style="-fx-background-color: #f9f9d1;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.CanvasController">
+<GridPane maxHeight="680.0" maxWidth="1000.0" minHeight="680.0" minWidth="1000.0" style="-fx-background-color: #f9f9d1;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.CanvasController">
   <columnConstraints>
     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0" />
@@ -45,11 +45,13 @@
     <GridPane.margin>
       <Insets />
     </GridPane.margin>
-    <Canvas fx:id="canvas" height="243.0" onMouseEntered="#onHoverCanvas" width="400.0">
-      <cursor>
-        <Cursor fx:constant="HAND" />
-      </cursor>
-    </Canvas>
+      <children>
+       <Canvas fx:id="canvas" height="317.0" onMouseEntered="#onHoverCanvas" width="467.0">
+         <cursor>
+           <Cursor fx:constant="HAND" />
+         </cursor>
+       </Canvas>
+      </children>
   </Pane>
   <Text fill="#784b04" onMouseEntered="#onHoverTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Speed Drawing" GridPane.columnIndex="1">
     <font>

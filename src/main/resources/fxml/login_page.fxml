@@ -24,12 +24,12 @@
    <right>
       <AnchorPane prefHeight="200.0" prefWidth="300.0" style="-fx-background-radius: 5px;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="loginButton" layoutX="38.0" layoutY="157.0" mnemonicParsing="false" onAction="#onLogin" onMouseEntered="#onHoverLogin" prefHeight="25.0" prefWidth="85.0" style="-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #efcec5;" text="Login" textAlignment="CENTER">
+            <Button fx:id="loginButton" layoutX="8.0" layoutY="157.0" mnemonicParsing="false" onAction="#onLogin" onMouseEntered="#onHoverLogin" prefHeight="25.0" prefWidth="85.0" style="-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #efcec5;" text="Login" textAlignment="CENTER">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="createButton" layoutX="175.0" layoutY="157.0" mnemonicParsing="false" onAction="#onCreate" onMouseEntered="#onHoverCreate" prefHeight="25.0" prefWidth="85.0" style="-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #efcec5;" text="Create" textAlignment="CENTER">
+            <Button fx:id="createButton" layoutX="206.0" layoutY="157.0" mnemonicParsing="false" onAction="#onCreate" onMouseEntered="#onHoverCreate" prefHeight="25.0" prefWidth="85.0" style="-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #efcec5;" text="Create" textAlignment="CENTER">
                <font>
                   <Font name="Arial Black" size="12.0" />
                </font>
@@ -56,6 +56,11 @@
                </image>
             </ImageView>
             <Label fx:id="textToSpeechLabel" layoutX="4.0" layoutY="5.0" onMouseEntered="#onHoverTextToSpeechLabel" prefHeight="21.0" prefWidth="23.0" text="OFF" />
+            <Button fx:id="logoutButton1" layoutX="107.0" layoutY="157.0" mnemonicParsing="false" onAction="#onLogout" onMouseEntered="#onHoverLogin" prefHeight="25.0" prefWidth="85.0" style="-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #efcec5;" text="Logout" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </right>
