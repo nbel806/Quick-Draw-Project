@@ -30,7 +30,7 @@
       <Font size="25.0" />
     </font>
   </Label>
-  <Label fx:id="topTenLabel" onMouseEntered="#onHoverTop10" prefHeight="237.0" prefWidth="177.0" text="1.&#10;2.&#10;3.&#10;4.&#10;5.&#10;6.&#10;7.&#10;8.&#10;9.&#10;10." GridPane.columnIndex="2" GridPane.rowIndex="1">
+  <Label fx:id="topTenLabel" onMouseEntered="#onHoverTop10" prefHeight="242.0" prefWidth="178.0" text="1.&#10;2.&#10;3.&#10;4.&#10;5.&#10;6.&#10;7.&#10;8.&#10;9.&#10;10." GridPane.columnIndex="2" GridPane.rowIndex="1">
     <font>
       <Font size="16.0" />
     </font>

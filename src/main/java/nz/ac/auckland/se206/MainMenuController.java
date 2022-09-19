@@ -29,6 +29,10 @@ public class MainMenuController {
 	private Label userLabel;
 	@FXML
 	private ImageView userImage;
+	@FXML
+	private ImageView loginImage;
+	@FXML
+	private ImageView volumeImage;
 
 	private Boolean textToSpeech = false;
 	private TextToSpeechBackground textToSpeechBackground;
@@ -123,6 +127,8 @@ public class MainMenuController {
 	@FXML
 	private void onHoverTextToSpeech() {
 		textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
+		volumeImage.setFitHeight(48);
+		volumeImage.setFitWidth(48);
 	}
 
 	@FXML
@@ -142,12 +148,15 @@ public class MainMenuController {
 		textToSpeechBackground.backgroundSpeak("Profile Button", textToSpeech);
 		profileButton.setStyle(
 				"-fx-background-color: #99DAF4; -fx-background-radius: 100px; -fx-border-radius: 100px; -fx-border-color: white");
-
+		userImage.setFitHeight(130);
+		userImage.setFitWidth(130);
 	}
 
 	@FXML
 	private void onHoverLogin() {
 		textToSpeechBackground.backgroundSpeak("Login Button", textToSpeech);
+		loginImage.setFitHeight(75);
+		loginImage.setFitWidth(65);
 
 	}
 
@@ -161,12 +170,21 @@ public class MainMenuController {
 	private void onProfileExit() {
 		profileButton.setStyle(
 				"-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-border-color: black; -fx-background-color: white; -fx-border-color: black");
-
+		userImage.setFitHeight(120);
+		userImage.setFitWidth(120);
 	}
 
 	@FXML
 	private void onLoginExit() {
+		loginImage.setFitHeight(70);
+		loginImage.setFitWidth(60);
 
+	}
+
+	@FXML
+	private void onVolumeExit() {
+		volumeImage.setFitHeight(45);
+		volumeImage.setFitWidth(45);
 	}
 
 }

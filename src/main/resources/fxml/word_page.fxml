@@ -9,7 +9,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: #E6DBD2;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.words.WordPageController">
    <children>
       <HBox alignment="CENTER" layoutY="77.0" prefHeight="550.0" prefWidth="1000.0">
@@ -68,12 +67,12 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Text fx:id="wordToDraw" layoutX="214.0" layoutY="229.0" onMouseEntered="#onHoverWord" strokeType="OUTSIDE" strokeWidth="0.0" text="Animal Migration" textAlignment="CENTER">
+                  <Text fx:id="wordToDraw" layoutX="184.0" layoutY="234.0" onMouseEntered="#onHoverWord" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="468.0">
                      <font>
                         <Font name="Arial Black" size="43.0" />
                      </font>
                   </Text>
-                  <Button fx:id="readyButton" layoutX="268.0" layoutY="309.0" mnemonicParsing="false" onAction="#onReady" onMouseEntered="#onHoverReady" prefHeight="77.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-radius: 25; -fx-border-color: transparent;">
+                  <Button fx:id="readyButton" layoutX="268.0" layoutY="309.0" mnemonicParsing="false" onAction="#onReady" onMouseEntered="#onHoverReady" onMouseExited="#onExitReady" prefHeight="77.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-radius: 25;">
                      <font>
                         <Font name="Arial Black" size="30.0" />
                      </font>
