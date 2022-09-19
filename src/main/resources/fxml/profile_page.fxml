@@ -16,12 +16,12 @@
       </Label>
       <Label fx:id="win" layoutX="79.0" layoutY="207.0" prefHeight="73.0" prefWidth="908.0" text="Number of wins">
          <font>
-            <Font name="Algerian" size="60.0" />
+            <Font name="Algerian" size="40.0" />
          </font>
       </Label>
       <Label fx:id="loss" layoutX="79.0" layoutY="293.0" prefHeight="73.0" prefWidth="908.0" text="Number of Losses">
          <font>
-            <Font name="Algerian" size="60.0" />
+            <Font name="Algerian" size="40.0" />
          </font>
       </Label>
       <Button fx:id="back" layoutX="59.0" layoutY="553.0" mnemonicParsing="false" onAction="#onMainMenu" prefHeight="77.0" prefWidth="117.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #667302 #667302; -fx-border-width: 3;" text="Back">
@@ -42,7 +42,7 @@
       <Label fx:id="textToSpeechLabel" layoutX="68.0" layoutY="136.0" onMouseEntered="#onHoverTextToSpeechLabel" text="OFF" />
       <Label fx:id="fastestGame" layoutX="79.0" layoutY="388.0" prefHeight="73.0" prefWidth="908.0" text="Fastest Game">
          <font>
-            <Font name="Algerian" size="60.0" />
+            <Font name="Algerian" size="40.0" />
          </font>
       </Label>
    </children>
