@@ -68,7 +68,7 @@ public class LoginController {
 	 * @param username the name of the person using the app
 	 */
 	private void createProfile(String username) {
-		String[] profile = { null, null, null, null, null };
+		String[] profile = { null, null, null, null, null, null };
 
 		try {
 			FileWriter csvwriter = new FileWriter(fileName, true);
@@ -92,6 +92,7 @@ public class LoginController {
 					profile[2] = "0";//number of wins
 					profile[3] = "0";//number of losses
 					profile[4] = "100";//fastest time
+					profile[5] = "none";//history words
 
 					writer.writeNext(profile);
 

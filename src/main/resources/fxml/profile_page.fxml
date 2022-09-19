@@ -14,12 +14,12 @@
             <Font name="Algerian" size="60.0" />
          </font>
       </Label>
-      <Label fx:id="win" layoutX="79.0" layoutY="207.0" prefHeight="73.0" prefWidth="908.0" text="Number of wins">
+      <Label fx:id="win" layoutX="68.0" layoutY="158.0" prefHeight="73.0" prefWidth="908.0" text="Number of wins">
          <font>
             <Font name="Algerian" size="40.0" />
          </font>
       </Label>
-      <Label fx:id="loss" layoutX="79.0" layoutY="293.0" prefHeight="73.0" prefWidth="908.0" text="Number of Losses">
+      <Label fx:id="loss" layoutX="68.0" layoutY="215.0" prefHeight="73.0" prefWidth="908.0" text="Number of Losses">
          <font>
             <Font name="Algerian" size="40.0" />
          </font>
@@ -40,7 +40,12 @@
          </image>
       </ImageView>
       <Label fx:id="textToSpeechLabel" layoutX="68.0" layoutY="136.0" onMouseEntered="#onHoverTextToSpeechLabel" text="OFF" />
-      <Label fx:id="fastestGame" layoutX="79.0" layoutY="388.0" prefHeight="73.0" prefWidth="908.0" text="Fastest Game">
+      <Label fx:id="fastestGame" layoutX="68.0" layoutY="267.0" prefHeight="73.0" prefWidth="908.0" text="Fastest Game">
+         <font>
+            <Font name="Algerian" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="history" layoutX="68.0" layoutY="322.0" prefHeight="73.0" prefWidth="908.0" text="History words">
          <font>
             <Font name="Algerian" size="40.0" />
          </font>

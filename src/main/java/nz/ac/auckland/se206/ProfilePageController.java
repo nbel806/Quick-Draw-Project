@@ -21,6 +21,8 @@ public class ProfilePageController {
 	private Label win;
 	@FXML
 	private Label loss;
+	@FXML
+	private Label history;
 
 	@FXML
 	private Label textToSpeechLabel;
@@ -30,6 +32,7 @@ public class ProfilePageController {
 	private int usersLosses;
 	private int usersWins;
 	private int fastestTime;
+	private String historyWords;
 
 	@FXML
 	private void onMainMenu() throws IOException {
@@ -87,6 +90,7 @@ public class ProfilePageController {
 			usersWins = csvReaderWriter.getWins(currentUsername);
 			usersLosses = csvReaderWriter.getLosses(currentUsername);
 			fastestTime = csvReaderWriter.getFastest(currentUsername);
+			historyWords = csvReaderWriter.getHistory(currentUsername);
 
 			win.setText("Number of Wins: " + usersWins);
 			loss.setText("Number of Losses: " + usersLosses);
@@ -102,6 +106,8 @@ public class ProfilePageController {
 			loss.setText("Login to save stats");
 			fastestGame.setText("");
 		}
+		
+		history.setText("History words: " + historyWords);
 		
 	}
 }
