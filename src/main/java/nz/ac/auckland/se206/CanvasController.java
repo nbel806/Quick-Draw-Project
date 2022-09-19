@@ -5,6 +5,7 @@ import ai.djl.ModelException;
 import ai.djl.modality.Classifications;
 import ai.djl.modality.Classifications.Classification;
 import ai.djl.translate.TranslateException;
+import com.opencsv.exceptions.CsvException;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -69,6 +70,8 @@ public class CanvasController {
   // mouse coordinates
   private double currentX;
   private double currentY;
+  private String currentUsername;
+
   /**
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
    * the drawing, and we load the ML model.
@@ -186,7 +189,7 @@ public class CanvasController {
                 end = true;
                 try {
                   whenTimerEnds(); // runs to progress to next page
-                } catch (IOException e) {
+                } catch (IOException | CsvException e) {
                   throw new RuntimeException(e);
                 }
               }
@@ -231,7 +234,7 @@ public class CanvasController {
                               // wil updating javafx elements
                               try {
                                 getTopThree(list);
-                              } catch (IOException e) {
+                              } catch (IOException | CsvException e) {
                                 throw new RuntimeException(e);
                               }
                             });
@@ -249,7 +252,8 @@ public class CanvasController {
     time.playFromStart();
   }
 
-  private void getTopThree(List<Classifications.Classification> list) throws IOException {
+  private void getTopThree(List<Classifications.Classification> list)
+      throws IOException, CsvException {
     for (int i = 0; i < 3; i++) { // cycles through top 3
       String strNew =
           list.get(i)
@@ -283,7 +287,7 @@ public class CanvasController {
   }
 
   /** When timer reaches 60secs */
-  private void whenTimerEnds() throws IOException {
+  private void whenTimerEnds() throws IOException, CsvException {
     Stage stage =
         (Stage) wordLabel.getScene().getWindow(); // finds current stage from the word label
     FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/game_over.fxml"));
@@ -292,11 +296,17 @@ public class CanvasController {
     stage.show();
     GameOverController gameOverController =
         loader.getController(); // gets controller from loader to pass through information
-    gameOverController.timeLeft(seconds);
-    gameOverController.setWinLoseLabel(
-        winLose, this); // passes if user won or lost and current instance of canvas controller
+    gameOverController.getUsername(currentUsername);
     gameOverController.give(
         textToSpeechBackground, textToSpeech); // passes text to speech and boolean
+    gameOverController.timeLeft(seconds);
+    gameOverController.setWinLoseLabel(
+        winLose, this);
+
+
+     // passes if user won or lost and current instance of canvas controller
+
+
 
   }
 
@@ -305,6 +315,14 @@ public class CanvasController {
     this.textToSpeechBackground = (textToSpeechBackground);
     if (textToSpeech) { // updates text to speech label to ensure it is up-to-date
       textToSpeechLabel.setText("ON");
+    }
+  }
+
+  public void getUsername(String username){
+    // Check if username is not null
+    if (username != null) {
+      // If not null, update label as current username
+      currentUsername = username;
     }
   }
 

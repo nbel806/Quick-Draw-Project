@@ -1,7 +1,9 @@
 package nz.ac.auckland.se206;
 
+import com.opencsv.exceptions.CsvException;
 import java.io.IOException;
 
+import java.net.URISyntaxException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -49,26 +51,27 @@ public class MainMenuController {
 	}
 
 	@FXML
-	private void onPlay() throws IOException {
+	private void onPlay() throws IOException, URISyntaxException, CsvException {
 		Stage stage = (Stage) playButton.getScene().getWindow();
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/word_page.fxml")); // creates a new instance of
 																							// word page
 		Scene scene = new Scene(loader.load(), 1000, 680);
 		WordPageController ctrl = loader.getController(); // need controller to pass information
 		ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
+		ctrl.getUsername(currentUsername); //passes username
 		stage.setScene(scene);
 		stage.show();
 	}
 
 	@FXML
-	private void onProfile() throws IOException {
+	private void onProfile() throws IOException, CsvException {
 		Stage stage = (Stage) profileButton.getScene().getWindow();
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/profile_page.fxml")); // creates a new instance
 																								// of word page
 		Scene scene = new Scene(loader.load(), 1000, 680);
 		ProfilePageController ctrl = loader.getController(); // need controller to pass information
 		ctrl.give(textToSpeechBackground, textToSpeech);
-		// may need to add code to pass though tts here
+		ctrl.setUsername(currentUsername);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -81,7 +84,6 @@ public class MainMenuController {
 		Scene scene = new Scene(loader.load(), 500, 200);
 		LoginController ctrl = loader.getController(); // need controller to pass information
 		ctrl.give(textToSpeechBackground, textToSpeech);
-		// may need to add code to pass though tts here
 
 		// Pass current username
 		ctrl.setUsername(currentUsername);

@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
+import nz.ac.auckland.se206.CSVReaderWriter;
 import nz.ac.auckland.se206.CanvasController;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
@@ -25,16 +26,22 @@ public class WordPageController {
   private Boolean textToSpeech;
   private TextToSpeechBackground textToSpeechBackground;
 
-  public void initialize() throws IOException, URISyntaxException, CsvException {
-    setWordToDraw();
-  }
+  private String currentUsername = null;
+
 
   /** Picks a random word from the easy category using category selector */
   private void setWordToDraw() throws IOException, URISyntaxException, CsvException {
-    CategorySelector categorySelector = new CategorySelector();
-    currentWord = categorySelector.getRandomCategory(CategorySelector.Difficulty.E);
+    if(currentUsername == null) {
+      CategorySelector categorySelector = new CategorySelector();
+      currentWord = categorySelector.getRandomCategory(CategorySelector.Difficulty.E);
+    } else{
+     CSVReaderWriter csvReaderWriter = new CSVReaderWriter();
+      currentWord = csvReaderWriter.findWordsLeft(currentUsername);
+    }
     wordToDraw.setText(currentWord);
   }
+
+
 
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
     this.textToSpeechBackground = textToSpeechBackground;
@@ -44,6 +51,16 @@ public class WordPageController {
       textToSpeechLabel.setText("ON");
     }
   }
+
+  public void getUsername(String username) throws IOException, URISyntaxException, CsvException {
+    // Check if username is not null
+    if (username != null) {
+      // If not null, update label as current username
+      currentUsername = username;
+    }
+    setWordToDraw();
+  }
+
 
   @FXML
   private void onHoverTitle() {
@@ -95,6 +112,7 @@ public class WordPageController {
     canvasController.give(
         textToSpeechBackground,
         textToSpeech); // passes the background threaded text to speech and whether it is on or not
+    canvasController.getUsername(currentUsername);
   }
   }
 

@@ -9,51 +9,41 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: #f9f9d1 #f9f9d1;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.ProfilePageController">
    <children>
-      <Label fx:id="username" layoutX="256.0" layoutY="152.0" prefHeight="68.0" prefWidth="486.0" text="Username">
+      <Label fx:id="username" layoutX="249.0" layoutY="67.0" prefHeight="68.0" prefWidth="486.0" text="Usernames Profile">
          <font>
             <Font name="Algerian" size="60.0" />
          </font>
       </Label>
-      <Label fx:id="win" layoutX="452.0" layoutY="256.0" prefHeight="45.0" prefWidth="44.0" text="W">
+      <Label fx:id="win" layoutX="79.0" layoutY="207.0" prefHeight="73.0" prefWidth="908.0" text="Number of wins">
          <font>
             <Font name="Algerian" size="60.0" />
          </font>
       </Label>
-      <Label fx:id="loss" layoutX="500.0" layoutY="256.0" prefHeight="45.0" prefWidth="38.0" text="L">
+      <Label fx:id="loss" layoutX="79.0" layoutY="293.0" prefHeight="73.0" prefWidth="908.0" text="Number of Losses">
          <font>
             <Font name="Algerian" size="60.0" />
          </font>
       </Label>
-      <Button fx:id="back" layoutX="40.0" layoutY="592.0" mnemonicParsing="false" onAction="#onMainMenu" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #667302 #667302; -fx-border-width: 3;" text="Back">
+      <Button fx:id="back" layoutX="59.0" layoutY="553.0" mnemonicParsing="false" onAction="#onMainMenu" prefHeight="77.0" prefWidth="117.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #667302 #667302; -fx-border-width: 3;" text="Back">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="118.0" layoutY="255.0">
+      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="307.0" layoutY="488.0">
          <image>
             <Image url="@../images/logo-speedy-sketchers.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="743.0" layoutY="255.0">
-         <image>
-            <Image url="@../images/logo-speedy-sketchers.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="415.0" layoutY="468.0">
-         <image>
-            <Image url="@../images/logo-speedy-sketchers.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="username1" layoutX="181.0" layoutY="38.0" prefHeight="68.0" prefWidth="715.0" text="Magnificient Profile !!">
-         <font>
-            <Font name="Algerian" size="60.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="263.0" layoutY="487.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech">
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="55.0" layoutY="77.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech">
          <image>
             <Image url="@../images/speaker-filled-audio-tool.png" />
          </image>
       </ImageView>
-      <Label fx:id="textToSpeechLabel" layoutX="276.0" layoutY="545.0" onMouseEntered="#onHoverTextToSpeechLabel" text="OFF" />
+      <Label fx:id="textToSpeechLabel" layoutX="68.0" layoutY="136.0" onMouseEntered="#onHoverTextToSpeechLabel" text="OFF" />
+      <Label fx:id="fastestGame" layoutX="79.0" layoutY="388.0" prefHeight="73.0" prefWidth="908.0" text="Fastest Game">
+         <font>
+            <Font name="Algerian" size="60.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
