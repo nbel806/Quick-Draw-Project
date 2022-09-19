@@ -99,13 +99,13 @@ public class GameOverController {
     FXMLLoader loader =
         new FXMLLoader(
             App.class.getResource(
-                "/fxml/word_page.fxml")); // reset to a new word_page where a new word will be
+                "/fxml/main_menu.fxml")); // reset to a new word_page where a new word will be
     // generated
     Scene scene = new Scene(loader.load(), 1000, 680);
     stage.setScene(scene);
     stage.show();
 
-    WordPageController ctrl =
+    MainMenuController ctrl =
         loader.getController(); // gets controller of new page to pass text to speech
     ctrl.give(
         textToSpeechBackground,
