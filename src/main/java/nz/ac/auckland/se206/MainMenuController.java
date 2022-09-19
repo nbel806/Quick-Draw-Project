@@ -1,14 +1,16 @@
 package nz.ac.auckland.se206;
 
-import com.opencsv.exceptions.CsvException;
 import java.io.IOException;
-
 import java.net.URISyntaxException;
+
+import com.opencsv.exceptions.CsvException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 import nz.ac.auckland.se206.words.WordPageController;
@@ -25,6 +27,12 @@ public class MainMenuController {
 	private Label textToSpeechLabel;
 	@FXML
 	private Label userLabel;
+	@FXML
+	private ImageView userImage;
+	@FXML
+	private ImageView loginImage;
+	@FXML
+	private ImageView volumeImage;
 
 	private Boolean textToSpeech = false;
 	private TextToSpeechBackground textToSpeechBackground;
@@ -58,7 +66,7 @@ public class MainMenuController {
 		Scene scene = new Scene(loader.load(), 1000, 680);
 		WordPageController ctrl = loader.getController(); // need controller to pass information
 		ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
-		ctrl.getUsername(currentUsername); //passes username
+		ctrl.getUsername(currentUsername); // passes username
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -117,19 +125,66 @@ public class MainMenuController {
 	}
 
 	@FXML
-	private void onHoverPlay() {
-		textToSpeechBackground.backgroundSpeak("Play Button", textToSpeech);
-	}
-
-
-	@FXML
 	private void onHoverTextToSpeech() {
 		textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
+		volumeImage.setFitHeight(48);
+		volumeImage.setFitWidth(48);
 	}
 
 	@FXML
 	private void onHoverTextToSpeechLabel() {
 		textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
+	}
+
+	// Below is list of methods for when mouse hovers a button
+	@FXML
+	private void onHoverPlay() {
+		textToSpeechBackground.backgroundSpeak("Play Button", textToSpeech);
+		playButton.setStyle("-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-background-color: #99DAF4;");
+	}
+
+	@FXML
+	private void onHoverProfile() {
+		textToSpeechBackground.backgroundSpeak("Profile Button", textToSpeech);
+		profileButton.setStyle(
+				"-fx-background-color: #99DAF4; -fx-background-radius: 100px; -fx-border-radius: 100px; -fx-border-color: white");
+		userImage.setFitHeight(130);
+		userImage.setFitWidth(130);
+	}
+
+	@FXML
+	private void onHoverLogin() {
+		textToSpeechBackground.backgroundSpeak("Login Button", textToSpeech);
+		loginImage.setFitHeight(75);
+		loginImage.setFitWidth(65);
+
+	}
+
+	// Below is list of methods for when mouse exits a button
+	@FXML
+	private void onPlayExit() {
+		playButton.setStyle("-fx-background-radius: 25px; -fx-border-radius: 25px; -fx-background-color: white;");
+	}
+
+	@FXML
+	private void onProfileExit() {
+		profileButton.setStyle(
+				"-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-border-color: black; -fx-background-color: white; -fx-border-color: black");
+		userImage.setFitHeight(120);
+		userImage.setFitWidth(120);
+	}
+
+	@FXML
+	private void onLoginExit() {
+		loginImage.setFitHeight(70);
+		loginImage.setFitWidth(60);
+
+	}
+
+	@FXML
+	private void onVolumeExit() {
+		volumeImage.setFitHeight(45);
+		volumeImage.setFitWidth(45);
 	}
 
 }

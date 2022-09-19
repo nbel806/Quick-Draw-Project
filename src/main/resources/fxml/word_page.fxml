@@ -1,51 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f9f9d1;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.words.WordPageController">
-  <columnConstraints>
-    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-  <Text fill="#784b04" onMouseEntered="#onHoverTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="You have 60 secs to draw a ..." GridPane.columnIndex="1">
-    <font>
-      <Font size="25.0" />
-    </font>
-  </Text>
-  <Text fx:id="wordToDraw" onMouseEntered="#onHoverWord" strokeType="OUTSIDE" strokeWidth="0.0" text="Animal Migration" GridPane.columnIndex="1" GridPane.rowIndex="1">
-    <font>
-      <Font name="American Typewriter" size="54.0" />
-    </font>
-  </Text>
-  <Button fx:id="readyButton" mnemonicParsing="false" onAction="#onReady" onMouseEntered="#onHoverReady" style="-fx-border-color: #667302#667302; -fx-border-width: 3; -fx-background-radius: 20; -fx-border-radius: 20;" text="Ready" GridPane.columnIndex="1" GridPane.rowIndex="2">
-    <font>
-      <Font size="32.0" />
-    </font>
-  </Button>
-  <Label fx:id="textToSpeechLabel" onMouseEntered="#onHoverTextToSpeechLabel" text="OFF" GridPane.columnIndex="2" GridPane.rowIndex="2">
-    <GridPane.margin>
-      <Insets top="40.0" />
-    </GridPane.margin>
-  </Label>
-  <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech" GridPane.columnIndex="2" GridPane.rowIndex="2">
-    <Image url="@../images/speaker-filled-audio-tool.png" />
-    <GridPane.margin>
-      <Insets bottom="40.0" />
-    </GridPane.margin>
-  </ImageView>
-</GridPane>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: #E6DBD2;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.words.WordPageController">
+   <children>
+      <HBox alignment="CENTER" layoutY="77.0" prefHeight="550.0" prefWidth="1000.0">
+         <children>
+            <Pane prefHeight="680.0" prefWidth="800.0" style="-fx-background-color: #99DAF4; -fx-background-radius: 25;">
+               <children>
+                  <Pane layoutX="-1.0" layoutY="-24.0" prefHeight="88.0" prefWidth="370.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-radius: 25;">
+                     <children>
+                        <Label layoutX="18.0" layoutY="19.0" text="Just Draw">
+                           <font>
+                              <Font name="SansSerif Bold" size="45.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="77.0" fitWidth="73.0" layoutX="268.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/pencil.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Text layoutX="165.0" layoutY="132.0" onMouseEntered="#onHoverTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="You have 60 secs to draw a ..." wrappingWidth="538.0908813476562">
+                     <font>
+                        <Font name="Arial Black" size="31.0" />
+                     </font>
+                  </Text>
+                  <Pane layoutX="49.0" layoutY="472.0" prefHeight="82.0" prefWidth="451.0" style="-fx-background-color: white; -fx-background-radius: 25;">
+                     <children>
+                        <ImageView fitHeight="46.0" fitWidth="42.0" layoutX="381.0" layoutY="29.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech">
+                           <image>
+                              <Image url="@../images/speaker-filled-audio-tool.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="textToSpeechLabel" layoutX="389.0" layoutY="9.0" onMouseEntered="#onHoverTextToSpeechLabel" text="OFF">
+                           <font>
+                              <Font name="Arial Black" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="99.0" layoutY="1.0" text="Current User:">
+                           <font>
+                              <Font name="SansSerif" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="userLabel" layoutX="101.0" layoutY="32.0" prefHeight="45.0" prefWidth="263.0" text="Guest">
+                           <font>
+                              <Font name="SansSerif Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Button fx:id="profileButton" layoutX="1.0" layoutY="451.0" mnemonicParsing="false" prefHeight="130.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: black;">
+                     <graphic>
+                        <ImageView fx:id="userImage" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/usericon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Text fx:id="wordToDraw" layoutX="184.0" layoutY="234.0" onMouseEntered="#onHoverWord" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="468.0">
+                     <font>
+                        <Font name="Arial Black" size="43.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="readyButton" layoutX="268.0" layoutY="309.0" mnemonicParsing="false" onAction="#onReady" onMouseEntered="#onHoverReady" onMouseExited="#onExitReady" prefHeight="77.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-radius: 25;">
+                     <font>
+                        <Font name="Arial Black" size="30.0" />
+                     </font>
+                     <graphic>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                           <children>
+                              <Label prefHeight="58.0" prefWidth="137.0" text="Ready">
+                                 <font>
+                                    <Font name="SansSerif Bold" size="40.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="66.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/checked.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+   </children>
+</Pane>
