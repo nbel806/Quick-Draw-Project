@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
@@ -28,6 +29,8 @@ public class WordPageController {
 	private Label textToSpeechLabel;
 	@FXML
 	private Label userLabel;
+	@FXML
+	private ImageView volumeImage;
 
 	private String currentWord;
 	private Boolean textToSpeech;
@@ -108,6 +111,8 @@ public class WordPageController {
 	@FXML
 	private void onHoverTextToSpeech() {
 		textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
+		volumeImage.setFitHeight(48);
+		volumeImage.setFitWidth(48);
 	}
 
 	@FXML
@@ -122,5 +127,13 @@ public class WordPageController {
 		canvasController.give(textToSpeechBackground, textToSpeech); // passes the background threaded text to speech
 																		// and whether it is on or not
 		canvasController.getUsername(currentUsername);
+	}
+
+	// Below is list of methods for when mouse exits a button
+
+	@FXML
+	private void onVolumeExit() {
+		volumeImage.setFitHeight(45);
+		volumeImage.setFitWidth(45);
 	}
 }

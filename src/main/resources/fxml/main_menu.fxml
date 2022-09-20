@@ -71,7 +71,7 @@
                         </Label>
                         <ImageView fitHeight="77.0" fitWidth="73.0" layoutX="258.0" layoutY="8.0" onMouseEntered="#onHoverLogo" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/pencil.png" />
+                              <Image url="@../images/drawicom.png" />
                            </image>
                         </ImageView>
                      </children>

@@ -24,7 +24,7 @@
                         </Label>
                         <ImageView fitHeight="77.0" fitWidth="73.0" layoutX="268.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/pencil.png" />
+                              <Image url="@../images/drawicom.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -36,12 +36,7 @@
                   </Text>
                   <Pane layoutX="49.0" layoutY="472.0" prefHeight="82.0" prefWidth="451.0" style="-fx-background-color: white; -fx-background-radius: 25;">
                      <children>
-                        <ImageView fitHeight="46.0" fitWidth="42.0" layoutX="381.0" layoutY="29.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech">
-                           <image>
-                              <Image url="@../images/speaker-filled-audio-tool.png" />
-                           </image>
-                        </ImageView>
-                        <Label fx:id="textToSpeechLabel" layoutX="389.0" layoutY="9.0" onMouseEntered="#onHoverTextToSpeechLabel" text="OFF">
+                        <Label fx:id="textToSpeechLabel" layoutX="391.0" layoutY="2.0" onMouseEntered="#onHoverTextToSpeechLabel" prefHeight="25.0" prefWidth="34.0" text="OFF">
                            <font>
                               <Font name="Arial Black" size="12.0" />
                            </font>
@@ -56,6 +51,11 @@
                               <Font name="SansSerif Bold" size="20.0" />
                            </font>
                         </Label>
+                        <ImageView fx:id="volumeImage" fitHeight="45.0" fitWidth="45.0" layoutX="383.0" layoutY="26.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech" onMouseEntered="#onHoverTextToSpeech" onMouseExited="#onVolumeExit" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/speaker-filled-audio-tool.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </Pane>
                   <Button fx:id="profileButton" layoutX="1.0" layoutY="451.0" mnemonicParsing="false" prefHeight="130.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: black;">
