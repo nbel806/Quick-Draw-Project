@@ -99,15 +99,17 @@ public class ProfilePageController {
 			} else {
 				fastestGame.setText("Your fastest game was " + fastestTime + " seconds");
 			}
+			history.setText("History words: " + historyWords);
 
 		} else {
 			this.username.setText("Guest");
 			win.setText("Guests dont have saved stats");
 			loss.setText("Login to save stats");
 			fastestGame.setText("");
+			history.setText("Guests dont have history words");
 		}
 		
-		history.setText("History words: " + historyWords);
+		
 		
 	}
 }
