@@ -26,7 +26,6 @@ public class CSVReaderWriter {
 		}
 		String[] wordsLeft = allData.get(index)[1].split(",");
 		ArrayList<String> wordsLeftFormatted = new ArrayList<>();
-		ArrayList<String> wordsEncounteredFormatted = new ArrayList<>(); //store the history words into an arraylist
 
 		wordsLeft[0] = wordsLeft[0].substring(1);
 		wordsLeft[wordsLeft.length - 1] = wordsLeft[wordsLeft.length - 1].substring(0,
@@ -38,10 +37,22 @@ public class CSVReaderWriter {
 		int randomIndex = randomGenerator.nextInt(wordsLeftFormatted.size());
 		String currentWord = wordsLeftFormatted.get(randomIndex);
 		wordsLeftFormatted.remove(randomIndex);
-		newFile(wordsLeftFormatted, index);
 		
-		wordsEncounteredFormatted.add(currentWord);
-		updateHistory(wordsEncounteredFormatted, index);
+		//stores history words
+		if (allData.get(index)[5].equals("none")) {
+			allData.get(index)[5] = currentWord;
+			CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
+			csvWriter.writeAll(allData);
+			csvWriter.flush();
+		}else {
+			// combine the current word with the history words string and save it again
+			allData.get(index)[5] = allData.get(index)[5] + ", " + currentWord;
+			CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
+			csvWriter.writeAll(allData);
+			csvWriter.flush();
+		}
+		
+		newFile(wordsLeftFormatted, index);
 		
 		return currentWord;
 	}
@@ -85,16 +96,6 @@ public class CSVReaderWriter {
 		csvWriter.flush();
 	}
 	
-	// store history words
-	public void updateHistory(ArrayList<String> wordsEncounteredFormatted, Integer index) throws IOException, CsvException {
-		CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
-		List<String[]> allData = csvReader.readAll();
-		allData.get(index)[5] = String.valueOf(wordsEncounteredFormatted);
-		
-		CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
-		csvWriter.writeAll(allData);
-		csvWriter.flush();
-	}
 
 	public void updateTime(int timeTaken, String currentUsername) throws IOException, CsvException {
 		if (currentUsername == null) {
