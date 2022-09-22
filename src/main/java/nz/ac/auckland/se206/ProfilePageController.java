@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
@@ -23,6 +24,8 @@ public class ProfilePageController {
 	private Label loss;
 	@FXML
 	private Label history;
+	@FXML
+	private TextArea historyWordsText;
 
 	@FXML
 	private Label textToSpeechLabel;
@@ -99,7 +102,8 @@ public class ProfilePageController {
 			} else {
 				fastestGame.setText("Your fastest game was " + fastestTime + " seconds");
 			}
-			history.setText("History words: " + historyWords);
+			history.setText("History words:");
+			historyWordsText.setText(historyWords);
 
 		} else {
 			this.username.setText("Guest");
