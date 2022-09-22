@@ -9,7 +9,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: #f9f9d1 #f9f9d1;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.ProfilePageController">
    <children>
-      <Label fx:id="username" layoutX="249.0" layoutY="67.0" prefHeight="68.0" prefWidth="486.0" text="Usernames Profile">
+      <Label fx:id="username" layoutX="249.0" layoutY="67.0" prefHeight="68.0" prefWidth="626.0" text="Usernames Profile">
          <font>
             <Font name="Algerian" size="60.0" />
          </font>
