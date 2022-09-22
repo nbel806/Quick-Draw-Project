@@ -89,7 +89,7 @@ public class MainMenuController {
 		Stage stage = (Stage) loginButton.getScene().getWindow();
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/login_page.fxml")); // creates a new instance
 																							// of word page
-		Scene scene = new Scene(loader.load(), 500, 200);
+		Scene scene = new Scene(loader.load(), 1000, 680);
 		LoginController ctrl = loader.getController(); // need controller to pass information
 		ctrl.give(textToSpeechBackground, textToSpeech);
 
@@ -140,38 +140,36 @@ public class MainMenuController {
 	@FXML
 	private void onHoverPlay() {
 		textToSpeechBackground.backgroundSpeak("Play Button", textToSpeech);
-		playButton.setStyle("-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-background-color: #99DAF4;");
+		playButton.setStyle(
+				"-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
 	}
 
 	@FXML
 	private void onHoverProfile() {
 		textToSpeechBackground.backgroundSpeak("Profile Button", textToSpeech);
-		profileButton.setStyle(
-				"-fx-background-color: #99DAF4; -fx-background-radius: 100px; -fx-border-radius: 100px; -fx-border-color: white");
-		userImage.setFitHeight(130);
-		userImage.setFitWidth(130);
+		userImage.setFitHeight(73);
+		userImage.setFitWidth(63);
 	}
 
 	@FXML
 	private void onHoverLogin() {
 		textToSpeechBackground.backgroundSpeak("Login Button", textToSpeech);
-		loginImage.setFitHeight(75);
-		loginImage.setFitWidth(65);
+		loginImage.setFitHeight(73);
+		loginImage.setFitWidth(63);
 
 	}
 
 	// Below is list of methods for when mouse exits a button
 	@FXML
 	private void onPlayExit() {
-		playButton.setStyle("-fx-background-radius: 25px; -fx-border-radius: 25px; -fx-background-color: white;");
+		playButton.setStyle(
+				"-fx-background-radius: 25px; -fx-border-radius: 25px; -fx-background-color: transparent; -fx-border-color: white;");
 	}
 
 	@FXML
 	private void onProfileExit() {
-		profileButton.setStyle(
-				"-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-border-color: black; -fx-background-color: white; -fx-border-color: black");
-		userImage.setFitHeight(120);
-		userImage.setFitWidth(120);
+		userImage.setFitHeight(70);
+		userImage.setFitWidth(60);
 	}
 
 	@FXML

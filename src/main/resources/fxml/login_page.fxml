@@ -1,67 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="500.0" style="-fx-background-radius: 10px;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.LoginController">
-   <left>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+
+<Pane prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: #EB4A5A; -fx-border-color: white; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.LoginController">
+   <children>
+      <Pane layoutX="3.0" layoutY="-6.0" prefHeight="50.0" prefWidth="998.0" style="-fx-background-color: white; -fx-background-radius: 10;" />
+      <Pane layoutX="299.0" layoutY="353.0" prefHeight="76.0" prefWidth="430.0" style="-fx-background-color: white; -fx-background-radius: 25;">
          <children>
-            <ImageView fx:id="penImageView" fitHeight="200.0" fitWidth="189.0" layoutX="8.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/pencil.jpg" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-   </left>
-   <right>
-      <AnchorPane prefHeight="200.0" prefWidth="300.0" style="-fx-background-radius: 5px;" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="loginButton" layoutX="8.0" layoutY="157.0" mnemonicParsing="false" onAction="#onLogin" onMouseEntered="#onHoverLogin" prefHeight="25.0" prefWidth="85.0" style="-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #efcec5;" text="Login" textAlignment="CENTER">
+            <Label fx:id="outputLabel" alignment="CENTER" layoutX="17.0" layoutY="25.0" prefHeight="57.0" prefWidth="411.0">
                <font>
-                  <Font name="Arial Black" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="createButton" layoutX="206.0" layoutY="157.0" mnemonicParsing="false" onAction="#onCreate" onMouseEntered="#onHoverCreate" prefHeight="25.0" prefWidth="85.0" style="-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #efcec5;" text="Create" textAlignment="CENTER">
-               <font>
-                  <Font name="Arial Black" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="backButton" layoutX="242.0" layoutY="9.0" mnemonicParsing="false" onAction="#onBack" onMouseEntered="#onHoverBack" text="Back" />
-            <ImageView fitHeight="26.0" fitWidth="24.0" layoutX="232.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: white; -fx-opacity: 0.75; -fx-image-fill: transparent;">
-               <image>
-                  <Image url="@../images/usericon.png" />
-               </image>
-            </ImageView>
-            <Label fx:id="outputLabel" layoutX="50.0" layoutY="120.0" prefHeight="26.0" prefWidth="198.0" textAlignment="CENTER">
-               <font>
-                  <Font name="Arial Black" size="13.0" />
+                  <Font name="SansSerif" size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="usernameText" layoutX="38.0" layoutY="80.0" prefHeight="40.0" prefWidth="223.0" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: #a2a2a2; -fx-border-radius: 10px;">
+         </children>
+      </Pane>
+      <TextField fx:id="usernameText" layoutX="278.0" layoutY="326.0" prefHeight="64.0" prefWidth="473.0" promptText="Username" style="-fx-background-color: #EB4A5A; -fx-border-color: white; -fx-border-radius: 20; -fx-border-width: 5; -fx-background-radius: 30; -fx-text-fill: white; -fx-prompt-text-fill: white;">
+         <font>
+            <Font name="SansSerif" size="26.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TextField>
+      <ImageView fitHeight="260.0" fitWidth="272.0" layoutX="578.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.8;">
+         <image>
+            <Image url="@../images/drawicom.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="146.0" layoutY="130.0" prefHeight="182.0" prefWidth="717.0" text="JUST DRAW" textFill="WHITE">
+         <font>
+            <Font name="Leelawadee UI Bold" size="125.0" />
+         </font>
+      </Label>
+      <VBox layoutX="295.0" layoutY="447.0" prefHeight="220.0" prefWidth="150.0" spacing="15.0">
+         <children>
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLogin" onMouseEntered="#onHoverLogin" onMouseExited="#onLoginExit" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;" text="Login" textAlignment="CENTER">
                <font>
-                  <Font name="Arial Black" size="15.0" />
+                  <Font name="Arial Black" size="20.0" />
                </font>
-            </TextField>
-            <ImageView fitHeight="22.0" fitWidth="19.0" layoutX="6.0" layoutY="24.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech">
-               <image>
-                  <Image url="@../images/speaker-filled-audio-tool.png" />
-               </image>
-            </ImageView>
-            <Label fx:id="textToSpeechLabel" layoutX="4.0" layoutY="5.0" onMouseEntered="#onHoverTextToSpeechLabel" prefHeight="21.0" prefWidth="23.0" text="OFF" />
-            <Button fx:id="logoutButton1" layoutX="107.0" layoutY="157.0" mnemonicParsing="false" onAction="#onLogout" onMouseEntered="#onHoverLogin" prefHeight="25.0" prefWidth="85.0" style="-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #efcec5;" text="Logout" textAlignment="CENTER">
+            </Button>
+            <Button fx:id="createButton" mnemonicParsing="false" onAction="#onCreate" onMouseEntered="#onHoverCreate" onMouseExited="#onCreateExit" prefHeight="45.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3;" text="Create" textAlignment="CENTER">
                <font>
-                  <Font name="Arial Black" size="12.0" />
+                  <Font name="Arial Black" size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#onLogout" onMouseEntered="#onHoverLogout" onMouseExited="#onLogoutExit" prefHeight="45.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3;" text="Logout" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial Black" size="20.0" />
                </font>
             </Button>
          </children>
-      </AnchorPane>
-   </right>
-</BorderPane>
+      </VBox>
+      <ImageView fitHeight="38.0" fitWidth="44.0" layoutX="697.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/usericon.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="backButton" layoutX="858.0" layoutY="19.0" mnemonicParsing="false" onAction="#onBack" onMouseEntered="#onHoverBack" onMouseExited="#onBackExit" prefHeight="35.0" prefWidth="125.0" style="-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;" text="Back" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Black" size="21.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="volumeImage" fitHeight="45.0" fitWidth="45.0" layoutX="896.0" layoutY="598.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech" onMouseEntered="#onHoverTextToSpeech" onMouseExited="#onVolumeExit" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/speaker-filled-audio-tool.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="textToSpeechLabel" layoutX="905.0" layoutY="580.0" onMouseEntered="#onHoverTextToSpeechLabel" text="OFF">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

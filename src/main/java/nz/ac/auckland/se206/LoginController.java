@@ -1,15 +1,15 @@
 package nz.ac.auckland.se206;
 
-import com.opencsv.exceptions.CsvException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvException;
 
-import java.net.URISyntaxException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -31,13 +31,13 @@ public class LoginController {
 	@FXML
 	private Button loginButton;
 	@FXML
+	private Button logoutButton;
+	@FXML
 	private Button backButton;
 	@FXML
 	private TextField usernameText;
 	@FXML
-	private ImageView penImageView;
-	@FXML
-	private ImageView userImageView;
+	private ImageView volumeImage;
 	@FXML
 	private Label outputLabel;
 
@@ -86,13 +86,13 @@ public class LoginController {
 					// create profile
 					profile[0] = username;
 
-					//adds all the easy words to the csv
+					// adds all the easy words to the csv
 					CategorySelector category = new CategorySelector();
 					profile[1] = category.getCategory(Difficulty.E).toString();
-					profile[2] = "0";//number of wins
-					profile[3] = "0";//number of losses
-					profile[4] = "100";//fastest time
-					profile[5] = "none";//history words
+					profile[2] = "0";// number of wins
+					profile[3] = "0";// number of losses
+					profile[4] = "100";// fastest time
+					profile[5] = "none";// history words
 
 					writer.writeNext(profile);
 
@@ -159,7 +159,7 @@ public class LoginController {
 	}
 
 	@FXML
-	private void onCreate(){
+	private void onCreate() {
 		String username = usernameText.getText();
 
 		if (usernameText.getText().trim().isEmpty()) {
@@ -201,12 +201,25 @@ public class LoginController {
 		}
 
 	}
-	
+
 	@FXML
-	private void onLogout() throws IOException{
-		currentUsername = null;
-		outputLabel.setText("Logout Success");
-		outputLabel.setStyle("-fx-text-fill: green;");
+	private void onLogout() throws IOException {
+		if (currentUsername != null) {
+			currentUsername = null;
+			outputLabel.setText("Logout Success");
+			outputLabel.setStyle("-fx-text-fill: green;");
+			outputLabel.setOpacity(0.5);
+
+			// Update label
+			usernameText.setPromptText("Hi, Guest");
+
+		} else {
+			outputLabel.setText("You are not signed in");
+			outputLabel.setStyle("-fx-text-fill: red;");
+			outputLabel.setOpacity(0.5);
+
+		}
+
 	}
 
 	/**
@@ -247,6 +260,8 @@ public class LoginController {
 
 	public void onHoverTextToSpeech() {
 		textToSpeechBackground.backgroundSpeak("On", textToSpeech);
+		volumeImage.setFitHeight(48);
+		volumeImage.setFitWidth(48);
 	}
 
 	public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
@@ -257,18 +272,64 @@ public class LoginController {
 		}
 	}
 
+	// Below is list of methods for when mouse hovers a button
 	@FXML
 	private void onHoverLogin() {
 		textToSpeechBackground.backgroundSpeak("login Button", textToSpeech);
+		loginButton.setStyle(
+				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
+
 	}
 
 	@FXML
 	private void onHoverCreate() {
 		textToSpeechBackground.backgroundSpeak("Create Button", textToSpeech);
+		createButton.setStyle(
+				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
+	}
+
+	@FXML
+	private void onHoverLogout() {
+		textToSpeechBackground.backgroundSpeak("Logout Button", textToSpeech);
+		logoutButton.setStyle(
+				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
 	}
 
 	@FXML
 	private void onHoverBack() {
 		textToSpeechBackground.backgroundSpeak("Back Button", textToSpeech);
+		backButton.setStyle(
+				"-fx-background-radius: 100px; -fx-text-fill: white; -fx-text-fill: white; -fx-border-radius: 100px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
+	}
+
+	// Below is list of methods for when mouse exits a button
+	@FXML
+	private void onLoginExit() {
+		loginButton.setStyle(
+				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
+	}
+
+	@FXML
+	private void onCreateExit() {
+		createButton.setStyle(
+				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
+	}
+
+	@FXML
+	private void onLogoutExit() {
+		logoutButton.setStyle(
+				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
+	}
+
+	@FXML
+	private void onBackExit() {
+		backButton.setStyle(
+				"-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
+	}
+
+	@FXML
+	private void onVolumeExit() {
+		volumeImage.setFitHeight(45);
+		volumeImage.setFitWidth(45);
 	}
 }
