@@ -6,18 +6,86 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: #5299d3; -fx-border-color: white; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.words.WordPageController">
    <children>
-      <ImageView fitHeight="85.0" fitWidth="78.0" layoutX="127.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.8;">
+      <Pane layoutX="187.0" layoutY="115.0" prefHeight="476.0" prefWidth="644.0" style="-fx-border-color: white; -fx-border-width: 2; -fx-border-radius: 25;">
+         <children>
+            <HBox layoutX="58.0" layoutY="176.0" prefHeight="128.0" prefWidth="483.0" spacing="50.0">
+               <children>
+                  <VBox prefHeight="93.0" prefWidth="248.0">
+                     <children>
+                        <Text fill="WHITE" onMouseEntered="#onHoverTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="TIME: " wrappingWidth="190.35748291015625">
+                           <font>
+                              <Font name="Arial Black" size="31.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" onMouseEntered="#onHoverTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="DIFFICULTY: " wrappingWidth="238.35751342773438">
+                           <font>
+                              <Font name="Arial Black" size="31.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="106.0" prefWidth="193.0">
+                     <children>
+                        <Text fill="WHITE" onMouseEntered="#onHoverTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="60 seconds" wrappingWidth="235.56802368164062">
+                           <font>
+                              <Font name="Arial Black" size="31.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" onMouseEntered="#onHoverTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="easy" wrappingWidth="110.76809692382812">
+                           <font>
+                              <Font name="Arial Black" size="31.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Text fill="WHITE" layoutX="18.0" layoutY="54.419921875" onMouseEntered="#onHoverTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="CHOSEN WORD:" wrappingWidth="331.157470703125">
+               <font>
+                  <Font name="Arial Black" size="34.0" />
+               </font>
+            </Text>
+            <Text fx:id="wordToDraw" fill="WHITE" layoutX="131.0" layoutY="121.0" onMouseEntered="#onHoverWord" strokeType="OUTSIDE" strokeWidth="0.0" text="animal migration" textAlignment="CENTER" wrappingWidth="378.5999755859375">
+               <font>
+                  <Font name="Arial Black" size="40.0" />
+               </font>
+            </Text>
+            <Button fx:id="readyButton" layoutX="172.0" layoutY="311.0" mnemonicParsing="false" onAction="#onReady" onMouseEntered="#onHoverReady" onMouseExited="#onExitReady" prefHeight="77.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-radius: 25;">
+               <font>
+                  <Font name="Arial Black" size="30.0" />
+               </font>
+               <graphic>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                     <children>
+                        <Label prefHeight="58.0" prefWidth="137.0" text="Ready">
+                           <font>
+                              <Font name="SansSerif Bold" size="40.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="66.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/checked.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+      <ImageView fitHeight="85.0" fitWidth="78.0" layoutX="128.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.8;">
          <image>
             <Image url="@../images/drawicom.png" />
          </image>
       </ImageView>
       <Pane layoutY="-6.0" prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: white; -fx-background-radius: 10;" />
-      <Label layoutX="20.0" layoutY="52.0" prefHeight="47.0" prefWidth="195.0" text="JUST DRAW" textFill="WHITE">
+      <Label layoutX="21.0" layoutY="59.0" prefHeight="47.0" prefWidth="195.0" text="JUST DRAW" textFill="WHITE">
          <font>
             <Font name="Leelawadee UI Bold" size="32.0" />
          </font>
@@ -49,37 +117,6 @@
             </Pane>
          </children>
       </HBox>
-      <Text layoutX="257.0" layoutY="217.0" onMouseEntered="#onHoverTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="You have 60 secs to draw a" wrappingWidth="538.0908813476562">
-         <font>
-            <Font name="Arial Black" size="31.0" />
-         </font>
-      </Text>
-      <Text fx:id="wordToDraw" layoutX="276.0" layoutY="319.0" onMouseEntered="#onHoverWord" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="468.0">
-         <font>
-            <Font name="Arial Black" size="43.0" />
-         </font>
-      </Text>
-      <Button fx:id="readyButton" layoutX="360.0" layoutY="394.0" mnemonicParsing="false" onAction="#onReady" onMouseEntered="#onHoverReady" onMouseExited="#onExitReady" prefHeight="77.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-radius: 25;">
-         <font>
-            <Font name="Arial Black" size="30.0" />
-         </font>
-         <graphic>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
-               <children>
-                  <Label prefHeight="58.0" prefWidth="137.0" text="Ready">
-                     <font>
-                        <Font name="SansSerif Bold" size="40.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="66.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/checked.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </HBox>
-         </graphic>
-      </Button>
       <Label fx:id="textToSpeechLabel" layoutX="922.0" layoutY="595.0" onMouseEntered="#onHoverTextToSpeechLabel" prefHeight="25.0" prefWidth="34.0" text="OFF">
          <font>
             <Font name="Arial Black" size="12.0" />
