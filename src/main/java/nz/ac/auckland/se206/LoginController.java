@@ -25,23 +25,15 @@ public class LoginController {
   // Set name of the file to set user data
   private static final String fileName = "userdata.csv";
 
-  @FXML
-  private Button createButton;
-  @FXML
-  private Button loginButton;
-  @FXML
-  private Button logoutButton;
-  @FXML
-  private Button backButton;
-  @FXML
-  private TextField usernameText;
-  @FXML
-  private ImageView volumeImage;
-  @FXML
-  private Label outputLabel;
+  @FXML private Button createButton;
+  @FXML private Button loginButton;
+  @FXML private Button logoutButton;
+  @FXML private Button backButton;
+  @FXML private TextField usernameText;
+  @FXML private ImageView volumeImage;
+  @FXML private Label outputLabel;
 
-  @FXML
-  private Label textToSpeechLabel;
+  @FXML private Label textToSpeechLabel;
 
   private String currentUsername = null; // The username currently logged in
   private Boolean textToSpeech;
@@ -128,7 +120,7 @@ public class LoginController {
     String line;
     FileReader fr;
 
-    fr = new FileReader(fileName);
+    fr = new FileReader(fileName); // starts a file reader to scan the spread sheet for the username
     BufferedReader br = new BufferedReader(fr);
 
     System.out.println(username);
@@ -136,7 +128,7 @@ public class LoginController {
     while ((line = br.readLine()) != null) {
       // Check if current line contains the username to be found
       String[] record = line.split(",");
-      String tempUsername = record[0];
+      String tempUsername = record[0]; // username is stored in first pos of array
       tempUsername = tempUsername.substring(1, (tempUsername.length() - 1));
 
       if (username.equals(tempUsername)) {
@@ -155,14 +147,14 @@ public class LoginController {
 
   @FXML
   private void onCreate() {
-    String username = usernameText.getText();
+    String username = usernameText.getText(); // retrieves name
 
-    if (usernameText.getText().trim().isEmpty()) {
+    if (usernameText.getText().trim().isEmpty()) { // checks if there was an input
       outputLabel.setText("The textbox is empty");
       outputLabel.setStyle("-fx-text-fill: red;");
       outputLabel.setOpacity(0.5);
     } else {
-      createProfile(username);
+      createProfile(username); // creates user
     }
   }
 
@@ -170,19 +162,19 @@ public class LoginController {
   private void onLogin() throws IOException {
     String username = usernameText.getText();
 
-    if (usernameText.getText().trim().isEmpty()) {
+    if (usernameText.getText().trim().isEmpty()) { // if user left blank
       outputLabel.setText("The textbox is empty");
       outputLabel.setStyle("-fx-text-fill: red;");
       outputLabel.setOpacity(0.5);
     } else {
-      if (!searchUsername(username)) {
+      if (!searchUsername(username)) { // if user could be found
         usernameText.clear();
 
         outputLabel.setText("Invalid Username");
         outputLabel.setStyle("-fx-text-fill: red;");
         outputLabel.setOpacity(0.5);
 
-      } else {
+      } else { // user has been found
         currentUsername = username;
         usernameText.clear();
         usernameText.setPromptText("Hi, " + username);

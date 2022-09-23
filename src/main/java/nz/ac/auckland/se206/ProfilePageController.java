@@ -13,23 +13,15 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class ProfilePageController {
 
-  @FXML
-  private Label fastestGame;
-  @FXML
-  private Button back;
-  @FXML
-  private Label username;
-  @FXML
-  private Label win;
-  @FXML
-  private Label loss;
-  @FXML
-  private Label history;
-  @FXML
-  private TextArea historyWordsText;
+  @FXML private Label fastestGame;
+  @FXML private Button back;
+  @FXML private Label username;
+  @FXML private Label win;
+  @FXML private Label loss;
+  @FXML private Label history;
+  @FXML private TextArea historyWordsText;
 
-  @FXML
-  private Label textToSpeechLabel;
+  @FXML private Label textToSpeechLabel;
   private Boolean textToSpeech;
   private TextToSpeechBackground textToSpeechBackground;
   private String currentUsername;
@@ -64,8 +56,7 @@ public class ProfilePageController {
     }
   }
 
-  public void initialize() {
-  }
+  public void initialize() {}
 
   public void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);

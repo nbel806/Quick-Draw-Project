@@ -17,16 +17,11 @@ import nz.ac.auckland.se206.words.WordPageController;
 
 public class GameOverController {
 
-  @FXML
-  private Label winLoseLabel2;
-  @FXML
-  private Label winLoseLabel;
-  @FXML
-  private Button playAgainButton;
-  @FXML
-  private Button menuButton;
-  @FXML
-  private Label textToSpeechLabel;
+  @FXML private Label winLoseLabel2;
+  @FXML private Label winLoseLabel;
+  @FXML private Button playAgainButton;
+  @FXML private Button menuButton;
+  @FXML private Label textToSpeechLabel;
 
   private CanvasController canvasController;
   private Boolean textToSpeech;
@@ -47,25 +42,26 @@ public class GameOverController {
 
   public void setWinLoseLabel(boolean winLose, CanvasController ctrl)
       throws IOException, CsvException {
-    if (winLose) {
+    if (winLose) { // if the user wins
       winLoseLabel.setText("You won with " + timeLeft);
       winLoseLabel2.setText("seconds left!");
 
       winLoseString = "You won with " + timeLeft + "Seconds left!";
-    } else {
+    } else { // if the user loses
       winLoseLabel.setText("You lost!");
       winLoseLabel2.setText("");
       winLoseString = "You lost!";
     }
-    canvasController = ctrl;
-    SpreadSheetReaderWriter csvRW = new SpreadSheetReaderWriter();
-    csvRW.updateResult(winLose, currentUsername);
+    canvasController = ctrl; // passes through the instance
+    SpreadSheetReaderWriter spreadSheetReadWrite = new SpreadSheetReaderWriter();
+    spreadSheetReadWrite.updateResult(
+        winLose, currentUsername); // updates the result in the file to ensure results save
   }
 
   public void timeLeft(int sec) throws IOException, CsvException {
     timeLeft = sec;
-    SpreadSheetReaderWriter csvRW = new SpreadSheetReaderWriter();
-    csvRW.updateTime(60 - timeLeft, currentUsername);
+    SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
+    spreadSheetReaderWriter.updateTime(60 - timeLeft, currentUsername);
   }
 
   public void getUsername(String username) {

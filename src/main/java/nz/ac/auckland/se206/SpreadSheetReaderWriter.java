@@ -20,12 +20,12 @@ public class SpreadSheetReaderWriter {
     int index = findUserName(currentUsername);
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
     List<String[]> allData = csvReader.readAll();
-    if (allData.get(index)[1].isEmpty()) {
+    if (allData.get(index)[1].isEmpty()) { // if the user has played all words
       CategorySelector category = new CategorySelector();
-      allData.get(index)[1] = category.getCategory(Difficulty.E).toString();
+      allData.get(index)[1] = category.getCategory(Difficulty.E).toString(); // adds them all back
     }
     String[] wordsLeft = allData.get(index)[1].split(",");
-    ArrayList<String> wordsLeftFormatted = new ArrayList<>();
+    ArrayList<String> wordsLeftFormatted = new ArrayList<>(); // list to store the words
 
     wordsLeft[0] = wordsLeft[0].substring(1);
     wordsLeft[wordsLeft.length - 1] =
@@ -33,22 +33,22 @@ public class SpreadSheetReaderWriter {
     for (String word : wordsLeft) {
       wordsLeftFormatted.add(word.trim());
     }
-    Random randomGenerator = new Random();
+    Random randomGenerator = new Random(); // chooses a random word from the array list
     int randomIndex = randomGenerator.nextInt(wordsLeftFormatted.size());
     String currentWord = wordsLeftFormatted.get(randomIndex);
-    wordsLeftFormatted.remove(randomIndex);
+    wordsLeftFormatted.remove(randomIndex); // removes the word so it cant be played again
 
     // stores history words
     if (allData.get(index)[5].equals("none")) {
       allData.get(index)[5] = currentWord;
       CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
-      csvWriter.writeAll(allData);
+      csvWriter.writeAll(allData); // writes over
       csvWriter.flush();
     } else {
       // combine the current word with the history words string and save it again
       allData.get(index)[5] = allData.get(index)[5] + ", " + currentWord;
       CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
-      csvWriter.writeAll(allData);
+      csvWriter.writeAll(allData); // writes over
       csvWriter.flush();
     }
 
@@ -59,20 +59,23 @@ public class SpreadSheetReaderWriter {
 
   private void newFile(ArrayList<String> wordsLeftFormatted, Integer index)
       throws IOException, CsvException {
-    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv")); // name of file
     List<String[]> allData = csvReader.readAll();
-    allData.get(index)[1] = String.valueOf(wordsLeftFormatted);
+    allData.get(index)[1] =
+        String.valueOf(wordsLeftFormatted); // this updates the words left for the user
 
-    CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
-    csvWriter.writeAll(allData);
+    CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv")); // writes to file name
+    csvWriter.writeAll(allData); // writes all the data to the same file
     csvWriter.flush();
   }
 
   private int findUserName(String currentUsername) throws IOException, CsvException {
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
-    List<String[]> allData = csvReader.readAll();
+    List<String[]> allData =
+        csvReader.readAll(); // reads the entire csv file the name of file can be changed if needed
     int i = 0;
-    while (!allData.get(i)[0].equals(currentUsername)) {
+    while (!allData.get(i)[0].equals(
+        currentUsername)) { // cycles through all the users until there is a match
       i++;
     }
     return i;
@@ -100,13 +103,14 @@ public class SpreadSheetReaderWriter {
   }
 
   public void updateTime(int timeTaken, String currentUsername) throws IOException, CsvException {
-    if (currentUsername == null) {
+    if (currentUsername == null) { // this is a guest user
       return;
     }
     int index = findUserName(currentUsername);
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
     List<String[]> allData = csvReader.readAll();
-    if (Integer.parseInt(allData.get(index)[4]) > timeTaken) {
+    if (Integer.parseInt(allData.get(index)[4])
+        > timeTaken) { // checks if the time is faster than the previous record
       allData.get(index)[4] = String.valueOf(timeTaken);
     }
 

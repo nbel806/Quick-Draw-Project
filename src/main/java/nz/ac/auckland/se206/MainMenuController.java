@@ -15,22 +15,14 @@ import nz.ac.auckland.se206.words.WordPageController;
 
 public class MainMenuController {
 
-  @FXML
-  private Button playButton;
-  @FXML
-  private Button profileButton;
-  @FXML
-  private Button loginButton;
-  @FXML
-  private Label textToSpeechLabel;
-  @FXML
-  private Label userLabel;
-  @FXML
-  private ImageView userImage;
-  @FXML
-  private ImageView loginImage;
-  @FXML
-  private ImageView volumeImage;
+  @FXML private Button playButton;
+  @FXML private Button profileButton;
+  @FXML private Button loginButton;
+  @FXML private Label textToSpeechLabel;
+  @FXML private Label userLabel;
+  @FXML private ImageView userImage;
+  @FXML private ImageView loginImage;
+  @FXML private ImageView volumeImage;
 
   private Boolean textToSpeech = false;
   private TextToSpeechBackground textToSpeechBackground;
@@ -109,7 +101,6 @@ public class MainMenuController {
       textToSpeechLabel.setText("OFF");
     }
   }
-
 
   @FXML
   private void onHoverCreators() {
