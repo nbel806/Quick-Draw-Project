@@ -22,15 +22,18 @@ public class WordPageController {
 
 	@FXML
 	private Text wordToDraw;
-
 	@FXML
 	private Button readyButton;
+	@FXML
+	private Button newButton;
 	@FXML
 	private Label textToSpeechLabel;
 	@FXML
 	private Label userLabel;
 	@FXML
 	private ImageView volumeImage;
+	@FXML
+	private ImageView newImage;
 
 	private String currentWord;
 	private Boolean textToSpeech;
@@ -70,6 +73,18 @@ public class WordPageController {
 		}
 
 		setWordToDraw();
+	}
+
+	@FXML
+	private void onNewWord() throws IOException, URISyntaxException, CsvException {
+		// Get new word
+		setWordToDraw();
+	}
+
+	@FXML
+	private void onHoverNew() {
+		newImage.setFitHeight(57);
+		newImage.setFitWidth(57);
 	}
 
 	@FXML
@@ -135,5 +150,11 @@ public class WordPageController {
 	private void onVolumeExit() {
 		volumeImage.setFitHeight(45);
 		volumeImage.setFitWidth(45);
+	}
+
+	@FXML
+	private void onNewExit() {
+		newImage.setFitHeight(55);
+		newImage.setFitWidth(55);
 	}
 }

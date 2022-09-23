@@ -14,9 +14,9 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: #5299d3; -fx-border-width: 3; -fx-border-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.CanvasController">
    <children>
       <Pane layoutX="-7.0" layoutY="616.0" prefHeight="64.0" prefWidth="506.0" style="-fx-background-color: #EB4A5A; -fx-background-radius: 5;" />
-      <Pane layoutX="180.0" layoutY="119.0" prefHeight="425.0" prefWidth="600.0" style="-fx-border-color: #000000; -fx-border-width: 3; -fx-background-color: #FFFFFF; -fx-border-radius: 3; -fx-background-radius: 3;">
+      <Pane layoutX="226.0" layoutY="182.0" prefHeight="303.0" prefWidth="500.0" style="-fx-border-color: #000000; -fx-border-width: 3; -fx-background-color: #FFFFFF; -fx-border-radius: 3; -fx-background-radius: 3;">
          <children>
-            <Canvas fx:id="canvas" height="425.0" layoutY="4.0" onMouseEntered="#onHoverCanvas" width="600.0">
+            <Canvas fx:id="canvas" height="303.0" layoutY="4.0" onMouseEntered="#onHoverCanvas" width="500.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

@@ -312,19 +312,19 @@ public class LoginController {
 	@FXML
 	private void onCreateExit() {
 		createButton.setStyle(
-				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 2; -fx-opacity: 1;");
+				"-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 2; -fx-opacity: 1;");
 	}
 
 	@FXML
 	private void onLogoutExit() {
 		logoutButton.setStyle(
-				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 2; -fx-opacity: 1;");
+				"-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 2; -fx-opacity: 1;");
 	}
 
 	@FXML
 	private void onBackExit() {
 		backButton.setStyle(
-				"-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
+				"-fx-background-radius: 100px;-fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
 	}
 
 	@FXML

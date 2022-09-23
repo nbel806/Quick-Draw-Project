@@ -1,10 +1,5 @@
 package nz.ac.auckland.se206;
 
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
-import com.opencsv.exceptions.CsvException;
-
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,6 +7,11 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvException;
+
 import nz.ac.auckland.se206.words.CategorySelector;
 import nz.ac.auckland.se206.words.CategorySelector.Difficulty;
 
@@ -37,23 +37,23 @@ public class CSVReaderWriter {
 		int randomIndex = randomGenerator.nextInt(wordsLeftFormatted.size());
 		String currentWord = wordsLeftFormatted.get(randomIndex);
 		wordsLeftFormatted.remove(randomIndex);
-		
-		//stores history words
+
+		// stores history words
 		if (allData.get(index)[5].equals("none")) {
 			allData.get(index)[5] = currentWord;
 			CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
 			csvWriter.writeAll(allData);
 			csvWriter.flush();
-		}else {
+		} else {
 			// combine the current word with the history words string and save it again
-			allData.get(index)[5] = allData.get(index)[5] + ", " + currentWord;
+			allData.get(index)[5] = allData.get(index)[5] + "," + currentWord;
 			CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
 			csvWriter.writeAll(allData);
 			csvWriter.flush();
 		}
-		
+
 		newFile(wordsLeftFormatted, index);
-		
+
 		return currentWord;
 	}
 
@@ -95,7 +95,6 @@ public class CSVReaderWriter {
 		csvWriter.writeAll(allData); // writes all the data back
 		csvWriter.flush();
 	}
-	
 
 	public void updateTime(int timeTaken, String currentUsername) throws IOException, CsvException {
 		if (currentUsername == null) {
@@ -133,12 +132,12 @@ public class CSVReaderWriter {
 		List<String[]> allData = csvReader.readAll();
 		return Integer.parseInt(allData.get(index)[4]);
 	}
-	
+
 	public String getHistory(String currentUsername) throws IOException, CsvException {
 		int index = findUserName(currentUsername);
 		CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
 		List<String[]> allData = csvReader.readAll();
 		return allData.get(index)[5];
-		
+
 	}
 }
