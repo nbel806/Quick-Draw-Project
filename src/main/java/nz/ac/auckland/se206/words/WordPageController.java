@@ -12,18 +12,23 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
-import nz.ac.auckland.se206.CSVReaderWriter;
+import nz.ac.auckland.se206.SpreadSheetReaderWriter;
 import nz.ac.auckland.se206.CanvasController;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class WordPageController {
 
-  @FXML private Text wordToDraw;
+  @FXML
+  private Text wordToDraw;
 
-  @FXML private Button readyButton;
-  @FXML private Label textToSpeechLabel;
-  @FXML private Label userLabel;
-  @FXML private ImageView volumeImage;
+  @FXML
+  private Button readyButton;
+  @FXML
+  private Label textToSpeechLabel;
+  @FXML
+  private Label userLabel;
+  @FXML
+  private ImageView volumeImage;
 
   private String currentWord;
   private Boolean textToSpeech;
@@ -31,14 +36,16 @@ public class WordPageController {
 
   private String currentUsername = null;
 
-  /** Picks a random word from the easy category using category selector */
+  /**
+   * Picks a random word from the easy category using category selector
+   */
   private void setWordToDraw() throws IOException, URISyntaxException, CsvException {
     if (currentUsername == null) {
       CategorySelector categorySelector = new CategorySelector();
       currentWord = categorySelector.getRandomCategory(CategorySelector.Difficulty.E);
     } else {
-      CSVReaderWriter csvReaderWriter = new CSVReaderWriter();
-      currentWord = csvReaderWriter.findWordsLeft(currentUsername);
+      SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
+      currentWord = spreadSheetReaderWriter.findWordsLeft(currentUsername);
     }
     wordToDraw.setText(currentWord);
   }

@@ -16,11 +16,17 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 import nz.ac.auckland.se206.words.WordPageController;
 
 public class GameOverController {
-  @FXML private Label winLoseLabel2;
-  @FXML private Label winLoseLabel;
-  @FXML private Button playAgainButton;
-  @FXML private Button menuButton;
-  @FXML private Label textToSpeechLabel;
+
+  @FXML
+  private Label winLoseLabel2;
+  @FXML
+  private Label winLoseLabel;
+  @FXML
+  private Button playAgainButton;
+  @FXML
+  private Button menuButton;
+  @FXML
+  private Label textToSpeechLabel;
 
   private CanvasController canvasController;
   private Boolean textToSpeech;
@@ -52,13 +58,13 @@ public class GameOverController {
       winLoseString = "You lost!";
     }
     canvasController = ctrl;
-    CSVReaderWriter csvRW = new CSVReaderWriter();
+    SpreadSheetReaderWriter csvRW = new SpreadSheetReaderWriter();
     csvRW.updateResult(winLose, currentUsername);
   }
 
   public void timeLeft(int sec) throws IOException, CsvException {
     timeLeft = sec;
-    CSVReaderWriter csvRW = new CSVReaderWriter();
+    SpreadSheetReaderWriter csvRW = new SpreadSheetReaderWriter();
     csvRW.updateTime(60 - timeLeft, currentUsername);
   }
 

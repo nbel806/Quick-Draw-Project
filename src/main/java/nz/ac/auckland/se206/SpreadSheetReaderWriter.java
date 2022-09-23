@@ -13,7 +13,8 @@ import java.util.Random;
 import nz.ac.auckland.se206.words.CategorySelector;
 import nz.ac.auckland.se206.words.CategorySelector.Difficulty;
 
-public class CSVReaderWriter {
+public class SpreadSheetReaderWriter {
+
   public String findWordsLeft(String currentUsername)
       throws IOException, CsvException, URISyntaxException {
     int index = findUserName(currentUsername);

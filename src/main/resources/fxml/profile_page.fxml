@@ -8,53 +8,67 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: #f9f9d1 #f9f9d1;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.ProfilePageController">
-   <children>
-      <Label fx:id="username" layoutX="249.0" layoutY="67.0" prefHeight="68.0" prefWidth="626.0" text="Usernames Profile">
-         <font>
-            <Font name="Algerian" size="60.0" />
-         </font>
-      </Label>
-      <Label fx:id="win" layoutX="68.0" layoutY="158.0" prefHeight="73.0" prefWidth="908.0" text="Number of wins">
-         <font>
-            <Font name="Algerian" size="40.0" />
-         </font>
-      </Label>
-      <Label fx:id="loss" layoutX="68.0" layoutY="215.0" prefHeight="73.0" prefWidth="908.0" text="Number of Losses">
-         <font>
-            <Font name="Algerian" size="40.0" />
-         </font>
-      </Label>
-      <Button fx:id="back" layoutX="59.0" layoutY="553.0" mnemonicParsing="false" onAction="#onMainMenu" prefHeight="77.0" prefWidth="117.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #667302 #667302; -fx-border-width: 3;" text="Back">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
-      <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="307.0" layoutY="488.0">
-         <image>
-            <Image url="@../images/logo-speedy-sketchers.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="55.0" layoutY="77.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech">
-         <image>
-            <Image url="@../images/speaker-filled-audio-tool.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="textToSpeechLabel" layoutX="68.0" layoutY="136.0" onMouseEntered="#onHoverTextToSpeechLabel" text="OFF" />
-      <Label fx:id="fastestGame" layoutX="68.0" layoutY="267.0" prefHeight="73.0" prefWidth="908.0" text="Fastest Game">
-         <font>
-            <Font name="Algerian" size="40.0" />
-         </font>
-      </Label>
-      <Label fx:id="history" layoutX="68.0" layoutY="322.0" prefHeight="73.0" prefWidth="908.0" text="History words:">
-         <font>
-            <Font name="Algerian" size="40.0" />
-         </font>
-      </Label>
-      <TextArea fx:id="historyWordsText" layoutX="68.0" layoutY="385.0" prefHeight="62.0" prefWidth="873.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </TextArea>
-   </children>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+  prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: #f9f9d1 #f9f9d1;"
+  xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="nz.ac.auckland.se206.ProfilePageController">
+  <children>
+    <Label fx:id="username" layoutX="249.0" layoutY="67.0" prefHeight="68.0" prefWidth="626.0"
+      text="Usernames Profile">
+      <font>
+        <Font name="Algerian" size="60.0"/>
+      </font>
+    </Label>
+    <Label fx:id="win" layoutX="68.0" layoutY="158.0" prefHeight="73.0" prefWidth="908.0"
+      text="Number of wins">
+      <font>
+        <Font name="Algerian" size="40.0"/>
+      </font>
+    </Label>
+    <Label fx:id="loss" layoutX="68.0" layoutY="215.0" prefHeight="73.0" prefWidth="908.0"
+      text="Number of Losses">
+      <font>
+        <Font name="Algerian" size="40.0"/>
+      </font>
+    </Label>
+    <Button fx:id="back" layoutX="59.0" layoutY="553.0" mnemonicParsing="false"
+      onAction="#onClickMainMenu" prefHeight="77.0" prefWidth="117.0"
+      style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #667302 #667302; -fx-border-width: 3;"
+      text="Back">
+      <font>
+        <Font size="20.0"/>
+      </font>
+    </Button>
+    <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="307.0" layoutY="488.0">
+      <image>
+        <Image url="@../images/logo-speedy-sketchers.png"/>
+      </image>
+    </ImageView>
+    <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="55.0" layoutY="77.0"
+      onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech">
+      <image>
+        <Image url="@../images/speaker-filled-audio-tool.png"/>
+      </image>
+    </ImageView>
+    <Label fx:id="textToSpeechLabel" layoutX="68.0" layoutY="136.0"
+      onMouseEntered="#onHoverTextToSpeechLabel" text="OFF"/>
+    <Label fx:id="fastestGame" layoutX="68.0" layoutY="267.0" prefHeight="73.0" prefWidth="908.0"
+      text="Fastest Game">
+      <font>
+        <Font name="Algerian" size="40.0"/>
+      </font>
+    </Label>
+    <Label fx:id="history" layoutX="68.0" layoutY="322.0" prefHeight="73.0" prefWidth="908.0"
+      text="History words:">
+      <font>
+        <Font name="Algerian" size="40.0"/>
+      </font>
+    </Label>
+    <TextArea fx:id="historyWordsText" layoutX="68.0" layoutY="385.0" prefHeight="62.0"
+      prefWidth="873.0">
+      <font>
+        <Font size="20.0"/>
+      </font>
+    </TextArea>
+  </children>
 </Pane>

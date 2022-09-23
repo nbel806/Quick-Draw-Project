@@ -12,15 +12,24 @@ import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class ProfilePageController {
-  @FXML private Label fastestGame;
-  @FXML private Button back;
-  @FXML private Label username;
-  @FXML private Label win;
-  @FXML private Label loss;
-  @FXML private Label history;
-  @FXML private TextArea historyWordsText;
 
-  @FXML private Label textToSpeechLabel;
+  @FXML
+  private Label fastestGame;
+  @FXML
+  private Button back;
+  @FXML
+  private Label username;
+  @FXML
+  private Label win;
+  @FXML
+  private Label loss;
+  @FXML
+  private Label history;
+  @FXML
+  private TextArea historyWordsText;
+
+  @FXML
+  private Label textToSpeechLabel;
   private Boolean textToSpeech;
   private TextToSpeechBackground textToSpeechBackground;
   private String currentUsername;
@@ -30,7 +39,7 @@ public class ProfilePageController {
   private String historyWords;
 
   @FXML
-  private void onMainMenu() throws IOException {
+  private void onClickMainMenu() throws IOException {
 
     Stage stage = (Stage) back.getScene().getWindow();
     FXMLLoader loader =
@@ -55,7 +64,8 @@ public class ProfilePageController {
     }
   }
 
-  public void initialize() {}
+  public void initialize() {
+  }
 
   public void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
@@ -79,15 +89,15 @@ public class ProfilePageController {
       // If not null, update label as current username
       currentUsername = username;
       this.username.setText(currentUsername);
-      CSVReaderWriter csvReaderWriter = new CSVReaderWriter();
-      usersWins = csvReaderWriter.getWins(currentUsername);
-      usersLosses = csvReaderWriter.getLosses(currentUsername);
-      fastestTime = csvReaderWriter.getFastest(currentUsername);
-      historyWords = csvReaderWriter.getHistory(currentUsername);
+      SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
+      usersWins = spreadSheetReaderWriter.getWins(currentUsername);
+      usersLosses = spreadSheetReaderWriter.getLosses(currentUsername);
+      fastestTime = spreadSheetReaderWriter.getFastest(currentUsername);
+      historyWords = spreadSheetReaderWriter.getHistory(currentUsername);
 
       win.setText("Number of Wins: " + usersWins);
       loss.setText("Number of Losses: " + usersLosses);
-      if (fastestTime == 100) { // value will be 100 by default eg they must play a game
+      if (fastestTime == 100) { // value will be 100 by default e.g. they must play a game
         fastestGame.setText("You must win a game to set a time");
       } else {
         fastestGame.setText("Your fastest game was " + fastestTime + " seconds");
