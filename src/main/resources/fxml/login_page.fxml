@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: #EB4A5A; -fx-border-color: white; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.LoginController">
    <children>
       <Pane layoutX="3.0" layoutY="-6.0" prefHeight="50.0" prefWidth="998.0" style="-fx-background-color: white; -fx-background-radius: 10;" />
@@ -43,17 +42,17 @@
       </Label>
       <VBox layoutX="295.0" layoutY="447.0" prefHeight="220.0" prefWidth="150.0" spacing="15.0">
          <children>
-            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLogin" onMouseEntered="#onHoverLogin" onMouseExited="#onLoginExit" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;" text="Login" textAlignment="CENTER">
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLogin" onMouseEntered="#onHoverLogin" onMouseExited="#onLoginExit" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 2; -fx-opacity: 1;" text="LOGIN" textAlignment="CENTER">
                <font>
                   <Font name="Arial Black" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="createButton" mnemonicParsing="false" onAction="#onCreate" onMouseEntered="#onHoverCreate" onMouseExited="#onCreateExit" prefHeight="45.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3;" text="Create" textAlignment="CENTER">
+            <Button fx:id="createButton" mnemonicParsing="false" onAction="#onCreate" onMouseEntered="#onHoverCreate" onMouseExited="#onCreateExit" prefHeight="45.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 2;" text="CREATE" textAlignment="CENTER">
                <font>
                   <Font name="Arial Black" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#onLogout" onMouseEntered="#onHoverLogout" onMouseExited="#onLogoutExit" prefHeight="45.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3;" text="Logout" textAlignment="CENTER">
+            <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#onLogout" onMouseEntered="#onHoverLogout" onMouseExited="#onLogoutExit" prefHeight="45.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 2;" text="LOGOUT" textAlignment="CENTER">
                <font>
                   <Font name="Arial Black" size="20.0" />
                </font>
@@ -65,7 +64,7 @@
             <Image url="@../images/usericon.png" />
          </image>
       </ImageView>
-      <Button fx:id="backButton" layoutX="858.0" layoutY="19.0" mnemonicParsing="false" onAction="#onBack" onMouseEntered="#onHoverBack" onMouseExited="#onBackExit" prefHeight="35.0" prefWidth="125.0" style="-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;" text="Back" textAlignment="CENTER">
+      <Button fx:id="backButton" layoutX="858.0" layoutY="19.0" mnemonicParsing="false" onAction="#onBack" onMouseEntered="#onHoverBack" onMouseExited="#onBackExit" prefHeight="35.0" prefWidth="125.0" style="-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;" text="BACK" textAlignment="CENTER">
          <font>
             <Font name="Arial Black" size="21.0" />
          </font>
