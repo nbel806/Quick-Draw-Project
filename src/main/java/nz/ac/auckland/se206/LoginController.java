@@ -9,8 +9,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -25,6 +23,52 @@ public class LoginController {
   // Set name of the file to set user data
   private static final String fileName = "userdata.csv";
 
+  /**
+   * This method creates a blank csv file
+   *
+   * @throws IOException throws if there is no name
+   */
+  public static void createDataBase() throws IOException {
+    // file object creation
+    File file = new File(fileName);
+
+    // file creation
+    file.createNewFile();
+  }
+
+  /**
+   * This method searches in the csv file for the username passed and returns a flag
+   *
+   * @param username the name of the person using the app
+   * @return if name was found or not
+   * @throws IOException if file name was empty
+   */
+  private static Boolean searchUsername(String username) throws IOException {
+    boolean flag = false;
+    FileReader fr;
+
+    fr = new FileReader(fileName); // starts a file reader to scan the spread sheet for the username
+    BufferedReader br = new BufferedReader(fr);
+
+    System.out.println(username);
+    System.out.println();
+
+    String line;
+    while ((line = br.readLine()) != null) {
+      // Check if current line contains the username to be found
+      String[] record = line.split(",");
+      String tempUsername = record[0]; // username is stored in first pos of array
+      tempUsername = tempUsername.substring(1, (tempUsername.length() - 1));
+
+      if (username.equals(tempUsername)) {
+        flag = true;
+      }
+    }
+
+    br.close();
+    return flag;
+  }
+
   @FXML private Button createButton;
   @FXML private Button loginButton;
   @FXML private Button logoutButton;
@@ -38,19 +82,6 @@ public class LoginController {
   private String currentUsername = null; // The username currently logged in
   private Boolean textToSpeech;
   private TextToSpeechBackground textToSpeechBackground;
-
-  /**
-   * This method creates a blank csv file
-   *
-   * @throws IOException throws if there is no name
-   */
-  public static void createDataBase() throws IOException {
-    // file object creation
-    File file = new File(fileName);
-
-    // file creation
-    file.createNewFile();
-  }
 
   /**
    * This method creates a new record/profile and appends into the csv file
@@ -106,38 +137,6 @@ public class LoginController {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-  }
-
-  /**
-   * This method searches in the csv file for the username passed and returns a flag
-   *
-   * @param username the name of the person using the app
-   * @return if name was found or not
-   * @throws IOException if file name was empty
-   */
-  private static Boolean searchUsername(String username) throws IOException {
-    boolean flag = false;
-    String line;
-    FileReader fr;
-
-    fr = new FileReader(fileName); // starts a file reader to scan the spread sheet for the username
-    BufferedReader br = new BufferedReader(fr);
-
-    System.out.println(username);
-    System.out.println();
-    while ((line = br.readLine()) != null) {
-      // Check if current line contains the username to be found
-      String[] record = line.split(",");
-      String tempUsername = record[0]; // username is stored in first pos of array
-      tempUsername = tempUsername.substring(1, (tempUsername.length() - 1));
-
-      if (username.equals(tempUsername)) {
-        flag = true;
-      }
-    }
-
-    br.close();
-    return flag;
   }
 
   public void setUsername(String username) {
@@ -211,20 +210,9 @@ public class LoginController {
    */
   @FXML
   private void onBack() throws IOException {
-    // switch to the main menu after login
     Stage stage = (Stage) backButton.getScene().getWindow();
-    FXMLLoader loader =
-        new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml")); // creates a new instance of
-    // menu page
-    Scene scene = new Scene(loader.load(), 1000, 680);
-    MainMenuController ctrl = loader.getController(); // need controller to pass information
-    ctrl.give(textToSpeechBackground, textToSpeech);
-
-    // Pass username
-    ctrl.getUsername(currentUsername);
-
-    stage.setScene(scene);
-    stage.show();
+    LoadPage loadPage = new LoadPage();
+    loadPage.extracted(textToSpeechBackground, textToSpeech, currentUsername, stage);
   }
 
   @FXML
