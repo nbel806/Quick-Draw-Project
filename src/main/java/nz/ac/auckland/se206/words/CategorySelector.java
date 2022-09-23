@@ -15,7 +15,6 @@ import java.util.Random;
 
 public class CategorySelector {
 
-
   public enum Difficulty {
     E,
     M,
@@ -51,9 +50,7 @@ public class CategorySelector {
         .get(new Random().nextInt(difficultyListMap.get(difficulty).size()) - 1);
   }
 
-
   public List<String> getCategory(Difficulty difficulty) {
     return difficultyListMap.get(difficulty);
   }
 }
-
