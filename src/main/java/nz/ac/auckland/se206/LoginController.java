@@ -277,7 +277,7 @@ public class LoginController {
 	private void onHoverLogin() {
 		textToSpeechBackground.backgroundSpeak("login Button", textToSpeech);
 		loginButton.setStyle(
-				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
+				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color:  #99DAF4; -fx-text-fill: white; -fx-border-color:  #99DAF4; -fx-border-radius: 10; -fx-border-width: 2;");
 
 	}
 
@@ -285,14 +285,14 @@ public class LoginController {
 	private void onHoverCreate() {
 		textToSpeechBackground.backgroundSpeak("Create Button", textToSpeech);
 		createButton.setStyle(
-				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
+				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color:  #99DAF4; -fx-text-fill: white; -fx-border-color:  #99DAF4; -fx-border-radius: 10; -fx-border-width: 2;");
 	}
 
 	@FXML
 	private void onHoverLogout() {
 		textToSpeechBackground.backgroundSpeak("Logout Button", textToSpeech);
 		logoutButton.setStyle(
-				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
+				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color:  #99DAF4; -fx-text-fill: white; -fx-border-color:  #99DAF4; -fx-border-radius: 10; -fx-border-width: 2;");
 	}
 
 	@FXML
@@ -306,25 +306,25 @@ public class LoginController {
 	@FXML
 	private void onLoginExit() {
 		loginButton.setStyle(
-				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
+				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 2; -fx-opacity: 1;");
 	}
 
 	@FXML
 	private void onCreateExit() {
 		createButton.setStyle(
-				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
+				"-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 2; -fx-opacity: 1;");
 	}
 
 	@FXML
 	private void onLogoutExit() {
 		logoutButton.setStyle(
-				"-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
+				"-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 2; -fx-opacity: 1;");
 	}
 
 	@FXML
 	private void onBackExit() {
 		backButton.setStyle(
-				"-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
+				"-fx-background-radius: 100px;-fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
 	}
 
 	@FXML
