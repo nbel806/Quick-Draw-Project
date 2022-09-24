@@ -16,14 +16,12 @@ public class TextToSpeechBackground {
           new Task<>() {
             @Override
             protected Void call() {
-              tts.speak(
-                  toRead); // uses googles text to speech to speak but will do it in background to
-              // ensure no lag
+              tts.speak(toRead); // uses googles text to speech to speak
               return null;
             }
           };
       Thread backgroundThread = new Thread(backgroundTask);
-      backgroundThread.start();
+      backgroundThread.start(); // proccess in background to allow user full control no lag
     }
   }
 }
