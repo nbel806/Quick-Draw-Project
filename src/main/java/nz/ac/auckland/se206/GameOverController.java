@@ -46,18 +46,19 @@ public class GameOverController {
 
   public void setWinLoseLabel(boolean winLose, CanvasController ctrl)
       throws IOException, CsvException {
-    if (winLose) {
+    if (winLose) { // if user won display message and time
       winLoseLabel.setText("YOU WON");
       timeLabel.setText("TIME LEFT: " + timeLeft + " seconds");
       winLoseString = "You won with " + timeLeft + "Seconds left!";
-    } else {
+    } else { // if user looses display message
       winLoseLabel.setText("YOU LOST");
       timeLabel.setText("TIME LIMIT REACHED");
       winLoseString = "You lost!";
     }
     canvasController = ctrl;
     SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
-    spreadSheetReaderWriter.updateResult(winLose, currentUsername);
+    spreadSheetReaderWriter.updateResult(
+        winLose, currentUsername); // writes over old file to update win/loss record
   }
 
   public void timeLeft(int sec) throws IOException, CsvException {

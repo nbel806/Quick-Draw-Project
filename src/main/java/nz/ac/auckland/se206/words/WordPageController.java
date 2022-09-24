@@ -34,10 +34,10 @@ public class WordPageController {
 
   /** Picks a random word from the easy category using category selector */
   private void setWordToDraw() throws IOException, URISyntaxException, CsvException {
-    if (currentUsername == null) {
-      CategorySelector categorySelector = new CategorySelector();
+    if (currentUsername == null) { // if guest
+      CategorySelector categorySelector = new CategorySelector(); // picks random easy word
       currentWord = categorySelector.getRandomCategory(CategorySelector.Difficulty.E);
-    } else {
+    } else { // if user chosen from their pool of words left
       SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
       currentWord = spreadSheetReaderWriter.findWordsLeft(currentUsername);
     }

@@ -4,8 +4,6 @@ import com.opencsv.exceptions.CsvException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -110,16 +108,8 @@ public class ProfilePageController {
   @FXML
   private void onBack() throws IOException {
     Stage stage = (Stage) backButton.getScene().getWindow();
-    FXMLLoader loader =
-        new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml")); // creates a new instance of
-    // menu page
-    Scene scene = new Scene(loader.load(), 1000, 680);
-    MainMenuController ctrl = loader.getController(); // need controller to pass information
-    // may need to add code to pass though tts here
-    ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
-    ctrl.getUsername(currentUsername);
-    stage.setScene(scene);
-    stage.show();
+    LoadPage loadPage = new LoadPage();
+    loadPage.extracted(textToSpeechBackground, textToSpeech, currentUsername, stage);
   }
 
   @FXML
