@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -18,10 +19,13 @@ import nz.ac.auckland.se206.words.WordPageController;
 public class GameOverController {
 
   @FXML private Label winLoseLabel2;
+  @FXML private Label timeLabel;
   @FXML private Label winLoseLabel;
   @FXML private Button playAgainButton;
   @FXML private Button menuButton;
+  @FXML private Button saveButton;
   @FXML private Label textToSpeechLabel;
+  @FXML private ImageView volumeImage;
 
   private CanvasController canvasController;
   private Boolean textToSpeech;
@@ -42,20 +46,18 @@ public class GameOverController {
 
   public void setWinLoseLabel(boolean winLose, CanvasController ctrl)
       throws IOException, CsvException {
-    if (winLose) { // if the user wins
-      winLoseLabel.setText("You won with " + timeLeft);
-      winLoseLabel2.setText("seconds left!");
-
+    if (winLose) {
+      winLoseLabel.setText("YOU WON");
+      timeLabel.setText("TIME LEFT: " + timeLeft + " seconds");
       winLoseString = "You won with " + timeLeft + "Seconds left!";
-    } else { // if the user loses
-      winLoseLabel.setText("You lost!");
-      winLoseLabel2.setText("");
+    } else {
+      winLoseLabel.setText("YOU LOST");
+      timeLabel.setText("TIME LIMIT REACHED");
       winLoseString = "You lost!";
     }
-    canvasController = ctrl; // passes through the instance
-    SpreadSheetReaderWriter spreadSheetReadWrite = new SpreadSheetReaderWriter();
-    spreadSheetReadWrite.updateResult(
-        winLose, currentUsername); // updates the result in the file to ensure results save
+    canvasController = ctrl;
+    SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
+    spreadSheetReaderWriter.updateResult(winLose, currentUsername);
   }
 
   public void timeLeft(int sec) throws IOException, CsvException {
@@ -132,31 +134,6 @@ public class GameOverController {
   }
 
   @FXML
-  private void onHoverTitle() {
-    textToSpeechBackground.backgroundSpeak("Game over", textToSpeech);
-  }
-
-  @FXML
-  private void onHoverWinLose() {
-    textToSpeechBackground.backgroundSpeak("You " + winLoseString, textToSpeech);
-  }
-
-  @FXML
-  private void onHoverSave() {
-    textToSpeechBackground.backgroundSpeak("Save Button", textToSpeech);
-  }
-
-  @FXML
-  private void onHoverPlayAgain() {
-    textToSpeechBackground.backgroundSpeak("Play Again Button", textToSpeech);
-  }
-
-  @FXML
-  private void onHoverTextToSpeechLabel() {
-    textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
-  }
-
-  @FXML
   private void onTextToSpeech() {
     textToSpeech = !textToSpeech; // inverts boolean
     if (textToSpeech) { // then sets label accordingly
@@ -167,12 +144,66 @@ public class GameOverController {
   }
 
   @FXML
-  private void onHoverTextToSpeech() {
-    textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
+  private void onHoverWinLose() {
+    textToSpeechBackground.backgroundSpeak(winLoseString, textToSpeech);
+  }
+
+  // Below is a list of methods when mouse hovers a button
+  @FXML
+  private void onHoverSave() {
+    textToSpeechBackground.backgroundSpeak("Save Button", textToSpeech);
+    saveButton.setStyle(
+        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
   @FXML
-  private void onHoverLogo() {
-    textToSpeechBackground.backgroundSpeak("Speedy Sketchers logo", textToSpeech);
+  private void onHoverPlayAgain() {
+    textToSpeechBackground.backgroundSpeak("Play Again Button", textToSpeech);
+    playAgainButton.setStyle(
+        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
+  }
+
+  @FXML
+  private void onHoverMenu() {
+    textToSpeechBackground.backgroundSpeak("Main Menu Button", textToSpeech);
+    menuButton.setStyle(
+        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
+  }
+
+  @FXML
+  private void onHoverTextToSpeechLabel() {
+    textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
+  }
+
+  @FXML
+  private void onHoverTextToSpeech() {
+    textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
+    volumeImage.setFitHeight(48);
+    volumeImage.setFitWidth(48);
+  }
+
+  // Below is list of methods for when mouse exits a button
+  @FXML
+  private void onVolumeExit() {
+    volumeImage.setFitHeight(45);
+    volumeImage.setFitWidth(45);
+  }
+
+  @FXML
+  private void onSaveExit() {
+    saveButton.setStyle(
+        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 2");
+  }
+
+  @FXML
+  private void onMenuExit() {
+    menuButton.setStyle(
+        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 2");
+  }
+
+  @FXML
+  private void onPlayAgainExit() {
+    playAgainButton.setStyle(
+        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 2");
   }
 }

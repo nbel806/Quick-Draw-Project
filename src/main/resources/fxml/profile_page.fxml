@@ -2,73 +2,121 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-  prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: #f9f9d1 #f9f9d1;"
-  xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="nz.ac.auckland.se206.ProfilePageController">
-  <children>
-    <Label fx:id="username" layoutX="249.0" layoutY="67.0" prefHeight="68.0" prefWidth="626.0"
-      text="Usernames Profile">
-      <font>
-        <Font name="Algerian" size="60.0"/>
-      </font>
-    </Label>
-    <Label fx:id="win" layoutX="68.0" layoutY="158.0" prefHeight="73.0" prefWidth="908.0"
-      text="Number of wins">
-      <font>
-        <Font name="Algerian" size="40.0"/>
-      </font>
-    </Label>
-    <Label fx:id="loss" layoutX="68.0" layoutY="215.0" prefHeight="73.0" prefWidth="908.0"
-      text="Number of Losses">
-      <font>
-        <Font name="Algerian" size="40.0"/>
-      </font>
-    </Label>
-    <Button fx:id="back" layoutX="59.0" layoutY="553.0" mnemonicParsing="false"
-      onAction="#onClickMainMenu" prefHeight="77.0" prefWidth="117.0"
-      style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #667302 #667302; -fx-border-width: 3;"
-      text="Back">
-      <font>
-        <Font size="20.0"/>
-      </font>
-    </Button>
-    <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="307.0" layoutY="488.0">
-      <image>
-        <Image url="@../images/logo-speedy-sketchers.png"/>
-      </image>
-    </ImageView>
-    <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="55.0" layoutY="77.0"
-      onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech">
-      <image>
-        <Image url="@../images/speaker-filled-audio-tool.png"/>
-      </image>
-    </ImageView>
-    <Label fx:id="textToSpeechLabel" layoutX="68.0" layoutY="136.0"
-      onMouseEntered="#onHoverTextToSpeechLabel" text="OFF"/>
-    <Label fx:id="fastestGame" layoutX="68.0" layoutY="267.0" prefHeight="73.0" prefWidth="908.0"
-      text="Fastest Game">
-      <font>
-        <Font name="Algerian" size="40.0"/>
-      </font>
-    </Label>
-    <Label fx:id="history" layoutX="68.0" layoutY="322.0" prefHeight="73.0" prefWidth="908.0"
-      text="History words:">
-      <font>
-        <Font name="Algerian" size="40.0"/>
-      </font>
-    </Label>
-    <TextArea fx:id="historyWordsText" layoutX="68.0" layoutY="385.0" prefHeight="62.0"
-      prefWidth="873.0">
-      <font>
-        <Font size="20.0"/>
-      </font>
-    </TextArea>
-  </children>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: #EB4A5A; -fx-border-color: white; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.ProfilePageController">
+   <children>
+      <Label fx:id="usernameLabel" layoutX="297.0" layoutY="157.0" prefHeight="68.0" prefWidth="522.0" text="USER" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="42.0" />
+         </font>
+      </Label>
+      <Label fx:id="winrateLabel" layoutX="462.0" layoutY="221.0" prefHeight="53.0" prefWidth="158.0">
+         <font>
+            <Font name="Arial Black" size="35.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="278.0" layoutY="223.0" prefHeight="49.0" prefWidth="196.0" text="WIN RATE:" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="26.0" />
+         </font>
+      </Label>
+      <Label layoutX="301.0" layoutY="423.0" prefHeight="54.0" prefWidth="425.0" text="HISTORY OF WORDS" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="36.0" />
+         </font>
+      </Label>
+      <Pane layoutY="-10.0" prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: white; -fx-background-radius: 10;" />
+      <ImageView fx:id="volumeImage" fitHeight="45.0" fitWidth="45.0" layoutX="903.0" layoutY="602.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech" onMouseEntered="#onHoverTextToSpeech" onMouseExited="#onVolumeExit" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/speaker-filled-audio-tool.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="textToSpeechLabel" layoutX="912.0" layoutY="584.0" onMouseEntered="#onHoverTextToSpeechLabel" text="OFF">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Label>
+      <Button fx:id="backButton" layoutX="860.0" layoutY="17.0" mnemonicParsing="false" onAction="#onBack" onMouseEntered="#onHoverBack" onMouseExited="#onBackExit" prefHeight="35.0" prefWidth="125.0" style="-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;" text="BACK" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Black" size="21.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="85.0" fitWidth="78.0" layoutX="138.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.8;">
+         <image>
+            <Image url="@../images/drawicom.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="31.0" layoutY="61.0" prefHeight="47.0" prefWidth="195.0" text="JUST DRAW" textFill="WHITE">
+         <font>
+            <Font name="Leelawadee UI Bold" size="32.0" />
+         </font>
+      </Label>
+      <Circle fill="WHITE" layoutX="215.0" layoutY="223.0" radius="70.0" stroke="#7b7b7b" strokeType="INSIDE" />
+      <ImageView fx:id="userImage" fitHeight="100.0" fitWidth="100.0" layoutX="165.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/usericon.png" />
+         </image>
+      </ImageView>
+      <Line endX="582.2667236328125" endY="3.0517578125E-5" fill="WHITE" layoutX="298.0" layoutY="308.0" startX="-177.19998168945312" startY="3.0517578125E-5" stroke="WHITE" strokeWidth="2.0" />
+      <VBox layoutX="168.0" layoutY="313.0">
+         <children>
+            <HBox prefHeight="46.0" prefWidth="762.0">
+               <children>
+                  <HBox prefHeight="32.0" prefWidth="378.0" spacing="3.0">
+                     <children>
+                        <Label prefHeight="37.0" prefWidth="244.0" text="Games Played:" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Black" size="29.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="gameLabel" prefHeight="46.0" prefWidth="118.0" text="10000">
+                           <font>
+                              <Font name="Arial Black" size="30.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label lineSpacing="30.0" prefHeight="31.0" prefWidth="211.0" text="Games Won:" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Black" size="29.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="winLabel" prefHeight="37.0" prefWidth="126.0" text="10000">
+                           <font>
+                              <Font name="Arial Black" size="30.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="46.0" prefWidth="750.0">
+               <children>
+                  <Label prefHeight="41.0" prefWidth="319.0" text="Fastest Time:" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Black" size="29.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="fastestLabel" prefHeight="46.0" prefWidth="583.0" text="60 seconds">
+                     <font>
+                        <Font name="Arial Black" size="31.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <ListView fx:id="historyListView" layoutX="304.0" layoutY="482.0" prefHeight="160.0" prefWidth="408.0" styleClass="list-cell" stylesheets="@../css/ListViewStyler.css" />
+   </children>
 </Pane>
