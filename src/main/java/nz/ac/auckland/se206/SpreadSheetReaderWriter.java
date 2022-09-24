@@ -46,7 +46,7 @@ public class SpreadSheetReaderWriter {
       csvWriter.flush();
     } else {
       // combine the current word with the history words string and save it again
-      allData.get(index)[5] = allData.get(index)[5] + ", " + currentWord;
+      allData.get(index)[5] = allData.get(index)[5] + "," + currentWord;
       CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
       csvWriter.writeAll(allData); // writes over
       csvWriter.flush();
