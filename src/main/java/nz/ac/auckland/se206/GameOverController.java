@@ -97,7 +97,7 @@ public class GameOverController {
   }
 
   @FXML
-  private void onMenu() throws IOException {
+  private void onClickMenu() throws IOException {
     Stage stage = (Stage) menuButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml")); // reset to a new word_page

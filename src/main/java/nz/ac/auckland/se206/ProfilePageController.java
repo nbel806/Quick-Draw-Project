@@ -34,8 +34,8 @@ public class ProfilePageController {
   private int totalGames;
   private int fastestTime;
   private double winRate;
-  DecimalFormat df = new DecimalFormat("#.#");
-  String[] historyWords;
+  private DecimalFormat df = new DecimalFormat("#.#");
+  private String[] historyWords;
 
   public void initialize() {}
 

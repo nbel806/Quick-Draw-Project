@@ -36,40 +36,28 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
  *
  * <p>!! IMPORTANT !!
  *
- * <p>Although we added the scale of the image, you need to be careful when changing the size of
- * the drawable canvas and the brush size. If you make the brush too big or too small with respect
- * to the canvas size, the ML model will not work correctly. So be careful. If you make some changes
- * in the canvas and brush sizes, make sure that the prediction works fine.
+ * <p>Although we added the scale of the image, you need to be careful when changing the size of the
+ * drawable canvas and the brush size. If you make the brush too big or too small with respect to
+ * the canvas size, the ML model will not work correctly. So be careful. If you make some changes in
+ * the canvas and brush sizes, make sure that the prediction works fine.
  */
 public class CanvasController {
 
-  @FXML
-  private Canvas canvas;
+  @FXML private Canvas canvas;
 
-  @FXML
-  private Label wordLabel;
-  @FXML
-  private Label timerLabel;
-  @FXML
-  private Label userLabel;
-  @FXML
-  private Label topTenLabel;
-  @FXML
-  private Label textToSpeechLabel;
+  @FXML private Label wordLabel;
+  @FXML private Label timerLabel;
+  @FXML private Label userLabel;
+  @FXML private Label topTenLabel;
+  @FXML private Label textToSpeechLabel;
 
-  @FXML
-  private Button penButton;
-  @FXML
-  private Button eraseButton;
+  @FXML private Button penButton;
+  @FXML private Button eraseButton;
 
-  @FXML
-  private ImageView penImage;
-  @FXML
-  private ImageView eraseImage;
-  @FXML
-  private ImageView clearImage;
-  @FXML
-  private ImageView volumeImage;
+  @FXML private ImageView penImage;
+  @FXML private ImageView eraseImage;
+  @FXML private ImageView clearImage;
+  @FXML private ImageView volumeImage;
 
   private GraphicsContext graphic;
   private DoodlePrediction model;
@@ -95,7 +83,7 @@ public class CanvasController {
    * the drawing, and we load the ML model.
    *
    * @throws ModelException If there is an error in reading the input/output of the DL model.
-   * @throws IOException    If the model cannot be found on the file system.
+   * @throws IOException If the model cannot be found on the file system.
    */
   public void initialize() throws ModelException, IOException {
     graphic = canvas.getGraphicsContext2D();
@@ -144,7 +132,9 @@ public class CanvasController {
           } else { // eraser
             graphic.setFill(Color.TRANSPARENT); // sets colour so that black won't be there
             graphic.clearRect(
-                e.getX() - 10, e.getY() - 10, 16,
+                e.getX() - 10,
+                e.getY() - 10,
+                16,
                 16); // then will clear a rectangle of 5 either side
             // of the pixel the user is on
           }
@@ -198,9 +188,7 @@ public class CanvasController {
     timerLabel.setText(String.valueOf(time));
   }
 
-  /**
-   * runs timer through timeline for 60secs until seconds = 0
-   */
+  /** runs timer through timeline for 60secs until seconds = 0 */
   private void doTimer() {
     Timeline time = new Timeline();
     time.setCycleCount(Timeline.INDEFINITE);
@@ -228,9 +216,7 @@ public class CanvasController {
     time.playFromStart();
   }
 
-  /**
-   * Still needs work to not make application lag
-   */
+  /** Still needs work to not make application lag */
   private void doPredictions() {
     Timeline time = new Timeline();
     time.setCycleCount(Timeline.INDEFINITE);
@@ -322,9 +308,7 @@ public class CanvasController {
     topTenLabel.setText(String.valueOf(sb)); // updates label to the new top 10
   }
 
-  /**
-   * When timer reaches 60secs
-   */
+  /** When timer reaches 60secs */
   private void whenTimerEnds() throws IOException, CsvException {
     Stage stage =
         (Stage) wordLabel.getScene().getWindow(); // finds current stage from the word label
@@ -394,19 +378,21 @@ public class CanvasController {
 
   @FXML
   private void onHoverPen() {
-    textToSpeechBackground.backgroundSpeak("pen tool", textToSpeech);
+    textToSpeechBackground.backgroundSpeak(
+        "pen tool", textToSpeech); // uses background task to read name
     penButton.setStyle(
         "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: #99F4B3;");
-    penImage.setFitHeight(73);
+    penImage.setFitHeight(73); // enlarges button to make reactive
     penImage.setFitWidth(73);
   }
 
   @FXML
   public void onHoverEraser() {
-    textToSpeechBackground.backgroundSpeak("eraser tool", textToSpeech);
+    textToSpeechBackground.backgroundSpeak(
+        "eraser tool", textToSpeech); // uses background thread to read name
     eraseButton.setStyle(
         "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: #99F4B3;");
-    eraseImage.setFitHeight(73);
+    eraseImage.setFitHeight(73); // makes button reactive
     eraseImage.setFitWidth(73);
   }
 
@@ -434,7 +420,7 @@ public class CanvasController {
 
   @FXML
   private void
-  onSwitchToPen() { // "https://www.flaticon.com/free-icons/brush" title="brush icons">Brush
+      onSwitchToPen() { // "https://www.flaticon.com/free-icons/brush" title="brush icons">Brush
     // icons
     // created by Freepik - Flaticon
     pen = true;
@@ -443,11 +429,11 @@ public class CanvasController {
     // Change button
     penButton.setStyle(
         "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: #99F4B3;");
-    penImage.setFitHeight(71);
+    penImage.setFitHeight(71); // reactive
     penImage.setFitWidth(71);
     eraseButton.setStyle(
         "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: white");
-    eraseImage.setFitHeight(71);
+    eraseImage.setFitHeight(71); // reactive
     eraseImage.setFitWidth(71);
   }
 
@@ -458,20 +444,18 @@ public class CanvasController {
     pen = false;
     setTool();
 
-    // Change button
+    // Changes button to show it is clicked
     eraseButton.setStyle(
         "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: #99F4B3;");
-    eraseImage.setFitHeight(71);
+    eraseImage.setFitHeight(71); // enlarges button
     eraseImage.setFitWidth(71);
     penButton.setStyle(
         "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: white");
-    penImage.setFitHeight(71);
+    penImage.setFitHeight(71); // enlarges button
     penImage.setFitWidth(71);
   }
 
-  /**
-   * This method is called when the "Clear" button is pressed.
-   */
+  /** This method is called when the "Clear" button is pressed. */
   @FXML
   private void onClear() {
     graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -481,7 +465,7 @@ public class CanvasController {
   // Below is list of methods for when mouse exits a button
   @FXML
   private void exitPen() {
-    if (!pen) {
+    if (!pen) { // if eraser is curently active
       penButton.setStyle(
           "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: white");
       penImage.setFitHeight(71);
@@ -491,7 +475,7 @@ public class CanvasController {
 
   @FXML
   private void exitEraser() {
-    if (pen) {
+    if (pen) { // if pen too is active
       eraseButton.setStyle(
           "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: white");
       eraseImage.setFitHeight(71);
