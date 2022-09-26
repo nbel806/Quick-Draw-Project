@@ -18,7 +18,6 @@ import nz.ac.auckland.se206.words.WordPageController;
 
 public class GameOverController {
 
-  @FXML private Label winLoseLabel2;
   @FXML private Label timeLabel;
   @FXML private Label winLoseLabel;
   @FXML private Button playAgainButton;
@@ -97,7 +96,7 @@ public class GameOverController {
   }
 
   @FXML
-  private void onMenu() throws IOException {
+  private void onClickMenu() throws IOException {
     Stage stage = (Stage) menuButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml")); // reset to a new word_page

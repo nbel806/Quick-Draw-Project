@@ -71,6 +71,8 @@ public class CanvasController {
   private TextToSpeechBackground textToSpeechBackground;
   private boolean textToSpeech;
 
+  private boolean startedDrawing;
+
   // mouse coordinates
   private double currentX;
   private double currentY;
@@ -97,7 +99,6 @@ public class CanvasController {
     model = new DoodlePrediction();
     setTimerLabel(seconds); // sets timer to specified number of seconds
     doTimer();
-    doPredictions();
   }
 
   private void setTool() {
@@ -107,12 +108,16 @@ public class CanvasController {
         e -> {
           currentX = e.getX();
           currentY = e.getY();
+          if (!startedDrawing) {
+            startedDrawing = true;
+            doPredictions();
+          }
         });
 
     canvas.setOnMouseDragged(
         e -> {
           // Brush size (you can change this, it should not be too small or too large).
-          final double size = 6;
+          final double size = 10;
 
           final double x = e.getX() - size / 2;
           final double y = e.getY() - size / 2;
@@ -127,7 +132,10 @@ public class CanvasController {
           } else { // eraser
             graphic.setFill(Color.TRANSPARENT); // sets colour so that black won't be there
             graphic.clearRect(
-                e.getX() - 5, e.getY() - 5, 11, 11); // then will clear a rectangle of 5 either side
+                e.getX() - 10,
+                e.getY() - 10,
+                16,
+                16); // then will clear a rectangle of 5 either side
             // of the pixel the user is on
           }
 
@@ -370,19 +378,21 @@ public class CanvasController {
 
   @FXML
   private void onHoverPen() {
-    textToSpeechBackground.backgroundSpeak("pen tool", textToSpeech);
+    textToSpeechBackground.backgroundSpeak(
+        "pen tool", textToSpeech); // uses background task to read name
     penButton.setStyle(
         "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: #99F4B3;");
-    penImage.setFitHeight(73);
+    penImage.setFitHeight(73); // enlarges button to make reactive
     penImage.setFitWidth(73);
   }
 
   @FXML
   public void onHoverEraser() {
-    textToSpeechBackground.backgroundSpeak("eraser tool", textToSpeech);
+    textToSpeechBackground.backgroundSpeak(
+        "eraser tool", textToSpeech); // uses background thread to read name
     eraseButton.setStyle(
         "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: #99F4B3;");
-    eraseImage.setFitHeight(73);
+    eraseImage.setFitHeight(73); // makes button reactive
     eraseImage.setFitWidth(73);
   }
 
@@ -419,11 +429,11 @@ public class CanvasController {
     // Change button
     penButton.setStyle(
         "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: #99F4B3;");
-    penImage.setFitHeight(71);
+    penImage.setFitHeight(71); // reactive
     penImage.setFitWidth(71);
     eraseButton.setStyle(
         "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: white");
-    eraseImage.setFitHeight(71);
+    eraseImage.setFitHeight(71); // reactive
     eraseImage.setFitWidth(71);
   }
 
@@ -434,14 +444,14 @@ public class CanvasController {
     pen = false;
     setTool();
 
-    // Change button
+    // Changes button to show it is clicked
     eraseButton.setStyle(
         "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: #99F4B3;");
-    eraseImage.setFitHeight(71);
+    eraseImage.setFitHeight(71); // enlarges button
     eraseImage.setFitWidth(71);
     penButton.setStyle(
         "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: white");
-    penImage.setFitHeight(71);
+    penImage.setFitHeight(71); // enlarges button
     penImage.setFitWidth(71);
   }
 
@@ -455,7 +465,7 @@ public class CanvasController {
   // Below is list of methods for when mouse exits a button
   @FXML
   private void exitPen() {
-    if (!pen) {
+    if (!pen) { // if eraser is curently active
       penButton.setStyle(
           "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: white");
       penImage.setFitHeight(71);
@@ -465,7 +475,7 @@ public class CanvasController {
 
   @FXML
   private void exitEraser() {
-    if (pen) {
+    if (pen) { // if pen too is active
       eraseButton.setStyle(
           "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: white");
       eraseImage.setFitHeight(71);

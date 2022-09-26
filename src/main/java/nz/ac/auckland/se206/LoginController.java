@@ -187,7 +187,7 @@ public class LoginController {
 
   @FXML
   private void onLogout() {
-    if (currentUsername != null) {
+    if (currentUsername != null) { // logs user out sets to guest
       currentUsername = null;
       outputLabel.setText("Logout Success");
       outputLabel.setStyle("-fx-text-fill: green;");
@@ -196,7 +196,7 @@ public class LoginController {
       // Update label
       usernameText.setPromptText("Hi, Guest");
 
-    } else {
+    } else { // user was previously a guest
       outputLabel.setText("You are not signed in");
       outputLabel.setStyle("-fx-text-fill: red;");
       outputLabel.setOpacity(0.5);

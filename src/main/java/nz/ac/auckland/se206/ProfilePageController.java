@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
@@ -20,7 +19,6 @@ public class ProfilePageController {
   @FXML private Label gameLabel;
   @FXML private Label winrateLabel;
   @FXML private Label fastestLabel;
-  @FXML private TextArea historyWordsText;
   @FXML private Label textToSpeechLabel;
   @FXML private ImageView volumeImage;
   @FXML private ListView<String> historyListView;
@@ -34,8 +32,8 @@ public class ProfilePageController {
   private int totalGames;
   private int fastestTime;
   private double winRate;
-  DecimalFormat df = new DecimalFormat("#.#");
-  String[] historyWords;
+  private DecimalFormat df = new DecimalFormat("#.#");
+  private String[] historyWords;
 
   public void initialize() {}
 
