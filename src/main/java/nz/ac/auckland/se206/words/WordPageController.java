@@ -20,7 +20,6 @@ public class WordPageController {
 
   @FXML private Text wordToDraw;
   @FXML private Button readyButton;
-  @FXML private Button newButton;
   @FXML private Label textToSpeechLabel;
   @FXML private Label userLabel;
   @FXML private ImageView volumeImage;

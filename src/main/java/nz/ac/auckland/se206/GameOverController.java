@@ -18,7 +18,6 @@ import nz.ac.auckland.se206.words.WordPageController;
 
 public class GameOverController {
 
-  @FXML private Label winLoseLabel2;
   @FXML private Label timeLabel;
   @FXML private Label winLoseLabel;
   @FXML private Button playAgainButton;
