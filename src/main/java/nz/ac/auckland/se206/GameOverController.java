@@ -151,21 +151,21 @@ public class GameOverController {
   // Below is a list of methods when mouse hovers a button
   @FXML
   private void onHoverSave() {
-    textToSpeechBackground.backgroundSpeak("Save Button", textToSpeech);
+    textToSpeechBackground.backgroundSpeak("Save", textToSpeech);
     saveButton.setStyle(
         "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
   @FXML
   private void onHoverPlayAgain() {
-    textToSpeechBackground.backgroundSpeak("Play Again Button", textToSpeech);
+    textToSpeechBackground.backgroundSpeak("Play Again", textToSpeech);
     playAgainButton.setStyle(
         "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
   @FXML
   private void onHoverMenu() {
-    textToSpeechBackground.backgroundSpeak("Main Menu Button", textToSpeech);
+    textToSpeechBackground.backgroundSpeak("Main Menu", textToSpeech);
     menuButton.setStyle(
         "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
@@ -205,5 +205,15 @@ public class GameOverController {
   private void onPlayAgainExit() {
     playAgainButton.setStyle(
         "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 2");
+  }
+
+  @FXML
+  public void onHoverTimeLeft() {
+    textToSpeechBackground.backgroundSpeak(timeLeft + "seconds left", textToSpeech);
+  }
+
+  @FXML
+  private void onHoverTitle() {
+    textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
   }
 }

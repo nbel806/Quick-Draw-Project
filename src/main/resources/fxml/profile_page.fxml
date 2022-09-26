@@ -14,7 +14,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: #EB4A5A; -fx-border-color: white; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.ProfilePageController">
    <children>
-      <Label fx:id="usernameLabel" layoutX="297.0" layoutY="157.0" prefHeight="68.0" prefWidth="522.0" text="USER" textFill="WHITE">
+      <Label fx:id="usernameLabel" layoutX="297.0" layoutY="157.0" onMouseEntered="#onHoverUser" prefHeight="68.0" prefWidth="522.0" text="USER" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="42.0" />
          </font>
@@ -24,12 +24,12 @@
             <Font name="Arial Black" size="35.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="278.0" layoutY="223.0" prefHeight="49.0" prefWidth="196.0" text="WIN RATE:" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="278.0" layoutY="223.0" onMouseEntered="#onHoverWinRate" prefHeight="49.0" prefWidth="196.0" text="WIN RATE:" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="26.0" />
          </font>
       </Label>
-      <Label layoutX="301.0" layoutY="423.0" prefHeight="54.0" prefWidth="425.0" text="HISTORY OF WORDS" textFill="WHITE">
+      <Label layoutX="301.0" layoutY="423.0" onMouseEntered="#onHoverHistory" prefHeight="54.0" prefWidth="425.0" text="HISTORY OF WORDS" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="36.0" />
          </font>
@@ -55,7 +55,7 @@
             <Image url="@../images/drawicom.png" />
          </image>
       </ImageView>
-      <Label layoutX="31.0" layoutY="61.0" prefHeight="47.0" prefWidth="195.0" text="JUST DRAW" textFill="WHITE">
+      <Label layoutX="31.0" layoutY="61.0" onMouseEntered="#onHoverTitle" prefHeight="47.0" prefWidth="195.0" text="JUST DRAW" textFill="WHITE">
          <font>
             <Font name="Leelawadee UI Bold" size="32.0" />
          </font>
@@ -73,7 +73,7 @@
                <children>
                   <HBox prefHeight="32.0" prefWidth="378.0" spacing="3.0">
                      <children>
-                        <Label prefHeight="37.0" prefWidth="244.0" text="Games Played:" textFill="WHITE">
+                        <Label onMouseEntered="#onHoverGamesPlayed" prefHeight="37.0" prefWidth="244.0" text="Games Played:" textFill="WHITE">
                            <font>
                               <Font name="Arial Black" size="29.0" />
                            </font>
@@ -87,7 +87,7 @@
                   </HBox>
                   <HBox>
                      <children>
-                        <Label lineSpacing="30.0" prefHeight="31.0" prefWidth="211.0" text="Games Won:" textFill="WHITE">
+                        <Label lineSpacing="30.0" onMouseEntered="#onHoverGamesWon" prefHeight="31.0" prefWidth="211.0" text="Games Won:" textFill="WHITE">
                            <font>
                               <Font name="Arial Black" size="29.0" />
                            </font>
@@ -103,7 +103,7 @@
             </HBox>
             <HBox prefHeight="46.0" prefWidth="750.0">
                <children>
-                  <Label prefHeight="41.0" prefWidth="319.0" text="Fastest Time:" textFill="WHITE">
+                  <Label onMouseEntered="#onHoverFastest" prefHeight="41.0" prefWidth="319.0" text="Fastest Time:" textFill="WHITE">
                      <font>
                         <Font name="Arial Black" size="29.0" />
                      </font>

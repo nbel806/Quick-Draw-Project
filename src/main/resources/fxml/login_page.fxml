@@ -35,7 +35,7 @@
             <Image url="@../images/drawicom.png" />
          </image>
       </ImageView>
-      <Label layoutX="146.0" layoutY="130.0" prefHeight="182.0" prefWidth="717.0" text="JUST DRAW" textFill="WHITE">
+      <Label layoutX="146.0" layoutY="130.0" onMouseEntered="#onHoverTitle" prefHeight="182.0" prefWidth="717.0" text="JUST DRAW" textFill="WHITE">
          <font>
             <Font name="Leelawadee UI Bold" size="125.0" />
          </font>
