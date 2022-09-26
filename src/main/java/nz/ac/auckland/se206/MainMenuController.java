@@ -128,23 +128,28 @@ public class MainMenuController {
   // Below is list of methods for when mouse hovers a button
   @FXML
   private void onHoverPlay() {
-    textToSpeechBackground.backgroundSpeak("Play Button", textToSpeech);
+    textToSpeechBackground.backgroundSpeak("Start", textToSpeech);
     playButton.setStyle(
         "-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
   @FXML
   private void onHoverProfile() {
-    textToSpeechBackground.backgroundSpeak("Profile Button", textToSpeech);
+    textToSpeechBackground.backgroundSpeak("Profile", textToSpeech);
     userImage.setFitHeight(73);
     userImage.setFitWidth(63);
   }
 
   @FXML
   private void onHoverLogin() {
-    textToSpeechBackground.backgroundSpeak("Login Button", textToSpeech);
+    textToSpeechBackground.backgroundSpeak("Login", textToSpeech);
     loginImage.setFitHeight(73);
     loginImage.setFitWidth(63);
+  }
+
+  @FXML
+  private void onHoverTitle() {
+    textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
   }
 
   // Below is list of methods for when mouse exits a button

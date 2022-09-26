@@ -25,7 +25,7 @@
       </Pane>
       <Pane layoutX="795.0" layoutY="147.0" prefHeight="366.0" prefWidth="186.0" style="-fx-background-color: white; -fx-background-radius: 25;">
          <children>
-            <Label layoutX="7.0" prefHeight="55.0" prefWidth="182.0" text="Predictions" textAlignment="CENTER">
+            <Label layoutX="7.0" onMouseEntered="#onHoverPredictions" prefHeight="55.0" prefWidth="182.0" text="Predictions" textAlignment="CENTER">
                <font>
                   <Font name="SansSerif Bold" size="29.0" />
                </font>
@@ -68,7 +68,7 @@
       </Pane>
       <Button alignment="CENTER" contentDisplay="CENTER" layoutX="54.0" layoutY="452.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onClear" onMouseEntered="#onHoverClear" onMouseExited="#exitClear" prefHeight="85.0" prefWidth="85.0" style="-fx-background-radius: 100; -fx-border-radius: 100; -fx-background-color: transparent;">
          <graphic>
-            <ImageView fx:id="clearImage" fitHeight="80.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="clearImage" fitHeight="80.0" fitWidth="86.0" onMouseEntered="#onHoverClear" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/trash-bin.png" />
                </image>

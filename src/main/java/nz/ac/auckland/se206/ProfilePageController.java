@@ -13,15 +13,24 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class ProfilePageController {
 
-  @FXML private Button backButton;
-  @FXML private Label usernameLabel;
-  @FXML private Label winLabel;
-  @FXML private Label gameLabel;
-  @FXML private Label winrateLabel;
-  @FXML private Label fastestLabel;
-  @FXML private Label textToSpeechLabel;
-  @FXML private ImageView volumeImage;
-  @FXML private ListView<String> historyListView;
+  @FXML
+  private Button backButton;
+  @FXML
+  private Label usernameLabel;
+  @FXML
+  private Label winLabel;
+  @FXML
+  private Label gameLabel;
+  @FXML
+  private Label winrateLabel;
+  @FXML
+  private Label fastestLabel;
+  @FXML
+  private Label textToSpeechLabel;
+  @FXML
+  private ImageView volumeImage;
+  @FXML
+  private ListView<String> historyListView;
 
   private Boolean textToSpeech;
   private TextToSpeechBackground textToSpeechBackground;
@@ -35,7 +44,8 @@ public class ProfilePageController {
   private DecimalFormat df = new DecimalFormat("#.#");
   private String[] historyWords;
 
-  public void initialize() {}
+  public void initialize() {
+  }
 
   public void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
@@ -139,5 +149,42 @@ public class ProfilePageController {
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
+  }
+
+  @FXML
+  private void onHoverUser() {
+    textToSpeechBackground.backgroundSpeak(currentUsername, textToSpeech);
+  }
+
+  @FXML
+  private void onHoverWinRate() {
+    textToSpeechBackground.backgroundSpeak(winRate + "win rate", textToSpeech);
+  }
+
+  @FXML
+  private void onHoverHistory() {
+    textToSpeechBackground.backgroundSpeak("History of words played", textToSpeech);
+  }
+
+  @FXML
+  private void onHoverTitle() {
+    textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
+  }
+
+  @FXML
+  private void onHoverGamesPlayed() {
+    textToSpeechBackground.backgroundSpeak(
+        "Played" + totalGames + "Games", textToSpeech);
+  }
+
+  @FXML
+  private void onHoverGamesWon() {
+    textToSpeechBackground.backgroundSpeak("you have won" + usersWins, textToSpeech);
+  }
+
+  @FXML
+  private void onHoverFastest() {
+    textToSpeechBackground.backgroundSpeak(
+        "fastest game was " + fastestTime + "seconds", textToSpeech);
   }
 }

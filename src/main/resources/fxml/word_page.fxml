@@ -101,7 +101,7 @@
          </image>
       </ImageView>
       <Pane layoutY="-6.0" prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: white; -fx-background-radius: 10;" />
-      <Label layoutX="21.0" layoutY="59.0" prefHeight="47.0" prefWidth="195.0" text="JUST DRAW" textFill="WHITE">
+      <Label layoutX="21.0" layoutY="59.0" onMouseEntered="#onHoverJustDraw" prefHeight="47.0" prefWidth="195.0" text="JUST DRAW" textFill="WHITE">
          <font>
             <Font name="Leelawadee UI Bold" size="32.0" />
          </font>

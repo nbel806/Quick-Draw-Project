@@ -134,7 +134,6 @@ public class LoginController {
       csvwriter.close();
 
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
@@ -142,6 +141,14 @@ public class LoginController {
   public void setUsername(String username) {
     // Set current username
     currentUsername = username;
+  }
+
+  public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
+    this.textToSpeech = textToSpeech;
+    this.textToSpeechBackground = (textToSpeechBackground);
+    if (textToSpeech) { // updates text to speech label to ensure it is up-to-date
+      textToSpeechLabel.setText("ON");
+    }
   }
 
   @FXML
@@ -225,49 +232,43 @@ public class LoginController {
     }
   }
 
-  public void onHoverTextToSpeechLabel() {
+  @FXML
+  private void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
   }
 
-  public void onHoverTextToSpeech() {
+  @FXML
+  private void onHoverTextToSpeech() {
     textToSpeechBackground.backgroundSpeak("On", textToSpeech);
     volumeImage.setFitHeight(48);
     volumeImage.setFitWidth(48);
   }
 
-  public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
-    this.textToSpeech = textToSpeech;
-    this.textToSpeechBackground = (textToSpeechBackground);
-    if (textToSpeech) { // updates text to speech label to ensure it is up-to-date
-      textToSpeechLabel.setText("ON");
-    }
-  }
-
   // Below is list of methods for when mouse hovers a button
   @FXML
   private void onHoverLogin() {
-    textToSpeechBackground.backgroundSpeak("login Button", textToSpeech);
+    textToSpeechBackground.backgroundSpeak("Login", textToSpeech);
     loginButton.setStyle(
         "-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
   }
 
   @FXML
   private void onHoverCreate() {
-    textToSpeechBackground.backgroundSpeak("Create Button", textToSpeech);
+    textToSpeechBackground.backgroundSpeak("Create", textToSpeech);
     createButton.setStyle(
         "-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
   }
 
   @FXML
   private void onHoverLogout() {
-    textToSpeechBackground.backgroundSpeak("Logout Button", textToSpeech);
+    textToSpeechBackground.backgroundSpeak("Logout", textToSpeech);
     logoutButton.setStyle(
         "-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
   }
 
   @FXML
   private void onHoverBack() {
-    textToSpeechBackground.backgroundSpeak("Back Button", textToSpeech);
+    textToSpeechBackground.backgroundSpeak("Back", textToSpeech);
     backButton.setStyle(
         "-fx-background-radius: 100px; -fx-text-fill: white; -fx-text-fill: white; -fx-border-radius: 100px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
@@ -301,5 +302,10 @@ public class LoginController {
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
+  }
+
+  @FXML
+  private void onHoverTitle() {
+    textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
   }
 }

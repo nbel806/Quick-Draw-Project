@@ -79,7 +79,7 @@ public class WordPageController {
 
   @FXML
   private void onHoverTitle() {
-    textToSpeechBackground.backgroundSpeak("You have 60 seconds to draw a ...", textToSpeech);
+    textToSpeechBackground.backgroundSpeak("you have 60 seconds on easy mode", textToSpeech);
   }
 
   @FXML
@@ -89,7 +89,7 @@ public class WordPageController {
 
   @FXML
   private void onHoverReady() {
-    textToSpeechBackground.backgroundSpeak("Ready Button", textToSpeech);
+    textToSpeechBackground.backgroundSpeak("Ready", textToSpeech);
     readyButton.setStyle(
         "-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-background-color: #99F4B3;");
   }
@@ -152,5 +152,10 @@ public class WordPageController {
   private void onNewExit() {
     newImage.setFitHeight(55);
     newImage.setFitWidth(55);
+  }
+
+  @FXML
+  private void onHoverJustDraw() {
+    textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
   }
 }

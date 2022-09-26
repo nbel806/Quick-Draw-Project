@@ -368,7 +368,7 @@ public class CanvasController {
 
   @FXML
   private void onHoverCanvas() {
-    textToSpeechBackground.backgroundSpeak("Canvas, draw here", textToSpeech);
+    textToSpeechBackground.backgroundSpeak("draw here", textToSpeech);
   }
 
   @FXML
@@ -493,5 +493,10 @@ public class CanvasController {
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
+  }
+
+  @FXML
+  private void onHoverPredictions() {
+    textToSpeechBackground.backgroundSpeak("Predictions", textToSpeech);
   }
 }
