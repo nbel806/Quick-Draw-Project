@@ -63,13 +63,18 @@
         </Button>
       </children>
     </HBox>
-    <HBox alignment="CENTER" layoutY="394.0" prefHeight="77.0" prefWidth="1000.0" spacing="40.0">
+    <HBox alignment="CENTER" layoutX="134.0" layoutY="411.0" prefHeight="77.0" prefWidth="717.0" spacing="40.0">
       <children>
-        <Label fx:id="timeLabel" alignment="CENTER" onMouseEntered="#onHoverTimeLeft" prefHeight="78.0" prefWidth="453.0" text="TIME LEFT: " textFill="WHITE">
+        <Label fx:id="timeLabel" alignment="CENTER" onMouseEntered="#onHoverTimeLeft" prefHeight="77.0" prefWidth="389.0" text="TIME LEFT: " textFill="WHITE">
           <font>
             <Font name="Arial Black" size="25.0" />
           </font>
         </Label>
+            <Label fx:id="badgeLabel" prefHeight="38.0" prefWidth="256.0" text="BADGE:" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="25.0" />
+               </font>
+            </Label>
       </children>
     </HBox>
   </children>
