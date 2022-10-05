@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -98,5 +100,99 @@
             <Image url="@../images/logo-speedy-sketchersblackandwhite.png" />
          </image>
       </ImageView>
+      <MenuButton layoutX="33.0" layoutY="446.0" mnemonicParsing="false" text="Accuracy">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Top 3">
+               <graphic>
+                  <Button mnemonicParsing="false" text="Easy" />
+               </graphic>
+            </MenuItem>
+          <MenuItem mnemonicParsing="false" text="Top 2">
+               <graphic>
+                  <Button mnemonicParsing="false" text="Medium" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="Top 1">
+               <graphic>
+                  <Button mnemonicParsing="false" text="Hard" />
+               </graphic>
+            </MenuItem>
+        </items>
+      </MenuButton>
+      <MenuButton layoutX="33.0" layoutY="491.0" mnemonicParsing="false" text="Words">
+         <items>
+            <MenuItem mnemonicParsing="false" text="E">
+               <graphic>
+                  <Button mnemonicParsing="false" text="Easy" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="E, M">
+               <graphic>
+                  <Button mnemonicParsing="false" text="Medium" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="E, M, H">
+               <graphic>
+                  <Button mnemonicParsing="false" text="Hard" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="H">
+               <graphic>
+                  <Button mnemonicParsing="false" text="Master" />
+               </graphic>
+            </MenuItem>
+         </items>
+      </MenuButton>
+      <MenuButton layoutX="183.0" layoutY="491.0" mnemonicParsing="false" text="Time">
+         <items>
+            <MenuItem mnemonicParsing="false" text="60s">
+               <graphic>
+                  <Button mnemonicParsing="false" text="Easy" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="45s">
+               <graphic>
+                  <Button mnemonicParsing="false" text="Medium" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="30s">
+               <graphic>
+                  <Button mnemonicParsing="false" text="Hard" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="15s">
+               <graphic>
+                  <Button mnemonicParsing="false" text="Master" />
+               </graphic>
+            </MenuItem>
+         </items>
+      </MenuButton>
+      <MenuButton layoutX="184.0" layoutY="446.0" mnemonicParsing="false" text="Confidency">
+         <items>
+            <MenuItem mnemonicParsing="false" text="&gt;= 1%">
+               <graphic>
+                  <Button mnemonicParsing="false" text="Easy" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="&gt;= 10%">
+               <graphic>
+                  <Button mnemonicParsing="false" text="Medium" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="&gt;= 25%">
+               <graphic>
+                  <Button mnemonicParsing="false" text="Hard" />
+               </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="&gt;= 50%">
+               <graphic>
+                  <Button mnemonicParsing="false" text="Master" />
+               </graphic>
+            </MenuItem>
+         </items>
+      </MenuButton>
+      <Button layoutX="786.0" layoutY="470.0" mnemonicParsing="false" text="Hidden-word mode" />
+      <Button layoutX="786.0" layoutY="491.0" mnemonicParsing="false" text="Zen mode" />
+      <Button layoutX="786.0" layoutY="446.0" mnemonicParsing="false" text="Default mode" />
    </children>
 </Pane>
