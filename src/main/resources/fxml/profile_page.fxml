@@ -118,5 +118,10 @@
          </children>
       </VBox>
       <ListView fx:id="historyListView" layoutX="304.0" layoutY="482.0" prefHeight="160.0" prefWidth="408.0" styleClass="list-cell" stylesheets="@../css/ListViewStyler.css" />
+      <Button fx:id="badgeButton" layoutX="726.0" layoutY="18.0" mnemonicParsing="false" onAction="#onClickBadge" onMouseEntered="#onHoverBadge" onMouseExited="#onBadgeExit" prefHeight="35.0" prefWidth="125.0" style="-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;" text="BADGE" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Black" size="21.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

@@ -14,6 +14,8 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 public class ProfilePageController {
 
   @FXML
+  private Button badgeButton;
+  @FXML
   private Button backButton;
   @FXML
   private Label usernameLabel;
@@ -186,5 +188,20 @@ public class ProfilePageController {
   private void onHoverFastest() {
     textToSpeechBackground.backgroundSpeak(
         "fastest game was " + fastestTime + "seconds", textToSpeech);
+  }
+
+  @FXML
+  private void onClickBadge() {
+  }
+
+  @FXML
+  private void onHoverBadge() {
+    textToSpeechBackground.backgroundSpeak("Badge", textToSpeech);
+  }
+
+  @FXML
+  private void onBadgeExit() {
+    badgeButton.setStyle(
+        "-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
   }
 }

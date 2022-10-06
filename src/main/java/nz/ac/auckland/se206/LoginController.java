@@ -69,15 +69,23 @@ public class LoginController {
     return flag;
   }
 
-  @FXML private Button createButton;
-  @FXML private Button loginButton;
-  @FXML private Button logoutButton;
-  @FXML private Button backButton;
-  @FXML private TextField usernameText;
-  @FXML private ImageView volumeImage;
-  @FXML private Label outputLabel;
+  @FXML
+  private Button createButton;
+  @FXML
+  private Button loginButton;
+  @FXML
+  private Button logoutButton;
+  @FXML
+  private Button backButton;
+  @FXML
+  private TextField usernameText;
+  @FXML
+  private ImageView volumeImage;
+  @FXML
+  private Label outputLabel;
 
-  @FXML private Label textToSpeechLabel;
+  @FXML
+  private Label textToSpeechLabel;
 
   private String currentUsername = null; // The username currently logged in
   private Boolean textToSpeech;
@@ -89,7 +97,7 @@ public class LoginController {
    * @param username the name of the person using the app
    */
   private void createProfile(String username) {
-    String[] profile = {null, null, null, null, null, null};
+    String[] profile = new String[12];
 
     try {
       FileWriter csvwriter = new FileWriter(fileName, true);
@@ -114,6 +122,12 @@ public class LoginController {
           profile[3] = "0"; // number of losses
           profile[4] = "100"; // fastest time
           profile[5] = "none"; // history words
+          profile[6] = "0"; // Largest streak
+          profile[7] = "0"; // Current streak
+          profile[8] = "0"; // wins on easy
+          profile[9] = "0"; // wins on medium
+          profile[10] = "0"; // wins on hard
+          profile[11] = "0"; // wins on master
 
           writer.writeNext(profile);
 
