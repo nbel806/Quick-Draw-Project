@@ -4,6 +4,8 @@ import com.opencsv.exceptions.CsvException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -119,7 +121,7 @@ public class ProfilePageController {
   private void onBack() throws IOException {
     Stage stage = (Stage) backButton.getScene().getWindow();
     LoadPage loadPage = new LoadPage();
-    loadPage.extracted(textToSpeechBackground, textToSpeech, currentUsername, stage);
+    loadPage.extractedMainMenu(textToSpeechBackground, textToSpeech, currentUsername, stage);
   }
 
   @FXML
@@ -191,7 +193,19 @@ public class ProfilePageController {
   }
 
   @FXML
-  private void onClickBadge() {
+  private void onClickBadge() throws IOException {
+    Stage stage = (Stage) backButton.getScene().getWindow();
+    FXMLLoader loader =
+        new FXMLLoader(App.class.getResource("/fxml/badge_page.fxml")); // creates a new instance
+    // of word page
+    Scene scene = new Scene(loader.load(), 1000, 680);
+    BadgePageController ctrl = loader.getController(); // need controller to pass information
+    ctrl.give(textToSpeechBackground, textToSpeech);
+
+    // Pass current username
+    ctrl.setUsername(currentUsername);
+    stage.setScene(scene);
+    stage.show();
   }
 
   @FXML

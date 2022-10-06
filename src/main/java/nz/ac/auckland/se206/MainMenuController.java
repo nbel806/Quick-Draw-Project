@@ -15,14 +15,22 @@ import nz.ac.auckland.se206.words.WordPageController;
 
 public class MainMenuController {
 
-  @FXML private Button playButton;
-  @FXML private Button profileButton;
-  @FXML private Button loginButton;
-  @FXML private Label textToSpeechLabel;
-  @FXML private Label userLabel;
-  @FXML private ImageView userImage;
-  @FXML private ImageView loginImage;
-  @FXML private ImageView volumeImage;
+  @FXML
+  private Button playButton;
+  @FXML
+  private Button profileButton;
+  @FXML
+  private Button loginButton;
+  @FXML
+  private Label textToSpeechLabel;
+  @FXML
+  private Label userLabel;
+  @FXML
+  private ImageView userImage;
+  @FXML
+  private ImageView loginImage;
+  @FXML
+  private ImageView volumeImage;
 
   private Boolean textToSpeech = false;
   private TextToSpeechBackground textToSpeechBackground;
@@ -65,15 +73,8 @@ public class MainMenuController {
   @FXML
   private void onProfile() throws IOException, CsvException {
     Stage stage = (Stage) profileButton.getScene().getWindow();
-    FXMLLoader loader =
-        new FXMLLoader(App.class.getResource("/fxml/profile_page.fxml")); // creates a new instance
-    // of word page
-    Scene scene = new Scene(loader.load(), 1000, 680);
-    ProfilePageController ctrl = loader.getController(); // need controller to pass information
-    ctrl.give(textToSpeechBackground, textToSpeech);
-    ctrl.setUsername(currentUsername);
-    stage.setScene(scene);
-    stage.show();
+    LoadPage loadPage = new LoadPage();
+    loadPage.extractedProfile(textToSpeechBackground, textToSpeech, currentUsername, stage);
   }
 
   @FXML
