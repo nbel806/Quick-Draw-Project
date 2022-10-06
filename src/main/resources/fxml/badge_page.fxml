@@ -153,7 +153,7 @@
       strokeType="INSIDE"/>
     <Circle fill="WHITE" layoutX="269.0" layoutY="653.0" radius="22.0" stroke="#7b7b7b"
       strokeType="INSIDE"/>
-    <ImageView fitHeight="56.0" fitWidth="55.0" layoutX="348.0" layoutY="348.0">
+    <ImageView fx:id="secthirty" fitHeight="56.0" fitWidth="55.0" layoutX="348.0" layoutY="348.0">
       <image>
         <Image url="@../images/Badges/30sec.png"/>
       </image>
@@ -171,6 +171,11 @@
     <ImageView fitHeight="54.0" fitWidth="49.0" layoutX="344.0" layoutY="572.0">
       <image>
         <Image url="@../images/Badges/10EasyW.png"/>
+      </image>
+    </ImageView>
+    <ImageView fx:id="secten" fitHeight="56.0" fitWidth="55.0" layoutX="251.0" layoutY="345.0">
+      <image>
+        <Image url="@../images/Badges/30sec.png"/>
       </image>
     </ImageView>
   </children>

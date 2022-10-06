@@ -69,23 +69,15 @@ public class LoginController {
     return flag;
   }
 
-  @FXML
-  private Button createButton;
-  @FXML
-  private Button loginButton;
-  @FXML
-  private Button logoutButton;
-  @FXML
-  private Button backButton;
-  @FXML
-  private TextField usernameText;
-  @FXML
-  private ImageView volumeImage;
-  @FXML
-  private Label outputLabel;
+  @FXML private Button createButton;
+  @FXML private Button loginButton;
+  @FXML private Button logoutButton;
+  @FXML private Button backButton;
+  @FXML private TextField usernameText;
+  @FXML private ImageView volumeImage;
+  @FXML private Label outputLabel;
 
-  @FXML
-  private Label textToSpeechLabel;
+  @FXML private Label textToSpeechLabel;
 
   private String currentUsername = null; // The username currently logged in
   private Boolean textToSpeech;
@@ -233,7 +225,7 @@ public class LoginController {
   private void onBack() throws IOException {
     Stage stage = (Stage) backButton.getScene().getWindow();
     LoadPage loadPage = new LoadPage();
-    loadPage.extracted(textToSpeechBackground, textToSpeech, currentUsername, stage);
+    loadPage.extractedMainMenu(textToSpeechBackground, textToSpeech, currentUsername, stage);
   }
 
   @FXML

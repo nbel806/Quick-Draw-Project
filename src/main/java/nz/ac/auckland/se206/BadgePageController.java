@@ -6,13 +6,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseDragEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class BadgePageController {
 
+  public Label numBadgeLabel;
+  public ImageView userImage;
+  @FXML
+  private ImageView secten;
+  @FXML
+  private ImageView secthirty;
   @FXML
   private ImageView volumeImage;
   @FXML
@@ -49,10 +53,16 @@ public class BadgePageController {
     }
   }
 
-  public void onHoverTextToSpeechLabel(MouseEvent mouseEvent) {
+  @FXML
+  private void onHoverTextToSpeechLabel() {
+    textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
   }
 
-  public void onHoverTextToSpeech(MouseDragEvent mouseDragEvent) {
+  @FXML
+  private void onHoverTextToSpeech() {
+    textToSpeechBackground.backgroundSpeak("On", textToSpeech);
+    volumeImage.setFitHeight(48);
+    volumeImage.setFitWidth(48);
   }
 
   public void onBack() throws IOException, CsvException {
@@ -117,11 +127,56 @@ public class BadgePageController {
     }
   }
 
-  public void setUsername(String username) {
+  public void setUsername(String username) throws IOException, CsvException {
     if (username != null) {
       // If not null, update label as current username
       currentUsername = username;
       this.usernameLabel.setText(currentUsername);
+      setBadges();
+    } else {
+      // If user is not signed in
+      this.usernameLabel.setText("Guest");
+      numberBadges = "0";
+      numBadgeLabel.setText("0");
+      setAllBadgesClear();
+    }
+  }
+
+  private void setAllBadgesClear() {
+  }
+
+  private void setBadges() throws IOException, CsvException {
+    setTimeBadges();
+    setGamesPlayedBadges();
+    setWinStreakBadges();
+    setDifficultWinBadges();
+    setExtraBadges();
+  }
+
+  private void setExtraBadges() {
+  }
+
+  private void setDifficultWinBadges() {
+  }
+
+  private void setWinStreakBadges() {
+  }
+
+  private void setGamesPlayedBadges() {
+  }
+
+  private void setTimeBadges() throws IOException, CsvException {
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    int fastest = sheetReaderWriter.getFastest(currentUsername);
+    secthirty.setOpacity(0.2);
+    secten.setOpacity(0.2);
+    if (fastest <= 30) {
+      secthirty.setOpacity(1);
+      // 30 second badge
+    }
+    if (fastest <= 10) {
+      secten.setOpacity(1);
+      // 10 second badge
     }
   }
 }

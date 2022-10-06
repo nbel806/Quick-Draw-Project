@@ -93,15 +93,15 @@ public class SpreadSheetReaderWriter {
       allData.get(index)[2] =
           String.valueOf(Integer.parseInt(allData.get(index)[2]) + 1); // increment wins
       allData.get(index)[7] =
-          String.valueOf(Integer.parseInt(allData.get(index)[7]) + 1);//increment streak
-      if (Integer.parseInt(allData.get(index)[7]) > Integer.parseInt(
-          allData.get(index)[6])) {//checks streak
-        allData.get(index)[6] = allData.get(index)[7];//makes new highest streak
+          String.valueOf(Integer.parseInt(allData.get(index)[7]) + 1); // increment streak
+      if (Integer.parseInt(allData.get(index)[7])
+          > Integer.parseInt(allData.get(index)[6])) { // checks streak
+        allData.get(index)[6] = allData.get(index)[7]; // makes new highest streak
       }
     } else {
       allData.get(index)[3] =
           String.valueOf(Integer.parseInt(allData.get(index)[3]) + 1); // increment losses
-      allData.get(index)[7] = "0"; //reset
+      allData.get(index)[7] = "0"; // reset
     }
 
     CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));

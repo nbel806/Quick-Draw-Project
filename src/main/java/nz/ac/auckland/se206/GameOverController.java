@@ -67,10 +67,10 @@ public class GameOverController {
   public void timeLeft(int sec) throws IOException, CsvException {
     timeLeft = sec;
     if (60 - timeLeft < 30) {
-    	badge = "LESS THAN 30s!";
+      badge = "LESS THAN 30s!";
     }
     if (60 - timeLeft < 10) {
-    	badge = "LESS THAN 10s!";
+      badge = "LESS THAN 10s!";
     }
     SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
     spreadSheetReaderWriter.updateTime(60 - timeLeft, currentUsername);
