@@ -15,17 +15,28 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class ProfilePageController {
 
-  @FXML private ImageView userImage;
-  @FXML private Button badgeButton;
-  @FXML private Button backButton;
-  @FXML private Label usernameLabel;
-  @FXML private Label winLabel;
-  @FXML private Label gameLabel;
-  @FXML private Label winrateLabel;
-  @FXML private Label fastestLabel;
-  @FXML private Label textToSpeechLabel;
-  @FXML private ImageView volumeImage;
-  @FXML private ListView<String> historyListView;
+  @FXML
+  private ImageView userImage;
+  @FXML
+  private Button badgeButton;
+  @FXML
+  private Button backButton;
+  @FXML
+  private Label usernameLabel;
+  @FXML
+  private Label winLabel;
+  @FXML
+  private Label gameLabel;
+  @FXML
+  private Label winrateLabel;
+  @FXML
+  private Label fastestLabel;
+  @FXML
+  private Label textToSpeechLabel;
+  @FXML
+  private ImageView volumeImage;
+  @FXML
+  private ListView<String> historyListView;
 
   private Boolean textToSpeech;
   private TextToSpeechBackground textToSpeechBackground;
@@ -39,7 +50,8 @@ public class ProfilePageController {
   private DecimalFormat df = new DecimalFormat("#.#");
   private String[] historyWords;
 
-  public void initialize() {}
+  public void initialize() {
+  }
 
   public void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
@@ -185,7 +197,8 @@ public class ProfilePageController {
   private void onClickBadge() throws IOException, CsvException {
     Stage stage = (Stage) backButton.getScene().getWindow();
     FXMLLoader loader =
-        new FXMLLoader(App.class.getResource("/fxml/badge_page.fxml")); // creates a new instance
+        new FXMLLoader(
+            App.class.getResource("/resources/fxml/badge_page.fxml")); // creates a new instance
     // of word page
     Scene scene = new Scene(loader.load(), 1000, 680);
     BadgePageController ctrl = loader.getController(); // need controller to pass information
