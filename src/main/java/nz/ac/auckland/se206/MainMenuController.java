@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
@@ -15,6 +16,7 @@ import nz.ac.auckland.se206.words.WordPageController;
 
 public class MainMenuController {
 
+  @FXML private Button zenModeButton;
   @FXML private Button playButton;
   @FXML private Button profileButton;
   @FXML private Button loginButton;
@@ -47,9 +49,25 @@ public class MainMenuController {
       userLabel.setText("Guest");
     }
   }
+  
+  @FXML
+  private void onZenModeCanvas() throws IOException, URISyntaxException, CsvException {
+	  
+	  Stage stage = (Stage) playButton.getScene().getWindow();
+	    FXMLLoader loader =
+	        new FXMLLoader(App.class.getResource("/fxml/zen_word_page.fxml")); // creates a new instance of
+	    // word page
+	    Scene scene = new Scene(loader.load(), 1000, 680);
+	    //ZenCanvasController ctrl = loader.getController(); // need controller to pass information
+	    //ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
+	    //ctrl.getUsername(currentUsername); // passes username
+	    stage.setScene(scene);
+	    stage.show();
+  }
 
   @FXML
   private void onPlay() throws IOException, URISyntaxException, CsvException {
+	  
     Stage stage = (Stage) playButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/word_page.fxml")); // creates a new instance of

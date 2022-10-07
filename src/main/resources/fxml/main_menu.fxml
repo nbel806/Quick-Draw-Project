@@ -191,8 +191,6 @@
             </MenuItem>
          </items>
       </MenuButton>
-      <Button layoutX="786.0" layoutY="470.0" mnemonicParsing="false" text="Hidden-word mode" />
-      <Button layoutX="786.0" layoutY="491.0" mnemonicParsing="false" text="Zen mode" />
-      <Button layoutX="786.0" layoutY="446.0" mnemonicParsing="false" text="Default mode" />
+      <Button fx:id="zenModeButton" layoutX="774.0" layoutY="458.0" mnemonicParsing="false" onAction="#onZenModeCanvas" text="Zen mode" />
    </children>
 </Pane>
