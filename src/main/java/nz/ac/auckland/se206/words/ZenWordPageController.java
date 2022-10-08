@@ -10,19 +10,48 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
-import nz.ac.auckland.se206.CanvasController;
-import nz.ac.auckland.se206.SpreadSheetReaderWriter;
-import nz.ac.auckland.se206.ZenCanvasController;
-import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class ZenWordPageController {
 
+	@FXML
+	private Label wordLabel;
+	@FXML
+	private Button readyButton;
+	@FXML
+	private Button newWordButton;
+
+	private String currentWord;
+
 	
 	
+	public void initialize() throws IOException, URISyntaxException, CsvException {
+		setWordToDraw();
+	}
 	
 	
+	@FXML
+	public void onZenCanvas() throws IOException {
+
+		Stage stage = (Stage) readyButton.getScene().getWindow();
+		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/zen_canvas.fxml")); // creates a new instance of
+																							// zen canvas
+		Scene scene = new Scene(loader.load(), 1000, 680);
+		stage.setScene(scene);
+		stage.show();
+
+	}
+
+	public void setWordToDraw() throws IOException, URISyntaxException, CsvException {
+		CategorySelector categorySelector = new CategorySelector(); // picks random easy word
+		currentWord = categorySelector.getRandomCategory(CategorySelector.Difficulty.E);
+		wordLabel.setText(currentWord);
+	}
+	
+	public void onNewWord() throws IOException, URISyntaxException, CsvException {
+		setWordToDraw();
+	}
+	
+
 }

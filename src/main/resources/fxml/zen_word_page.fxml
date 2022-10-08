@@ -12,20 +12,16 @@
             <Font size="40.0" />
          </font>
       </Label>
-      <Label layoutX="399.0" layoutY="315.0" text="word label">
+      <Label fx:id="wordLabel" layoutX="399.0" layoutY="315.0" text="word label">
          <font>
             <Font size="40.0" />
          </font>
       </Label>
-      <Button layoutX="415.0" layoutY="442.0" mnemonicParsing="false" text="Ready">
+      <Button fx:id="readyButton" layoutX="415.0" layoutY="442.0" mnemonicParsing="false" onAction="#onZenCanvas" text="Ready">
          <font>
             <Font size="40.0" />
          </font>
       </Button>
-      <Button layoutX="30.0" layoutY="579.0" mnemonicParsing="false" text="Back">
-         <font>
-            <Font size="40.0" />
-         </font>
-      </Button>
+      <Button fx:id="newWordButton" layoutX="632.0" layoutY="470.0" mnemonicParsing="false" onAction="#onNewWord" text="new word" />
    </children>
 </Pane>

@@ -5,7 +5,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.ZenCanvasController">
    <children>
       <Pane layoutX="226.0" layoutY="182.0" prefHeight="303.0" prefWidth="500.0" style="-fx-border-color: black; -fx-border-width: 3; -fx-background-color: white; -fx-background-radius: 3;">
@@ -13,7 +12,7 @@
             <Canvas height="303.0" layoutY="4.0" width="500.0" />
          </children>
       </Pane>
-      <Button layoutX="33.0" layoutY="576.0" mnemonicParsing="false" text="Back">
+      <Button fx:id="backButton" layoutX="33.0" layoutY="576.0" mnemonicParsing="false" onAction="#onMainMenu" text="Back">
          <font>
             <Font size="40.0" />
          </font>
