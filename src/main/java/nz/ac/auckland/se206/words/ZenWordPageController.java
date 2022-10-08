@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
+import nz.ac.auckland.se206.ZenCanvasController;
 
 public class ZenWordPageController {
 
@@ -40,7 +41,8 @@ public class ZenWordPageController {
 		Scene scene = new Scene(loader.load(), 1000, 680);
 		stage.setScene(scene);
 		stage.show();
-
+		ZenCanvasController ctrl = loader.getController();
+		ctrl.setWordLabel(currentWord);
 	}
 
 	public void setWordToDraw() throws IOException, URISyntaxException, CsvException {
