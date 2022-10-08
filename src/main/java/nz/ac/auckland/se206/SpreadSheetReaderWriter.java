@@ -92,9 +92,16 @@ public class SpreadSheetReaderWriter {
     if (win) {
       allData.get(index)[2] =
           String.valueOf(Integer.parseInt(allData.get(index)[2]) + 1); // increment wins
+      allData.get(index)[7] =
+          String.valueOf(Integer.parseInt(allData.get(index)[7]) + 1); // increment streak
+      if (Integer.parseInt(allData.get(index)[7])
+          > Integer.parseInt(allData.get(index)[6])) { // checks streak
+        allData.get(index)[6] = allData.get(index)[7]; // makes new highest streak
+      }
     } else {
       allData.get(index)[3] =
           String.valueOf(Integer.parseInt(allData.get(index)[3]) + 1); // increment losses
+      allData.get(index)[7] = "0"; // reset
     }
 
     CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
@@ -145,5 +152,12 @@ public class SpreadSheetReaderWriter {
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
     List<String[]> allData = csvReader.readAll();
     return allData.get(index)[5];
+  }
+
+  public int getStreak(String currentUsername) throws IOException, CsvException {
+    int index = findUserName(currentUsername);
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+    return Integer.parseInt(allData.get(index)[6]);
   }
 }

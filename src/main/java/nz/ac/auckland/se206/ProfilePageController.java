@@ -4,6 +4,8 @@ import com.opencsv.exceptions.CsvException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -13,24 +15,17 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class ProfilePageController {
 
-  @FXML
-  private Button backButton;
-  @FXML
-  private Label usernameLabel;
-  @FXML
-  private Label winLabel;
-  @FXML
-  private Label gameLabel;
-  @FXML
-  private Label winrateLabel;
-  @FXML
-  private Label fastestLabel;
-  @FXML
-  private Label textToSpeechLabel;
-  @FXML
-  private ImageView volumeImage;
-  @FXML
-  private ListView<String> historyListView;
+  @FXML private ImageView userImage;
+  @FXML private Button badgeButton;
+  @FXML private Button backButton;
+  @FXML private Label usernameLabel;
+  @FXML private Label winLabel;
+  @FXML private Label gameLabel;
+  @FXML private Label winrateLabel;
+  @FXML private Label fastestLabel;
+  @FXML private Label textToSpeechLabel;
+  @FXML private ImageView volumeImage;
+  @FXML private ListView<String> historyListView;
 
   private Boolean textToSpeech;
   private TextToSpeechBackground textToSpeechBackground;
@@ -44,8 +39,7 @@ public class ProfilePageController {
   private DecimalFormat df = new DecimalFormat("#.#");
   private String[] historyWords;
 
-  public void initialize() {
-  }
+  public void initialize() {}
 
   public void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
@@ -117,7 +111,7 @@ public class ProfilePageController {
   private void onBack() throws IOException {
     Stage stage = (Stage) backButton.getScene().getWindow();
     LoadPage loadPage = new LoadPage();
-    loadPage.extracted(textToSpeechBackground, textToSpeech, currentUsername, stage);
+    loadPage.extractedMainMenu(textToSpeechBackground, textToSpeech, currentUsername, stage);
   }
 
   @FXML
@@ -173,8 +167,7 @@ public class ProfilePageController {
 
   @FXML
   private void onHoverGamesPlayed() {
-    textToSpeechBackground.backgroundSpeak(
-        "Played" + totalGames + "Games", textToSpeech);
+    textToSpeechBackground.backgroundSpeak("Played" + totalGames + "Games", textToSpeech);
   }
 
   @FXML
@@ -186,5 +179,32 @@ public class ProfilePageController {
   private void onHoverFastest() {
     textToSpeechBackground.backgroundSpeak(
         "fastest game was " + fastestTime + "seconds", textToSpeech);
+  }
+
+  public void onClickBadge() throws IOException, CsvException {
+    Stage stage = (Stage) backButton.getScene().getWindow();
+    FXMLLoader loader =
+        new FXMLLoader(
+            App.class.getResource("/fxml/badge_page.fxml")); // creates a new instance of page
+    Scene scene = new Scene(loader.load(), 1000, 680);
+    BadgePageController ctrl = loader.getController(); // need controller to pass information
+    // may need to add code to pass though tts here
+    ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
+    ctrl.setUsername(currentUsername);
+    stage.setScene(scene);
+    stage.show();
+  }
+
+  @FXML
+  private void onHoverBadge() {
+    textToSpeechBackground.backgroundSpeak("Badge", textToSpeech);
+    badgeButton.setStyle(
+        "-fx-background-radius: 100px; -fx-text-fill: white; -fx-border-radius: 100px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
+  }
+
+  @FXML
+  private void onBadgeExit() {
+    badgeButton.setStyle(
+        "-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
   }
 }

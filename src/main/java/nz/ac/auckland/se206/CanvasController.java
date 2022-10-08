@@ -43,6 +43,8 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
  */
 public class CanvasController {
 
+  public ImageView userImage;
+  public Button profileButton;
   @FXML private Canvas canvas;
 
   @FXML private Label wordLabel;
