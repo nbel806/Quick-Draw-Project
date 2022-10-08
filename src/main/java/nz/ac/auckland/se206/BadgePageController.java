@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
@@ -13,21 +14,18 @@ public class BadgePageController {
 
   public Label numBadgeLabel;
   public ImageView userImage;
-  @FXML
-  private ImageView secten;
-  @FXML
-  private ImageView secthirty;
-  @FXML
-  private ImageView volumeImage;
-  @FXML
-  private Label usernameLabel;
+  public Circle fiveGames;
+  public Circle tenGames;
+  public Circle fiftyGames;
+  public Circle hundredGames;
+  @FXML private ImageView secten;
+  @FXML private ImageView secthirty;
+  @FXML private ImageView volumeImage;
+  @FXML private Label usernameLabel;
 
-  @FXML
-  private Button backButton;
-  @FXML
-  private Button menuButton;
-  @FXML
-  private Label textToSpeechLabel;
+  @FXML private Button backButton;
+  @FXML private Button menuButton;
+  @FXML private Label textToSpeechLabel;
   private TextToSpeechBackground textToSpeechBackground;
   private String currentUsername;
   private boolean textToSpeech;
@@ -142,8 +140,7 @@ public class BadgePageController {
     }
   }
 
-  private void setAllBadgesClear() {
-  }
+  private void setAllBadgesClear() {}
 
   private void setBadges() throws IOException, CsvException {
     setTimeBadges();
@@ -153,16 +150,33 @@ public class BadgePageController {
     setExtraBadges();
   }
 
-  private void setExtraBadges() {
-  }
+  private void setExtraBadges() {}
 
-  private void setDifficultWinBadges() {
-  }
+  private void setDifficultWinBadges() {}
 
-  private void setWinStreakBadges() {
-  }
+  private void setWinStreakBadges() {}
 
-  private void setGamesPlayedBadges() {
+  private void setGamesPlayedBadges() throws IOException, CsvException {
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    int games =
+        sheetReaderWriter.getWins(currentUsername) + sheetReaderWriter.getLosses(currentUsername);
+    fiveGames.setOpacity(0.2);
+    tenGames.setOpacity(0.2);
+    fiftyGames.setOpacity(0.2);
+    hundredGames.setOpacity(0.2);
+
+    if (games >= 5) { // 5 games played badge
+      fiveGames.setOpacity(1);
+    }
+    if (games >= 10) { // 10 games played badge
+      tenGames.setOpacity(1);
+    }
+    if (games >= 50) { // 50 games played badge
+      fiftyGames.setOpacity(1);
+    }
+    if (games >= 100) { // 100 games played badge
+      hundredGames.setOpacity(1);
+    }
   }
 
   private void setTimeBadges() throws IOException, CsvException {
