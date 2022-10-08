@@ -2,8 +2,11 @@ package nz.ac.auckland.se206;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import ai.djl.ModelException;
 import ai.djl.modality.Classifications;
@@ -23,6 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
@@ -30,6 +34,7 @@ import nz.ac.auckland.se206.ml.DoodlePrediction;
 public class ZenCanvasController {
 
 	@FXML private Button backButton;
+	@FXML private Button onSaveButton;
 	
     @FXML private Label wordLabel;
     @FXML private Label topTenLabel;
@@ -49,14 +54,14 @@ public class ZenCanvasController {
 	// mouse coordinates for drawings
 	private double currentX;
 	private double currentY;
-
+	
+	
 	public void initialize() throws ModelException, IOException {
 
 		graphic = zenCanvas.getGraphicsContext2D();
 		setTool();
 		model = new DoodlePrediction();
 	}
-	
 	
 	private void setTool() {
 
@@ -108,7 +113,6 @@ public class ZenCanvasController {
 	        });
 	  }
 	
-
 	@FXML
 	public void onMainMenu() throws IOException {
 
@@ -171,8 +175,6 @@ public class ZenCanvasController {
 		setTool();
 	}
 	
-	
-
 	@FXML
 	public void onEraser() {
 		blackPen = false;
@@ -191,6 +193,27 @@ public class ZenCanvasController {
 	public void setWordLabel(String word) {
 		wordLabel.setText(word);
 
+	}
+	
+	@FXML
+	public void onSave() {
+		Stage stage = (Stage) onSaveButton.getScene().getWindow(); // gets the stage from the button
+	    FileChooser fileChooser = new FileChooser();
+	    fileChooser.setTitle("Save Image");
+	    File file =
+	        fileChooser.showSaveDialog(
+	            stage); // shows a popup to allow user to choose where to save file
+	    if (file != null) {
+	      try {
+	        ImageIO.write(
+	            getCurrentSnapshot(),
+	            "bmp",
+	            file); // creates a new image to save to the
+	        // users location
+	      } catch (IOException ex) {
+	        System.out.println(ex.getMessage());
+	      }
+	    }
 	}
 	
 	public BufferedImage getCurrentSnapshot() {
