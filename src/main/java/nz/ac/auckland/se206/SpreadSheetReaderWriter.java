@@ -153,4 +153,11 @@ public class SpreadSheetReaderWriter {
     List<String[]> allData = csvReader.readAll();
     return allData.get(index)[5];
   }
+
+  public int getStreak(String currentUsername) throws IOException, CsvException {
+    int index = findUserName(currentUsername);
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+    return Integer.parseInt(allData.get(index)[6]);
+  }
 }

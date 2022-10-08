@@ -113,7 +113,7 @@
         <Image url="@../images/Badges/god.png" />
       </image>
     </ImageView>
-    <ImageView fitHeight="44.0" fitWidth="46.0" layoutX="348.0" layoutY="500.0">
+    <ImageView fx:id="tenStreak" fitHeight="44.0" fitWidth="46.0" layoutX="348.0" layoutY="500.0">
       <image>
         <Image url="@../images/Badges/10W.png" />
       </image>
@@ -132,5 +132,21 @@
       <Circle fx:id="tenGames" fill="#d044b9" layoutX="373.0" layoutY="448.0" radius="22.0" stroke="#7b7b7b" strokeType="INSIDE" />
       <Circle fx:id="fiftyGames" fill="#d044b9" layoutX="453.0" layoutY="448.0" radius="22.0" stroke="#7b7b7b" strokeType="INSIDE" />
       <Circle fx:id="hundredGames" fill="#d044b9" layoutX="537.0" layoutY="448.0" radius="22.0" stroke="#7b7b7b" strokeType="INSIDE" />
+      <Circle fill="WHITE" layoutX="543.0" layoutY="520.0" radius="34.0" stroke="#7b7b7b" strokeType="INSIDE" />
+      <ImageView fx:id="fiveStreak" fitHeight="44.0" fitWidth="46.0" layoutX="246.0" layoutY="500.0">
+         <image>
+            <Image url="@../images/Badges/10W.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="fiftyStreak" fitHeight="44.0" fitWidth="46.0" layoutX="432.0" layoutY="500.0">
+         <image>
+            <Image url="@../images/Badges/10W.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hundredStreak" fitHeight="44.0" fitWidth="46.0" layoutX="520.0" layoutY="500.0">
+         <image>
+            <Image url="@../images/Badges/10W.png" />
+         </image>
+      </ImageView>
   </children>
 </Pane>

@@ -18,6 +18,10 @@ public class BadgePageController {
   public Circle tenGames;
   public Circle fiftyGames;
   public Circle hundredGames;
+  public ImageView fiveStreak;
+  public ImageView fiftyStreak;
+  public ImageView hundredStreak;
+  public ImageView tenStreak;
   @FXML private ImageView secten;
   @FXML private ImageView secthirty;
   @FXML private ImageView volumeImage;
@@ -140,7 +144,21 @@ public class BadgePageController {
     }
   }
 
-  private void setAllBadgesClear() {}
+  private void setAllBadgesClear() {
+    // streak badges set to transparent
+    fiveStreak.setOpacity(0.2);
+    tenStreak.setOpacity(0.2);
+    fiftyStreak.setOpacity(0.2);
+    hundredStreak.setOpacity(0.2);
+    // games played badges set to transparent
+    fiveGames.setOpacity(0.2);
+    tenGames.setOpacity(0.2);
+    fiftyGames.setOpacity(0.2);
+    hundredGames.setOpacity(0.2);
+    // fastest game badges set to transparent
+    secthirty.setOpacity(0.2);
+    secten.setOpacity(0.2);
+  }
 
   private void setBadges() throws IOException, CsvException {
     setTimeBadges();
@@ -150,16 +168,41 @@ public class BadgePageController {
     setExtraBadges();
   }
 
-  private void setExtraBadges() {}
+  private void setExtraBadges() {
+    // TODO: once difficulties are added
+  }
 
-  private void setDifficultWinBadges() {}
+  private void setDifficultWinBadges() {
+    // TODO: once difficulties are added
+  }
 
-  private void setWinStreakBadges() {}
+  private void setWinStreakBadges() throws IOException, CsvException {
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    int streak = sheetReaderWriter.getStreak(currentUsername);
+    // set all transparent
+    fiveStreak.setOpacity(0.2);
+    tenStreak.setOpacity(0.2);
+    fiftyStreak.setOpacity(0.2);
+    hundredStreak.setOpacity(0.2);
+    if (streak >= 5) { // 5 win streak
+      fiveStreak.setOpacity(1);
+    }
+    if (streak >= 10) { // 10 win streak
+      tenStreak.setOpacity(1);
+    }
+    if (streak >= 50) { // 50 win streak
+      fiftyStreak.setOpacity(1);
+    }
+    if (streak >= 100) {
+      hundredStreak.setOpacity(1);
+    }
+  }
 
   private void setGamesPlayedBadges() throws IOException, CsvException {
     SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
     int games =
         sheetReaderWriter.getWins(currentUsername) + sheetReaderWriter.getLosses(currentUsername);
+    // set all transparent
     fiveGames.setOpacity(0.2);
     tenGames.setOpacity(0.2);
     fiftyGames.setOpacity(0.2);
@@ -182,6 +225,7 @@ public class BadgePageController {
   private void setTimeBadges() throws IOException, CsvException {
     SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
     int fastest = sheetReaderWriter.getFastest(currentUsername);
+    // set all transparent
     secthirty.setOpacity(0.2);
     secten.setOpacity(0.2);
     if (fastest <= 30) {
