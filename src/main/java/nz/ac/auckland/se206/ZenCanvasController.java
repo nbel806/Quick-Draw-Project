@@ -1,9 +1,19 @@
 package nz.ac.auckland.se206;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import com.opencsv.exceptions.CsvException;
+import java.util.List;
+
 import ai.djl.ModelException;
+import ai.djl.modality.Classifications;
+import ai.djl.modality.Classifications.Classification;
+import ai.djl.translate.TranslateException;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,8 +21,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
 
 public class ZenCanvasController {
@@ -20,14 +32,12 @@ public class ZenCanvasController {
 	@FXML private Button backButton;
 	
     @FXML private Label wordLabel;
+    @FXML private Label topTenLabel;
 	
 	@FXML private Canvas zenCanvas;
 	
 	private DoodlePrediction model;
 	private GraphicsContext graphic;
-	
-	private double currentX;
-	private double currentY;
 	
 	private boolean blackPen = true;
 	private boolean redPen = false;
@@ -35,12 +45,16 @@ public class ZenCanvasController {
 	private boolean bluePen = false;
 	private boolean greenPen = false;
 	private boolean startedDrawing;
+	
+	// mouse coordinates for drawings
+	private double currentX;
+	private double currentY;
 
-	public void initialize() throws ModelException, IOException, CsvException, URISyntaxException {
+	public void initialize() throws ModelException, IOException {
 
 		graphic = zenCanvas.getGraphicsContext2D();
-		model = new DoodlePrediction();
 		setTool();
+		model = new DoodlePrediction();
 	}
 	
 	
@@ -51,6 +65,11 @@ public class ZenCanvasController {
 	        e -> {
 	          currentX = e.getX();
 	          currentY = e.getY();
+	          
+	          if (!startedDrawing) {
+	              startedDrawing = true;
+	              doPredictions();
+	            }
 	          
 	        });
 
@@ -173,5 +192,91 @@ public class ZenCanvasController {
 		wordLabel.setText(word);
 
 	}
+	
+	public BufferedImage getCurrentSnapshot() {
+	    final Image snapshot =
+	        zenCanvas.snapshot(null, null); // is the current image based on user drawing on the canvas
+	    final BufferedImage image = SwingFXUtils.fromFXImage(snapshot, null);
+
+	    // Convert into a binary image.
+	    final BufferedImage imageBinary =
+	        new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
+
+	    final Graphics2D graphics = imageBinary.createGraphics();
+
+	    graphics.drawImage(image, 0, 0, null);
+
+	    // To release memory we dispose.
+	    graphics.dispose();
+
+	    return imageBinary;
+	}
+	
+	private void doPredictions() {
+	    Timeline time = new Timeline();
+	    time.setCycleCount(Timeline.INDEFINITE);
+	    time.stop();
+	    KeyFrame keyFrame =
+	        new KeyFrame(
+	            Duration.seconds(1), // new keyframe every second so lists will update every
+	            // second
+	            actionEvent -> {
+	              BufferedImage snapshot =
+	                  getCurrentSnapshot(); // uses main thread to get a snapshot of users
+	              // drawing
+	              Task<Void> backgroundTask =
+	                  new Task<>() { // will run the rest of the task in the background thread
+	                    // to ensure
+	                    // user can draw smoothly and no lag
+	                    @Override
+	                    protected Void call() {
+	                      
+	                        List<Classification> list;
+	                        try {
+	                          list =
+	                              model.getPredictions(
+	                                  snapshot, 10); // uses the model to get predictions
+	                          // based on current user
+	                          // drawing
+	                        } catch (TranslateException e) {
+	                          throw new RuntimeException(e);
+	                        }
+	                        Platform.runLater(
+	                            () -> {
+	                              printTopTen(
+	                                  list); // will run these methods in the main thread as they deal
+	                              // with updating javafx elements
+	                        });
+	                      
+	                      return null;
+	                    }
+	                  };
+
+	              Thread backgroundThread = new Thread(backgroundTask);
+	              backgroundThread
+	                  .start(); // all the ML modeling will happen in a background thread to reduce lag
+	            });
+
+	    time.getKeyFrames().add(keyFrame);
+	    time.playFromStart();
+	  }
+	
+	private void printTopTen(List<Classifications.Classification> list) {
+	    StringBuilder sb = new StringBuilder();
+	    sb.append(System.lineSeparator());
+	    int i = 1;
+	    for (Classifications.Classification classification :
+	        list) { // cycles through list and build string to print
+	      // top 10
+	      sb.append(i)
+	          .append(" : ")
+	          .append(classification.getClassName().replace("_", " ")) // replaces _ with spaces
+	          // to ensure a standard
+	          // format
+	          .append(System.lineSeparator());
+	      i++;
+	    }
+	    topTenLabel.setText(String.valueOf(sb)); // updates label to the new top 10
+	  }
 
 }
