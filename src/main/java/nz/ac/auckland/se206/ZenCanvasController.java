@@ -18,10 +18,6 @@ import nz.ac.auckland.se206.ml.DoodlePrediction;
 public class ZenCanvasController {
 
 	@FXML private Button backButton;
-	@FXML private Button redButton;
-	@FXML private Button blackPenButton;
-	@FXML private Button eraserButton;
-	@FXML private Button clearButton;
 	
     @FXML private Label wordLabel;
 	
@@ -32,7 +28,12 @@ public class ZenCanvasController {
 	
 	private double currentX;
 	private double currentY;
-	private boolean pen = true;
+	
+	private boolean blackPen = true;
+	private boolean redPen = false;
+	private boolean orangePen = false;
+	private boolean bluePen = false;
+	private boolean greenPen = false;
 	private boolean startedDrawing;
 
 	public void initialize() throws ModelException, IOException, CsvException, URISyntaxException {
@@ -61,35 +62,32 @@ public class ZenCanvasController {
 	          final double x = e.getX() - size / 2;
 	          final double y = e.getY() - size / 2;
 
-	          // This is the colour of the brush.
-	          if (pen) {
-	            graphic.setFill(Color.BLACK);
-	            graphic.setLineWidth(size);
-	            graphic.strokeLine(
-	                currentX, currentY, x, y); // Create a line that goes from the point (currentX,
-	            // currentY) and (x,y)
-	          } else { // eraser
-	            graphic.setFill(Color.TRANSPARENT); // sets colour so that black won't be there
-	            graphic.clearRect(
-	                e.getX() - 10,
-	                e.getY() - 10,
-	                16,
-	                16); // then will clear a rectangle of 5 either side
-	            // of the pixel the user is on
+	          // Default color: black
+	          if (blackPen) {
+	        	graphic.setFill(Color.BLACK);
+	            graphic.fillOval(x, y, size, size);
+	          }else if (redPen) {
+	        	graphic.setFill(Color.RED);
+	            graphic.fillOval(x, y, size, size);
+	          }else if (orangePen) {
+	        	graphic.setFill(Color.ORANGE);
+		        graphic.fillOval(x, y, size, size);
+	          }else if (bluePen) {
+	        	graphic.setFill(Color.BLUE);
+		        graphic.fillOval(x, y, size, size);
+	          }else if (greenPen) {
+	        	graphic.setFill(Color.GREEN);
+		        graphic.fillOval(x, y, size, size);
+	          }else {
+	        	graphic.clearRect(x, y, size, size);
 	          }
-
+	          
+	          
 	          // update the coordinates
 	          currentX = x;
 	          currentY = y;
 	        });
 	  }
-	
-	
-	
-	
-	
-	
-	
 	
 
 	@FXML
@@ -106,22 +104,69 @@ public class ZenCanvasController {
 
 	@FXML
 	public void onBlackPen() {
-
+		blackPen = true;
+		redPen = false;
+		orangePen = false;
+		bluePen = false;
+		greenPen = false;
+		setTool();
 	}
 
 	@FXML
 	public void onRedPen() {
-
+		blackPen = false;
+		redPen = true;
+		orangePen = false;
+		bluePen = false;
+		greenPen = false;
+		setTool();
 	}
+	
+	@FXML
+	public void onOrangePen() {
+		blackPen = false;
+		redPen = false;
+		orangePen = true;
+		bluePen = false;
+		greenPen = false;
+		setTool();
+	}
+	
+	@FXML
+	public void onBluePen() {
+		blackPen = false;
+		redPen = false;
+		orangePen = false;
+		bluePen = true;
+		greenPen = false;
+		setTool();
+	}
+	
+	@FXML
+	public void onGreenPen() {
+		blackPen = false;
+		redPen = false;
+		orangePen = false;
+		bluePen = false;
+		greenPen = true;
+		setTool();
+	}
+	
+	
 
 	@FXML
 	public void onEraser() {
-
+		blackPen = false;
+		redPen = false;
+		orangePen = false;
+		bluePen = false;
+		greenPen = false;
+		setTool();
 	}
 
 	@FXML
 	public void onClear() {
-
+		graphic.clearRect(0, 0, zenCanvas.getWidth(), zenCanvas.getHeight());
 	}
 
 	public void setWordLabel(String word) {

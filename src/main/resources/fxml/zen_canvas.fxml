@@ -18,14 +18,17 @@
             <Font size="40.0" />
          </font>
       </Button>
-      <Button fx:id="blackPenButton" layoutX="77.0" layoutY="136.0" mnemonicParsing="false" onAction="#onBlackPen" text="black" />
-      <Button fx:id="eraserButton" layoutX="77.0" layoutY="198.0" mnemonicParsing="false" onAction="#onEraser" text="eraser" />
-      <Button fx:id="clearButton" layoutX="73.0" layoutY="260.0" mnemonicParsing="false" onAction="#onClear" text="clear" />
-      <Button fx:id="redButton" layoutX="67.0" layoutY="94.0" mnemonicParsing="false" onAction="#onRedPen" text="red" />
+      <Button fx:id="blackPenButton" layoutX="68.0" layoutY="159.0" mnemonicParsing="false" onAction="#onBlackPen" text="black" />
+      <Button fx:id="eraserButton" layoutX="74.0" layoutY="485.0" mnemonicParsing="false" onAction="#onEraser" text="eraser" />
+      <Button fx:id="clearButton" layoutX="78.0" layoutY="523.0" mnemonicParsing="false" onAction="#onClear" text="clear" />
+      <Button fx:id="redButton" layoutX="74.0" layoutY="201.0" mnemonicParsing="false" onAction="#onRedPen" text="red" />
       <Label fx:id="wordLabel" layoutX="304.0" layoutY="69.0" prefHeight="51.0" prefWidth="392.0" text="word label">
          <font>
             <Font size="40.0" />
          </font>
       </Label>
+      <Button layoutX="64.0" layoutY="249.0" mnemonicParsing="false" onAction="#onOrangePen" text="orange" />
+      <Button layoutX="64.0" layoutY="293.0" mnemonicParsing="false" onAction="#onBluePen" text="blue" />
+      <Button layoutX="64.0" layoutY="347.0" mnemonicParsing="false" onAction="#onGreenPen" text="green" />
    </children>
 </Pane>
