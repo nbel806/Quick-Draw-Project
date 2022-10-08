@@ -15,6 +15,7 @@ import nz.ac.auckland.se206.words.WordPageController;
 
 public class MainMenuController {
 
+  @FXML private Button zenModeButton;
   @FXML private Button playButton;
   @FXML private Button profileButton;
   @FXML private Button loginButton;
@@ -47,9 +48,22 @@ public class MainMenuController {
       userLabel.setText("Guest");
     }
   }
+  
+  @FXML
+  private void onZenModeCanvas() throws IOException, URISyntaxException, CsvException {
+	  
+	  Stage stage = (Stage) playButton.getScene().getWindow();
+	    FXMLLoader loader =
+	        new FXMLLoader(App.class.getResource("/fxml/zen_word_page.fxml")); // creates a new instance of
+	    // word page
+	    Scene scene = new Scene(loader.load(), 1000, 680);
+	    stage.setScene(scene);
+	    stage.show();
+  }
 
   @FXML
   private void onPlay() throws IOException, URISyntaxException, CsvException {
+	  
     Stage stage = (Stage) playButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/word_page.fxml")); // creates a new instance of
