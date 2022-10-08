@@ -33,7 +33,7 @@ public class BadgePageController {
   private TextToSpeechBackground textToSpeechBackground;
   private String currentUsername;
   private boolean textToSpeech;
-  private String numberBadges;
+  private int numberBadges = 0;
 
   @FXML
   private void onHoverUser() {
@@ -135,10 +135,10 @@ public class BadgePageController {
       currentUsername = username;
       this.usernameLabel.setText(currentUsername);
       setBadges();
+      numBadgeLabel.setText(String.valueOf(numberBadges));
     } else {
       // If user is not signed in
       this.usernameLabel.setText("Guest");
-      numberBadges = "0";
       numBadgeLabel.setText("0");
       setAllBadgesClear();
     }
@@ -186,15 +186,19 @@ public class BadgePageController {
     hundredStreak.setOpacity(0.2);
     if (streak >= 5) { // 5 win streak
       fiveStreak.setOpacity(1);
+      numberBadges++;
     }
     if (streak >= 10) { // 10 win streak
       tenStreak.setOpacity(1);
+      numberBadges++;
     }
     if (streak >= 50) { // 50 win streak
       fiftyStreak.setOpacity(1);
+      numberBadges++;
     }
     if (streak >= 100) {
       hundredStreak.setOpacity(1);
+      numberBadges++;
     }
   }
 
@@ -210,15 +214,19 @@ public class BadgePageController {
 
     if (games >= 5) { // 5 games played badge
       fiveGames.setOpacity(1);
+      numberBadges++;
     }
     if (games >= 10) { // 10 games played badge
       tenGames.setOpacity(1);
+      numberBadges++;
     }
     if (games >= 50) { // 50 games played badge
       fiftyGames.setOpacity(1);
+      numberBadges++;
     }
     if (games >= 100) { // 100 games played badge
       hundredGames.setOpacity(1);
+      numberBadges++;
     }
   }
 
@@ -230,10 +238,12 @@ public class BadgePageController {
     secten.setOpacity(0.2);
     if (fastest <= 30) {
       secthirty.setOpacity(1);
+      numberBadges++;
       // 30 second badge
     }
     if (fastest <= 10) {
       secten.setOpacity(1);
+      numberBadges++;
       // 10 second badge
     }
   }

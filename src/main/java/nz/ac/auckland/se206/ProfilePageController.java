@@ -198,6 +198,8 @@ public class ProfilePageController {
   @FXML
   private void onHoverBadge() {
     textToSpeechBackground.backgroundSpeak("Badge", textToSpeech);
+    badgeButton.setStyle(
+        "-fx-background-radius: 100px; -fx-text-fill: white; -fx-border-radius: 100px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
   @FXML
