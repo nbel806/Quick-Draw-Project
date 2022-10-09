@@ -3,7 +3,10 @@ package nz.ac.auckland.se206;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -25,12 +28,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
-import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class ZenCanvasController {
 
@@ -42,6 +45,18 @@ public class ZenCanvasController {
 	
 	@FXML private Canvas zenCanvas;
 	
+	@FXML private ImageView backImage;
+	@FXML private ImageView blackPenImage;
+	@FXML private ImageView redPenImage;
+	@FXML private ImageView orangePenImage;
+	@FXML private ImageView bluePenImage;
+	@FXML private ImageView greenPenImage;
+	@FXML private ImageView eraserImage;
+	@FXML private ImageView clearImage;
+	@FXML private ImageView saveImage;
+	
+	//@FXML private Image redNinja = ;
+	
 	private DoodlePrediction model;
 	private GraphicsContext graphic;
 	
@@ -51,9 +66,6 @@ public class ZenCanvasController {
 	private boolean bluePen = false;
 	private boolean greenPen = false;
 	private boolean startedDrawing;
-	
-	private Boolean textToSpeech;
-	private TextToSpeechBackground textToSpeechBackground;
 	
 	// mouse coordinates for drawings
 	private double currentX;
@@ -139,7 +151,7 @@ public class ZenCanvasController {
 	}
 
 	@FXML
-	public void onRedPen() {
+	public void onRedPen() throws FileNotFoundException {
 		blackPen = false;
 		redPen = true;
 		orangePen = false;
@@ -303,6 +315,114 @@ public class ZenCanvasController {
 	      i++;
 	    }
 	    topTenLabel.setText(String.valueOf(sb)); // updates label to the new top 10
-	  }
+	}
+	
+	@FXML
+	private void onHoverBack() {
+		backImage.setFitHeight(79);
+		backImage.setFitWidth(76);
+	}
+	
+	@FXML
+	private void onHoverBlack() {
+		blackPenImage.setFitHeight(35);
+		blackPenImage.setFitWidth(35);
+	}
+	
+	@FXML
+	private void onHoverRed() {
+		redPenImage.setFitHeight(35);
+		redPenImage.setFitWidth(35);
+	}
+	
+	@FXML
+	private void onHoverOrange() {
+		orangePenImage.setFitHeight(35);
+		orangePenImage.setFitWidth(35);
+	}
+	
+	@FXML
+	private void onHoverGreen() {
+		greenPenImage.setFitHeight(35);
+		greenPenImage.setFitWidth(35);
+	}
+	
+	@FXML
+	private void onHoverBlue() {
+		bluePenImage.setFitHeight(35);
+		bluePenImage.setFitWidth(35);
+	}
+	
+	@FXML
+	private void onHoverEraser() {
+		eraserImage.setFitHeight(35);
+		eraserImage.setFitWidth(35);
+	}
+	
+	@FXML
+	private void onHoverClear() {
+		clearImage.setFitHeight(35);
+		clearImage.setFitWidth(35);
+	}
+	
+	@FXML
+	private void onHoverSave() {
+		saveImage.setFitHeight(35);
+		saveImage.setFitWidth(35);
+	}
+	
+	@FXML
+	private void onBlackExit() {
+		blackPenImage.setFitHeight(32);
+		blackPenImage.setFitWidth(32);
+	}
+	
+	@FXML
+	private void onRedExit() {
+		redPenImage.setFitHeight(32);
+		redPenImage.setFitWidth(32);
+	}
+	
+	@FXML
+	private void onOrangeExit() {
+		orangePenImage.setFitHeight(32);
+		orangePenImage.setFitWidth(32);
+	}
+	
+	@FXML
+	private void onGreenExit() {
+		greenPenImage.setFitHeight(32);
+		greenPenImage.setFitWidth(32);
+	}
+	
+	@FXML
+	private void onBlueExit() {
+		bluePenImage.setFitHeight(32);
+		bluePenImage.setFitWidth(32);
+	}
+	
+	@FXML
+	private void onEraserExit() {
+		eraserImage.setFitHeight(32);
+		eraserImage.setFitWidth(32);
+	}
+	
+	@FXML
+	private void onClearExit() {
+		clearImage.setFitHeight(32);
+		clearImage.setFitWidth(32);
+	}
+	
+	@FXML
+	private void onSaveExit() {
+		saveImage.setFitHeight(32);
+		saveImage.setFitWidth(32);
+	}
+	
+	@FXML
+	private void onBackExit() {
+		backImage.setFitHeight(76);
+		backImage.setFitWidth(73);
+	}
 
 }

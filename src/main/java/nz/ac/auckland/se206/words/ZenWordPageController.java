@@ -38,11 +38,11 @@ public class ZenWordPageController {
 		Stage stage = (Stage) readyButton.getScene().getWindow();
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/zen_canvas.fxml")); // creates a new instance of
 																							// zen canvas
-		Scene scene = new Scene(loader.load(), 1000, 680);
+		Scene scene = new Scene(loader.load(), 999, 625);
 		stage.setScene(scene);
 		stage.show();
 		ZenCanvasController ctrl = loader.getController();
-		ctrl.setWordLabel(currentWord);
+		ctrl.setWordLabel("chosen word: " + currentWord);
 	}
 
 	public void setWordToDraw() throws IOException, URISyntaxException, CsvException {
