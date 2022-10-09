@@ -18,6 +18,10 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class WordPageController {
 
+  @FXML private Text confidenceLabel;
+  @FXML private Text wordsLabel;
+  @FXML private Text accuracyLabel;
+  @FXML private Text timeLabel;
   @FXML private Text wordToDraw;
   @FXML private Button readyButton;
   @FXML private Label textToSpeechLabel;
@@ -30,6 +34,11 @@ public class WordPageController {
   private TextToSpeechBackground textToSpeechBackground;
 
   private String currentUsername = null;
+  private int time;
+  private int accuracy;
+  private int confidence;
+
+  private int words;
 
   /** Picks a random word from the easy category using category selector */
   private void setWordToDraw() throws IOException, URISyntaxException, CsvException {
@@ -138,6 +147,7 @@ public class WordPageController {
         textToSpeechBackground, textToSpeech); // passes the background threaded text to speech
     // and whether it is on or not
     canvasController.getUsername(currentUsername);
+    canvasController.setTimeAccuracy(time, accuracy, confidence, words);
   }
 
   // Below is list of methods for when mouse exits a button
@@ -157,5 +167,28 @@ public class WordPageController {
   @FXML
   private void onHoverJustDraw() {
     textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
+  }
+
+  public void setDifficulty(int accuracy, int confidence, int words, int time) {
+    this.time = time;
+    timeLabel.setText(time + "secs");
+    this.accuracy = accuracy;
+    accuracyLabel.setText("Top " + accuracy);
+
+    confidenceLabel.setText(confidence + "%");
+    this.confidence = confidence;
+
+    if (words == 1) {
+      wordsLabel.setText("E");
+    } else if (words == 2) {
+      wordsLabel.setText("E,M");
+    } else if (words == 3) {
+      wordsLabel.setText("E,M, H");
+    } else if (words == 4) {
+      wordsLabel.setText("H");
+    } else {
+      wordsLabel.setText("ERROR");
+    }
+    this.words = words;
   }
 }

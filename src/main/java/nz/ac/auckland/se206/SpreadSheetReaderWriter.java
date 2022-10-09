@@ -160,4 +160,92 @@ public class SpreadSheetReaderWriter {
     List<String[]> allData = csvReader.readAll();
     return Integer.parseInt(allData.get(index)[6]);
   }
+
+  public void updateUsersTime(int time, String currentUsername) throws IOException, CsvException {
+    if (currentUsername == null) {
+      return; // guest doesnt save difficulty
+    }
+    int index = findUserName(currentUsername);
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+    allData.get(index)[12] = String.valueOf(time); // updates time difficulty value for next time
+
+    CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
+    csvWriter.writeAll(allData); // writes all the data back
+    csvWriter.flush();
+  }
+
+  public void updateUsersWords(int words, String currentUsername) throws IOException, CsvException {
+    if (currentUsername == null) {
+      return; // guest doesnt save difficulty
+    }
+    int index = findUserName(currentUsername);
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+    allData.get(index)[13] = String.valueOf(words); // updates time difficulty value for next time
+
+    CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
+    csvWriter.writeAll(allData); // writes all the data back
+    csvWriter.flush();
+  }
+
+  public void updateUsersConfidence(int confidence, String currentUsername)
+      throws IOException, CsvException {
+    if (currentUsername == null) {
+      return; // guest doesnt save difficulty
+    }
+    int index = findUserName(currentUsername);
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+    allData.get(index)[14] =
+        String.valueOf(confidence); // updates time difficulty value for next time
+
+    CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
+    csvWriter.writeAll(allData); // writes all the data back
+    csvWriter.flush();
+  }
+
+  public void updateUsersAccuracy(int accuracy, String currentUsername)
+      throws IOException, CsvException {
+    if (currentUsername == null) {
+      return; // guest doesnt save difficulty
+    }
+    int index = findUserName(currentUsername);
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+    allData.get(index)[15] =
+        String.valueOf(accuracy); // updates time difficulty value for next time
+
+    CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
+    csvWriter.writeAll(allData); // writes all the data back
+    csvWriter.flush();
+  }
+
+  public int getUsersAccuracy(String currentUsername) throws IOException, CsvException {
+    int index = findUserName(currentUsername);
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+    return Integer.parseInt(allData.get(index)[15]);
+  }
+
+  public int getUsersTime(String currentUsername) throws IOException, CsvException {
+    int index = findUserName(currentUsername);
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+    return Integer.parseInt(allData.get(index)[12]);
+  }
+
+  public int getUsersWords(String currentUsername) throws IOException, CsvException {
+    int index = findUserName(currentUsername);
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+    return Integer.parseInt(allData.get(index)[13]);
+  }
+
+  public int getUsersConfidence(String currentUsername) throws IOException, CsvException {
+    int index = findUserName(currentUsername);
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+    return Integer.parseInt(allData.get(index)[14]);
+  }
 }

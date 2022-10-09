@@ -36,6 +36,10 @@ public class GameOverController {
   private int timeLeft;
   private String currentUsername;
   private String badge = "NO BADGE!";
+  private int accuracy;
+  private int time;
+  private int confidence;
+  private int words;
 
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
     this.textToSpeechBackground = textToSpeechBackground;
@@ -106,7 +110,7 @@ public class GameOverController {
   }
 
   @FXML
-  private void onClickMenu() throws IOException {
+  private void onClickMenu() throws IOException, CsvException {
     Stage stage = (Stage) menuButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml")); // reset to a new word_page
@@ -141,6 +145,7 @@ public class GameOverController {
         textToSpeechBackground,
         textToSpeech); // passes text to speech instance and boolean to next page
     ctrl.getUsername(currentUsername);
+    ctrl.setDifficulty(accuracy, confidence, words, time);
   }
 
   @FXML
@@ -225,5 +230,12 @@ public class GameOverController {
   @FXML
   private void onHoverTitle() {
     textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
+  }
+
+  public void setTimeAccuracy(int time, int userAccuracy, int confidence, int words) {
+    this.time = time;
+    this.accuracy = userAccuracy;
+    this.confidence = confidence;
+    this.words = words;
   }
 }

@@ -89,7 +89,7 @@ public class LoginController {
    * @param username the name of the person using the app
    */
   private void createProfile(String username) {
-    String[] profile = new String[12];
+    String[] profile = new String[16];
 
     try {
       FileWriter csvwriter = new FileWriter(fileName, true);
@@ -120,6 +120,10 @@ public class LoginController {
           profile[9] = "0"; // wins on medium
           profile[10] = "0"; // wins on hard
           profile[11] = "0"; // wins on master
+          profile[12] = "0"; // users last time selection
+          profile[13] = "0"; // users last word selection
+          profile[14] = "0"; // users last confidence selection
+          profile[15] = "0"; // users last accuracy selection
 
           writer.writeNext(profile);
 
@@ -222,7 +226,7 @@ public class LoginController {
    * @throws IOException if name of file is not found
    */
   @FXML
-  private void onBack() throws IOException {
+  private void onBack() throws IOException, CsvException {
     Stage stage = (Stage) backButton.getScene().getWindow();
     LoadPage loadPage = new LoadPage();
     loadPage.extractedMainMenu(textToSpeechBackground, textToSpeech, currentUsername, stage);
