@@ -48,21 +48,19 @@ public class WordPageController {
       CategorySelector categorySelector = new CategorySelector(); // picks random word
       ArrayList<Object> randomWords = new ArrayList<>();
       switch (words) {
-        case 1: // easy
-          randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.E));
-          break;
-        case 2: // easy and medium
+        case 1 -> // easy
+        randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.E));
+        case 2 -> { // easy and medium
           randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.E));
           randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.M));
-          break;
-        case 3: // easy medium and hard
+        }
+        case 3 -> { // easy medium and hard
           randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.E));
           randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.M));
           randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.H));
-          break;
-        case 4: // just hard
-          randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.H));
-          break;
+        }
+        case 4 -> // just hard
+        randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.H));
       }
       currentWord = (String) randomWords.get(new Random().nextInt(randomWords.size()));
     } else { // if user chosen from their pool of words left

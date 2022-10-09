@@ -82,6 +82,7 @@ public class CanvasController {
 
   private int userAccuracy;
   private int confidence;
+  private double confidenceUser;
   private int words;
   private int time;
 
@@ -287,11 +288,14 @@ public class CanvasController {
               .getClassName()
               .replace("_", " "); // replaces _ with spaces to ensure a standard
       // format
-      if (strNew.equals(
-          currentWord)) { // tests to see if the word the user is trying to draw is in the top 3
-        winLose = true;
-        whenTimerEnds(); // called early to end game
-        end = true;
+      if (strNew.equals(currentWord)) {
+        System.out.println(list.get(i).getProbability());
+        // tests to see if the word the user is trying to draw is in the top 3
+        if (list.get(i).getProbability() >= confidenceUser) {
+          winLose = true;
+          whenTimerEnds(); // called early to end game
+          end = true;
+        }
       }
     }
   }
@@ -512,6 +516,12 @@ public class CanvasController {
     this.time = time;
     userAccuracy = accuracy;
     this.confidence = confidence;
+    switch (confidence) {
+      case 1 -> this.confidenceUser = 0.01;
+      case 10 -> this.confidenceUser = 0.1;
+      case 25 -> this.confidenceUser = 0.25;
+      case 50 -> this.confidenceUser = 0.5;
+    }
     this.words = words;
   }
 }
