@@ -144,8 +144,8 @@ public class GameOverController {
     ctrl.give(
         textToSpeechBackground,
         textToSpeech); // passes text to speech instance and boolean to next page
-    ctrl.getUsername(currentUsername);
     ctrl.setDifficulty(accuracy, confidence, words, time);
+    ctrl.getUsername(currentUsername);
   }
 
   @FXML

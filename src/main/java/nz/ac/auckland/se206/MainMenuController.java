@@ -86,8 +86,8 @@ public class MainMenuController {
     Scene scene = new Scene(loader.load(), 1000, 680);
     WordPageController ctrl = loader.getController(); // need controller to pass information
     ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
-    ctrl.getUsername(currentUsername); // passes username
     ctrl.setDifficulty(accuracy, confidence, words, time);
+    ctrl.getUsername(currentUsername); // passes username
     stage.setScene(scene);
     stage.show();
   }

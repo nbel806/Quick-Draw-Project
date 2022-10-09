@@ -3,6 +3,8 @@ package nz.ac.auckland.se206.words;
 import com.opencsv.exceptions.CsvException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Random;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -43,12 +45,35 @@ public class WordPageController {
   /** Picks a random word from the easy category using category selector */
   private void setWordToDraw() throws IOException, URISyntaxException, CsvException {
     if (currentUsername == null) { // if guest
-      CategorySelector categorySelector = new CategorySelector(); // picks random easy word
-      currentWord = categorySelector.getRandomCategory(CategorySelector.Difficulty.E);
+      CategorySelector categorySelector = new CategorySelector(); // picks random word
+      ArrayList<Object> randomWords = new ArrayList<>();
+      switch (words) {
+        case 1: // easy
+          randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.E));
+          break;
+        case 2: // easy and medium
+          randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.E));
+          randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.M));
+          break;
+        case 3: // easy medium and hard
+          randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.E));
+          randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.M));
+          randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.H));
+          break;
+        case 4: // just hard
+          randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.H));
+          break;
+      }
+      currentWord = (String) randomWords.get(new Random().nextInt(randomWords.size()));
     } else { // if user chosen from their pool of words left
       SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
-      currentWord = spreadSheetReaderWriter.findWordsLeft(currentUsername);
+      String[] historyArray = spreadSheetReaderWriter.getHistory(currentUsername).split(",");
+
+      CategorySelector categorySelector = new CategorySelector(); // picks random word
+      currentWord = categorySelector.getRandomCategory(words, historyArray);
     }
+    SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
+    spreadSheetReaderWriter.updateWords(currentWord, currentUsername);
     wordToDraw.setText(currentWord);
   }
 
@@ -70,7 +95,6 @@ public class WordPageController {
     } else {
       userLabel.setText("Guest");
     }
-
     setWordToDraw();
   }
 

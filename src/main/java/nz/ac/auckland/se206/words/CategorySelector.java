@@ -47,10 +47,35 @@ public class CategorySelector {
   public String getRandomCategory(Difficulty difficulty) {
     return difficultyListMap
         .get(difficulty)
-        .get(new Random().nextInt(difficultyListMap.get(difficulty).size()) - 1);
+        .get(new Random().nextInt(difficultyListMap.get(difficulty).size()));
   }
 
   public List<String> getCategory(Difficulty difficulty) {
     return difficultyListMap.get(difficulty);
+  }
+
+  public String getRandomCategory(int words, String[] history) {
+    ArrayList<Object> randomWords = new ArrayList<>();
+    switch (words) {
+      case 1:
+        randomWords.addAll(difficultyListMap.get(CategorySelector.Difficulty.E));
+        break;
+      case 2:
+        randomWords.addAll(difficultyListMap.get(CategorySelector.Difficulty.E));
+        randomWords.addAll(difficultyListMap.get(CategorySelector.Difficulty.M));
+        break;
+      case 3:
+        randomWords.addAll(difficultyListMap.get(CategorySelector.Difficulty.E));
+        randomWords.addAll(difficultyListMap.get(CategorySelector.Difficulty.M));
+        randomWords.addAll(difficultyListMap.get(CategorySelector.Difficulty.H));
+        break;
+      case 4:
+        randomWords.addAll(difficultyListMap.get(CategorySelector.Difficulty.H));
+        break;
+    }
+    for (String pastWord : history) {
+      randomWords.remove(pastWord);
+    }
+    return (String) randomWords.get(new Random().nextInt(randomWords.size()) - 1);
   }
 }
