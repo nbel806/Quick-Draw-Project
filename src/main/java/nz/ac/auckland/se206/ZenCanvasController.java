@@ -30,6 +30,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
+import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class ZenCanvasController {
 
@@ -50,6 +51,9 @@ public class ZenCanvasController {
 	private boolean bluePen = false;
 	private boolean greenPen = false;
 	private boolean startedDrawing;
+	
+	private Boolean textToSpeech;
+	private TextToSpeechBackground textToSpeechBackground;
 	
 	// mouse coordinates for drawings
 	private double currentX;
@@ -122,7 +126,6 @@ public class ZenCanvasController {
 		Scene scene = new Scene(loader.load(), 1000, 680);
 		stage.setScene(scene);
 		stage.show();
-
 	}
 
 	@FXML

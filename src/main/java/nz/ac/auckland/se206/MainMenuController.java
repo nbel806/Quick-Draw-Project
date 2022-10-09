@@ -56,7 +56,7 @@ public class MainMenuController {
 	    FXMLLoader loader =
 	        new FXMLLoader(App.class.getResource("/fxml/zen_word_page.fxml")); // creates a new instance of
 	    // word page
-	    Scene scene = new Scene(loader.load(), 1000, 680);
+	    Scene scene = new Scene(loader.load(), 1000, 560);
 	    stage.setScene(scene);
 	    stage.show();
   }
