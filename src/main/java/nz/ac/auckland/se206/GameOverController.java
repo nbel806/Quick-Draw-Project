@@ -25,7 +25,6 @@ public class GameOverController {
   @FXML private Button saveButton;
   @FXML private Label textToSpeechLabel;
   @FXML private ImageView volumeImage;
-  @FXML private Label badgeLabel;
 
   private CanvasController canvasController;
   private Boolean textToSpeech;
@@ -35,7 +34,6 @@ public class GameOverController {
 
   private int timeLeft;
   private String currentUsername;
-  private String badge = "NO BADGE!";
   private int accuracy;
   private int time;
   private int confidence;
@@ -55,12 +53,10 @@ public class GameOverController {
       winLoseLabel.setText("YOU WON");
       timeLabel.setText("TIME LEFT: " + timeLeft + " seconds");
       winLoseString = "You won with " + timeLeft + "Seconds left!";
-      badgeLabel.setText(badge);
     } else { // if user looses display message
       winLoseLabel.setText("YOU LOST");
       timeLabel.setText("TIME LIMIT REACHED");
       winLoseString = "You lost!";
-      badgeLabel.setText("NO BADGES!");
     }
     canvasController = ctrl;
     SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
@@ -70,12 +66,6 @@ public class GameOverController {
 
   public void timeLeft(int sec) throws IOException, CsvException {
     timeLeft = sec;
-    if (60 - timeLeft < 30) {
-      badge = "LESS THAN 30s!";
-    }
-    if (60 - timeLeft < 10) {
-      badge = "LESS THAN 10s!";
-    }
     SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
     spreadSheetReaderWriter.updateTime(60 - timeLeft, currentUsername);
   }

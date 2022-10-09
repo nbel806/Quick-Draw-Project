@@ -289,7 +289,6 @@ public class CanvasController {
               .replace("_", " "); // replaces _ with spaces to ensure a standard
       // format
       if (strNew.equals(currentWord)) {
-        System.out.println(list.get(i).getProbability());
         // tests to see if the word the user is trying to draw is in the top 3
         if (list.get(i).getProbability() >= confidenceUser) {
           winLose = true;
