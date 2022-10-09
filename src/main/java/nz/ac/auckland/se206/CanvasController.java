@@ -65,7 +65,7 @@ public class CanvasController {
   private DoodlePrediction model;
   private String currentWord;
 
-  private int seconds = 60;
+  private int seconds;
   private boolean winLose = false;
   private boolean end = false;
   private boolean pen = true;

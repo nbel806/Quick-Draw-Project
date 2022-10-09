@@ -138,16 +138,16 @@ public class WordPageController {
     FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/canvas.fxml"));
     Scene scene = new Scene(loader.load(), 1000, 680);
     stage.setScene(scene);
-    stage.show();
     CanvasController canvasController =
         loader.getController(); // gets the newly created controller for next page
+    canvasController.setTimeAccuracy(time, accuracy, confidence, words);
     canvasController.setWordLabel(
         currentWord); // passes the current word so that the next screen can display it
     canvasController.give(
         textToSpeechBackground, textToSpeech); // passes the background threaded text to speech
     // and whether it is on or not
     canvasController.getUsername(currentUsername);
-    canvasController.setTimeAccuracy(time, accuracy, confidence, words);
+    stage.show();
   }
 
   // Below is list of methods for when mouse exits a button
