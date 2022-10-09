@@ -24,6 +24,7 @@ public class MainMenuController {
   @FXML private ImageView userImage;
   @FXML private ImageView loginImage;
   @FXML private ImageView volumeImage;
+  @FXML private ImageView zenImage;
 
   private Boolean textToSpeech = false;
   private TextToSpeechBackground textToSpeechBackground;
@@ -158,6 +159,13 @@ public class MainMenuController {
   private void onHoverTitle() {
     textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
   }
+  
+  @FXML
+  private void onHoverZen() {
+	textToSpeechBackground.backgroundSpeak("Zen Mode", textToSpeech);
+	zenImage.setFitHeight(85);
+	zenImage.setFitWidth(123);
+  }
 
   // Below is list of methods for when mouse exits a button
   @FXML
@@ -183,4 +191,11 @@ public class MainMenuController {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
   }
+  
+  @FXML
+  private void onZenExit() {
+	zenImage.setFitHeight(82);
+	zenImage.setFitWidth(120);
+  }
+  
 }

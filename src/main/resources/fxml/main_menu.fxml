@@ -78,6 +78,15 @@
                   </HBox>
                </graphic>
             </Button>
+            <Button fx:id="zenModeButton" mnemonicParsing="false" onAction="#onZenModeCanvas" onMouseEntered="#onHoverZen" onMouseExited="#onZenExit" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fx:id="zenImage" fitHeight="82.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-ying-yang-64.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </HBox>
       <ImageView fx:id="volumeImage" fitHeight="45.0" fitWidth="45.0" layoutX="903.0" layoutY="602.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech" onMouseEntered="#onHoverTextToSpeech" onMouseExited="#onVolumeExit" pickOnBounds="true" preserveRatio="true">
@@ -191,6 +200,5 @@
             </MenuItem>
          </items>
       </MenuButton>
-      <Button fx:id="zenModeButton" layoutX="774.0" layoutY="458.0" mnemonicParsing="false" onAction="#onZenModeCanvas" text="Zen mode" />
    </children>
 </Pane>
