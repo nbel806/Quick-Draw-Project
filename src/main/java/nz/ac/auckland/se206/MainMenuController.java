@@ -30,6 +30,11 @@ public class MainMenuController {
   private TextToSpeechBackground textToSpeechBackground;
   private String currentUsername = null;
 
+  private int accuracy = 3;
+  private int time = 60;
+  private int words = 1;
+  private int confidence = 1;
+
   public void give(TextToSpeechBackground tts, Boolean textToSpeech) {
     textToSpeechBackground = tts; // passes through the text to speech instance
     this.textToSpeech = textToSpeech;
@@ -38,20 +43,30 @@ public class MainMenuController {
     }
   }
 
-  public void getUsername(String username) {
+  public void getUsername(String username) throws IOException, CsvException {
     // Check if username is not null
     if (username != null) {
       // If not null, update label as current username
       currentUsername = username;
       userLabel.setText(currentUsername);
+      setDifficulty(currentUsername);
 
     } else {
       userLabel.setText("Guest");
     }
   }
-  
+
+  private void setDifficulty(String currentUsername) throws IOException, CsvException {
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    accuracy = sheetReaderWriter.getUsersAccuracy(currentUsername);
+    confidence = sheetReaderWriter.getUsersConfidence(currentUsername);
+    time = sheetReaderWriter.getUsersTime(currentUsername);
+    words = sheetReaderWriter.getUsersWords(currentUsername);
+  }
+
   @FXML
   private void onZenModeCanvas() throws IOException, URISyntaxException, CsvException {
+
 	  
 	  Stage stage = (Stage) playButton.getScene().getWindow();
 	    FXMLLoader loader =
@@ -60,11 +75,12 @@ public class MainMenuController {
 	    Scene scene = new Scene(loader.load(), 1000, 560);
 	    stage.setScene(scene);
 	    stage.show();
+
   }
 
   @FXML
   private void onPlay() throws IOException, URISyntaxException, CsvException {
-	  
+
     Stage stage = (Stage) playButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/word_page.fxml")); // creates a new instance of
@@ -72,6 +88,7 @@ public class MainMenuController {
     Scene scene = new Scene(loader.load(), 1000, 680);
     WordPageController ctrl = loader.getController(); // need controller to pass information
     ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
+    ctrl.setDifficulty(accuracy, confidence, words, time);
     ctrl.getUsername(currentUsername); // passes username
     stage.setScene(scene);
     stage.show();
@@ -191,6 +208,7 @@ public class MainMenuController {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
   }
+
   
   @FXML
   private void onZenExit() {
@@ -198,4 +216,105 @@ public class MainMenuController {
 	zenImage.setFitWidth(120);
   }
   
+
+
+  @FXML
+  private void setAccuracyTop3() throws IOException, CsvException {
+    updateUserAccuracy(3);
+  }
+
+  @FXML
+  private void setAccuracyTop2() throws IOException, CsvException {
+    updateUserAccuracy(2);
+  }
+
+  @FXML
+  private void setAccuracyTop1() throws IOException, CsvException {
+    updateUserAccuracy(1);
+  }
+
+  private void updateUserAccuracy(int accuracy) throws IOException, CsvException {
+    this.accuracy = accuracy;
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    sheetReaderWriter.updateUsersAccuracy(accuracy, currentUsername);
+  }
+
+  @FXML
+  private void setConfidence1() throws IOException, CsvException {
+    updateUserConfidence(1);
+  }
+
+  @FXML
+  private void setConfidence10() throws IOException, CsvException {
+    updateUserConfidence(10);
+  }
+
+  @FXML
+  private void setConfidence25() throws IOException, CsvException {
+    updateUserConfidence(25);
+  }
+
+  @FXML
+  private void setConfidence50() throws IOException, CsvException {
+    updateUserConfidence(50);
+  }
+
+  private void updateUserConfidence(int confidence) throws IOException, CsvException {
+    this.confidence = confidence;
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    sheetReaderWriter.updateUsersConfidence(confidence, currentUsername);
+  }
+
+  @FXML
+  private void setWordsE() throws IOException, CsvException {
+    updateUserWords(1);
+  }
+
+  @FXML
+  private void setWordsEM() throws IOException, CsvException {
+    updateUserWords(2);
+  }
+
+  @FXML
+  private void setWordsEMH() throws IOException, CsvException {
+    updateUserWords(3);
+  }
+
+  @FXML
+  private void setWordsH() throws IOException, CsvException {
+    updateUserWords(4);
+  }
+
+  private void updateUserWords(int words) throws IOException, CsvException {
+    this.words = words;
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    sheetReaderWriter.updateUsersWords(words, currentUsername);
+  }
+
+  @FXML
+  private void setTime60() throws IOException, CsvException {
+    updateUserTime(60);
+  }
+
+  @FXML
+  private void setTime45() throws IOException, CsvException {
+    updateUserTime(45);
+  }
+
+  @FXML
+  private void setTime30() throws IOException, CsvException {
+    updateUserTime(30);
+  }
+
+  @FXML
+  private void setTime15() throws IOException, CsvException {
+    updateUserTime(15);
+  }
+
+  private void updateUserTime(int time) throws IOException, CsvException {
+    this.time = time;
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    sheetReaderWriter.updateUsersTime(time, currentUsername);
+  }
+
 }

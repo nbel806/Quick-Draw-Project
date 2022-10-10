@@ -108,7 +108,7 @@ public class ProfilePageController {
   }
 
   @FXML
-  private void onBack() throws IOException {
+  private void onBack() throws IOException, CsvException {
     Stage stage = (Stage) backButton.getScene().getWindow();
     LoadPage loadPage = new LoadPage();
     loadPage.extractedMainMenu(textToSpeechBackground, textToSpeech, currentUsername, stage);

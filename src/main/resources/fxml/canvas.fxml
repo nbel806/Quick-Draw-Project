@@ -23,14 +23,14 @@
             </Canvas>
          </children>
       </Pane>
-      <Pane layoutX="795.0" layoutY="147.0" prefHeight="366.0" prefWidth="186.0" style="-fx-background-color: white; -fx-background-radius: 25;">
+      <Pane layoutX="748.0" layoutY="147.0" prefHeight="366.0" prefWidth="245.0" style="-fx-background-color: white; -fx-background-radius: 25;">
          <children>
             <Label layoutX="7.0" onMouseEntered="#onHoverPredictions" prefHeight="55.0" prefWidth="182.0" text="Predictions" textAlignment="CENTER">
                <font>
                   <Font name="SansSerif Bold" size="29.0" />
                </font>
             </Label>
-            <Label fx:id="topTenLabel" layoutX="3.0" layoutY="40.0" onMouseEntered="#onHoverTop10" prefHeight="297.0" prefWidth="181.0" text="1. &#10;2.&#10;3.&#10;4.&#10;5.&#10;6.&#10;7.&#10;8.&#10;9.&#10;10.">
+            <Label fx:id="topTenLabel" layoutX="3.0" layoutY="40.0" onMouseEntered="#onHoverTop10" prefHeight="297.0" prefWidth="245.0" text="1.  &#10;2.&#10;3.&#10;4.&#10;5.&#10;6.&#10;7.&#10;8.&#10;9.&#10;10.">
                <font>
                   <Font name="SansSerif Bold" size="19.0" />
                </font>
@@ -121,7 +121,7 @@
                   <Font name="Arial Black" size="49.0" />
                </font>
             </Label>
-            <Label fx:id="wordLabel" alignment="CENTER" layoutX="312.0" layoutY="1.0" onMouseEntered="#onHoverWord" prefHeight="62.0" prefWidth="327.0" text="animal migration" textAlignment="CENTER">
+            <Label fx:id="wordLabel" alignment="CENTER" layoutX="283.0" layoutY="1.0" onMouseEntered="#onHoverWord" prefHeight="62.0" prefWidth="506.0" text="The Great Wall of China" textAlignment="CENTER">
                <font>
                   <Font name="Arial Black" size="34.0" />
                </font>
