@@ -180,8 +180,8 @@ public class MainMenuController {
   @FXML
   private void onHoverZen() {
 	textToSpeechBackground.backgroundSpeak("Zen Mode", textToSpeech);
-	zenImage.setFitHeight(85);
-	zenImage.setFitWidth(123);
+	zenImage.setFitHeight(72);
+	zenImage.setFitWidth(74);
   }
 
   // Below is list of methods for when mouse exits a button
@@ -212,11 +212,9 @@ public class MainMenuController {
   
   @FXML
   private void onZenExit() {
-	zenImage.setFitHeight(82);
-	zenImage.setFitWidth(120);
+	zenImage.setFitHeight(69);
+	zenImage.setFitWidth(71);
   }
-  
-
 
   @FXML
   private void setAccuracyTop3() throws IOException, CsvException {
