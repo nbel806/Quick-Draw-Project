@@ -40,12 +40,13 @@ public class ProfilePageController {
 	@FXML
 	private Label historyLabel;
 	@FXML
+	private Label winstreakLabel;
+	@FXML
 	private ImageView volumeImage;
+	// Lists
 	@FXML
 	private ListView<String> historyListView;
 	// Badges
-	@FXML
-	public Label numBadgeLabel;
 	@FXML
 	private ImageView secTen, secThirty;
 	@FXML
@@ -108,6 +109,7 @@ public class ProfilePageController {
 			currentUsername = username;
 			this.usernameLabel.setText(currentUsername);
 			SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
+			int streak = spreadSheetReaderWriter.getStreak(currentUsername);
 
 			// Assign wins
 			usersWins = spreadSheetReaderWriter.getWins(currentUsername);
@@ -124,14 +126,16 @@ public class ProfilePageController {
 			}
 
 			// Update Labels
+
 			winLabel.setText(Integer.toString(usersWins));
 			gameLabel.setText(Integer.toString(totalGames));
+			winstreakLabel.setText(Integer.toString(streak));
 			winrateLabel.setText(df.format(winRate) + "%");
 
 			if (fastestTime == 100) { // value will be 100 by default eg they must play a game
 				fastestLabel.setText("-");
 			} else {
-				fastestLabel.setText(fastestTime + " seconds");
+				fastestLabel.setText(fastestTime + "s");
 			}
 
 			// Add current word to history of words
@@ -141,13 +145,13 @@ public class ProfilePageController {
 
 			// Set badges
 			setBadges();
-			numBadgeLabel.setText(String.valueOf(numberBadges));
 			badgeLabel.setText("You've unlocked " + numberBadges + "/15" + " Badges");
 
 			// Calculate percentage of badges completed
 			badgeRatio = (((double) numberBadges * 100) / (double) 15);
 			badgePercentage.setText("(" + String.format("%.0f", badgeRatio) + "%)");
 			badgeProgress.setProgress(badgeRatio / 100);
+
 		} else {
 			// If user is not signed in
 			this.usernameLabel.setText("Guest");
@@ -155,11 +159,11 @@ public class ProfilePageController {
 			fastestLabel.setText("-");
 			gameLabel.setText("-");
 			winrateLabel.setText("-");
+			winstreakLabel.setText("-");
 
 			// Set badges
 			badgeLabel.setText("You've unlocked 0/15 Badges");
 			badgePercentage.setText("(0%)");
-			numBadgeLabel.setText("-");
 			setAllBadgesClear();
 		}
 	}
@@ -220,7 +224,7 @@ public class ProfilePageController {
 
 	private void setBadges() throws IOException, CsvException {
 		setTimeBadges();
-		// setGamesPlayedBadges();
+		setGamesPlayedBadges();
 		setWinStreakBadges();
 		setDifficultWinBadges();
 		setExtraBadges();
@@ -261,6 +265,33 @@ public class ProfilePageController {
 		}
 		if (streak >= 100) {
 			hundredStreak.setOpacity(1);
+			numberBadges++;
+		}
+	}
+
+	private void setGamesPlayedBadges() throws IOException, CsvException {
+		SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+		int games = sheetReaderWriter.getWins(currentUsername) + sheetReaderWriter.getLosses(currentUsername);
+		// set all transparent
+		fiveGames.setOpacity(0.2);
+		tenGames.setOpacity(0.2);
+		fiftyGames.setOpacity(0.2);
+		hundredGames.setOpacity(0.2);
+
+		if (games >= 5) { // 5 games played badge
+			fiveGames.setOpacity(1);
+			numberBadges++;
+		}
+		if (games >= 10) { // 10 games played badge
+			tenGames.setOpacity(1);
+			numberBadges++;
+		}
+		if (games >= 50) { // 50 games played badge
+			fiftyGames.setOpacity(1);
+			numberBadges++;
+		}
+		if (games >= 100) { // 100 games played badge
+			hundredGames.setOpacity(1);
 			numberBadges++;
 		}
 	}
@@ -339,8 +370,4 @@ public class ProfilePageController {
 		textToSpeechBackground.backgroundSpeak("fastest game was " + fastestTime + "seconds", textToSpeech);
 	}
 
-	// Progress bar methods
-	public void setBadgeProgress() {
-
-	}
 }
