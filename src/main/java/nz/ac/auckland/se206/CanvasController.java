@@ -65,7 +65,7 @@ public class CanvasController {
   private DoodlePrediction model;
   private String currentWord;
 
-  private int seconds = 60;
+  private int seconds;
   private boolean winLose = false;
   private boolean end = false;
   private boolean pen = true;
@@ -79,6 +79,12 @@ public class CanvasController {
   private double currentX;
   private double currentY;
   private String currentUsername;
+
+  private int userAccuracy;
+  private int confidence;
+  private double confidenceUser;
+  private int words;
+  private int time;
 
   /**
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
@@ -256,7 +262,7 @@ public class CanvasController {
                                   list); // will run these methods in the main thread as they deal
                               // wil updating javafx elements
                               try {
-                                getTopThree(list);
+                                getTopX(list);
                               } catch (IOException | CsvException e) {
                                 throw new RuntimeException(e);
                               }
@@ -275,19 +281,20 @@ public class CanvasController {
     time.playFromStart();
   }
 
-  private void getTopThree(List<Classifications.Classification> list)
-      throws IOException, CsvException {
-    for (int i = 0; i < 3; i++) { // cycles through top 3
+  private void getTopX(List<Classifications.Classification> list) throws IOException, CsvException {
+    for (int i = 0; i < userAccuracy; i++) { // cycles through top 3
       String strNew =
           list.get(i)
               .getClassName()
               .replace("_", " "); // replaces _ with spaces to ensure a standard
       // format
-      if (strNew.equals(
-          currentWord)) { // tests to see if the word the user is trying to draw is in the top 3
-        winLose = true;
-        whenTimerEnds(); // called early to end game
-        end = true;
+      if (strNew.equals(currentWord)) {
+        // tests to see if the word the user is trying to draw is in the top 3
+        if (list.get(i).getProbability() >= confidenceUser) {
+          winLose = true;
+          whenTimerEnds(); // called early to end game
+          end = true;
+        }
       }
     }
   }
@@ -326,6 +333,7 @@ public class CanvasController {
         textToSpeechBackground, textToSpeech); // passes text to speech and boolean
     gameOverController.timeLeft(seconds);
     gameOverController.setWinLoseLabel(winLose, this);
+    gameOverController.setTimeAccuracy(time, userAccuracy, confidence, words);
 
     // passes if user won or lost and current instance of canvas controller
 
@@ -500,5 +508,19 @@ public class CanvasController {
   @FXML
   private void onHoverPredictions() {
     textToSpeechBackground.backgroundSpeak("Predictions", textToSpeech);
+  }
+
+  public void setTimeAccuracy(int time, int accuracy, int confidence, int words) {
+    seconds = time;
+    this.time = time;
+    userAccuracy = accuracy;
+    this.confidence = confidence;
+    switch (confidence) {
+      case 1 -> this.confidenceUser = 0.01;
+      case 10 -> this.confidenceUser = 0.1;
+      case 25 -> this.confidenceUser = 0.25;
+      case 50 -> this.confidenceUser = 0.5;
+    }
+    this.words = words;
   }
 }

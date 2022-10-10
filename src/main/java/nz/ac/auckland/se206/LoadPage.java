@@ -14,7 +14,7 @@ public class LoadPage {
       Boolean textToSpeech,
       String currentUsername,
       Stage stage)
-      throws IOException {
+      throws IOException, CsvException {
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml")); // creates a new instance of
     // menu page

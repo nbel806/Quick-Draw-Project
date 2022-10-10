@@ -100,7 +100,7 @@ public class BadgePageController {
   }
 
   @FXML
-  private void onClickMenu() throws IOException {
+  private void onClickMenu() throws IOException, CsvException {
     Stage stage = (Stage) backButton.getScene().getWindow();
     LoadPage loadPage = new LoadPage();
     loadPage.extractedMainMenu(textToSpeechBackground, textToSpeech, currentUsername, stage);
