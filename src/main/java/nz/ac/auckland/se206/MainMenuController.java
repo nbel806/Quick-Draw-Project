@@ -75,7 +75,6 @@ public class MainMenuController {
 	    Scene scene = new Scene(loader.load(), 1000, 560);
 	    stage.setScene(scene);
 	    stage.show();
-
   }
 
   @FXML

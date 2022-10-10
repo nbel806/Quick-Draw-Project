@@ -4,12 +4,12 @@ import com.opencsv.exceptions.CsvException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
@@ -24,8 +24,19 @@ public class ProfilePageController {
   @FXML private Label winrateLabel;
   @FXML private Label fastestLabel;
   @FXML private Label textToSpeechLabel;
+  @FXML private Label badgeLabel, badgePercentage;
+  @FXML private Label historyLabel;
+  @FXML private Label winstreakLabel;
   @FXML private ImageView volumeImage;
+  // Lists
   @FXML private ListView<String> historyListView;
+  // Badges
+  @FXML private ImageView secTen, secThirty;
+  @FXML private ImageView fiveGames, tenGames, fiftyGames, hundredGames;
+  @FXML public ImageView fiveStreak, tenStreak, fiftyStreak, hundredStreak;
+  @FXML public ImageView easyWins, mediumWins, hardWins, masterWins;
+  @FXML private ImageView godArtist;
+  @FXML private ProgressBar badgeProgress;
 
   private Boolean textToSpeech;
   private TextToSpeechBackground textToSpeechBackground;
@@ -35,8 +46,10 @@ public class ProfilePageController {
   private int usersWins;
   private int totalGames;
   private int fastestTime;
+  private double badgeRatio;
   private double winRate;
   private DecimalFormat df = new DecimalFormat("#.#");
+  private int numberBadges = 0;
   private String[] historyWords;
 
   public void initialize() {}
@@ -51,6 +64,11 @@ public class ProfilePageController {
     volumeImage.setFitWidth(48);
   }
 
+  @FXML
+  private void onHoverNumBadges() {
+    textToSpeechBackground.backgroundSpeak("You have " + numberBadges + "badges", textToSpeech);
+  }
+
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
     this.textToSpeech = textToSpeech;
     this.textToSpeechBackground = (textToSpeechBackground);
@@ -59,6 +77,7 @@ public class ProfilePageController {
     }
   }
 
+  // Set username, stats, and badges
   public void setUsername(String username) throws IOException, CsvException {
     // Check if username is not null
     if (username != null) {
@@ -66,6 +85,7 @@ public class ProfilePageController {
       currentUsername = username;
       this.usernameLabel.setText(currentUsername);
       SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
+      int streak = spreadSheetReaderWriter.getStreak(currentUsername);
 
       // Assign wins
       usersWins = spreadSheetReaderWriter.getWins(currentUsername);
@@ -82,20 +102,31 @@ public class ProfilePageController {
       }
 
       // Update Labels
+
       winLabel.setText(Integer.toString(usersWins));
       gameLabel.setText(Integer.toString(totalGames));
+      winstreakLabel.setText(Integer.toString(streak));
       winrateLabel.setText(df.format(winRate) + "%");
 
       if (fastestTime == 100) { // value will be 100 by default eg they must play a game
         fastestLabel.setText("-");
       } else {
-        fastestLabel.setText(fastestTime + " seconds");
+        fastestLabel.setText(fastestTime + "s");
       }
 
       // Add current word to history of words
       if (!currentWord.equals("none")) {
         historyListView.getItems().addAll(historyWords);
       }
+
+      // Set badges
+      setBadges();
+      badgeLabel.setText("You've unlocked " + numberBadges + "/15" + " Badges");
+
+      // Calculate percentage of badges completed
+      badgeRatio = (((double) numberBadges * 100) / (double) 15);
+      badgePercentage.setText("(" + String.format("%.0f", badgeRatio) + "%)");
+      badgeProgress.setProgress(badgeRatio / 100);
 
     } else {
       // If user is not signed in
@@ -104,6 +135,12 @@ public class ProfilePageController {
       fastestLabel.setText("-");
       gameLabel.setText("-");
       winrateLabel.setText("-");
+      winstreakLabel.setText("-");
+
+      // Set badges
+      badgeLabel.setText("You've unlocked 0/15 Badges");
+      badgePercentage.setText("(0%)");
+      setAllBadgesClear();
     }
   }
 
@@ -124,6 +161,135 @@ public class ProfilePageController {
     }
   }
 
+  // Method to display selected word in list of words
+  @FXML
+  private void onSelectWord(MouseEvent event) {
+    String word = historyListView.getSelectionModel().getSelectedItem();
+
+    if (word == null || word.isEmpty()) {
+      historyLabel.setText("Nothing Selected");
+    } else {
+      historyLabel.setText(word);
+    }
+  }
+
+  // Badge Methods
+  private void setAllBadgesClear() {
+    // streak badges set to transparent
+    fiveStreak.setOpacity(0.2);
+    tenStreak.setOpacity(0.2);
+    fiftyStreak.setOpacity(0.2);
+    hundredStreak.setOpacity(0.2);
+
+    // Games played to be added
+
+    // difficulty badges set to transparent
+    easyWins.setOpacity(0.2);
+    mediumWins.setOpacity(0.2);
+    hardWins.setOpacity(0.2);
+    masterWins.setOpacity(0.2);
+
+    // fastest game badges set to transparent
+    secThirty.setOpacity(0.2);
+    secTen.setOpacity(0.2);
+
+    // Special badges set to transparent
+    godArtist.setOpacity(0.2);
+  }
+
+  private void setBadges() throws IOException, CsvException {
+    setTimeBadges();
+    setGamesPlayedBadges();
+    setWinStreakBadges();
+    setDifficultWinBadges();
+    setExtraBadges();
+  }
+
+  private void setExtraBadges() {
+    godArtist.setOpacity(0.2);
+    // TODO: once difficulties are added
+  }
+
+  private void setDifficultWinBadges() {
+    easyWins.setOpacity(0.2);
+    mediumWins.setOpacity(0.2);
+    hardWins.setOpacity(0.2);
+    masterWins.setOpacity(0.2);
+    // TODO: once difficulties are added
+  }
+
+  private void setWinStreakBadges() throws IOException, CsvException {
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    int streak = sheetReaderWriter.getStreak(currentUsername);
+    // set all transparent
+    fiveStreak.setOpacity(0.2);
+    tenStreak.setOpacity(0.2);
+    fiftyStreak.setOpacity(0.2);
+    hundredStreak.setOpacity(0.2);
+    if (streak >= 5) { // 5 win streak
+      fiveStreak.setOpacity(1);
+      numberBadges++;
+    }
+    if (streak >= 10) { // 10 win streak
+      tenStreak.setOpacity(1);
+      numberBadges++;
+    }
+    if (streak >= 50) { // 50 win streak
+      fiftyStreak.setOpacity(1);
+      numberBadges++;
+    }
+    if (streak >= 100) {
+      hundredStreak.setOpacity(1);
+      numberBadges++;
+    }
+  }
+
+  private void setGamesPlayedBadges() throws IOException, CsvException {
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    int games =
+        sheetReaderWriter.getWins(currentUsername) + sheetReaderWriter.getLosses(currentUsername);
+    // set all transparent
+    fiveGames.setOpacity(0.2);
+    tenGames.setOpacity(0.2);
+    fiftyGames.setOpacity(0.2);
+    hundredGames.setOpacity(0.2);
+
+    if (games >= 5) { // 5 games played badge
+      fiveGames.setOpacity(1);
+      numberBadges++;
+    }
+    if (games >= 10) { // 10 games played badge
+      tenGames.setOpacity(1);
+      numberBadges++;
+    }
+    if (games >= 50) { // 50 games played badge
+      fiftyGames.setOpacity(1);
+      numberBadges++;
+    }
+    if (games >= 100) { // 100 games played badge
+      hundredGames.setOpacity(1);
+      numberBadges++;
+    }
+  }
+
+  private void setTimeBadges() throws IOException, CsvException {
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    int fastest = sheetReaderWriter.getFastest(currentUsername);
+    // set all transparent
+    secThirty.setOpacity(0.2);
+    secTen.setOpacity(0.2);
+    if (fastest <= 30) {
+      secThirty.setOpacity(1);
+      numberBadges++;
+      // 30 second badge
+    }
+    if (fastest <= 10) {
+      secTen.setOpacity(1);
+      numberBadges++;
+      // 10 second badge
+    }
+  }
+
   // Below is list of methods for when mouse hovers a button
   @FXML
   private void onHoverBack() {
@@ -136,7 +302,7 @@ public class ProfilePageController {
   @FXML
   private void onBackExit() {
     backButton.setStyle(
-        "-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
+        "-fx-background-radius: 100px; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
   }
 
   @FXML
@@ -179,32 +345,5 @@ public class ProfilePageController {
   private void onHoverFastest() {
     textToSpeechBackground.backgroundSpeak(
         "fastest game was " + fastestTime + "seconds", textToSpeech);
-  }
-
-  public void onClickBadge() throws IOException, CsvException {
-    Stage stage = (Stage) backButton.getScene().getWindow();
-    FXMLLoader loader =
-        new FXMLLoader(
-            App.class.getResource("/fxml/badge_page.fxml")); // creates a new instance of page
-    Scene scene = new Scene(loader.load(), 1000, 680);
-    BadgePageController ctrl = loader.getController(); // need controller to pass information
-    // may need to add code to pass though tts here
-    ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
-    ctrl.setUsername(currentUsername);
-    stage.setScene(scene);
-    stage.show();
-  }
-
-  @FXML
-  private void onHoverBadge() {
-    textToSpeechBackground.backgroundSpeak("Badge", textToSpeech);
-    badgeButton.setStyle(
-        "-fx-background-radius: 100px; -fx-text-fill: white; -fx-border-radius: 100px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
-  }
-
-  @FXML
-  private void onBadgeExit() {
-    badgeButton.setStyle(
-        "-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
   }
 }

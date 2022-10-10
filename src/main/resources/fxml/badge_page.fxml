@@ -4,7 +4,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
@@ -64,89 +66,113 @@
         <Font name="Arial Black" size="21.0" />
       </font>
     </Button>
-    <Label alignment="CENTER" layoutX="-14.0" layoutY="354.0" onMouseEntered="#onHoverNumBadges" prefHeight="49.0" prefWidth="265.0" text="Fastest Game" textAlignment="CENTER" textFill="WHITE">
-      <font>
-        <Font name="Arial Black" size="26.0" />
-      </font>
-    </Label>
-    <Label alignment="CENTER" layoutX="-20.0" layoutY="423.0" onMouseEntered="#onHoverNumBadges" prefHeight="49.0" prefWidth="265.0" text="Games Played" textAlignment="CENTER" textFill="WHITE">
-      <font>
-        <Font name="Arial Black" size="26.0" />
-      </font>
-    </Label>
-    <Label alignment="CENTER" layoutX="8.0" layoutY="495.0" onMouseEntered="#onHoverNumBadges" prefHeight="49.0" prefWidth="203.0" text="Wins in a row" textAlignment="CENTER" textFill="WHITE">
-      <font>
-        <Font name="Arial Black" size="26.0" />
-      </font>
-    </Label>
-    <Label alignment="CENTER" layoutX="12.0" layoutY="560.0" onMouseEntered="#onHoverNumBadges" prefHeight="49.0" prefWidth="203.0" text="Dificulty Wins" textAlignment="CENTER" textFill="WHITE">
-      <font>
-        <Font name="Arial Black" size="26.0" />
-      </font>
-    </Label>
-    <Label alignment="CENTER" layoutX="9.0" layoutY="622.0" onMouseEntered="#onHoverNumBadges" prefHeight="49.0" prefWidth="203.0" text="Extra" textAlignment="CENTER" textFill="WHITE">
-      <font>
-        <Font name="Arial Black" size="26.0" />
-      </font>
-    </Label>
-    <Circle fill="WHITE" layoutX="269.0" layoutY="373.0" radius="34.0" stroke="#7b7b7b" strokeType="INSIDE" />
-    <Circle fill="WHITE" layoutX="373.0" layoutY="375.0" radius="34.0" stroke="#7b7b7b" strokeType="INSIDE" />
-    <Circle fill="WHITE" layoutX="269.0" layoutY="447.0" radius="34.0" stroke="#7b7b7b" strokeType="INSIDE" />
-    <Circle fill="WHITE" layoutX="373.0" layoutY="447.0" radius="34.0" stroke="#7b7b7b" strokeType="INSIDE" />
-    <Circle fill="WHITE" layoutX="453.0" layoutY="445.0" radius="34.0" stroke="#7b7b7b" strokeType="INSIDE" />
-    <Circle fill="WHITE" layoutX="537.0" layoutY="447.0" radius="34.0" stroke="#7b7b7b" strokeType="INSIDE" />
-    <Circle fill="WHITE" layoutX="270.0" layoutY="520.0" radius="34.0" stroke="#7b7b7b" strokeType="INSIDE" />
-    <Circle fill="WHITE" layoutX="372.0" layoutY="521.0" radius="34.0" stroke="#7b7b7b" strokeType="INSIDE" />
-    <Circle fill="WHITE" layoutX="455.0" layoutY="520.0" radius="34.0" stroke="#7b7b7b" strokeType="INSIDE" />
-    <Circle fill="WHITE" layoutX="270.0" layoutY="593.0" radius="34.0" stroke="#7b7b7b" strokeType="INSIDE" />
-    <Circle fill="WHITE" layoutX="371.0" layoutY="594.0" radius="34.0" stroke="#7b7b7b" strokeType="INSIDE" />
-    <Circle fill="WHITE" layoutX="456.0" layoutY="593.0" radius="34.0" stroke="#7b7b7b" strokeType="INSIDE" />
-    <Circle fill="WHITE" layoutX="543.0" layoutY="593.0" radius="34.0" stroke="#7b7b7b" strokeType="INSIDE" />
-    <Circle fill="WHITE" layoutX="269.0" layoutY="653.0" radius="22.0" stroke="#7b7b7b" strokeType="INSIDE" />
-    <ImageView fx:id="secthirty" fitHeight="56.0" fitWidth="55.0" layoutX="348.0" layoutY="348.0">
-      <image>
-        <Image url="@../images/Badges/30sec.png" />
-      </image>
-    </ImageView>
-    <ImageView fitHeight="55.0" fitWidth="51.0" layoutX="245.0" layoutY="628.0">
-      <image>
-        <Image url="@../images/Badges/god.png" />
-      </image>
-    </ImageView>
-    <ImageView fx:id="tenStreak" fitHeight="44.0" fitWidth="46.0" layoutX="348.0" layoutY="500.0">
-      <image>
-        <Image url="@../images/Badges/10W.png" />
-      </image>
-    </ImageView>
-    <ImageView fitHeight="54.0" fitWidth="49.0" layoutX="344.0" layoutY="572.0">
-      <image>
-        <Image url="@../images/Badges/10EasyW.png" />
-      </image>
-    </ImageView>
-    <ImageView fx:id="secten" fitHeight="56.0" fitWidth="55.0" layoutX="245.0" layoutY="347.0">
-      <image>
-        <Image url="@../images/Badges/30sec.png" />
-      </image>
-    </ImageView>
-      <Circle fx:id="fiveGames" fill="#d044b9" layoutX="271.0" layoutY="448.0" radius="22.0" stroke="#7b7b7b" strokeType="INSIDE" />
-      <Circle fx:id="tenGames" fill="#d044b9" layoutX="373.0" layoutY="448.0" radius="22.0" stroke="#7b7b7b" strokeType="INSIDE" />
-      <Circle fx:id="fiftyGames" fill="#d044b9" layoutX="453.0" layoutY="448.0" radius="22.0" stroke="#7b7b7b" strokeType="INSIDE" />
-      <Circle fx:id="hundredGames" fill="#d044b9" layoutX="537.0" layoutY="448.0" radius="22.0" stroke="#7b7b7b" strokeType="INSIDE" />
-      <Circle fill="WHITE" layoutX="543.0" layoutY="520.0" radius="34.0" stroke="#7b7b7b" strokeType="INSIDE" />
-      <ImageView fx:id="fiveStreak" fitHeight="44.0" fitWidth="46.0" layoutX="246.0" layoutY="500.0">
-         <image>
-            <Image url="@../images/Badges/10W.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="fiftyStreak" fitHeight="44.0" fitWidth="46.0" layoutX="432.0" layoutY="500.0">
-         <image>
-            <Image url="@../images/Badges/10W.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="hundredStreak" fitHeight="44.0" fitWidth="46.0" layoutX="520.0" layoutY="500.0">
-         <image>
-            <Image url="@../images/Badges/10W.png" />
-         </image>
-      </ImageView>
+      <VBox layoutX="59.0" layoutY="313.0">
+         <children>
+            <HBox prefHeight="59.0" prefWidth="402.0">
+               <children>
+                <Label alignment="CENTER" onMouseEntered="#onHoverNumBadges" prefHeight="49.0" prefWidth="265.0" text="Fastest Game" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                    <Font name="Arial Black" size="26.0" />
+                  </font>
+                </Label>
+                <ImageView fx:id="secten" fitHeight="80.0" fitWidth="80.0">
+                  <image>
+                    <Image url="@../images/Badges/10Sec.png" />
+                  </image>
+                </ImageView>
+                <ImageView fx:id="secthirty" fitHeight="80.0" fitWidth="80.0">
+                  <image>
+                    <Image url="@../images/Badges/30Sec.png" />
+                  </image>
+                </ImageView>
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                <Label alignment="CENTER" onMouseEntered="#onHoverNumBadges" prefHeight="49.0" prefWidth="265.0" text="Games Played" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                    <Font name="Arial Black" size="26.0" />
+                  </font>
+                </Label>
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                <Label alignment="CENTER" onMouseEntered="#onHoverNumBadges" prefHeight="49.0" prefWidth="203.0" text="Wins in a row" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                    <Font name="Arial Black" size="26.0" />
+                  </font>
+                </Label>
+                  <HBox>
+                     <children>
+                        <ImageView fx:id="fiveStreak" fitHeight="80.0" fitWidth="80.0">
+                           <image>
+                              <Image url="@../images/Badges/5W.png" />
+                           </image>
+                        </ImageView>
+                      <ImageView fx:id="tenStreak" fitHeight="80.0" fitWidth="80.0">
+                        <image>
+                          <Image url="@../images/Badges/10W.png" />
+                        </image>
+                      </ImageView>
+                        <ImageView fx:id="fiftyStreak" fitHeight="80.0" fitWidth="80.0">
+                           <image>
+                              <Image url="@../images/Badges/50W.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="hundredStreak" fitHeight="80.0" fitWidth="80.0">
+                           <image>
+                              <Image url="@../images/Badges/100W.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                <Label alignment="CENTER" onMouseEntered="#onHoverNumBadges" prefHeight="49.0" prefWidth="203.0" text="Dificulty Wins" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                    <Font name="Arial Black" size="26.0" />
+                  </font>
+                </Label>
+                  <ImageView fx:id="fiveGames" fitHeight="80.0" fitWidth="80.0">
+                     <image>
+                        <Image url="@../images/Badges/10EasyW.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="fiveGames1" fitHeight="80.0" fitWidth="80.0">
+                     <image>
+                        <Image url="@../images/Badges/10MediumW.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="fiveGames2" fitHeight="80.0" fitWidth="80.0">
+                     <image>
+                        <Image url="@../images/Badges/10HardW.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="fiveGames21" fitHeight="80.0" fitWidth="80.0">
+                     <image>
+                        <Image url="@../images/Badges/10MasterW.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                <Label alignment="CENTER" onMouseEntered="#onHoverNumBadges" prefHeight="49.0" prefWidth="203.0" text="Special" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                    <Font name="Arial Black" size="26.0" />
+                  </font>
+                </Label>
+                  <ImageView fx:id="fiveGames3" fitHeight="80.0" fitWidth="80.0">
+                     <image>
+                        <Image url="@../images/Badges/GodArtist.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
   </children>
 </Pane>

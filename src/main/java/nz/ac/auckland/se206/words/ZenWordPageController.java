@@ -1,10 +1,8 @@
 package nz.ac.auckland.se206.words;
 
+import com.opencsv.exceptions.CsvException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-
-import com.opencsv.exceptions.CsvException;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,7 +14,6 @@ import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.ZenCanvasController;
 
 public class ZenWordPageController {
-
 	@FXML private Button readyButton;
 	@FXML private Button newWordButton;
 	
