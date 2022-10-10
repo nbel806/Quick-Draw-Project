@@ -68,7 +68,7 @@ public class WordPageController {
       String[] historyArray = spreadSheetReaderWriter.getHistory(currentUsername).split(",");
 
       CategorySelector categorySelector = new CategorySelector(); // picks random word
-      currentWord = categorySelector.getRandomCategory(words, historyArray);
+      currentWord = categorySelector.getRandomCategory(words, historyArray, currentUsername);
     }
     SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
     spreadSheetReaderWriter.updateWords(currentWord, currentUsername);

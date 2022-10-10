@@ -113,17 +113,17 @@ public class LoginController {
           profile[2] = "0"; // number of wins
           profile[3] = "0"; // number of losses
           profile[4] = "100"; // fastest time
-          profile[5] = "none"; // history words
+          profile[5] = null; // history words
           profile[6] = "0"; // Largest streak
           profile[7] = "0"; // Current streak
           profile[8] = "0"; // wins on easy
           profile[9] = "0"; // wins on medium
           profile[10] = "0"; // wins on hard
           profile[11] = "0"; // wins on master
-          profile[12] = "0"; // users last time selection
-          profile[13] = "0"; // users last word selection
-          profile[14] = "0"; // users last confidence selection
-          profile[15] = "0"; // users last accuracy selection
+          profile[12] = "60"; // users last time selection
+          profile[13] = "1"; // users last word selection
+          profile[14] = "1"; // users last confidence selection
+          profile[15] = "3"; // users last accuracy selection
 
           writer.writeNext(profile);
 

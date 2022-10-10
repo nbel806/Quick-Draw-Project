@@ -17,7 +17,7 @@ public class SpreadSheetReaderWriter {
     int index = findUserName(currentUser);
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv")); // name of file
     List<String[]> allData = csvReader.readAll();
-    allData.get(index)[5] = allData.get(index)[5] + "," + word;
+    allData.get(index)[5] = allData.get(index)[5] + word + ",";
     CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv")); // writes to file name
     csvWriter.writeAll(allData); // writes all the data to the same file
     csvWriter.flush();
@@ -201,5 +201,16 @@ public class SpreadSheetReaderWriter {
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
     List<String[]> allData = csvReader.readAll();
     return Integer.parseInt(allData.get(index)[14]);
+  }
+
+  public void resetUserHistory(String currentUsername) throws IOException, CsvException {
+    int index = findUserName(currentUsername);
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+    allData.get(index)[5] = "none"; // updates time difficulty value for next time
+
+    CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
+    csvWriter.writeAll(allData); // writes all the data back
+    csvWriter.flush();
   }
 }
