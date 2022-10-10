@@ -34,11 +34,12 @@ import javax.imageio.ImageIO;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
 
 public class ZenCanvasController {
+	
 	@FXML private Button backButton;
 	@FXML private Button onSaveButton;
 	
-  @FXML private Label wordLabel;
-  @FXML private Label topTenLabel;
+    @FXML private Label wordLabel;
+    @FXML private Label topTenLabel;
 	
 	@FXML private Canvas zenCanvas;
 	
@@ -421,21 +422,5 @@ public class ZenCanvasController {
 		backImage.setFitHeight(76);
 		backImage.setFitWidth(73);
 	}
-  private void printTopTen(List<Classifications.Classification> list) {
-    StringBuilder sb = new StringBuilder();
-    sb.append(System.lineSeparator());
-    int i = 1;
-    for (Classifications.Classification classification :
-        list) { // cycles through list and build string to print
-      // top 10
-      sb.append(i)
-          .append(" : ")
-          .append(classification.getClassName().replace("_", " ")) // replaces _ with spaces
-          // to ensure a standard
-          // format
-          .append(System.lineSeparator());
-      i++;
-    }
-    topTenLabel.setText(String.valueOf(sb)); // updates label to the new top 10
-  }
+  
 }
