@@ -3,6 +3,8 @@ package nz.ac.auckland.se206.words;
 import com.opencsv.exceptions.CsvException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Random;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,6 +20,10 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class WordPageController {
 
+  @FXML private Text confidenceLabel;
+  @FXML private Text wordsLabel;
+  @FXML private Text accuracyLabel;
+  @FXML private Text timeLabel;
   @FXML private Text wordToDraw;
   @FXML private Button readyButton;
   @FXML private Label textToSpeechLabel;
@@ -30,16 +36,42 @@ public class WordPageController {
   private TextToSpeechBackground textToSpeechBackground;
 
   private String currentUsername = null;
+  private int time;
+  private int accuracy;
+  private int confidence;
+
+  private int words;
 
   /** Picks a random word from the easy category using category selector */
   private void setWordToDraw() throws IOException, URISyntaxException, CsvException {
     if (currentUsername == null) { // if guest
-      CategorySelector categorySelector = new CategorySelector(); // picks random easy word
-      currentWord = categorySelector.getRandomCategory(CategorySelector.Difficulty.E);
+      CategorySelector categorySelector = new CategorySelector(); // picks random word
+      ArrayList<Object> randomWords = new ArrayList<>();
+      switch (words) {
+        case 1 -> // easy
+        randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.E));
+        case 2 -> { // easy and medium
+          randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.E));
+          randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.M));
+        }
+        case 3 -> { // easy medium and hard
+          randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.E));
+          randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.M));
+          randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.H));
+        }
+        case 4 -> // just hard
+        randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.H));
+      }
+      currentWord = (String) randomWords.get(new Random().nextInt(randomWords.size()));
     } else { // if user chosen from their pool of words left
       SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
-      currentWord = spreadSheetReaderWriter.findWordsLeft(currentUsername);
+      String[] historyArray = spreadSheetReaderWriter.getHistory(currentUsername).split(",");
+
+      CategorySelector categorySelector = new CategorySelector(); // picks random word
+      currentWord = categorySelector.getRandomCategory(words, historyArray, currentUsername);
     }
+    SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
+    spreadSheetReaderWriter.updateWords(currentWord, currentUsername);
     wordToDraw.setText(currentWord);
   }
 
@@ -61,7 +93,6 @@ public class WordPageController {
     } else {
       userLabel.setText("Guest");
     }
-
     setWordToDraw();
   }
 
@@ -129,15 +160,16 @@ public class WordPageController {
     FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/canvas.fxml"));
     Scene scene = new Scene(loader.load(), 1000, 680);
     stage.setScene(scene);
-    stage.show();
     CanvasController canvasController =
         loader.getController(); // gets the newly created controller for next page
+    canvasController.setTimeAccuracy(time, accuracy, confidence, words);
     canvasController.setWordLabel(
         currentWord); // passes the current word so that the next screen can display it
     canvasController.give(
         textToSpeechBackground, textToSpeech); // passes the background threaded text to speech
     // and whether it is on or not
     canvasController.getUsername(currentUsername);
+    stage.show();
   }
 
   // Below is list of methods for when mouse exits a button
@@ -157,5 +189,28 @@ public class WordPageController {
   @FXML
   private void onHoverJustDraw() {
     textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
+  }
+
+  public void setDifficulty(int accuracy, int confidence, int words, int time) {
+    this.time = time;
+    timeLabel.setText(time + "secs");
+    this.accuracy = accuracy;
+    accuracyLabel.setText("Top " + accuracy);
+
+    confidenceLabel.setText(confidence + "%");
+    this.confidence = confidence;
+
+    if (words == 1) {
+      wordsLabel.setText("E");
+    } else if (words == 2) {
+      wordsLabel.setText("E,M");
+    } else if (words == 3) {
+      wordsLabel.setText("E,M, H");
+    } else if (words == 4) {
+      wordsLabel.setText("H");
+    } else {
+      wordsLabel.setText("ERROR");
+    }
+    this.words = words;
   }
 }

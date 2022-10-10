@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import nz.ac.auckland.se206.SpreadSheetReaderWriter;
 
 public class CategorySelector {
 
@@ -47,10 +48,37 @@ public class CategorySelector {
   public String getRandomCategory(Difficulty difficulty) {
     return difficultyListMap
         .get(difficulty)
-        .get(new Random().nextInt(difficultyListMap.get(difficulty).size()) - 1);
+        .get(new Random().nextInt(difficultyListMap.get(difficulty).size()));
   }
 
   public List<String> getCategory(Difficulty difficulty) {
     return difficultyListMap.get(difficulty);
+  }
+
+  public String getRandomCategory(int words, String[] history, String currentUsername)
+      throws IOException, CsvException {
+    ArrayList<Object> randomWords = new ArrayList<>();
+    switch (words) {
+      case 2 -> {
+        randomWords.addAll(difficultyListMap.get(Difficulty.E));
+        randomWords.addAll(difficultyListMap.get(Difficulty.M));
+      }
+      case 3 -> {
+        randomWords.addAll(difficultyListMap.get(Difficulty.E));
+        randomWords.addAll(difficultyListMap.get(Difficulty.M));
+        randomWords.addAll(difficultyListMap.get(Difficulty.H));
+      }
+      case 4 -> randomWords.addAll(difficultyListMap.get(Difficulty.H));
+
+      default -> randomWords.addAll(difficultyListMap.get(Difficulty.E));
+    }
+    for (String pastWord : history) {
+      randomWords.remove(pastWord);
+    }
+    if (randomWords.size() == 0) {
+      SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
+      spreadSheetReaderWriter.resetUserHistory(currentUsername);
+    }
+    return (String) randomWords.get(new Random().nextInt(randomWords.size()));
   }
 }
