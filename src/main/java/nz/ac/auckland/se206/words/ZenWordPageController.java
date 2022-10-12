@@ -3,6 +3,7 @@ package nz.ac.auckland.se206.words;
 import com.opencsv.exceptions.CsvException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Random;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,6 +15,7 @@ import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.ZenCanvasController;
 
 public class ZenWordPageController {
+
   @FXML private Button readyButton;
   @FXML private Button newWordButton;
 
@@ -43,8 +45,11 @@ public class ZenWordPageController {
 
   public void setWordToDraw() throws IOException, URISyntaxException, CsvException {
     CategorySelector categorySelector = new CategorySelector(); // picks random easy word
-    currentWord = categorySelector.getRandomCategory(CategorySelector.Difficulty.E);
-    wordLabel.setText(currentWord);
+    String[] words = new String[3];
+    words[0] = categorySelector.getRandomCategory(CategorySelector.Difficulty.E);
+    words[1] = categorySelector.getRandomCategory(CategorySelector.Difficulty.M);
+    words[2] = categorySelector.getRandomCategory(CategorySelector.Difficulty.H);
+    wordLabel.setText(words[new Random().nextInt(words.length)]);
   }
 
   public void onNewWord() throws IOException, URISyntaxException, CsvException {
