@@ -24,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
@@ -43,8 +44,12 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
  */
 public class CanvasController {
 
-  public ImageView userImage;
-  public Button profileButton;
+  @FXML private ImageView downArrow;
+  @FXML private Circle upArrowCircle;
+  @FXML private Circle downArrowCircle;
+  @FXML private ImageView upArrow;
+  @FXML private ImageView userImage;
+  @FXML private Button profileButton;
   @FXML private Canvas canvas;
 
   @FXML private Label wordLabel;
@@ -86,6 +91,7 @@ public class CanvasController {
   private int words;
   private int time;
   private int overallDif;
+  private double lastWordPred = 0;
 
   /**
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
@@ -251,7 +257,7 @@ public class CanvasController {
                         try {
                           list =
                               model.getPredictions(
-                                  snapshot, 10); // uses the model to get predictions
+                                  snapshot, 345); // uses the model to get predictions
                           // based on current user
                           // drawing
                         } catch (TranslateException e) {
@@ -314,8 +320,40 @@ public class CanvasController {
           // format
           .append(System.lineSeparator());
       i++;
+      if (i == 10) {
+        break;
+      }
     }
     topTenLabel.setText(String.valueOf(sb)); // updates label to the new top 10
+    updateWordPrediction(list);
+  }
+
+  private void updateWordPrediction(List<Classification> list) {
+    double wordPred = 0;
+    for (Classifications.Classification classification : list) {
+      if (classification.getClassName().equals(currentWord)) {
+        wordPred = classification.getProbability();
+        break;
+      }
+    }
+
+    if (wordPred > lastWordPred) { // increase
+      upArrow.setOpacity(1);
+      upArrowCircle.setOpacity(1);
+      downArrow.setOpacity(0.1);
+      downArrowCircle.setOpacity(0.1);
+    } else if (wordPred == lastWordPred) {
+      upArrow.setOpacity(0.1);
+      upArrowCircle.setOpacity(0.1);
+      downArrow.setOpacity(0.1);
+      downArrowCircle.setOpacity(0.1);
+    } else { // decrease
+      upArrow.setOpacity(0.1);
+      upArrowCircle.setOpacity(0.1);
+      downArrow.setOpacity(1);
+      downArrowCircle.setOpacity(1);
+    }
+    lastWordPred = wordPred;
   }
 
   /** When timer reaches 0secs */
