@@ -205,17 +205,42 @@ public class ProfilePageController {
     setExtraBadges();
   }
 
-  private void setExtraBadges() {
+  private void setExtraBadges() throws IOException, CsvException {
     godArtist.setOpacity(0.2);
-    // TODO: once difficulties are added
+
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    int[] difficultyWins = sheetReaderWriter.getDifWins(currentUsername);
+    int count = 0;
+    for (int i : difficultyWins) {
+      if (i >= 100) {
+        count++;
+      }
+    }
+    if (count == 4) {
+      godArtist.setOpacity(1);
+    }
   }
 
-  private void setDifficultWinBadges() {
+  private void setDifficultWinBadges() throws IOException, CsvException {
     easyWins.setOpacity(0.2);
     mediumWins.setOpacity(0.2);
     hardWins.setOpacity(0.2);
     masterWins.setOpacity(0.2);
-    // TODO: once difficulties are added
+
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    int[] difficultyWins = sheetReaderWriter.getDifWins(currentUsername);
+    if (difficultyWins[0] >= 10) { // easy wins
+      easyWins.setOpacity(1);
+    }
+    if (difficultyWins[1] >= 10) { // medium wins
+      mediumWins.setOpacity(1);
+    }
+    if (difficultyWins[2] >= 10) { // hard wins
+      hardWins.setOpacity(1);
+    }
+    if (difficultyWins[3] >= 10) { // master wins
+      masterWins.setOpacity(1);
+    }
   }
 
   private void setWinStreakBadges() throws IOException, CsvException {

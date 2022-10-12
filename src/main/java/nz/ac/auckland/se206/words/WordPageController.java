@@ -41,6 +41,7 @@ public class WordPageController {
   private int confidence;
 
   private int words;
+  private int overallDif;
 
   /** Picks a random word from the easy category using category selector */
   private void setWordToDraw() throws IOException, URISyntaxException, CsvException {
@@ -162,7 +163,7 @@ public class WordPageController {
     stage.setScene(scene);
     CanvasController canvasController =
         loader.getController(); // gets the newly created controller for next page
-    canvasController.setTimeAccuracy(time, accuracy, confidence, words);
+    canvasController.setTimeAccuracy(time, accuracy, confidence, words, overallDif);
     canvasController.setWordLabel(
         currentWord); // passes the current word so that the next screen can display it
     canvasController.give(
@@ -212,5 +213,18 @@ public class WordPageController {
       wordsLabel.setText("ERROR");
     }
     this.words = words;
+    overallDifficulty(accuracy, confidence, words, time);
+  }
+
+  private void overallDifficulty(int accuracy, int confidence, int words, int time) {
+    if (words == 4 && confidence == 50 && accuracy == 1 && time == 15) { // master level
+      overallDif = 4;
+    } else if (words >= 3 && confidence >= 25 && accuracy == 1 && time <= 30) { // hard level
+      overallDif = 3;
+    } else if (words >= 2 && confidence >= 10 && accuracy <= 2 && time <= 45) { // medium level
+      overallDif = 2;
+    } else { // easy level
+      overallDif = 1;
+    }
   }
 }

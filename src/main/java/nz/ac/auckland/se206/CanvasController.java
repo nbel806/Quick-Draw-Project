@@ -85,6 +85,7 @@ public class CanvasController {
   private double confidenceUser;
   private int words;
   private int time;
+  private int overallDif;
 
   /**
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
@@ -317,7 +318,7 @@ public class CanvasController {
     topTenLabel.setText(String.valueOf(sb)); // updates label to the new top 10
   }
 
-  /** When timer reaches 60secs */
+  /** When timer reaches 0secs */
   private void whenTimerEnds() throws IOException, CsvException {
     Stage stage =
         (Stage) wordLabel.getScene().getWindow(); // finds current stage from the word label
@@ -332,7 +333,7 @@ public class CanvasController {
     gameOverController.give(
         textToSpeechBackground, textToSpeech); // passes text to speech and boolean
     gameOverController.timeLeft(seconds);
-    gameOverController.setWinLoseLabel(winLose, this);
+    gameOverController.setWinLoseLabel(winLose, this, overallDif);
     gameOverController.setTimeAccuracy(time, userAccuracy, confidence, words);
 
     // passes if user won or lost and current instance of canvas controller
@@ -510,7 +511,7 @@ public class CanvasController {
     textToSpeechBackground.backgroundSpeak("Predictions", textToSpeech);
   }
 
-  public void setTimeAccuracy(int time, int accuracy, int confidence, int words) {
+  public void setTimeAccuracy(int time, int accuracy, int confidence, int words, int overallDif) {
     seconds = time;
     this.time = time;
     userAccuracy = accuracy;
@@ -522,5 +523,6 @@ public class CanvasController {
       case 50 -> this.confidenceUser = 0.5;
     }
     this.words = words;
+    this.overallDif = overallDif;
   }
 }

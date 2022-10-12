@@ -47,7 +47,7 @@ public class GameOverController {
     }
   }
 
-  public void setWinLoseLabel(boolean winLose, CanvasController ctrl)
+  public void setWinLoseLabel(boolean winLose, CanvasController ctrl, int overallDif)
       throws IOException, CsvException {
     if (winLose) { // if user won display message and time
       winLoseLabel.setText("YOU WON");
@@ -61,7 +61,7 @@ public class GameOverController {
     canvasController = ctrl;
     SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
     spreadSheetReaderWriter.updateResult(
-        winLose, currentUsername); // writes over old file to update win/loss record
+        winLose, currentUsername, overallDif); // writes over old file to update win/loss record
   }
 
   public void timeLeft(int sec) throws IOException, CsvException {
