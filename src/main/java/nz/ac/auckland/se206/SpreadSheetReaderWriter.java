@@ -35,7 +35,8 @@ public class SpreadSheetReaderWriter {
     return i;
   }
 
-  public void updateResult(boolean win, String currentUsername) throws IOException, CsvException {
+  public void updateResult(boolean win, String currentUsername, int overallDif)
+      throws IOException, CsvException {
     if (currentUsername == null) {
       return;
     }
@@ -51,6 +52,16 @@ public class SpreadSheetReaderWriter {
       if (Integer.parseInt(allData.get(index)[7])
           > Integer.parseInt(allData.get(index)[6])) { // checks streak
         allData.get(index)[6] = allData.get(index)[7]; // makes new highest streak
+      }
+      switch (overallDif) {
+        case 2 -> // medium difficulty
+        allData.get(index)[9] = String.valueOf(Integer.parseInt(allData.get(index)[9]) + 1);
+        case 3 -> // hard difficulty
+        allData.get(index)[10] = String.valueOf(Integer.parseInt(allData.get(index)[10]) + 1);
+        case 4 -> // master difficulty
+        allData.get(index)[11] = String.valueOf(Integer.parseInt(allData.get(index)[11]) + 1);
+        default -> // easy difficulty
+        allData.get(index)[8] = String.valueOf(Integer.parseInt(allData.get(index)[8]) + 1);
       }
     } else {
       allData.get(index)[3] =
@@ -212,5 +223,18 @@ public class SpreadSheetReaderWriter {
     CSVWriter csvWriter = new CSVWriter(new FileWriter("userdata.csv"));
     csvWriter.writeAll(allData); // writes all the data back
     csvWriter.flush();
+  }
+
+  public int[] getDifWins(String currentUsername) throws IOException, CsvException {
+    int index = findUserName(currentUsername); // find username place in csv
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+
+    int[] difWins = new int[4];
+    difWins[0] = Integer.parseInt(allData.get(index)[8]); // easy wins
+    difWins[1] = Integer.parseInt(allData.get(index)[9]); // medium wins
+    difWins[2] = Integer.parseInt(allData.get(index)[10]); // hard wins
+    difWins[3] = Integer.parseInt(allData.get(index)[11]); // master wins
+    return difWins;
   }
 }

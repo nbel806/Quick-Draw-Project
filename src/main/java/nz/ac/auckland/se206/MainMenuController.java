@@ -67,14 +67,14 @@ public class MainMenuController {
   @FXML
   private void onZenModeCanvas() throws IOException, URISyntaxException, CsvException {
 
-	  
-	  Stage stage = (Stage) playButton.getScene().getWindow();
-	    FXMLLoader loader =
-	        new FXMLLoader(App.class.getResource("/fxml/zen_word_page.fxml")); // creates a new instance of
-	    // word page
-	    Scene scene = new Scene(loader.load(), 1000, 560);
-	    stage.setScene(scene);
-	    stage.show();
+    Stage stage = (Stage) playButton.getScene().getWindow();
+    FXMLLoader loader =
+        new FXMLLoader(
+            App.class.getResource("/fxml/zen_word_page.fxml")); // creates a new instance of
+    // word page
+    Scene scene = new Scene(loader.load(), 1000, 560);
+    stage.setScene(scene);
+    stage.show();
   }
 
   @FXML
@@ -175,12 +175,12 @@ public class MainMenuController {
   private void onHoverTitle() {
     textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
   }
-  
+
   @FXML
   private void onHoverZen() {
-	textToSpeechBackground.backgroundSpeak("Zen Mode", textToSpeech);
-	zenImage.setFitHeight(72);
-	zenImage.setFitWidth(74);
+    textToSpeechBackground.backgroundSpeak("Zen Mode", textToSpeech);
+    zenImage.setFitHeight(72);
+    zenImage.setFitWidth(74);
   }
 
   // Below is list of methods for when mouse exits a button
@@ -208,11 +208,10 @@ public class MainMenuController {
     volumeImage.setFitWidth(45);
   }
 
-  
   @FXML
   private void onZenExit() {
-	zenImage.setFitHeight(69);
-	zenImage.setFitWidth(71);
+    zenImage.setFitHeight(69);
+    zenImage.setFitWidth(71);
   }
 
   @FXML
@@ -313,5 +312,4 @@ public class MainMenuController {
     SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
     sheetReaderWriter.updateUsersTime(time, currentUsername);
   }
-
 }

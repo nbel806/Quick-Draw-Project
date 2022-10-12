@@ -9,14 +9,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class ProfilePageController {
 
-  @FXML private ImageView userImage;
-  @FXML private Button badgeButton;
   @FXML private Button backButton;
   @FXML private Label usernameLabel;
   @FXML private Label winLabel;
@@ -163,7 +160,7 @@ public class ProfilePageController {
 
   // Method to display selected word in list of words
   @FXML
-  private void onSelectWord(MouseEvent event) {
+  private void onSelectWord() {
     String word = historyListView.getSelectionModel().getSelectedItem();
 
     if (word == null || word.isEmpty()) {
@@ -182,7 +179,10 @@ public class ProfilePageController {
     hundredStreak.setOpacity(0.2);
 
     // Games played to be added
-
+    fiveGames.setOpacity(0.2);
+    tenGames.setOpacity(0.2);
+    fiftyGames.setOpacity(0.2);
+    hundredGames.setOpacity(0.2);
     // difficulty badges set to transparent
     easyWins.setOpacity(0.2);
     mediumWins.setOpacity(0.2);
@@ -205,17 +205,42 @@ public class ProfilePageController {
     setExtraBadges();
   }
 
-  private void setExtraBadges() {
+  private void setExtraBadges() throws IOException, CsvException {
     godArtist.setOpacity(0.2);
-    // TODO: once difficulties are added
+
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    int[] difficultyWins = sheetReaderWriter.getDifWins(currentUsername);
+    int count = 0;
+    for (int i : difficultyWins) {
+      if (i >= 100) {
+        count++;
+      }
+    }
+    if (count == 4) {
+      godArtist.setOpacity(1);
+    }
   }
 
-  private void setDifficultWinBadges() {
+  private void setDifficultWinBadges() throws IOException, CsvException {
     easyWins.setOpacity(0.2);
     mediumWins.setOpacity(0.2);
     hardWins.setOpacity(0.2);
     masterWins.setOpacity(0.2);
-    // TODO: once difficulties are added
+
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    int[] difficultyWins = sheetReaderWriter.getDifWins(currentUsername);
+    if (difficultyWins[0] >= 10) { // easy wins
+      easyWins.setOpacity(1);
+    }
+    if (difficultyWins[1] >= 10) { // medium wins
+      mediumWins.setOpacity(1);
+    }
+    if (difficultyWins[2] >= 10) { // hard wins
+      hardWins.setOpacity(1);
+    }
+    if (difficultyWins[3] >= 10) { // master wins
+      masterWins.setOpacity(1);
+    }
   }
 
   private void setWinStreakBadges() throws IOException, CsvException {
