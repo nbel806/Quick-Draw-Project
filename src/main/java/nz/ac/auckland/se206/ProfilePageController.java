@@ -9,14 +9,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class ProfilePageController {
 
-  @FXML private ImageView userImage;
-  @FXML private Button badgeButton;
   @FXML private Button backButton;
   @FXML private Label usernameLabel;
   @FXML private Label winLabel;
@@ -163,7 +160,7 @@ public class ProfilePageController {
 
   // Method to display selected word in list of words
   @FXML
-  private void onSelectWord(MouseEvent event) {
+  private void onSelectWord() {
     String word = historyListView.getSelectionModel().getSelectedItem();
 
     if (word == null || word.isEmpty()) {
@@ -182,7 +179,10 @@ public class ProfilePageController {
     hundredStreak.setOpacity(0.2);
 
     // Games played to be added
-
+    fiveGames.setOpacity(0.2);
+    tenGames.setOpacity(0.2);
+    fiftyGames.setOpacity(0.2);
+    hundredGames.setOpacity(0.2);
     // difficulty badges set to transparent
     easyWins.setOpacity(0.2);
     mediumWins.setOpacity(0.2);
