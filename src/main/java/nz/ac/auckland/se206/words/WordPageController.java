@@ -17,6 +17,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.CanvasController;
+import nz.ac.auckland.se206.HiddenWordCanvasController;
 import nz.ac.auckland.se206.SpreadSheetReaderWriter;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
@@ -37,6 +38,7 @@ public class WordPageController {
   private Accordion resultsAccordion;
   
   private String currentWord;
+  private Boolean isHiddenWordMode = false;
   private Boolean textToSpeech;
   private TextToSpeechBackground textToSpeechBackground;
 
@@ -105,20 +107,24 @@ public class WordPageController {
   @FXML
   private void onNewWord() throws IOException, URISyntaxException, CsvException {
     // Get new word
-	resultsAccordion.setOpacity(0);
+	isHiddenWordMode = false;
     setWordToDraw();
   }
   
   @FXML
-  private void onNewDefinition() throws IOException, URISyntaxException, CsvException, WordNotFoundException {
-	setWordToDraw();
+  private void onHiddenWordMode() throws IOException, URISyntaxException, CsvException, WordNotFoundException {
+	isHiddenWordMode = true;
+	wordToDraw.setText("?????");
+	  
+	  /*
+	  setWordToDraw();
 	wordToDraw.setText("hidden"); 
 	resultsAccordion.getPanes().clear();
 	
 	WordInfo wordResult = DictionaryLookup.searchWordInfo(currentWord);
 	TitledPane pane = WordPane.generateWordPane(currentWord, wordResult);
 	resultsAccordion.getPanes().add(pane);
-	resultsAccordion.setOpacity(1);
+	*/
 	
   }
 
@@ -175,21 +181,38 @@ public class WordPageController {
 
   @FXML
   private void onReady() throws IOException {
-    Stage stage =
-        (Stage) readyButton.getScene().getWindow(); // uses the ready button to fine the stage
-    FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/canvas.fxml"));
-    Scene scene = new Scene(loader.load(), 1000, 680);
-    stage.setScene(scene);
-    CanvasController canvasController =
-        loader.getController(); // gets the newly created controller for next page
-    canvasController.setTimeAccuracy(time, accuracy, confidence, words, overallDif);
-    canvasController.setWordLabel(
-        currentWord); // passes the current word so that the next screen can display it
-    canvasController.give(
-        textToSpeechBackground, textToSpeech); // passes the background threaded text to speech
-    // and whether it is on or not
-    canvasController.getUsername(currentUsername);
-    stage.show();
+	  if (!isHiddenWordMode) {
+		Stage stage =
+				(Stage) readyButton.getScene().getWindow(); // uses the ready button to fine the stage
+		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/canvas.fxml"));
+	    Scene scene = new Scene(loader.load(), 1000, 680);
+	    stage.setScene(scene);
+	    CanvasController canvasController =
+	        loader.getController(); // gets the newly created controller for next page
+	    canvasController.setTimeAccuracy(time, accuracy, confidence, words, overallDif);
+	    canvasController.setWordLabel(
+	        currentWord); // passes the current word so that the next screen can display it
+	    canvasController.give(
+	        textToSpeechBackground, textToSpeech); // passes the background threaded text to speech
+	    // and whether it is on or not
+	    canvasController.getUsername(currentUsername);
+	    stage.show();
+	  }else {
+  	    Stage stage =
+			    (Stage) readyButton.getScene().getWindow(); // uses the ready button to fine the stage
+		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/hidden_word_canvas.fxml"));
+		Scene scene = new Scene(loader.load(), 1000, 680);
+		stage.setScene(scene);
+		HiddenWordCanvasController hiddenWordCanvasController =
+		loader.getController(); // gets the newly created controller for next page
+	    hiddenWordCanvasController.setTimeAccuracy(time, accuracy, confidence, words, overallDif);
+	    hiddenWordCanvasController.give(
+	        textToSpeechBackground, textToSpeech); // passes the background threaded text to speech
+	    // and whether it is on or not
+	    hiddenWordCanvasController.getUsername(currentUsername);
+	    stage.show();
+	  }
+    
   }
 
   // Below is list of methods for when mouse exits a button

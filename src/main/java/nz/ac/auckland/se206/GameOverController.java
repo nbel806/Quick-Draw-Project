@@ -27,6 +27,7 @@ public class GameOverController {
   @FXML private ImageView volumeImage;
 
   private CanvasController canvasController;
+  private HiddenWordCanvasController hiddenWordCanvasController;
   private Boolean textToSpeech;
   private TextToSpeechBackground textToSpeechBackground;
 
@@ -63,6 +64,24 @@ public class GameOverController {
     spreadSheetReaderWriter.updateResult(
         winLose, currentUsername, overallDif); // writes over old file to update win/loss record
   }
+  
+  //hidden word mode
+  public void setWinLoseLabel(boolean winLose, HiddenWordCanvasController ctrl, int overallDif)
+	      throws IOException, CsvException {
+	    if (winLose) { // if user won display message and time
+	      winLoseLabel.setText("YOU WON");
+	      timeLabel.setText("TIME LEFT: " + timeLeft + " seconds");
+	      winLoseString = "You won with " + timeLeft + "Seconds left!";
+	    } else { // if user looses display message
+	      winLoseLabel.setText("YOU LOST");
+	      timeLabel.setText("TIME LIMIT REACHED");
+	      winLoseString = "You lost!";
+	    }
+	    hiddenWordCanvasController = ctrl;
+	    SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
+	    spreadSheetReaderWriter.updateResult(
+	        winLose, currentUsername, overallDif); // writes over old file to update win/loss record
+	  }
 
   public void timeLeft(int sec) throws IOException, CsvException {
     timeLeft = sec;
