@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -72,6 +73,10 @@
         </Label>
       </children>
     </HBox>
-      <ImageView fx:id="usersImage" fitHeight="226.0" fitWidth="300.0" layoutX="687.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true" />
+      <BorderPane layoutX="51.0" layoutY="287.0" prefHeight="219.0" prefWidth="220.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-border-width: 5; -fx-border-color: #000000; -fx-border-radius: 15;">
+         <center>
+            <ImageView fx:id="usersImage" fitHeight="173.0" fitWidth="211.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
   </children>
 </Pane>
