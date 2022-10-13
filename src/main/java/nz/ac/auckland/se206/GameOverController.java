@@ -87,6 +87,7 @@ public class GameOverController {
       winLoseLabel.setText("YOU WON");
       timeLabel.setText("TIME LEFT: " + timeLeft + " seconds");
       winLoseString = "You won with " + timeLeft + "Seconds left!";
+
     } else { // if user looses display message
       winLoseLabel.setText("YOU LOST");
       timeLabel.setText("TIME LIMIT REACHED");
