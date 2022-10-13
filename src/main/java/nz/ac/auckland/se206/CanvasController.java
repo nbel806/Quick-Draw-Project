@@ -114,6 +114,10 @@ public class CanvasController {
     model = new DoodlePrediction();
     setTimerLabel(seconds); // sets timer to specified number of seconds
     doTimer();
+    upArrow.setOpacity(0.1);
+    upArrowCircle.setOpacity(0.1);
+    downArrow.setOpacity(0.1);
+    downArrowCircle.setOpacity(0.1);
   }
 
   private void setTool() {
@@ -320,7 +324,7 @@ public class CanvasController {
           // format
           .append(System.lineSeparator());
       i++;
-      if (i == 10) {
+      if (i == 11) {
         break;
       }
     }
