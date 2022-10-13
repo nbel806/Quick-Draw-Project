@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206;
 
 import com.opencsv.exceptions.CsvException;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -9,7 +10,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -18,6 +22,7 @@ import nz.ac.auckland.se206.words.WordPageController;
 
 public class GameOverController {
 
+  @FXML private ImageView usersImage;
   @FXML private Label timeLabel;
   @FXML private Label winLoseLabel;
   @FXML private Button playAgainButton;
@@ -39,12 +44,41 @@ public class GameOverController {
   private int confidence;
   private int words;
 
-  public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
+  public void give(
+      TextToSpeechBackground textToSpeechBackground,
+      Boolean textToSpeech,
+      BufferedImage bufferedImage) {
     this.textToSpeechBackground = textToSpeechBackground;
     this.textToSpeech = textToSpeech;
     if (textToSpeech) { // updates label to ensure it is correct
       textToSpeechLabel.setText("ON");
     }
+
+    usersImage.setImage(convertToFxImage(bufferedImage));
+  }
+
+  /**
+   * Converts the buffered image to and image to display. Found
+   * https://stackoverflow.com/questions/30970005/bufferedimage-to-javafx-image on 14/10/22 posted
+   * by Dan
+   *
+   * @param bufferedImage takes a buffered image that is a screenshot of the final drawing the user
+   *     did
+   * @return Image, is a image that can be used in java fx image view.
+   */
+  private static Image convertToFxImage(BufferedImage bufferedImage) {
+    WritableImage wr = null;
+    if (bufferedImage != null) {
+      wr = new WritableImage(bufferedImage.getWidth(), bufferedImage.getHeight());
+      PixelWriter pw = wr.getPixelWriter();
+      for (int x = 0; x < bufferedImage.getWidth(); x++) {
+        for (int y = 0; y < bufferedImage.getHeight(); y++) {
+          pw.setArgb(x, y, bufferedImage.getRGB(x, y));
+        }
+      }
+    }
+
+    return new ImageView(wr).getImage();
   }
 
   public void setWinLoseLabel(boolean winLose, CanvasController ctrl, int overallDif)

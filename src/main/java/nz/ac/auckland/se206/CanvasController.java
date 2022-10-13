@@ -362,6 +362,7 @@ public class CanvasController {
 
   /** When timer reaches 0secs */
   private void whenTimerEnds() throws IOException, CsvException {
+    BufferedImage bufferedImage = getCurrentSnapshot();
     Stage stage =
         (Stage) wordLabel.getScene().getWindow(); // finds current stage from the word label
     FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/game_over.fxml"));
@@ -373,7 +374,7 @@ public class CanvasController {
     // information
     gameOverController.getUsername(currentUsername);
     gameOverController.give(
-        textToSpeechBackground, textToSpeech); // passes text to speech and boolean
+        textToSpeechBackground, textToSpeech, bufferedImage); // passes text to speech and boolean
     gameOverController.timeLeft(seconds);
     gameOverController.setWinLoseLabel(winLose, this, overallDif);
     gameOverController.setTimeAccuracy(time, userAccuracy, confidence, words);
