@@ -8,8 +8,10 @@ import java.util.Random;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -31,6 +33,9 @@ public class WordPageController {
   @FXML private ImageView volumeImage;
   @FXML private ImageView newImage;
 
+  @FXML
+  private Accordion resultsAccordion;
+  
   private String currentWord;
   private Boolean textToSpeech;
   private TextToSpeechBackground textToSpeechBackground;
@@ -100,7 +105,21 @@ public class WordPageController {
   @FXML
   private void onNewWord() throws IOException, URISyntaxException, CsvException {
     // Get new word
+	resultsAccordion.setOpacity(0);
     setWordToDraw();
+  }
+  
+  @FXML
+  private void onNewDefinition() throws IOException, URISyntaxException, CsvException, WordNotFoundException {
+	setWordToDraw();
+	wordToDraw.setText("hidden"); 
+	resultsAccordion.getPanes().clear();
+	
+	WordInfo wordResult = DictionaryLookup.searchWordInfo(currentWord);
+	TitledPane pane = WordPane.generateWordPane(currentWord, wordResult);
+	resultsAccordion.getPanes().add(pane);
+	resultsAccordion.setOpacity(1);
+	
   }
 
   @FXML
@@ -206,7 +225,7 @@ public class WordPageController {
     } else if (words == 2) {
       wordsLabel.setText("E,M");
     } else if (words == 3) {
-      wordsLabel.setText("E,M, H");
+      wordsLabel.setText("E,M,H");
     } else if (words == 4) {
       wordsLabel.setText("H");
     } else {
