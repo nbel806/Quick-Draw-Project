@@ -33,9 +33,6 @@ public class WordPageController {
   @FXML private Label userLabel;
   @FXML private ImageView volumeImage;
   @FXML private ImageView newImage;
-
-  @FXML
-  private Accordion resultsAccordion;
   
   private String currentWord;
   private Boolean isHiddenWordMode = false;
@@ -114,18 +111,8 @@ public class WordPageController {
   @FXML
   private void onHiddenWordMode() throws IOException, URISyntaxException, CsvException, WordNotFoundException {
 	isHiddenWordMode = true;
+	setWordToDraw();
 	wordToDraw.setText("?????");
-	  
-	  /*
-	  setWordToDraw();
-	wordToDraw.setText("hidden"); 
-	resultsAccordion.getPanes().clear();
-	
-	WordInfo wordResult = DictionaryLookup.searchWordInfo(currentWord);
-	TitledPane pane = WordPane.generateWordPane(currentWord, wordResult);
-	resultsAccordion.getPanes().add(pane);
-	*/
-	
   }
 
   @FXML
@@ -180,7 +167,7 @@ public class WordPageController {
   }
 
   @FXML
-  private void onReady() throws IOException {
+  private void onReady() throws IOException, WordNotFoundException {
 	  if (!isHiddenWordMode) {
 		Stage stage =
 				(Stage) readyButton.getScene().getWindow(); // uses the ready button to fine the stage
@@ -201,7 +188,7 @@ public class WordPageController {
   	    Stage stage =
 			    (Stage) readyButton.getScene().getWindow(); // uses the ready button to fine the stage
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/hidden_word_canvas.fxml"));
-		Scene scene = new Scene(loader.load(), 1000, 680);
+		Scene scene = new Scene(loader.load(), 1000, 710);
 		stage.setScene(scene);
 		HiddenWordCanvasController hiddenWordCanvasController =
 		loader.getController(); // gets the newly created controller for next page
@@ -209,6 +196,7 @@ public class WordPageController {
 	    hiddenWordCanvasController.give(
 	        textToSpeechBackground, textToSpeech); // passes the background threaded text to speech
 	    // and whether it is on or not
+	    hiddenWordCanvasController.setDefinitionList(currentWord);
 	    hiddenWordCanvasController.getUsername(currentUsername);
 	    stage.show();
 	  }
