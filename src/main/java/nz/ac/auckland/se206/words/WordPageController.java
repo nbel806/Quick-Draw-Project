@@ -15,6 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.CanvasController;
+import nz.ac.auckland.se206.HiddenWordCanvasController;
 import nz.ac.auckland.se206.SpreadSheetReaderWriter;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
@@ -25,21 +26,27 @@ public class WordPageController {
   @FXML private Text accuracyLabel;
   @FXML private Text timeLabel;
   @FXML private Text wordToDraw;
+  
   @FXML private Button readyButton;
+  
   @FXML private Label textToSpeechLabel;
   @FXML private Label userLabel;
+  
   @FXML private ImageView volumeImage;
   @FXML private ImageView newImage;
-
+  @FXML private ImageView hiddenWordModeImage;
+  
   private String currentWord;
+  private String currentUsername = null;
+  
+  private Boolean isHiddenWordMode = false;
   private Boolean textToSpeech;
+  
   private TextToSpeechBackground textToSpeechBackground;
 
-  private String currentUsername = null;
   private int time;
   private int accuracy;
   private int confidence;
-
   private int words;
   private int overallDif;
 
@@ -100,7 +107,15 @@ public class WordPageController {
   @FXML
   private void onNewWord() throws IOException, URISyntaxException, CsvException {
     // Get new word
+	isHiddenWordMode = false;
     setWordToDraw();
+  }
+  
+  @FXML
+  private void onHiddenWordMode() throws IOException, URISyntaxException, CsvException, WordNotFoundException {
+	isHiddenWordMode = true;
+	setWordToDraw();
+	wordToDraw.setText("?????");
   }
 
   @FXML
@@ -124,6 +139,19 @@ public class WordPageController {
     textToSpeechBackground.backgroundSpeak("Ready", textToSpeech);
     readyButton.setStyle(
         "-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-background-color: #99F4B3;");
+  }
+  
+  @FXML
+  private void onHoverHidden() {
+    textToSpeechBackground.backgroundSpeak("Hidden word mode", textToSpeech);
+    hiddenWordModeImage.setFitWidth(56);
+    hiddenWordModeImage.setFitHeight(66);
+  }
+  
+  @FXML
+  private void onHiddenExit() {
+	hiddenWordModeImage.setFitWidth(53);
+	hiddenWordModeImage.setFitHeight(63);
   }
 
   @FXML
@@ -155,22 +183,40 @@ public class WordPageController {
   }
 
   @FXML
-  private void onReady() throws IOException {
-    Stage stage =
-        (Stage) readyButton.getScene().getWindow(); // uses the ready button to fine the stage
-    FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/canvas.fxml"));
-    Scene scene = new Scene(loader.load(), 1000, 680);
-    stage.setScene(scene);
-    CanvasController canvasController =
-        loader.getController(); // gets the newly created controller for next page
-    canvasController.setTimeAccuracy(time, accuracy, confidence, words, overallDif);
-    canvasController.setWordLabel(
-        currentWord); // passes the current word so that the next screen can display it
-    canvasController.give(
-        textToSpeechBackground, textToSpeech); // passes the background threaded text to speech
-    // and whether it is on or not
-    canvasController.getUsername(currentUsername);
-    stage.show();
+  private void onReady() throws IOException, WordNotFoundException {
+	  if (!isHiddenWordMode) {
+		Stage stage =
+				(Stage) readyButton.getScene().getWindow(); // uses the ready button to fine the stage
+		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/canvas.fxml"));
+	    Scene scene = new Scene(loader.load(), 1000, 680);
+	    stage.setScene(scene);
+	    CanvasController canvasController =
+	        loader.getController(); // gets the newly created controller for next page
+	    canvasController.setTimeAccuracy(time, accuracy, confidence, words, overallDif);
+	    canvasController.setWordLabel(
+	        currentWord); // passes the current word so that the next screen can display it
+	    canvasController.give(
+	        textToSpeechBackground, textToSpeech); // passes the background threaded text to speech
+	    // and whether it is on or not
+	    canvasController.getUsername(currentUsername);
+	    stage.show();
+	  }else {
+  	    Stage stage =
+			    (Stage) readyButton.getScene().getWindow(); // uses the ready button to fine the stage
+		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/hidden_word_canvas.fxml"));
+		Scene scene = new Scene(loader.load(), 1000, 675);
+		stage.setScene(scene);
+		HiddenWordCanvasController hiddenWordCanvasController =
+		loader.getController(); // gets the newly created controller for next page
+	    hiddenWordCanvasController.setTimeAccuracy(time, accuracy, confidence, words, overallDif);
+	    hiddenWordCanvasController.give(
+	        textToSpeechBackground, textToSpeech); // passes the background threaded text to speech
+	    // and whether it is on or not
+	    hiddenWordCanvasController.setDefinitionList(currentWord);
+	    hiddenWordCanvasController.getUsername(currentUsername);
+	    stage.show();
+	  }
+    
   }
 
   // Below is list of methods for when mouse exits a button
@@ -206,7 +252,7 @@ public class WordPageController {
     } else if (words == 2) {
       wordsLabel.setText("E,M");
     } else if (words == 3) {
-      wordsLabel.setText("E,M, H");
+      wordsLabel.setText("E,M,H");
     } else if (words == 4) {
       wordsLabel.setText("H");
     } else {
