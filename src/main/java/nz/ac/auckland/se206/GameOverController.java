@@ -45,6 +45,9 @@ public class GameOverController {
   private String currentUsername;
 
   private int timeLeft;
+  private String currentUsername;
+  private String currentProfilePic;
+
   private int accuracy;
   private int time;
   private int confidence;
@@ -102,7 +105,8 @@ public class GameOverController {
     canvasController = ctrl;
     SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
     spreadSheetReaderWriter.updateResult(
-        winLose, currentUsername, overallDif); // writes over old file to update win/loss record
+        winLose, currentUsername, overallDif); // writes over old file to update
+    // win/loss record
   }
 
   // hidden word mode
@@ -128,11 +132,12 @@ public class GameOverController {
     spreadSheetReaderWriter.updateTime(60 - timeLeft, currentUsername);
   }
 
-  public void getUsername(String username) {
+  public void getUsername(String username, String profilePic) {
     // Check if username is not null
     if (username != null) {
       // If not null, update label as current username
       currentUsername = username;
+      currentProfilePic = profilePic;
     }
   }
 
@@ -173,7 +178,7 @@ public class GameOverController {
     ctrl.give(
         textToSpeechBackground,
         textToSpeech); // passes text to speech instance and boolean to next page
-    ctrl.getUsername(currentUsername);
+    ctrl.getUsername(currentUsername, currentProfilePic);
   }
 
   @FXML
@@ -193,7 +198,7 @@ public class GameOverController {
         textToSpeechBackground,
         textToSpeech); // passes text to speech instance and boolean to next page
     ctrl.setDifficulty(accuracy, confidence, words, time);
-    ctrl.getUsername(currentUsername);
+    ctrl.getUsername(currentUsername, currentProfilePic);
   }
 
   @FXML

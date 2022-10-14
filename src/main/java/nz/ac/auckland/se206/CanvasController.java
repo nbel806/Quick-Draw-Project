@@ -7,6 +7,7 @@ import ai.djl.translate.TranslateException;
 import com.opencsv.exceptions.CsvException;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import javafx.animation.KeyFrame;
@@ -85,6 +86,7 @@ public class CanvasController {
   private double confidenceUser;
 
   private String currentUsername;
+  private String currentProfilePic;
 
   private int userAccuracy;
   private int confidence;
@@ -372,7 +374,7 @@ public class CanvasController {
     GameOverController gameOverController =
         loader.getController(); // gets controller from loader to pass through
     // information
-    gameOverController.getUsername(currentUsername);
+    gameOverController.getUsername(currentUsername, currentProfilePic);
     gameOverController.give(
         textToSpeechBackground, textToSpeech, bufferedImage); // passes text to speech and boolean
     gameOverController.timeLeft(seconds);
@@ -391,15 +393,24 @@ public class CanvasController {
     }
   }
 
-  public void getUsername(String username) {
+  public void getUsername(String username, String profilePic) {
     // Check if username is not null
     if (username != null) {
       // If not null, update label as current username
       currentUsername = username;
+      currentProfilePic = profilePic;
       userLabel.setText(currentUsername);
+      // Set profile pic
+      File file = new File(profilePic);
+      Image image = new Image(file.toURI().toString());
+      userImage.setImage(image);
 
     } else {
       userLabel.setText("Guest");
+      // Set guest pic
+      File file = new File("src/main/resources/images/ProfilePics/GuestPic.png");
+      Image image = new Image(file.toURI().toString());
+      userImage.setImage(image);
     }
   }
 

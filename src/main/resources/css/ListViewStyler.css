@@ -1,6 +1,7 @@
 .list-cell{
 	-fx-background-radius: 10px;
-	-fx-border-radius: 10px
+	-fx-border-radius: 10px;
+	-fx-background-color: white;
 }
 
 .list-cell:filled:hover{

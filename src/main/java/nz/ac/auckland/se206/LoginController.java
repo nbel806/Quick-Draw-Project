@@ -1,22 +1,24 @@
 package nz.ac.auckland.se206;
 
-import com.opencsv.CSVWriter;
+import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+import com.opencsv.exceptions.CsvValidationException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
-import nz.ac.auckland.se206.words.CategorySelector;
-import nz.ac.auckland.se206.words.CategorySelector.Difficulty;
 
 public class LoginController {
 
@@ -50,9 +52,6 @@ public class LoginController {
     fr = new FileReader(fileName); // starts a file reader to scan the spread sheet for the username
     BufferedReader br = new BufferedReader(fr);
 
-    System.out.println(username);
-    System.out.println();
-
     String line;
     while ((line = br.readLine()) != null) {
       // Check if current line contains the username to be found
@@ -64,93 +63,50 @@ public class LoginController {
         flag = true;
       }
     }
-
     br.close();
     return flag;
   }
 
-  @FXML private Button createButton;
+  @FXML private Button newuserButton;
   @FXML private Button loginButton;
   @FXML private Button logoutButton;
   @FXML private Button backButton;
   @FXML private TextField usernameText;
   @FXML private ImageView volumeImage;
+  @FXML private ImageView userImage;
+  @FXML private ListView<String> userListView;
   @FXML private Label outputLabel;
-
+  @FXML private Label userLabel;
   @FXML private Label textToSpeechLabel;
+  @FXML private Label profileLabel;
 
   private String currentUsername = null; // The username currently logged in
+  private String currentProfilePic = null;
+  private ArrayList<String> profilePicData;
   private Boolean textToSpeech;
   private TextToSpeechBackground textToSpeechBackground;
 
-  /**
-   * This method creates a new record/profile and appends into the csv file
-   *
-   * @param username the name of the person using the app
-   */
-  private void createProfile(String username) {
-    String[] profile = new String[16];
-
-    try {
-      FileWriter csvwriter = new FileWriter(fileName, true);
-      try (CSVWriter writer = new CSVWriter(csvwriter)) {
-        // Check if username exists
-        if (!searchUsername(username)) {
-          this.currentUsername = username;
-          usernameText.clear();
-          usernameText.setPromptText("Hi, " + username);
-
-          outputLabel.setText("Profile Created");
-          outputLabel.setStyle("-fx-text-fill: green;");
-          outputLabel.setOpacity(0.5);
-
-          // create profile
-          profile[0] = username;
-
-          // adds all the easy words to the csv
-          CategorySelector category = new CategorySelector();
-          profile[1] = category.getCategory(Difficulty.E).toString();
-          profile[2] = "0"; // number of wins
-          profile[3] = "0"; // number of losses
-          profile[4] = "100"; // fastest time
-          profile[5] = null; // history words
-          profile[6] = "0"; // Largest streak
-          profile[7] = "0"; // Current streak
-          profile[8] = "0"; // wins on easy
-          profile[9] = "0"; // wins on medium
-          profile[10] = "0"; // wins on hard
-          profile[11] = "0"; // wins on master
-          profile[12] = "60"; // users last time selection
-          profile[13] = "1"; // users last word selection
-          profile[14] = "1"; // users last confidence selection
-          profile[15] = "3"; // users last accuracy selection
-
-          writer.writeNext(profile);
-
-          // Set current username
-          currentUsername = username;
-        } else {
-          System.out.println("USERNAME IS TAKEN");
-          usernameText.clear();
-
-          outputLabel.setText("Invalid Username");
-          outputLabel.setStyle("-fx-text-fill: red;");
-          outputLabel.setOpacity(0.5);
-        }
-      } catch (URISyntaxException | CsvException e) {
-        throw new RuntimeException(e);
-      }
-
-      csvwriter.close();
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  public void setUsername(String username) {
+  public void setUsername(String username, String profilePic)
+      throws IOException, CsvValidationException {
     // Set current username
     currentUsername = username;
+
+    // Check if user is signed in
+    if (currentUsername != null) {
+      profileLabel.setText(currentUsername);
+      userLabel.setText(currentUsername);
+      // Set profile pic
+      File file = new File(profilePic);
+      Image image = new Image(file.toURI().toString());
+      userImage.setImage(image);
+      currentProfilePic = profilePic;
+    } else {
+      profileLabel.setText("Guest");
+      userLabel.setText("Guest");
+      File file = new File("src/main/resources/images/ProfilePics/GuestPic.png");
+      Image image = new Image(file.toURI().toString());
+      userImage.setImage(image);
+    }
   }
 
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
@@ -161,57 +117,102 @@ public class LoginController {
     }
   }
 
-  @FXML
-  private void onCreate() {
-    String username = usernameText.getText(); // retrieves name
+  public void displayUsers() throws IOException, CsvValidationException {
+    ArrayList<String> usernameData = new ArrayList<String>();
+    this.profilePicData = new ArrayList<String>();
+    CSVReader csvReader = new CSVReader(new FileReader(fileName));
 
-    if (usernameText.getText().trim().isEmpty()) { // checks if there was an input
-      outputLabel.setText("The textbox is empty");
-      outputLabel.setStyle("-fx-text-fill: red;");
-      outputLabel.setOpacity(0.5);
+    // read line by line
+    String[] record = null;
+    while ((record = csvReader.readNext()) != null) {
+      usernameData.add(record[0]);
+      profilePicData.add(record[16]);
+    }
+
+    // Display list of users if not empty
+    if (usernameData.size() > 0) {
+      userListView.getItems().addAll(usernameData);
+    }
+  }
+
+  /**
+   * Methods goes to new user page
+   *
+   * @throws IOException
+   * @throws CsvException
+   */
+  @FXML
+  private void onNewUser() throws IOException, CsvException {
+    Stage stage = (Stage) newuserButton.getScene().getWindow();
+    FXMLLoader loader =
+        new FXMLLoader(App.class.getResource("/fxml/create_user_page.fxml")); // creates a new
+    // instance of
+    // word page
+    Scene scene = new Scene(loader.load(), 1000, 680);
+    CreateUserController ctrl = loader.getController(); // need controller to pass information
+    ctrl.give(textToSpeechBackground, textToSpeech);
+    ctrl.setUsername(currentUsername, currentProfilePic);
+    stage.setScene(scene);
+    stage.show();
+  }
+
+  // Method to display selected word in list ofusers
+  @FXML
+  private void onSelectWord() {
+    String word = userListView.getSelectionModel().getSelectedItem();
+
+    if (word == null || word.isEmpty()) {
+      profileLabel.setText("Guest");
     } else {
-      createProfile(username); // creates user
+      profileLabel.setText(word);
+      int currentIndex = userListView.getSelectionModel().getSelectedIndex();
+
+      // Set profile pic
+      File file = new File(profilePicData.get(currentIndex));
+      Image image = new Image(file.toURI().toString());
+      userImage.setImage(image);
     }
   }
 
   @FXML
-  private void onLogin() throws IOException {
-    String username = usernameText.getText();
+  private void onLogin() throws IOException, CsvValidationException {
+    String username = userListView.getSelectionModel().getSelectedItem();
 
-    if (usernameText.getText().trim().isEmpty()) { // if user left blank
-      outputLabel.setText("The textbox is empty");
+    if (username == null || username.isEmpty()) { // if user not selected
+      outputLabel.setText("User not selected");
       outputLabel.setStyle("-fx-text-fill: red;");
       outputLabel.setOpacity(0.5);
     } else {
-      if (!searchUsername(username)) { // if user could be found
-        usernameText.clear();
-
-        outputLabel.setText("Invalid Username");
-        outputLabel.setStyle("-fx-text-fill: red;");
-        outputLabel.setOpacity(0.5);
-
-      } else { // user has been found
-        currentUsername = username;
-        usernameText.clear();
-        usernameText.setPromptText("Hi, " + username);
-
+      if (!username.equals(currentUsername)) {
         outputLabel.setText("Login Success");
         outputLabel.setStyle("-fx-text-fill: green;");
+        outputLabel.setOpacity(0.5);
+        userLabel.setText(username);
+
+        // Set username and profile picture
+        int currentIndex = userListView.getSelectionModel().getSelectedIndex();
+        currentProfilePic = profilePicData.get(currentIndex);
+        this.setUsername(username, currentProfilePic);
+      } else {
+        outputLabel.setText("Already logged in");
+        outputLabel.setStyle("-fx-text-fill: red;");
         outputLabel.setOpacity(0.5);
       }
     }
   }
 
   @FXML
-  private void onLogout() {
+  private void onLogout() throws CsvValidationException, IOException {
     if (currentUsername != null) { // logs user out sets to guest
       currentUsername = null;
       outputLabel.setText("Logout Success");
       outputLabel.setStyle("-fx-text-fill: green;");
       outputLabel.setOpacity(0.5);
+      userLabel.setText("Guest");
 
       // Update label
-      usernameText.setPromptText("Hi, Guest");
+      profileLabel.setText("Guest");
+      this.setUsername(currentUsername, null);
 
     } else { // user was previously a guest
       outputLabel.setText("You are not signed in");
@@ -229,7 +230,8 @@ public class LoginController {
   private void onBack() throws IOException, CsvException {
     Stage stage = (Stage) backButton.getScene().getWindow();
     LoadPage loadPage = new LoadPage();
-    loadPage.extractedMainMenu(textToSpeechBackground, textToSpeech, currentUsername, stage);
+    loadPage.extractedMainMenu(
+        textToSpeechBackground, textToSpeech, currentUsername, currentProfilePic, stage);
   }
 
   @FXML
@@ -259,53 +261,53 @@ public class LoginController {
   private void onHoverLogin() {
     textToSpeechBackground.backgroundSpeak("Login", textToSpeech);
     loginButton.setStyle(
-        "-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
+        "-fx-background-radius: 10;  -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
   }
 
   @FXML
-  private void onHoverCreate() {
+  private void onHoverNewUser() {
     textToSpeechBackground.backgroundSpeak("Create", textToSpeech);
-    createButton.setStyle(
-        "-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
+    newuserButton.setStyle(
+        "-fx-background-radius: 10;  -fx-background-color: #99DAF4; -fx-text-fill: white; -fx-border-color: #99DAF4; -fx-border-radius: 10; -fx-border-width: 3;");
   }
 
   @FXML
   private void onHoverLogout() {
     textToSpeechBackground.backgroundSpeak("Logout", textToSpeech);
     logoutButton.setStyle(
-        "-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
+        "-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
   }
 
   @FXML
   private void onHoverBack() {
     textToSpeechBackground.backgroundSpeak("Back", textToSpeech);
     backButton.setStyle(
-        "-fx-background-radius: 100px; -fx-text-fill: white; -fx-text-fill: white; -fx-border-radius: 100px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
+        "-fx-background-radius: 100px;  -fx-text-fill: white; -fx-border-radius: 100px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
   // Below is list of methods for when mouse exits a button
   @FXML
   private void onLoginExit() {
     loginButton.setStyle(
-        "-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
+        "-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
   }
 
   @FXML
-  private void onCreateExit() {
-    createButton.setStyle(
-        "-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
+  private void onNewUserExit() {
+    newuserButton.setStyle(
+        "-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3");
   }
 
   @FXML
   private void onLogoutExit() {
     logoutButton.setStyle(
-        "-fx-background-radius: 10; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
+        "-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
   }
 
   @FXML
   private void onBackExit() {
     backButton.setStyle(
-        "-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
+        "-fx-background-radius: 100px; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
   }
 
   @FXML

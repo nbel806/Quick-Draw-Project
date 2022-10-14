@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -16,9 +17,28 @@
     <Pane layoutY="-10.0" prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: white; -fx-background-radius: 10;" />
     <HBox alignment="CENTER" layoutY="540.0" prefHeight="78.0" prefWidth="1000.0">
       <children>
-        <Pane prefHeight="78.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-radius: 25;">
+        <Pane prefHeight="78.0" prefWidth="475.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-radius: 25;">
           <children>
-            <Button fx:id="loginButton" layoutX="81.0" layoutY="2.0" mnemonicParsing="false" onAction="#onLogin" onMouseEntered="#onHoverLogin" onMouseExited="#onLoginExit" prefHeight="74.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-background-radius: 25; -fx-border-radius: 25;">
+                <Button fx:id="zenModeButton" layoutX="-1.0" mnemonicParsing="false" onAction="#onZenModeCanvas" onMouseEntered="#onHoverZen" onMouseExited="#onZenExit" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: transparent;">
+                     <graphic>
+                        <ImageView fx:id="zenImage" fitHeight="59.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8-ying-yang-64.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+
+                  <Button fx:id="profileButton" layoutX="76.0" mnemonicParsing="false" onAction="#onProfile" onMouseEntered="#onHoverProfile" onMouseExited="#onProfileExit" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: transparent; -fx-background-radius: 25; -fx-border-radius: 25;">
+              <graphic>
+                <ImageView fx:id="userImage" fitHeight="60.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@../images/usericon.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+            <Button fx:id="loginButton" layoutX="156.60000610351562" mnemonicParsing="false" onAction="#onLogin" onMouseEntered="#onHoverLogin" onMouseExited="#onLoginExit" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: transparent; -fx-background-radius: 25; -fx-border-radius: 25;">
               <graphic>
                 <ImageView fx:id="loginImage" fitHeight="60.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -27,26 +47,20 @@
                 </ImageView>
               </graphic>
             </Button>
-
-            <Button fx:id="profileButton" layoutX="2.0" layoutY="1.0" mnemonicParsing="false" onAction="#onProfile" onMouseEntered="#onHoverProfile" onMouseExited="#onProfileExit" prefHeight="75.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-background-radius: 25; -fx-border-radius: 25;">
-              <graphic>
-                <ImageView fx:id="userImage" fitHeight="60.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                    <Image url="@../images/usericon.png" />
-                  </image>
-                </ImageView>
-              </graphic>
-            </Button>
-            <Label fx:id="userLabel" layoutX="179.0" layoutY="41.0" prefHeight="27.0" prefWidth="221.0" text="Guest">
-              <font>
-                <Font name="SansSerif Bold" size="20.0" />
-              </font>
-            </Label>
-            <Label layoutX="179.0" layoutY="7.0" prefHeight="33.0" prefWidth="214.0" text="Current User:">
-              <font>
-                <Font name="SansSerif" size="24.0" />
-              </font>
-            </Label>
+                  <VBox layoutX="244.0" layoutY="9.0" prefHeight="61.0" prefWidth="206.0">
+                     <children>
+                  <Label prefHeight="33.0" prefWidth="214.0" text="Current User:">
+                    <font>
+                      <Font name="SansSerif" size="24.0" />
+                    </font>
+                  </Label>
+                  <Label fx:id="userLabel" prefHeight="27.0" prefWidth="221.0" text="Guest">
+                    <font>
+                      <Font name="SansSerif Bold" size="20.0" />
+                    </font>
+                  </Label>
+                     </children>
+                  </VBox>
           </children>
         </Pane>
       </children>
@@ -79,15 +93,6 @@
             </HBox>
           </graphic>
         </Button>
-          <Button fx:id="zenModeButton" mnemonicParsing="false" onAction="#onZenModeCanvas" onMouseEntered="#onHoverZen" onMouseExited="#onZenExit" prefHeight="96.0" prefWidth="98.0" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fx:id="zenImage" fitHeight="69.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/icons8-ying-yang-64.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
       </children>
     </HBox>
     <ImageView fx:id="volumeImage" fitHeight="45.0" fitWidth="45.0" layoutX="903.0" layoutY="602.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech" onMouseEntered="#onHoverTextToSpeech" onMouseExited="#onVolumeExit" pickOnBounds="true" preserveRatio="true">

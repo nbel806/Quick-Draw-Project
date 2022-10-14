@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206;
 
 import com.opencsv.exceptions.CsvException;
+import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import javafx.fxml.FXML;
@@ -8,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
@@ -25,6 +27,7 @@ public class ProfilePageController {
   @FXML private Label historyLabel;
   @FXML private Label winstreakLabel;
   @FXML private ImageView volumeImage;
+  @FXML private ImageView userImage;
   // Lists
   @FXML private ListView<String> historyListView;
   // Badges
@@ -38,6 +41,7 @@ public class ProfilePageController {
   private Boolean textToSpeech;
   private TextToSpeechBackground textToSpeechBackground;
   private String currentUsername;
+  private String currentProfilePic;
   private String currentWord;
   private int usersLosses;
   private int usersWins;
@@ -75,12 +79,19 @@ public class ProfilePageController {
   }
 
   // Set username, stats, and badges
-  public void setUsername(String username) throws IOException, CsvException {
+  public void setUsername(String username, String profilePic) throws IOException, CsvException {
     // Check if username is not null
     if (username != null) {
       // If not null, update label as current username
       currentUsername = username;
+      currentProfilePic = profilePic;
       this.usernameLabel.setText(currentUsername);
+      // Set profile pic
+      File file = new File(profilePic);
+      Image image = new Image(file.toURI().toString());
+      userImage.setImage(image);
+      currentProfilePic = profilePic;
+
       SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
       int streak = spreadSheetReaderWriter.getStreak(currentUsername);
 
@@ -128,6 +139,10 @@ public class ProfilePageController {
     } else {
       // If user is not signed in
       this.usernameLabel.setText("Guest");
+      File file = new File("src/main/resources/images/ProfilePics/GuestPic.png");
+      Image image = new Image(file.toURI().toString());
+      userImage.setImage(image);
+
       winLabel.setText("-");
       fastestLabel.setText("-");
       gameLabel.setText("-");
@@ -145,7 +160,8 @@ public class ProfilePageController {
   private void onBack() throws IOException, CsvException {
     Stage stage = (Stage) backButton.getScene().getWindow();
     LoadPage loadPage = new LoadPage();
-    loadPage.extractedMainMenu(textToSpeechBackground, textToSpeech, currentUsername, stage);
+    loadPage.extractedMainMenu(
+        textToSpeechBackground, textToSpeech, currentUsername, currentProfilePic, stage);
   }
 
   @FXML

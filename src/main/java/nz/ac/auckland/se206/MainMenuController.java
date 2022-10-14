@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206;
 
 import com.opencsv.exceptions.CsvException;
+import com.opencsv.exceptions.CsvValidationException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javafx.fxml.FXML;
@@ -29,6 +30,7 @@ public class MainMenuController {
   private Boolean textToSpeech = false;
   private TextToSpeechBackground textToSpeechBackground;
   private String currentUsername = null;
+  private String currentProfilePic = null;
 
   private int accuracy = 3;
   private int time = 60;
@@ -43,11 +45,12 @@ public class MainMenuController {
     }
   }
 
-  public void getUsername(String username) throws IOException, CsvException {
+  public void getUsername(String username, String profilePic) throws IOException, CsvException {
     // Check if username is not null
     if (username != null) {
       // If not null, update label as current username
       currentUsername = username;
+      currentProfilePic = profilePic;
       userLabel.setText(currentUsername);
       setDifficulty(currentUsername);
 
@@ -68,8 +71,8 @@ public class MainMenuController {
   private void onZenModeCanvas() throws IOException, CsvException {
     Stage stage = (Stage) playButton.getScene().getWindow();
     FXMLLoader loader =
-        new FXMLLoader(
-            App.class.getResource("/fxml/zen_word_page.fxml")); // creates a new instance of
+        new FXMLLoader(App.class.getResource("/fxml/zen_word_page.fxml")); // creates a new instance
+    // of
     // word page
     Scene scene = new Scene(loader.load(), 1000, 565);
     ZenWordPageController ctrl = loader.getController();
@@ -89,7 +92,7 @@ public class MainMenuController {
     WordPageController ctrl = loader.getController(); // need controller to pass information
     ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
     ctrl.setDifficulty(accuracy, confidence, words, time);
-    ctrl.getUsername(currentUsername); // passes username
+    ctrl.getUsername(currentUsername, currentProfilePic); // passes username
     stage.setScene(scene);
     stage.show();
   }
@@ -98,11 +101,12 @@ public class MainMenuController {
   private void onProfile() throws IOException, CsvException {
     Stage stage = (Stage) profileButton.getScene().getWindow();
     LoadPage loadPage = new LoadPage();
-    loadPage.extractedProfile(textToSpeechBackground, textToSpeech, currentUsername, stage);
+    loadPage.extractedProfile(
+        textToSpeechBackground, textToSpeech, currentUsername, currentProfilePic, stage);
   }
 
   @FXML
-  private void onLogin() throws IOException {
+  private void onLogin() throws IOException, CsvValidationException {
     Stage stage = (Stage) loginButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/login_page.fxml")); // creates a new instance
@@ -112,7 +116,8 @@ public class MainMenuController {
     ctrl.give(textToSpeechBackground, textToSpeech);
 
     // Pass current username
-    ctrl.setUsername(currentUsername);
+    ctrl.setUsername(currentUsername, currentProfilePic);
+    ctrl.displayUsers();
     stage.setScene(scene);
     stage.show();
   }
@@ -161,7 +166,7 @@ public class MainMenuController {
   @FXML
   private void onHoverProfile() {
     textToSpeechBackground.backgroundSpeak("Profile", textToSpeech);
-    userImage.setFitHeight(73);
+    userImage.setFitHeight(69);
     userImage.setFitWidth(63);
   }
 
@@ -169,7 +174,7 @@ public class MainMenuController {
   private void onHoverLogin() {
     textToSpeechBackground.backgroundSpeak("Login", textToSpeech);
     loginImage.setFitHeight(73);
-    loginImage.setFitWidth(63);
+    loginImage.setFitWidth(62);
   }
 
   @FXML
@@ -180,8 +185,8 @@ public class MainMenuController {
   @FXML
   private void onHoverZen() {
     textToSpeechBackground.backgroundSpeak("Zen Mode", textToSpeech);
-    zenImage.setFitHeight(72);
-    zenImage.setFitWidth(74);
+    zenImage.setFitHeight(64);
+    zenImage.setFitWidth(62);
   }
 
   // Below is list of methods for when mouse exits a button
@@ -193,7 +198,7 @@ public class MainMenuController {
 
   @FXML
   private void onProfileExit() {
-    userImage.setFitHeight(70);
+    userImage.setFitHeight(66);
     userImage.setFitWidth(60);
   }
 
@@ -211,8 +216,8 @@ public class MainMenuController {
 
   @FXML
   private void onZenExit() {
-    zenImage.setFitHeight(69);
-    zenImage.setFitWidth(71);
+    zenImage.setFitHeight(61);
+    zenImage.setFitWidth(59);
   }
 
   @FXML

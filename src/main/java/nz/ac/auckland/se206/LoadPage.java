@@ -13,6 +13,7 @@ public class LoadPage {
       TextToSpeechBackground textToSpeechBackground,
       Boolean textToSpeech,
       String currentUsername,
+      String currentProfilePic,
       Stage stage)
       throws IOException, CsvException {
     FXMLLoader loader =
@@ -22,7 +23,7 @@ public class LoadPage {
     MainMenuController ctrl = loader.getController(); // need controller to pass information
     // may need to add code to pass though tts here
     ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
-    ctrl.getUsername(currentUsername);
+    ctrl.getUsername(currentUsername, currentProfilePic);
     stage.setScene(scene);
     stage.show();
   }
@@ -31,17 +32,39 @@ public class LoadPage {
       TextToSpeechBackground textToSpeechBackground,
       boolean textToSpeech,
       String currentUsername,
+      String currentProfilePic,
       Stage stage)
       throws IOException, CsvException {
     FXMLLoader loader =
-        new FXMLLoader(
-            App.class.getResource("/fxml/profile_page.fxml")); // creates a new instance of
+        new FXMLLoader(App.class.getResource("/fxml/profile_page.fxml")); // creates a new instance
+    // of
     // menu page
     Scene scene = new Scene(loader.load(), 1000, 680);
     ProfilePageController ctrl = loader.getController(); // need controller to pass information
     // may need to add code to pass though tts here
     ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
-    ctrl.setUsername(currentUsername);
+    ctrl.setUsername(currentUsername, currentProfilePic);
+    stage.setScene(scene);
+    stage.show();
+  }
+
+  public void extractedLogin(
+      TextToSpeechBackground textToSpeechBackground,
+      boolean textToSpeech,
+      String currentUsername,
+      String currentProfilePic,
+      Stage stage)
+      throws IOException, CsvException {
+    FXMLLoader loader =
+        new FXMLLoader(App.class.getResource("/fxml/login_page.fxml")); // creates a new instance
+    // of
+    // login page
+    Scene scene = new Scene(loader.load(), 1000, 680);
+    LoginController ctrl = loader.getController(); // need controller to pass information
+    // may need to add code to pass though tts here
+    ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
+    ctrl.setUsername(currentUsername, currentProfilePic);
+    ctrl.displayUsers();
     stage.setScene(scene);
     stage.show();
   }
