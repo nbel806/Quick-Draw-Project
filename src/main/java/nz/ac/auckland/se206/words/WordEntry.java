@@ -19,5 +19,4 @@ public class WordEntry {
   public List<String> getDefinitions() {
     return definitions;
   }
-
 }

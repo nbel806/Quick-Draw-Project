@@ -49,7 +49,7 @@ public class ZenWordPageController {
     words[1] = categorySelector.getRandomCategory(CategorySelector.Difficulty.M);
     words[2] = categorySelector.getRandomCategory(CategorySelector.Difficulty.H);
     currentWord = words[new Random().nextInt(words.length)];
-    wordLabel.setText(currentWord); 
+    wordLabel.setText(currentWord);
   }
 
   public void onNewWord() throws IOException, URISyntaxException, CsvException {

@@ -8,7 +8,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-
 public class WordPane {
 
   public static TitledPane generateWordPane(String word, WordInfo wordResult) {
@@ -22,8 +21,16 @@ public class WordPane {
 
       TextFlow textFlow = new TextFlow();
 
-      Text title = new Text("Entry " + (e + 1) + " of " + entries.size() + " ["
-          + entry.getPartOfSpeech() + "]:" + System.lineSeparator());
+      Text title =
+          new Text(
+              "Entry "
+                  + (e + 1)
+                  + " of "
+                  + entries.size()
+                  + " ["
+                  + entry.getPartOfSpeech()
+                  + "]:"
+                  + System.lineSeparator());
       title.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
 
       StringBuffer definitions = new StringBuffer();
@@ -54,5 +61,4 @@ public class WordPane {
     textFlow.getChildren().addAll(text, message);
     return pane;
   }
-
 }
