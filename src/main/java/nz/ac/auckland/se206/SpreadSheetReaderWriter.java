@@ -248,9 +248,21 @@ public class SpreadSheetReaderWriter {
 
     String[] lastWords = new String[5];
     String[] words = allData.get(index)[5].split(",");
-    for (int i = 1; i < 6; i++) {
-      lastWords[i - 1] = words[words.length - i];
+    if (words.length < 5) {
+      lastWords[0] = "Play normal mode first";
+      lastWords[1] = "Play normal mode first";
+      lastWords[2] = "Play normal mode first";
+      lastWords[3] = "Play normal mode first";
+      lastWords[4] = "Play normal mode first";
+      for (int i = 1; i < words.length; i++) {
+        lastWords[i - 1] = words[words.length - i];
+      }
+    } else {
+      for (int i = 1; i < 6; i++) {
+        lastWords[i - 1] = words[words.length - i];
+      }
     }
+
     return lastWords;
   }
 }
