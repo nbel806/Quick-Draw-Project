@@ -237,4 +237,20 @@ public class SpreadSheetReaderWriter {
     difWins[3] = Integer.parseInt(allData.get(index)[11]); // master wins
     return difWins;
   }
+
+  public String[] getUsersLostWords(String currentUsername) throws IOException, CsvException {
+    if (currentUsername == null) {
+      return new String[] {"log in", "log in", "log in", "log in", "log in"};
+    }
+    int index = findUserName(currentUsername); // find username place in csv
+    CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
+    List<String[]> allData = csvReader.readAll();
+
+    String[] lastWords = new String[5];
+    String[] words = allData.get(index)[5].split(",");
+    for (int i = 1; i < 6; i++) {
+      lastWords[i - 1] = words[words.length - i];
+    }
+    return lastWords;
+  }
 }
