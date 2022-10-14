@@ -8,10 +8,8 @@ import java.util.Random;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -28,22 +26,27 @@ public class WordPageController {
   @FXML private Text accuracyLabel;
   @FXML private Text timeLabel;
   @FXML private Text wordToDraw;
+  
   @FXML private Button readyButton;
+  
   @FXML private Label textToSpeechLabel;
   @FXML private Label userLabel;
+  
   @FXML private ImageView volumeImage;
   @FXML private ImageView newImage;
+  @FXML private ImageView hiddenWordModeImage;
   
   private String currentWord;
+  private String currentUsername = null;
+  
   private Boolean isHiddenWordMode = false;
   private Boolean textToSpeech;
+  
   private TextToSpeechBackground textToSpeechBackground;
 
-  private String currentUsername = null;
   private int time;
   private int accuracy;
   private int confidence;
-
   private int words;
   private int overallDif;
 
@@ -137,7 +140,21 @@ public class WordPageController {
     readyButton.setStyle(
         "-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-background-color: #99F4B3;");
   }
+  
+  @FXML
+  private void onHoverHidden() {
+    textToSpeechBackground.backgroundSpeak("Hidden word mode", textToSpeech);
+    hiddenWordModeImage.setFitWidth(56);
+    hiddenWordModeImage.setFitHeight(66);
+  }
+  
+  @FXML
+  private void onHiddenExit() {
+	hiddenWordModeImage.setFitWidth(53);
+	hiddenWordModeImage.setFitHeight(63);
+  }
 
+  
   @FXML
   private void onExitReady() {
     readyButton.setStyle(
@@ -188,7 +205,7 @@ public class WordPageController {
   	    Stage stage =
 			    (Stage) readyButton.getScene().getWindow(); // uses the ready button to fine the stage
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/hidden_word_canvas.fxml"));
-		Scene scene = new Scene(loader.load(), 1000, 710);
+		Scene scene = new Scene(loader.load(), 1000, 675);
 		stage.setScene(scene);
 		HiddenWordCanvasController hiddenWordCanvasController =
 		loader.getController(); // gets the newly created controller for next page
