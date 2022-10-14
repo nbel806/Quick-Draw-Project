@@ -154,7 +154,6 @@ public class WordPageController {
 	hiddenWordModeImage.setFitHeight(63);
   }
 
-  
   @FXML
   private void onExitReady() {
     readyButton.setStyle(

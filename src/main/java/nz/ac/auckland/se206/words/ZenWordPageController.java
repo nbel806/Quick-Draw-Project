@@ -31,7 +31,6 @@ public class ZenWordPageController {
 
   @FXML
   public void onZenCanvas() throws IOException {
-
     Stage stage = (Stage) readyButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/zen_canvas.fxml")); // creates a new instance of
@@ -49,7 +48,8 @@ public class ZenWordPageController {
     words[0] = categorySelector.getRandomCategory(CategorySelector.Difficulty.E);
     words[1] = categorySelector.getRandomCategory(CategorySelector.Difficulty.M);
     words[2] = categorySelector.getRandomCategory(CategorySelector.Difficulty.H);
-    wordLabel.setText(words[new Random().nextInt(words.length)]);
+    currentWord = words[new Random().nextInt(words.length)];
+    wordLabel.setText(currentWord); 
   }
 
   public void onNewWord() throws IOException, URISyntaxException, CsvException {
