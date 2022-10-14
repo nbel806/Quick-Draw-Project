@@ -44,12 +44,9 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
  */
 public class CanvasController {
 
-  @FXML private ImageView downArrow;
   @FXML private Circle upArrowCircle;
   @FXML private Circle downArrowCircle;
-  @FXML private ImageView upArrow;
-  @FXML private ImageView userImage;
-  @FXML private Button profileButton;
+ 
   @FXML private Canvas canvas;
 
   @FXML private Label wordLabel;
@@ -60,38 +57,42 @@ public class CanvasController {
 
   @FXML private Button penButton;
   @FXML private Button eraseButton;
+  @FXML private Button profileButton;
 
   @FXML private ImageView penImage;
   @FXML private ImageView eraseImage;
   @FXML private ImageView clearImage;
   @FXML private ImageView volumeImage;
+  @FXML private ImageView upArrow;
+  @FXML private ImageView userImage;
+  @FXML private ImageView downArrow;
 
   private GraphicsContext graphic;
   private DoodlePrediction model;
   private String currentWord;
 
-  private int seconds;
   private boolean winLose = false;
   private boolean end = false;
   private boolean pen = true;
-
-  private TextToSpeechBackground textToSpeechBackground;
   private boolean textToSpeech;
-
   private boolean startedDrawing;
 
-  // mouse coordinates
+  private TextToSpeechBackground textToSpeechBackground;
+  
   private double currentX;
   private double currentY;
+  private double lastWordPred = 0;
+  private double confidenceUser;
+  
   private String currentUsername;
 
   private int userAccuracy;
   private int confidence;
-  private double confidenceUser;
   private int words;
   private int time;
   private int overallDif;
-  private double lastWordPred = 0;
+  private int seconds;
+ 
 
   /**
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for

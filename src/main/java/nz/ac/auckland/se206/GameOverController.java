@@ -20,21 +20,26 @@ public class GameOverController {
 
   @FXML private Label timeLabel;
   @FXML private Label winLoseLabel;
+  @FXML private Label textToSpeechLabel;
+  
   @FXML private Button playAgainButton;
   @FXML private Button menuButton;
   @FXML private Button saveButton;
-  @FXML private Label textToSpeechLabel;
+  
   @FXML private ImageView volumeImage;
 
   private CanvasController canvasController;
+  
   private HiddenWordCanvasController hiddenWordCanvasController;
+  
   private Boolean textToSpeech;
+  
   private TextToSpeechBackground textToSpeechBackground;
-
+  
   private String winLoseString;
+  private String currentUsername;
 
   private int timeLeft;
-  private String currentUsername;
   private int accuracy;
   private int time;
   private int confidence;
@@ -66,22 +71,20 @@ public class GameOverController {
   }
   
   //hidden word mode
-  public void setWinLoseLabel(boolean winLose, HiddenWordCanvasController ctrl, int overallDif)
+  public void setHiddenWinLoseLabel(boolean winLose, HiddenWordCanvasController ctrl, int overallDif)
 	      throws IOException, CsvException {
-	    if (winLose) { // if user won display message and time
-	      winLoseLabel.setText("YOU WON");
-	      timeLabel.setText("TIME LEFT: " + timeLeft + " seconds");
-	      winLoseString = "You won with " + timeLeft + "Seconds left!";
-	    } else { // if user looses display message
-	      winLoseLabel.setText("YOU LOST");
-	      timeLabel.setText("TIME LIMIT REACHED");
-	      winLoseString = "You lost!";
-	    }
-	    hiddenWordCanvasController = ctrl;
-	    SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
-	    spreadSheetReaderWriter.updateResult(
-	        winLose, currentUsername, overallDif); // writes over old file to update win/loss record
+	  //hidden word mode does not count profile stats
+	  if (winLose) { // if user won display message and time
+	    winLoseLabel.setText("YOU WON");
+	    timeLabel.setText("TIME LEFT: " + timeLeft + " seconds");
+	    winLoseString = "You won with " + timeLeft + "Seconds left!";
+	  } else { // if user looses display message
+	    winLoseLabel.setText("YOU LOST");
+	    timeLabel.setText("TIME LIMIT REACHED");
+	    winLoseString = "You lost!";
 	  }
+	  hiddenWordCanvasController = ctrl;
+	}
 
   public void timeLeft(int sec) throws IOException, CsvException {
     timeLeft = sec;
