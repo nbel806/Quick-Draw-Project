@@ -26,7 +26,8 @@ public class SpreadSheetReaderWriter {
   private int findUserName(String currentUsername) throws IOException, CsvException {
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
     List<String[]> allData =
-        csvReader.readAll(); // reads the entire csv file the name of file can be changed if needed
+        csvReader.readAll(); // reads the entire csv file the name of file can be changed if
+    // needed
     int i = 0;
     while (!allData.get(i)[0].equals(
         currentUsername)) { // cycles through all the users until there is a match
@@ -82,7 +83,8 @@ public class SpreadSheetReaderWriter {
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
     List<String[]> allData = csvReader.readAll();
     if (Integer.parseInt(allData.get(index)[4])
-        > timeTaken) { // checks if the time is faster than the previous record
+        > timeTaken) { // checks if the time is faster than the previous
+      // record
       allData.get(index)[4] = String.valueOf(timeTaken);
     }
 
@@ -236,5 +238,10 @@ public class SpreadSheetReaderWriter {
     difWins[2] = Integer.parseInt(allData.get(index)[10]); // hard wins
     difWins[3] = Integer.parseInt(allData.get(index)[11]); // master wins
     return difWins;
+  }
+
+  public String getProfilePic(String currentUsername) throws IOException, CsvException {
+
+    return null;
   }
 }

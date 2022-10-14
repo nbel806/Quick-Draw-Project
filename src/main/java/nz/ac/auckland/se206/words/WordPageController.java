@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206.words;
 
 import com.opencsv.exceptions.CsvException;
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -30,12 +32,14 @@ public class WordPageController {
   @FXML private Label userLabel;
   @FXML private ImageView volumeImage;
   @FXML private ImageView newImage;
+  @FXML private ImageView userImage;
 
   private String currentWord;
   private Boolean textToSpeech;
   private TextToSpeechBackground textToSpeechBackground;
 
   private String currentUsername = null;
+  private String currentProfilePic = null;
   private int time;
   private int accuracy;
   private int confidence;
@@ -85,14 +89,25 @@ public class WordPageController {
     }
   }
 
-  public void getUsername(String username) throws IOException, URISyntaxException, CsvException {
+  public void getUsername(String username, String profilePic)
+      throws IOException, URISyntaxException, CsvException {
     // Check if username is not null
     if (username != null) {
       // If not null, update label as current username
       currentUsername = username;
+      currentProfilePic = profilePic;
       userLabel.setText(currentUsername);
+      // Set profile pic
+      File file = new File(profilePic);
+      Image image = new Image(file.toURI().toString());
+      userImage.setImage(image);
+      currentProfilePic = profilePic;
     } else {
       userLabel.setText("Guest");
+      // Set guest pic
+      File file = new File("src/main/resources/images/ProfilePics/GuestPic.png");
+      Image image = new Image(file.toURI().toString());
+      userImage.setImage(image);
     }
     setWordToDraw();
   }
@@ -169,7 +184,7 @@ public class WordPageController {
     canvasController.give(
         textToSpeechBackground, textToSpeech); // passes the background threaded text to speech
     // and whether it is on or not
-    canvasController.getUsername(currentUsername);
+    canvasController.getUsername(currentUsername, currentProfilePic);
     stage.show();
   }
 

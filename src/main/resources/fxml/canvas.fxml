@@ -101,9 +101,9 @@
       </Pane>
       <Button fx:id="profileButton" layoutY="563.0" mnemonicParsing="false" prefHeight="113.0" prefWidth="107.0" style="-fx-background-color: white; -fx-background-radius: 100; -fx-border-radius: 100; -fx-border-color: black; -fx-border-width: 2;">
          <graphic>
-            <ImageView fx:id="userImage" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="userImage" fitHeight="91.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/usericon.png" />
+                  <Image url="@../images/ProfilePics/GuestPic.png" />
                </image>
             </ImageView>
          </graphic>

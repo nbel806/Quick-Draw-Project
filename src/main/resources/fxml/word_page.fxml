@@ -132,9 +132,9 @@
           <children>
             <Button layoutX="2.0" layoutY="1.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-background-radius: 25; -fx-border-radius: 25;">
               <graphic>
-                <ImageView fitHeight="60.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="userImage" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../images/usericon.png" />
+                    <Image url="@../images/ProfilePics/GuestPic.png" />
                   </image>
                 </ImageView>
               </graphic>
