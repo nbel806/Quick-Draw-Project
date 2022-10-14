@@ -1,15 +1,20 @@
 package nz.ac.auckland.se206;
 
-import ai.djl.ModelException;
-import ai.djl.modality.Classifications;
-import ai.djl.modality.Classifications.Classification;
-import ai.djl.translate.TranslateException;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+
+import javax.imageio.ImageIO;
+
+import com.opencsv.exceptions.CsvException;
+
+import ai.djl.ModelException;
+import ai.djl.modality.Classifications;
+import ai.djl.modality.Classifications.Classification;
+import ai.djl.translate.TranslateException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -28,387 +33,420 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javax.imageio.ImageIO;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
+import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class ZenCanvasController {
 
-  @FXML private Button backButton;
-  @FXML private Button onSaveButton;
+	@FXML
+	private Button backButton;
+	@FXML
+	private Button onSaveButton;
 
-  @FXML private Label wordLabel;
-  @FXML private Label topTenLabel;
+	@FXML
+	private Label wordLabel;
+	@FXML
+	private Label topTenLabel;
+	@FXML
+	private Label textToSpeechLabel;
+	@FXML
+	private Canvas zenCanvas;
 
-  @FXML private Canvas zenCanvas;
+	@FXML
+	private ImageView backImage;
+	@FXML
+	private ImageView blackPenImage;
+	@FXML
+	private ImageView redPenImage;
+	@FXML
+	private ImageView orangePenImage;
+	@FXML
+	private ImageView bluePenImage;
+	@FXML
+	private ImageView greenPenImage;
+	@FXML
+	private ImageView eraserImage;
+	@FXML
+	private ImageView clearImage;
+	@FXML
+	private ImageView saveImage;
+	@FXML
+	private ImageView volumeImage;
 
-  @FXML private ImageView backImage;
-  @FXML private ImageView blackPenImage;
-  @FXML private ImageView redPenImage;
-  @FXML private ImageView orangePenImage;
-  @FXML private ImageView bluePenImage;
-  @FXML private ImageView greenPenImage;
-  @FXML private ImageView eraserImage;
-  @FXML private ImageView clearImage;
-  @FXML private ImageView saveImage;
+	private DoodlePrediction model;
+	private GraphicsContext graphic;
+	private Boolean textToSpeech = false;
+	private TextToSpeechBackground textToSpeechBackground;
+	private String currentUsername = null;
+	private String currentProfilePic;
 
-  private DoodlePrediction model;
-  private GraphicsContext graphic;
+	private boolean blackPen = true;
+	private boolean redPen = false;
+	private boolean orangePen = false;
+	private boolean bluePen = false;
+	private boolean greenPen = false;
+	private boolean startedDrawing;
 
-  private boolean blackPen = true;
-  private boolean redPen = false;
-  private boolean orangePen = false;
-  private boolean bluePen = false;
-  private boolean greenPen = false;
-  private boolean startedDrawing;
+	// mouse coordinates for drawings
+	private double currentX;
+	private double currentY;
 
-  // mouse coordinates for drawings
-  private double currentX;
-  private double currentY;
+	public void initialize() throws ModelException, IOException {
 
-  public void initialize() throws ModelException, IOException {
+		graphic = zenCanvas.getGraphicsContext2D();
+		setTool();
+		model = new DoodlePrediction();
+	}
 
-    graphic = zenCanvas.getGraphicsContext2D();
-    setTool();
-    model = new DoodlePrediction();
-  }
+	private void setTool() {
 
-  private void setTool() {
+		// save coordinates when mouse is pressed on the canvas
+		zenCanvas.setOnMousePressed(e -> {
+			currentX = e.getX();
+			currentY = e.getY();
 
-    // save coordinates when mouse is pressed on the canvas
-    zenCanvas.setOnMousePressed(
-        e -> {
-          currentX = e.getX();
-          currentY = e.getY();
+			if (!startedDrawing) {
+				startedDrawing = true;
+				doPredictions();
+			}
+		});
 
-          if (!startedDrawing) {
-            startedDrawing = true;
-            doPredictions();
-          }
-        });
+		zenCanvas.setOnMouseDragged(e -> {
+			// Brush size (you can change this, it should not be too small or too large).
+			final double size = 10;
 
-    zenCanvas.setOnMouseDragged(
-        e -> {
-          // Brush size (you can change this, it should not be too small or too large).
-          final double size = 10;
+			final double x = e.getX() - size / 2;
+			final double y = e.getY() - size / 2;
 
-          final double x = e.getX() - size / 2;
-          final double y = e.getY() - size / 2;
+			// Default color: black
+			if (blackPen) {
+				graphic.setFill(Color.BLACK);
+				graphic.fillOval(x, y, size, size);
+			} else if (redPen) {
+				graphic.setFill(Color.RED);
+				graphic.fillOval(x, y, size, size);
+			} else if (orangePen) {
+				graphic.setFill(Color.ORANGE);
+				graphic.fillOval(x, y, size, size);
+			} else if (bluePen) {
+				graphic.setFill(Color.BLUE);
+				graphic.fillOval(x, y, size, size);
+			} else if (greenPen) {
+				graphic.setFill(Color.GREEN);
+				graphic.fillOval(x, y, size, size);
+			} else {
+				graphic.clearRect(x, y, size, size);
+			}
 
-          // Default color: black
-          if (blackPen) {
-            graphic.setFill(Color.BLACK);
-            graphic.fillOval(x, y, size, size);
-          } else if (redPen) {
-            graphic.setFill(Color.RED);
-            graphic.fillOval(x, y, size, size);
-          } else if (orangePen) {
-            graphic.setFill(Color.ORANGE);
-            graphic.fillOval(x, y, size, size);
-          } else if (bluePen) {
-            graphic.setFill(Color.BLUE);
-            graphic.fillOval(x, y, size, size);
-          } else if (greenPen) {
-            graphic.setFill(Color.GREEN);
-            graphic.fillOval(x, y, size, size);
-          } else {
-            graphic.clearRect(x, y, size, size);
-          }
+			// update the coordinates
+			currentX = x;
+			currentY = y;
+		});
+	}
 
-          // update the coordinates
-          currentX = x;
-          currentY = y;
-        });
-  }
+	@FXML
+	public void onMainMenu() throws IOException, CsvException {
 
-  @FXML
-  public void onMainMenu() throws IOException {
+		Stage stage = (Stage) backButton.getScene().getWindow();
+		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml")); // creates a new instance of
+		// main menu
+		Scene scene = new Scene(loader.load(), 1000, 680);
+		MainMenuController ctrl = loader.getController(); // need controller to pass information
+		// may need to add code to pass though tts here
+		ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
+		ctrl.getUsername(currentUsername, currentProfilePic);
+		stage.setScene(scene);
+		stage.show();
+	}
 
-    Stage stage = (Stage) backButton.getScene().getWindow();
-    FXMLLoader loader =
-        new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml")); // creates a new instance of
-    // main menu
-    Scene scene = new Scene(loader.load(), 1000, 680);
-    stage.setScene(scene);
-    stage.show();
-  }
+	public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
+		this.textToSpeech = textToSpeech;
+		this.textToSpeechBackground = (textToSpeechBackground);
+		if (textToSpeech) { // updates text to speech label to ensure it is up-to-date
+			textToSpeechLabel.setText("ON");
+		}
+	}
 
-  @FXML
-  public void onBlackPen() {
-    blackPen = true;
-    redPen = false;
-    orangePen = false;
-    bluePen = false;
-    greenPen = false;
-    setTool();
-  }
+	public void getUsername(String username, String profilePic) {
+		// Check if username is not null
+		if (username != null) {
+			// If not null, update label as current username
+			currentUsername = username;
+			currentProfilePic = profilePic;
 
-  @FXML
-  public void onRedPen() throws FileNotFoundException {
-    blackPen = false;
-    redPen = true;
-    orangePen = false;
-    bluePen = false;
-    greenPen = false;
-    setTool();
-  }
+			// Set profile pic
+			File file = new File(profilePic);
+			Image image = new Image(file.toURI().toString());
 
-  @FXML
-  public void onOrangePen() {
-    blackPen = false;
-    redPen = false;
-    orangePen = true;
-    bluePen = false;
-    greenPen = false;
-    setTool();
-  }
+		} else {
+		}
 
-  @FXML
-  public void onBluePen() {
-    blackPen = false;
-    redPen = false;
-    orangePen = false;
-    bluePen = true;
-    greenPen = false;
-    setTool();
-  }
+	}
 
-  @FXML
-  public void onGreenPen() {
-    blackPen = false;
-    redPen = false;
-    orangePen = false;
-    bluePen = false;
-    greenPen = true;
-    setTool();
-  }
+	@FXML
+	public void onBlackPen() {
+		blackPen = true;
+		redPen = false;
+		orangePen = false;
+		bluePen = false;
+		greenPen = false;
+		setTool();
+	}
 
-  @FXML
-  public void onEraser() {
-    blackPen = false;
-    redPen = false;
-    orangePen = false;
-    bluePen = false;
-    greenPen = false;
-    setTool();
-  }
+	@FXML
+	public void onRedPen() throws FileNotFoundException {
+		blackPen = false;
+		redPen = true;
+		orangePen = false;
+		bluePen = false;
+		greenPen = false;
+		setTool();
+	}
 
-  @FXML
-  public void onClear() {
-    graphic.clearRect(0, 0, zenCanvas.getWidth(), zenCanvas.getHeight());
-  }
+	@FXML
+	public void onOrangePen() {
+		blackPen = false;
+		redPen = false;
+		orangePen = true;
+		bluePen = false;
+		greenPen = false;
+		setTool();
+	}
 
-  public void setWordLabel(String word) {
-    wordLabel.setText(word);
-  }
+	@FXML
+	public void onBluePen() {
+		blackPen = false;
+		redPen = false;
+		orangePen = false;
+		bluePen = true;
+		greenPen = false;
+		setTool();
+	}
 
-  @FXML
-  public void onSave() {
-    Stage stage = (Stage) onSaveButton.getScene().getWindow(); // gets the stage from the button
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Save Image");
-    File file =
-        fileChooser.showSaveDialog(
-            stage); // shows a popup to allow user to choose where to save file
-    if (file != null) {
-      try {
-        ImageIO.write(getCurrentSnapshot(), "bmp", file); // creates a new image to save to the
-        // users location
-      } catch (IOException ex) {
-        System.out.println(ex.getMessage());
-      }
-    }
-  }
+	@FXML
+	public void onGreenPen() {
+		blackPen = false;
+		redPen = false;
+		orangePen = false;
+		bluePen = false;
+		greenPen = true;
+		setTool();
+	}
 
-  public BufferedImage getCurrentSnapshot() {
-    final Image snapshot =
-        zenCanvas.snapshot(null, null); // is the current image based on user drawing on the canvas
-    final BufferedImage image = SwingFXUtils.fromFXImage(snapshot, null);
+	@FXML
+	public void onEraser() {
+		blackPen = false;
+		redPen = false;
+		orangePen = false;
+		bluePen = false;
+		greenPen = false;
+		setTool();
+	}
 
-    // Convert into a binary image.
-    final BufferedImage imageBinary =
-        new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
+	@FXML
+	public void onClear() {
+		graphic.clearRect(0, 0, zenCanvas.getWidth(), zenCanvas.getHeight());
+	}
 
-    final Graphics2D graphics = imageBinary.createGraphics();
+	public void setWordLabel(String word) {
+		wordLabel.setText(word);
+	}
 
-    graphics.drawImage(image, 0, 0, null);
+	@FXML
+	public void onSave() {
+		Stage stage = (Stage) onSaveButton.getScene().getWindow(); // gets the stage from the button
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Save Image");
+		File file = fileChooser.showSaveDialog(stage); // shows a popup to allow user to choose where to save file
+		if (file != null) {
+			try {
+				ImageIO.write(getCurrentSnapshot(), "bmp", file); // creates a new image to save to the
+				// users location
+			} catch (IOException ex) {
+				System.out.println(ex.getMessage());
+			}
+		}
+	}
 
-    // To release memory we dispose.
-    graphics.dispose();
+	public BufferedImage getCurrentSnapshot() {
+		final Image snapshot = zenCanvas.snapshot(null, null); // is the current image based on user drawing on the
+																// canvas
+		final BufferedImage image = SwingFXUtils.fromFXImage(snapshot, null);
 
-    return imageBinary;
-  }
+		// Convert into a binary image.
+		final BufferedImage imageBinary = new BufferedImage(image.getWidth(), image.getHeight(),
+				BufferedImage.TYPE_BYTE_BINARY);
 
-  private void doPredictions() {
-    Timeline time = new Timeline();
-    time.setCycleCount(Timeline.INDEFINITE);
-    time.stop();
-    KeyFrame keyFrame =
-        new KeyFrame(
-            Duration.seconds(1), // new keyframe every second so lists will update every
-            // second
-            actionEvent -> {
-              BufferedImage snapshot =
-                  getCurrentSnapshot(); // uses main thread to get a snapshot of users
-              // drawing
-              Task<Void> backgroundTask =
-                  new Task<>() { // will run the rest of the task in the background thread
-                    // to ensure
-                    // user can draw smoothly and no lag
-                    @Override
-                    protected Void call() {
+		final Graphics2D graphics = imageBinary.createGraphics();
 
-                      List<Classification> list;
-                      try {
-                        list =
-                            model.getPredictions(snapshot, 10); // uses the model to get predictions
-                        // based on current user
-                        // drawing
-                      } catch (TranslateException e) {
-                        throw new RuntimeException(e);
-                      }
-                      Platform.runLater(
-                          () -> {
-                            printTopTen(
-                                list); // will run these methods in the main thread as they deal
-                            // with updating javafx elements
-                          });
+		graphics.drawImage(image, 0, 0, null);
 
-                      return null;
-                    }
-                  };
+		// To release memory we dispose.
+		graphics.dispose();
 
-              Thread backgroundThread = new Thread(backgroundTask);
-              backgroundThread
-                  .start(); // all the ML modeling will happen in a background thread to reduce lag
-            });
+		return imageBinary;
+	}
 
-    time.getKeyFrames().add(keyFrame);
-    time.playFromStart();
-  }
+	private void doPredictions() {
+		Timeline time = new Timeline();
+		time.setCycleCount(Timeline.INDEFINITE);
+		time.stop();
+		KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), // new keyframe every second so lists will update every
+				// second
+				actionEvent -> {
+					BufferedImage snapshot = getCurrentSnapshot(); // uses main thread to get a snapshot of users
+					// drawing
+					Task<Void> backgroundTask = new Task<>() { // will run the rest of the task in the background thread
+						// to ensure
+						// user can draw smoothly and no lag
+						@Override
+						protected Void call() {
 
-  private void printTopTen(List<Classifications.Classification> list) {
-    StringBuilder sb = new StringBuilder();
-    sb.append(System.lineSeparator());
-    int i = 1;
-    for (Classifications.Classification classification :
-        list) { // cycles through list and build string to print
-      // top 10
-      sb.append(i)
-          .append(" : ")
-          .append(classification.getClassName().replace("_", " ")) // replaces _ with spaces
-          // to ensure a standard
-          // format
-          .append(System.lineSeparator());
-      i++;
-    }
-    topTenLabel.setText(String.valueOf(sb)); // updates label to the new top 10
-  }
+							List<Classification> list;
+							try {
+								list = model.getPredictions(snapshot, 10); // uses the model to get predictions
+								// based on current user
+								// drawing
+							} catch (TranslateException e) {
+								throw new RuntimeException(e);
+							}
+							Platform.runLater(() -> {
+								printTopTen(list); // will run these methods in the main thread as they deal
+								// with updating javafx elements
+							});
 
-  @FXML
-  private void onHoverBack() {
-    backImage.setFitHeight(79);
-    backImage.setFitWidth(76);
-  }
+							return null;
+						}
+					};
 
-  @FXML
-  private void onHoverBlack() {
-    blackPenImage.setFitHeight(35);
-    blackPenImage.setFitWidth(35);
-  }
+					Thread backgroundThread = new Thread(backgroundTask);
+					backgroundThread.start(); // all the ML modeling will happen in a background thread to reduce lag
+				});
 
-  @FXML
-  private void onHoverRed() {
-    redPenImage.setFitHeight(35);
-    redPenImage.setFitWidth(35);
-  }
+		time.getKeyFrames().add(keyFrame);
+		time.playFromStart();
+	}
 
-  @FXML
-  private void onHoverOrange() {
-    orangePenImage.setFitHeight(35);
-    orangePenImage.setFitWidth(35);
-  }
+	private void printTopTen(List<Classifications.Classification> list) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(System.lineSeparator());
+		int i = 1;
+		for (Classifications.Classification classification : list) { // cycles through list and build string to print
+			// top 10
+			sb.append(i).append(" : ").append(classification.getClassName().replace("_", " ")) // replaces _ with spaces
+					// to ensure a standard
+					// format
+					.append(System.lineSeparator());
+			i++;
+		}
+		topTenLabel.setText(String.valueOf(sb)); // updates label to the new top 10
+	}
 
-  @FXML
-  private void onHoverGreen() {
-    greenPenImage.setFitHeight(35);
-    greenPenImage.setFitWidth(35);
-  }
+	@FXML
+	private void onHoverBack() {
+		backImage.setFitHeight(79);
+		backImage.setFitWidth(76);
+	}
 
-  @FXML
-  private void onHoverBlue() {
-    bluePenImage.setFitHeight(35);
-    bluePenImage.setFitWidth(35);
-  }
+	@FXML
+	private void onHoverBlack() {
+		blackPenImage.setFitHeight(35);
+		blackPenImage.setFitWidth(35);
+	}
 
-  @FXML
-  private void onHoverEraser() {
-    eraserImage.setFitHeight(35);
-    eraserImage.setFitWidth(35);
-  }
+	@FXML
+	private void onHoverRed() {
+		redPenImage.setFitHeight(35);
+		redPenImage.setFitWidth(35);
+	}
 
-  @FXML
-  private void onHoverClear() {
-    clearImage.setFitHeight(35);
-    clearImage.setFitWidth(35);
-  }
+	@FXML
+	private void onHoverOrange() {
+		orangePenImage.setFitHeight(35);
+		orangePenImage.setFitWidth(35);
+	}
 
-  @FXML
-  private void onHoverSave() {
-    saveImage.setFitHeight(35);
-    saveImage.setFitWidth(35);
-  }
+	@FXML
+	private void onHoverGreen() {
+		greenPenImage.setFitHeight(35);
+		greenPenImage.setFitWidth(35);
+	}
 
-  @FXML
-  private void onBlackExit() {
-    blackPenImage.setFitHeight(32);
-    blackPenImage.setFitWidth(32);
-  }
+	@FXML
+	private void onHoverBlue() {
+		bluePenImage.setFitHeight(35);
+		bluePenImage.setFitWidth(35);
+	}
 
-  @FXML
-  private void onRedExit() {
-    redPenImage.setFitHeight(32);
-    redPenImage.setFitWidth(32);
-  }
+	@FXML
+	private void onHoverEraser() {
+		eraserImage.setFitHeight(35);
+		eraserImage.setFitWidth(35);
+	}
 
-  @FXML
-  private void onOrangeExit() {
-    orangePenImage.setFitHeight(32);
-    orangePenImage.setFitWidth(32);
-  }
+	@FXML
+	private void onHoverClear() {
+		clearImage.setFitHeight(35);
+		clearImage.setFitWidth(35);
+	}
 
-  @FXML
-  private void onGreenExit() {
-    greenPenImage.setFitHeight(32);
-    greenPenImage.setFitWidth(32);
-  }
+	@FXML
+	private void onHoverSave() {
+		saveImage.setFitHeight(35);
+		saveImage.setFitWidth(35);
+	}
 
-  @FXML
-  private void onBlueExit() {
-    bluePenImage.setFitHeight(32);
-    bluePenImage.setFitWidth(32);
-  }
+	@FXML
+	private void onBlackExit() {
+		blackPenImage.setFitHeight(32);
+		blackPenImage.setFitWidth(32);
+	}
 
-  @FXML
-  private void onEraserExit() {
-    eraserImage.setFitHeight(32);
-    eraserImage.setFitWidth(32);
-  }
+	@FXML
+	private void onRedExit() {
+		redPenImage.setFitHeight(32);
+		redPenImage.setFitWidth(32);
+	}
 
-  @FXML
-  private void onClearExit() {
-    clearImage.setFitHeight(32);
-    clearImage.setFitWidth(32);
-  }
+	@FXML
+	private void onOrangeExit() {
+		orangePenImage.setFitHeight(32);
+		orangePenImage.setFitWidth(32);
+	}
 
-  @FXML
-  private void onSaveExit() {
-    saveImage.setFitHeight(32);
-    saveImage.setFitWidth(32);
-  }
+	@FXML
+	private void onGreenExit() {
+		greenPenImage.setFitHeight(32);
+		greenPenImage.setFitWidth(32);
+	}
 
-  @FXML
-  private void onBackExit() {
-    backImage.setFitHeight(76);
-    backImage.setFitWidth(73);
-  }
+	@FXML
+	private void onBlueExit() {
+		bluePenImage.setFitHeight(32);
+		bluePenImage.setFitWidth(32);
+	}
+
+	@FXML
+	private void onEraserExit() {
+		eraserImage.setFitHeight(32);
+		eraserImage.setFitWidth(32);
+	}
+
+	@FXML
+	private void onClearExit() {
+		clearImage.setFitHeight(32);
+		clearImage.setFitWidth(32);
+	}
+
+	@FXML
+	private void onSaveExit() {
+		saveImage.setFitHeight(32);
+		saveImage.setFitWidth(32);
+	}
+
+	@FXML
+	private void onBackExit() {
+		backImage.setFitHeight(76);
+		backImage.setFitWidth(73);
+	}
 }
