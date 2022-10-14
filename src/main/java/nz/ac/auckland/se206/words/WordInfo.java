@@ -23,5 +23,4 @@ public class WordInfo {
   public int getNumberOfEntries() {
     return entries.size();
   }
-
 }

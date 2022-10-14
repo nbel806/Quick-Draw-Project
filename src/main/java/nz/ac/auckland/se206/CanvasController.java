@@ -46,7 +46,7 @@ public class CanvasController {
 
   @FXML private Circle upArrowCircle;
   @FXML private Circle downArrowCircle;
- 
+
   @FXML private Canvas canvas;
 
   @FXML private Label wordLabel;
@@ -78,12 +78,12 @@ public class CanvasController {
   private boolean startedDrawing;
 
   private TextToSpeechBackground textToSpeechBackground;
-  
+
   private double currentX;
   private double currentY;
   private double lastWordPred = 0;
   private double confidenceUser;
-  
+
   private String currentUsername;
 
   private int userAccuracy;
@@ -92,7 +92,6 @@ public class CanvasController {
   private int time;
   private int overallDif;
   private int seconds;
- 
 
   /**
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
