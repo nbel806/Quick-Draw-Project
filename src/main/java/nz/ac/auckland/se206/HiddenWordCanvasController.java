@@ -327,6 +327,7 @@ public class HiddenWordCanvasController {
 
 	/** When timer reaches 0secs */
 	private void whenTimerEnds() throws IOException, CsvException {
+		BufferedImage bufferedImage = getCurrentSnapshot();
 		Stage stage = (Stage) wordLabel.getScene().getWindow(); // finds current stage from the word label
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/game_over.fxml"));
 		Scene scene = new Scene(loader.load(), 1000, 680);
@@ -335,7 +336,7 @@ public class HiddenWordCanvasController {
 		GameOverController gameOverController = loader.getController(); // gets controller from loader to pass through
 		// information
 		gameOverController.getUsername(currentUsername);
-		gameOverController.give(textToSpeechBackground, textToSpeech); // passes text to speech and boolean
+		gameOverController.give(textToSpeechBackground, textToSpeech, bufferedImage); // passes text to speech and boolean
 		gameOverController.timeLeft(seconds);
 		gameOverController.setHiddenWinLoseLabel(winLose, this, overallDif);
 		gameOverController.setTimeAccuracy(time, userAccuracy, confidence, words);
