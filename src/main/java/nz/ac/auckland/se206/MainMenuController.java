@@ -13,10 +13,10 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 import nz.ac.auckland.se206.words.WordPageController;
+import nz.ac.auckland.se206.words.ZenWordPageController;
 
 public class MainMenuController {
 
-  @FXML private Button zenModeButton;
   @FXML private Button playButton;
   @FXML private Button profileButton;
   @FXML private Button loginButton;
@@ -68,14 +68,15 @@ public class MainMenuController {
   }
 
   @FXML
-  private void onZenModeCanvas() throws IOException, URISyntaxException, CsvException {
-
+  private void onZenModeCanvas() throws IOException, CsvException {
     Stage stage = (Stage) playButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/zen_word_page.fxml")); // creates a new instance
     // of
     // word page
-    Scene scene = new Scene(loader.load(), 1000, 560);
+    Scene scene = new Scene(loader.load(), 1000, 565);
+    ZenWordPageController ctrl = loader.getController();
+    ctrl.getUsername(currentUsername);
     stage.setScene(scene);
     stage.show();
   }

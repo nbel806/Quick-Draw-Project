@@ -9,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: #5299d3; -fx-border-width: 3; -fx-border-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.CanvasController">
@@ -23,7 +24,7 @@
             </Canvas>
          </children>
       </Pane>
-      <Pane layoutX="748.0" layoutY="147.0" prefHeight="366.0" prefWidth="245.0" style="-fx-background-color: white; -fx-background-radius: 25;">
+      <Pane layoutX="748.0" layoutY="194.0" prefHeight="366.0" prefWidth="245.0" style="-fx-background-color: white; -fx-background-radius: 25;">
          <children>
             <Label layoutX="7.0" onMouseEntered="#onHoverPredictions" prefHeight="55.0" prefWidth="182.0" text="Predictions" textAlignment="CENTER">
                <font>
@@ -138,5 +139,17 @@
             <Font name="Leelawadee UI Bold" size="32.0" />
          </font>
       </Label>
+      <Circle fx:id="downArrowCircle" fill="#ff411f" layoutX="871.0" layoutY="160.0" radius="31.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="upArrowCircle" fill="#1fff39" layoutX="871.0" layoutY="94.0" radius="31.0" stroke="BLACK" strokeType="INSIDE" />
+      <ImageView fx:id="downArrow" fitHeight="41.0" fitWidth="41.0" layoutX="850.0" layoutY="141.0">
+         <image>
+            <Image url="@../images/arrow.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="upArrow" fitHeight="41.0" fitWidth="41.0" layoutX="850.0" layoutY="72.0" rotate="180.0">
+         <image>
+            <Image url="@../images/arrow.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

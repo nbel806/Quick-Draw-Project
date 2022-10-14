@@ -1,57 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="1000.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.words.ZenWordPageController">
-   <children>
-      <ImageView fitHeight="565.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/fish-yin-and-yang-symbols-zen-koi-wallpaper-preview.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="70.0" fitWidth="73.0" layoutX="117.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.8;">
-         <image>
-            <Image url="@../images/drawicom.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="14.0" layoutY="19.0" prefHeight="47.0" prefWidth="202.0" text="JUST DRAW" textFill="WHITE">
-         <font>
-            <Font name="Bank Gothic Light BT" size="30.0" />
-         </font>
-      </Label>
-      <Text fx:id="wordLabel" fill="WHITE" layoutX="326.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Animal migration" textAlignment="CENTER" wrappingWidth="368.240234375">
-         <font>
-            <Font name="Bank Gothic Light BT" size="40.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" layoutX="393.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zen Mode">
-         <font>
-            <Font name="Bank Gothic Medium BT" size="40.0" />
-         </font>
-      </Text>
-      <Pane layoutX="267.0" layoutY="56.0" prefHeight="457.0" prefWidth="466.0" style="-fx-border-color: white; -fx-border-radius: 20;">
-         <children>
-            <Button fx:id="newWordButton" layoutX="372.0" layoutY="28.0" mnemonicParsing="false" onAction="#onNewWord" onMouseEntered="#onHoverNew" onMouseExited="#onNewExit" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: transparent; -fx-border-width: 2; -fx-text-fill: black; -fx-border-radius: 10; -fx-background-radius: 10;">
-               <graphic>
-                  <ImageView fx:id="newImage" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/refresh-page-option.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="readyButton" layoutX="179.0" layoutY="431.0" mnemonicParsing="false" onAction="#onZenCanvas" onMouseEntered="#onHoverReady" onMouseExited="#onReadyExit" prefHeight="47.0" prefWidth="119.0" style="-fx-background-color: white; -fx-background-radius: 50;" text="Ready">
-               <font>
-                  <Font name="Bank Gothic Light BT" size="25.0" />
-               </font>
-            </Button>
-         </children>
-      </Pane>
-   </children>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+  prefHeight="560.0" prefWidth="1000.0" style="-fx-background-color: green;"
+  xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="nz.ac.auckland.se206.words.ZenWordPageController">
+  <children>
+    <ImageView fitHeight="565.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../images/fish-yin-and-yang-symbols-zen-koi-wallpaper-preview.jpg"/>
+      </image>
+    </ImageView>
+    <ImageView fitHeight="70.0" fitWidth="73.0" layoutX="117.0" layoutY="7.0" pickOnBounds="true"
+      preserveRatio="true" style="-fx-opacity: 0.8;">
+      <image>
+        <Image url="@../images/drawicom.png"/>
+      </image>
+    </ImageView>
+    <Label layoutX="14.0" layoutY="19.0" prefHeight="47.0" prefWidth="202.0" text="JUST DRAW"
+      textFill="WHITE">
+      <font>
+        <Font name="Bank Gothic Light BT" size="30.0"/>
+      </font>
+    </Label>
+    <Text fx:id="wordLabel" fill="WHITE" layoutX="326.0" layoutY="292.0" strokeType="OUTSIDE"
+      strokeWidth="0.0" text="The great wall of china" textAlignment="CENTER"
+      wrappingWidth="368.240234375">
+      <font>
+        <Font name="Bank Gothic Light BT" size="40.0"/>
+      </font>
+    </Text>
+    <Text fill="WHITE" layoutX="393.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0"
+      text="Zen Mode">
+      <font>
+        <Font name="Bank Gothic Medium BT" size="40.0"/>
+      </font>
+    </Text>
+    <Pane layoutX="267.0" layoutY="56.0" prefHeight="457.0" prefWidth="466.0"
+      style="-fx-border-color: white; -fx-border-radius: 20;">
+      <children>
+        <Button layoutX="372.0" layoutY="28.0" mnemonicParsing="false" onAction="#onNewWord"
+          onMouseEntered="#onHoverNew" onMouseExited="#onNewExit" prefHeight="60.0" prefWidth="60.0"
+          style="-fx-background-color: transparent; -fx-border-width: 2; -fx-text-fill: black; -fx-border-radius: 10; -fx-background-radius: 10;">
+          <graphic>
+            <ImageView fx:id="newImage" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true"
+              preserveRatio="true">
+              <image>
+                <Image url="@../images/refresh-page-option.png"/>
+              </image>
+            </ImageView>
+          </graphic>
+        </Button>
+        <Button fx:id="readyButton" layoutX="179.0" layoutY="431.0" mnemonicParsing="false"
+          onAction="#onZenCanvas" onMouseEntered="#onHoverReady" onMouseExited="#onReadyExit"
+          prefHeight="47.0" prefWidth="119.0"
+          style="-fx-background-color: white; -fx-background-radius: 50;" text="Ready">
+          <font>
+            <Font name="Bank Gothic Light BT" size="25.0"/>
+          </font>
+        </Button>
+      </children>
+    </Pane>
+    <VBox alignment="TOP_CENTER" layoutX="31.0" layoutY="109.0" prefHeight="390.0" prefWidth="205.0"
+      spacing="6.0" style="-fx-background-color: #CFD2CF; -fx-background-radius: 20;">
+      <children>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Practice Previously">
+          <font>
+            <Font name="System Bold" size="19.0"/>
+          </font>
+          <VBox.margin>
+            <Insets top="5.0"/>
+          </VBox.margin>
+        </Text>
+        <Text layoutX="29.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0"
+          text="played words">
+          <font>
+            <Font name="System Bold" size="19.0"/>
+          </font>
+          <VBox.margin>
+            <Insets top="-5.0"/>
+          </VBox.margin>
+        </Text>
+        <Label fx:id="lostWord1" text="1.The great wall of china">
+          <VBox.margin>
+            <Insets/>
+          </VBox.margin>
+          <padding>
+            <Insets top="5.0"/>
+          </padding>
+        </Label>
+        <Button layoutX="92.0" layoutY="30.0" mnemonicParsing="false" onAction="#onClickPlay1"
+          style="-fx-background-color: #EB4A5A#EB4A5A; -fx-background-radius: 25; -fx-background-insets: 0; -fx-border-radius: 20; -fx-border-color: #000000;"
+          text="Choose 1."/>
+        <Label fx:id="lostWord2" layoutX="52.0" layoutY="63.0" text="2.The great wall of china">
+          <VBox.margin>
+            <Insets/>
+          </VBox.margin>
+          <padding>
+            <Insets top="5.0"/>
+          </padding>
+        </Label>
+        <Button layoutX="92.0" layoutY="85.0" mnemonicParsing="false" onAction="#onClickPlay2"
+          style="-fx-background-color: #EB4A5A#EB4A5A; -fx-background-radius: 25; -fx-background-insets: 0; -fx-border-radius: 20; -fx-border-color: #000000;"
+          text="Choose 2."/>
+        <Label fx:id="lostWord3" layoutX="52.0" layoutY="118.0" text="3.The great wall of china">
+          <padding>
+            <Insets top="5.0"/>
+          </padding>
+        </Label>
+        <Button layoutX="92.0" layoutY="140.0" mnemonicParsing="false" onAction="#onClickPlay3"
+          style="-fx-background-color: #EB4A5A#EB4A5A; -fx-background-radius: 25; -fx-background-insets: 0; -fx-border-radius: 20; -fx-border-color: #000000;"
+          text="Choose 3."/>
+        <Label fx:id="lostWord4" layoutX="52.0" layoutY="173.0" text="4.The great wall of china">
+          <padding>
+            <Insets top="5.0"/>
+          </padding>
+        </Label>
+        <Button layoutX="92.0" layoutY="195.0" mnemonicParsing="false" onAction="#onClickPlay4"
+          style="-fx-background-color: #EB4A5A#EB4A5A; -fx-background-radius: 25; -fx-background-insets: 0; -fx-border-radius: 20; -fx-border-color: #000000;"
+          text="Choose 4."/>
+        <Label fx:id="lostWord5" layoutX="52.0" layoutY="228.0" text="5.The great wall of china">
+          <padding>
+            <Insets top="5.0"/>
+          </padding>
+        </Label>
+        <Button layoutX="92.0" layoutY="245.0" mnemonicParsing="false" onAction="#onClickPlay5"
+          style="-fx-background-color: #EB4A5A#EB4A5A; -fx-background-radius: 25; -fx-background-insets: 0; -fx-border-radius: 20; -fx-border-color: #000000;"
+          text="Choose 5.">
+          <VBox.margin>
+            <Insets bottom="10.0"/>
+          </VBox.margin>
+        </Button>
+      </children>
+      <opaqueInsets>
+        <Insets/>
+      </opaqueInsets>
+      <padding>
+        <Insets top="10.0"/>
+      </padding>
+    </VBox>
+  </children>
 </Pane>

@@ -51,8 +51,6 @@ public class ZenCanvasController {
   @FXML private ImageView clearImage;
   @FXML private ImageView saveImage;
 
-  // @FXML private Image redNinja = ;
-
   private DoodlePrediction model;
   private GraphicsContext graphic;
 

@@ -7,7 +7,6 @@ import ai.djl.translate.TranslateException;
 import com.opencsv.exceptions.CsvException;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import javafx.animation.KeyFrame;
@@ -20,33 +19,33 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
+import nz.ac.auckland.se206.words.DictionaryLookup;
+import nz.ac.auckland.se206.words.WordInfo;
+import nz.ac.auckland.se206.words.WordNotFoundException;
+import nz.ac.auckland.se206.words.WordPane;
 
-/**
- * This is the controller of the canvas. You are free to modify this class and the corresponding
- * FXML file as you see fit. For example, you might no longer need the "Predict" button because the
- * DL model should be automatically queried in the background every second.
- *
- * <p>!! IMPORTANT !!
- *
- * <p>Although we added the scale of the image, you need to be careful when changing the size of the
- * drawable canvas and the brush size. If you make the brush too big or too small with respect to
- * the canvas size, the ML model will not work correctly. So be careful. If you make some changes in
- * the canvas and brush sizes, make sure that the prediction works fine.
- */
-public class CanvasController {
+public class HiddenWordCanvasController {
 
-  @FXML private Circle upArrowCircle;
-  @FXML private Circle downArrowCircle;
+  @FXML private ImageView downArrow;
+  @FXML private ImageView upArrow;
+  @FXML private ImageView userImage;
+  @FXML private ImageView penImage;
+  @FXML private ImageView eraseImage;
+  @FXML private ImageView clearImage;
+  @FXML private ImageView volumeImage;
 
   @FXML private Canvas canvas;
 
@@ -56,17 +55,18 @@ public class CanvasController {
   @FXML private Label topTenLabel;
   @FXML private Label textToSpeechLabel;
 
+  @FXML private Text hintText1;
+  @FXML private Text hintText2;
+  @FXML private Text hintText3;
+
+  @FXML private Circle upArrowCircle;
+  @FXML private Circle downArrowCircle;
+
   @FXML private Button penButton;
   @FXML private Button eraseButton;
   @FXML private Button profileButton;
 
-  @FXML private ImageView penImage;
-  @FXML private ImageView eraseImage;
-  @FXML private ImageView clearImage;
-  @FXML private ImageView volumeImage;
-  @FXML private ImageView upArrow;
-  @FXML private ImageView userImage;
-  @FXML private ImageView downArrow;
+  @FXML private Accordion resultsAccordion;
 
   private GraphicsContext graphic;
   private DoodlePrediction model;
@@ -80,13 +80,7 @@ public class CanvasController {
 
   private TextToSpeechBackground textToSpeechBackground;
 
-  private double currentX;
-  private double currentY;
-  private double lastWordPred = 0;
-  private double confidenceUser;
-
   private String currentUsername;
-  private String currentProfilePic;
 
   private int userAccuracy;
   private int confidence;
@@ -94,6 +88,11 @@ public class CanvasController {
   private int time;
   private int overallDif;
   private int seconds;
+
+  private double currentX;
+  private double currentY;
+  private double confidenceUser;
+  private double lastWordPred = 0;
 
   /**
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
@@ -104,15 +103,12 @@ public class CanvasController {
    */
   public void initialize() throws ModelException, IOException {
     graphic = canvas.getGraphicsContext2D();
-
     setTool(); // calls method to set pen/eraser and size
-
     // Set pen button
     penButton.setStyle(
         "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: #99F4B3;");
     penImage.setFitHeight(71);
     penImage.setFitWidth(71);
-
     model = new DoodlePrediction();
     setTimerLabel(seconds); // sets timer to specified number of seconds
     doTimer();
@@ -123,7 +119,6 @@ public class CanvasController {
   }
 
   private void setTool() {
-
     // save coordinates when mouse is pressed on the canvas
     canvas.setOnMousePressed(
         e -> {
@@ -134,15 +129,12 @@ public class CanvasController {
             doPredictions();
           }
         });
-
     canvas.setOnMouseDragged(
         e -> {
           // Brush size (you can change this, it should not be too small or too large).
           final double size = 10;
-
           final double x = e.getX() - size / 2;
           final double y = e.getY() - size / 2;
-
           // This is the colour of the brush.
           if (pen) {
             graphic.setFill(Color.BLACK);
@@ -159,7 +151,6 @@ public class CanvasController {
                 16); // then will clear a rectangle of 5 either side
             // of the pixel the user is on
           }
-
           // update the coordinates
           currentX = x;
           currentY = y;
@@ -175,18 +166,14 @@ public class CanvasController {
     final Image snapshot =
         canvas.snapshot(null, null); // is the current image based on user drawing on the canvas
     final BufferedImage image = SwingFXUtils.fromFXImage(snapshot, null);
-
     // Convert into a binary image.
     final BufferedImage imageBinary =
         new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
 
     final Graphics2D graphics = imageBinary.createGraphics();
-
     graphics.drawImage(image, 0, 0, null);
-
     // To release memory we dispose.
     graphics.dispose();
-
     return imageBinary;
   }
 
@@ -374,15 +361,12 @@ public class CanvasController {
     GameOverController gameOverController =
         loader.getController(); // gets controller from loader to pass through
     // information
-    gameOverController.getUsername(currentUsername, currentProfilePic);
+    gameOverController.getUsername(currentUsername);
     gameOverController.give(
         textToSpeechBackground, textToSpeech, bufferedImage); // passes text to speech and boolean
     gameOverController.timeLeft(seconds);
-    gameOverController.setWinLoseLabel(winLose, this, overallDif);
+    gameOverController.setHiddenWinLoseLabel(winLose, this, overallDif);
     gameOverController.setTimeAccuracy(time, userAccuracy, confidence, words);
-
-    // passes if user won or lost and current instance of canvas controller
-
   }
 
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
@@ -393,24 +377,14 @@ public class CanvasController {
     }
   }
 
-  public void getUsername(String username, String profilePic) {
+  public void getUsername(String username) {
     // Check if username is not null
     if (username != null) {
       // If not null, update label as current username
       currentUsername = username;
-      currentProfilePic = profilePic;
       userLabel.setText(currentUsername);
-      // Set profile pic
-      File file = new File(profilePic);
-      Image image = new Image(file.toURI().toString());
-      userImage.setImage(image);
-
     } else {
       userLabel.setText("Guest");
-      // Set guest pic
-      File file = new File("src/main/resources/images/ProfilePics/GuestPic.png");
-      Image image = new Image(file.toURI().toString());
-      userImage.setImage(image);
     }
   }
 
@@ -434,11 +408,6 @@ public class CanvasController {
   @FXML
   private void onHoverCanvas() {
     textToSpeechBackground.backgroundSpeak("draw here", textToSpeech);
-  }
-
-  @FXML
-  private void onHoverWord() {
-    textToSpeechBackground.backgroundSpeak(currentWord, textToSpeech);
   }
 
   @FXML
@@ -578,5 +547,18 @@ public class CanvasController {
     }
     this.words = words;
     this.overallDif = overallDif;
+  }
+
+  public void setDefinitionList(String wordToDraw) throws IOException, WordNotFoundException {
+    currentWord = wordToDraw;
+    resultsAccordion.getPanes().clear();
+    WordInfo wordResult = DictionaryLookup.searchWordInfo(wordToDraw);
+    TitledPane pane = WordPane.generateWordPane(wordToDraw, wordResult);
+    resultsAccordion.getPanes().add(pane);
+
+    // setting the hints
+    hintText1.setText(wordToDraw.length() + " characters");
+    hintText2.setText("first character: " + wordToDraw.charAt(0));
+    hintText3.setText("last character: " + wordToDraw.charAt(wordToDraw.length() - 1));
   }
 }
