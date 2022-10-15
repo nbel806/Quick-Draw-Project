@@ -4,6 +4,7 @@ import ai.djl.ModelException;
 import ai.djl.modality.Classifications;
 import ai.djl.modality.Classifications.Classification;
 import ai.djl.translate.TranslateException;
+import com.opencsv.exceptions.CsvException;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -20,164 +21,213 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
+import nz.ac.auckland.se206.speech.TextToSpeechBackground;
+import nz.ac.auckland.se206.words.ZenWordPageController;
 
 public class ZenCanvasController {
+  @FXML private Pane upPane;
+  @FXML private Pane downPane;
 
   @FXML private Button backButton;
-  @FXML private Button onSaveButton;
+  @FXML private Button mainmenuButton;
+  @FXML private Button saveButton;
+  @FXML private Button penButton;
+  @FXML private Button eraseButton;
 
   @FXML private Label wordLabel;
   @FXML private Label topTenLabel;
-
+  @FXML private Label userLabel;
+  @FXML private Label textToSpeechLabel;
+  @FXML private Label speakerLabel;
   @FXML private Canvas zenCanvas;
 
-  @FXML private ImageView backImage;
-  @FXML private ImageView blackPenImage;
-  @FXML private ImageView redPenImage;
-  @FXML private ImageView orangePenImage;
-  @FXML private ImageView bluePenImage;
-  @FXML private ImageView greenPenImage;
-  @FXML private ImageView eraserImage;
+  @FXML private ImageView volumeImage;
+  @FXML private ImageView userImage;
+  @FXML private ImageView penImage;
+  @FXML private ImageView eraseImage;
   @FXML private ImageView clearImage;
-  @FXML private ImageView saveImage;
+  @FXML private ImageView upArrow;
+  @FXML private ImageView downArrow;
+  @FXML private ColorPicker colorPicker;
 
   private DoodlePrediction model;
   private GraphicsContext graphic;
+  private Boolean textToSpeech = false;
+  private TextToSpeechBackground textToSpeechBackground;
+  private String currentUsername = null;
+  private String currentProfilePic;
+  private String currentWord;
 
-  private boolean blackPen = true;
-  private boolean redPen = false;
-  private boolean orangePen = false;
-  private boolean bluePen = false;
-  private boolean greenPen = false;
+  private boolean pen = true;
   private boolean startedDrawing;
 
-  public void initialize() throws ModelException, IOException {
+  // mouse coordinates for drawings
+  private double currentX;
+  private double currentY;
+  private double lastWordPred = 0;
 
+  public void initialize() throws ModelException, IOException {
     graphic = zenCanvas.getGraphicsContext2D();
     setTool();
     model = new DoodlePrediction();
+
+    // Set pen button
+    penButton.setStyle("-fx-background-color: #99F4B3;");
+    penImage.setFitHeight(71);
+    penImage.setFitWidth(71);
+
+    // Set up and down images
+    upArrow.setOpacity(0.3);
+    upPane.setOpacity(0.3);
+    downArrow.setOpacity(0.3);
+    downPane.setOpacity(0.3);
+
+    // Set predict label
+    speakerLabel.setText("");
+  }
+
+  public void setWordLabel(String word) {
+    currentWord = word;
+    wordLabel.setText(word);
   }
 
   private void setTool() {
-
     // save coordinates when mouse is pressed on the canvas
     zenCanvas.setOnMousePressed(
         e -> {
+          currentX = e.getX();
+          currentY = e.getY();    
           if (!startedDrawing) {
             startedDrawing = true;
             doPredictions();
           }
         });
-
     zenCanvas.setOnMouseDragged(
         e -> {
           // Brush size (you can change this, it should not be too small or too large).
           final double size = 10;
-
           final double x = e.getX() - size / 2;
           final double y = e.getY() - size / 2;
-
-          // Default color: black
-          if (blackPen) {
-            graphic.setFill(Color.BLACK);
-            graphic.fillOval(x, y, size, size);
-          } else if (redPen) {
-            graphic.setFill(Color.RED);
-            graphic.fillOval(x, y, size, size);
-          } else if (orangePen) {
-            graphic.setFill(Color.ORANGE);
-            graphic.fillOval(x, y, size, size);
-          } else if (bluePen) {
-            graphic.setFill(Color.BLUE);
-            graphic.fillOval(x, y, size, size);
-          } else if (greenPen) {
-            graphic.setFill(Color.GREEN);
-            graphic.fillOval(x, y, size, size);
-          } else {
-            graphic.clearRect(x, y, size, size);
+          if (pen) {
+            graphic.setStroke(colorPicker.getValue());
+            graphic.setLineWidth(size);
+            graphic.strokeLine(
+                currentX, currentY, x, y); // Create a line that goes from the point (currentX, //
+            // currentY) and (x,y)
+          } else { // eraser
+            graphic.setFill(Color.TRANSPARENT); // sets colour so that black won't be there
+            graphic.clearRect(
+                e.getX() - 10,
+                e.getY() - 10,
+                16,
+                16); // then will clear a rectangle of 5 either side
+            // of the pixel the user is on
           }
         });
   }
 
   @FXML
-  private void onMainMenu() throws IOException {
-
-    Stage stage = (Stage) backButton.getScene().getWindow();
+  public void onMainMenu() throws IOException, CsvException {
+    Stage stage = (Stage)  mainmenuButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml")); // creates a new instance of
     // main menu
     Scene scene = new Scene(loader.load(), 1000, 680);
+    MainMenuController ctrl = loader.getController(); // need controller to pass information
+    // may need to add code to pass though tts here
+    ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
+    ctrl.getUsername(currentUsername, currentProfilePic);
     stage.setScene(scene);
     stage.show();
   }
 
   @FXML
-  private void onBlackPen() {
-    blackPen = true;
-    redPen = false;
-    orangePen = false;
-    bluePen = false;
-    greenPen = false;
+
+  public void onBack() throws IOException, CsvException {
+    Stage stage = (Stage) backButton.getScene().getWindow();
+    FXMLLoader loader =
+        new FXMLLoader(App.class.getResource("/fxml/zen_word_page.fxml")); // creates a new instance
+    // of
+    // word page
+    Scene scene = new Scene(loader.load(), 1000, 680);
+    ZenWordPageController ctrl = loader.getController();
+    ctrl.getUsername(currentUsername, currentProfilePic);
+    ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
+    stage.setScene(scene);
+    stage.show();
+  }
+
+  public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
+    this.textToSpeech = textToSpeech;
+    this.textToSpeechBackground = (textToSpeechBackground);
+    if (textToSpeech) { // updates text to speech label to ensure it is up-to-date
+      textToSpeechLabel.setText("ON");
+    }
+  }
+
+  public void getUsername(String username, String profilePic) {
+    // Check if username is not null
+    if (username != null) {
+      // If not null, update label as current username
+      currentUsername = username;
+      currentProfilePic = profilePic;
+      userLabel.setText(currentUsername);
+      // Set profile pic
+      File file = new File(profilePic);
+      Image image = new Image(file.toURI().toString());
+      userImage.setImage(image);
+
+    } else {
+      userLabel.setText("Guest");
+      // Set guest pic
+      File file = new File("src/main/resources/images/ProfilePics/GuestPic.png");
+      Image image = new Image(file.toURI().toString());
+      userImage.setImage(image);
+    }
+
+
+  // "https://www.flaticon.com/free-icons/eraser" title="eraser icons">Eraser
+  // icons created by Freepik - Flaticon
+  @FXML
+
+  private void onSwitchToEraser() {
+    pen = false;
     setTool();
+   
+   // Changes button to show it is clicked
+    eraseButton.setStyle("-fx-background-color: #99F4B3;");
+    eraseImage.setFitHeight(72); // enlarges button
+    eraseImage.setFitWidth(72);
+    penButton.setStyle("-fx-background-color: transparent; -fx-border-color: white;");
+    penImage.setFitHeight(70); // enlarges button
+    penImage.setFitWidth(70);
   }
 
   @FXML
-  private void onRedPen() {
-    blackPen = false;
-    redPen = true;
-    orangePen = false;
-    bluePen = false;
-    greenPen = false;
+  private void onSwitchToPen() { // "https://www.flaticon.com/free-icons/brush" title="brush icons">Brush
+    // icons
+    // created by Freepik - Flaticon
+    pen = true;
     setTool();
-  }
-
-  @FXML
-  private void onOrangePen() {
-    blackPen = false;
-    redPen = false;
-    orangePen = true;
-    bluePen = false;
-    greenPen = false;
-    setTool();
-  }
-
-  @FXML
-  private void onBluePen() {
-    blackPen = false;
-    redPen = false;
-    orangePen = false;
-    bluePen = true;
-    greenPen = false;
-    setTool();
-  }
-
-  @FXML
-  private void onGreenPen() {
-    blackPen = false;
-    redPen = false;
-    orangePen = false;
-    bluePen = false;
-    greenPen = true;
-    setTool();
-  }
-
-  @FXML
-  private void onEraser() {
-    blackPen = false;
-    redPen = false;
-    orangePen = false;
-    bluePen = false;
-    greenPen = false;
-    setTool();
+ 
+    // Change button
+    penButton.setStyle("-fx-background-color: #99F4B3;");
+    penImage.setFitHeight(72); // reactive
+    penImage.setFitWidth(72);
+    eraseButton.setStyle("-fx-background-color: transparent; -fx-border-color: white");
+    eraseImage.setFitHeight(70); // reactive
+    eraseImage.setFitWidth(70);
   }
 
   @FXML
@@ -185,13 +235,9 @@ public class ZenCanvasController {
     graphic.clearRect(0, 0, zenCanvas.getWidth(), zenCanvas.getHeight());
   }
 
-  public void setWordLabel(String word) {
-    wordLabel.setText(word);
-  }
-
   @FXML
-  private void onSave() {
-    Stage stage = (Stage) onSaveButton.getScene().getWindow(); // gets the stage from the button
+  public void onSave() {
+    Stage stage = (Stage) saveButton.getScene().getWindow(); // gets the stage from the button
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Save Image");
     File file =
@@ -207,9 +253,20 @@ public class ZenCanvasController {
     }
   }
 
+  @FXML
+  private void onTextToSpeech() {
+    textToSpeech = !textToSpeech; // inverts boolean of text to speech
+    if (textToSpeech) { // sets label accordingly
+      textToSpeechLabel.setText("ON");
+    } else {
+      textToSpeechLabel.setText("OFF");
+    }
+  }
+
   public BufferedImage getCurrentSnapshot() {
     final Image snapshot =
-        zenCanvas.snapshot(null, null); // is the current image based on user drawing on the canvas
+        zenCanvas.snapshot(null, null); // is the current image based on user drawing on the
+    // canvas
     final BufferedImage image = SwingFXUtils.fromFXImage(snapshot, null);
 
     // Convert into a binary image.
@@ -290,113 +347,120 @@ public class ZenCanvasController {
       i++;
     }
     topTenLabel.setText(String.valueOf(sb)); // updates label to the new top 10
+    updateWordPrediction(list);
   }
 
-  @FXML
-  private void onHoverBack() {
-    backImage.setFitHeight(79);
-    backImage.setFitWidth(76);
-  }
+  private void updateWordPrediction(List<Classification> list) {
+    double wordPred = 0;
+    for (Classifications.Classification classification : list) {
+      if (classification.getClassName().equals(currentWord)) {
+        wordPred = classification.getProbability();
+        break;
+      }
+    }
 
-  @FXML
-  private void onHoverBlack() {
-    blackPenImage.setFitHeight(35);
-    blackPenImage.setFitWidth(35);
-  }
-
-  @FXML
-  private void onHoverRed() {
-    redPenImage.setFitHeight(35);
-    redPenImage.setFitWidth(35);
-  }
-
-  @FXML
-  private void onHoverOrange() {
-    orangePenImage.setFitHeight(35);
-    orangePenImage.setFitWidth(35);
-  }
-
-  @FXML
-  private void onHoverGreen() {
-    greenPenImage.setFitHeight(35);
-    greenPenImage.setFitWidth(35);
-  }
-
-  @FXML
-  private void onHoverBlue() {
-    bluePenImage.setFitHeight(35);
-    bluePenImage.setFitWidth(35);
-  }
-
-  @FXML
-  private void onHoverEraser() {
-    eraserImage.setFitHeight(35);
-    eraserImage.setFitWidth(35);
+    if (wordPred > lastWordPred) { // increase
+      upArrow.setOpacity(1);
+      upPane.setOpacity(1);
+      downArrow.setOpacity(0.3);
+      downPane.setOpacity(0.3);
+      // Set predict label
+      speakerLabel.setText("You're getting closer!");
+    } else if (wordPred == lastWordPred) {
+      upArrow.setOpacity(0.3);
+      upPane.setOpacity(0.3);
+      downArrow.setOpacity(0.3);
+      downPane.setOpacity(0.3);
+      // Set predict label
+      speakerLabel.setText("");
+    } else { // decrease
+      upArrow.setOpacity(0.3);
+      upPane.setOpacity(0.3);
+      downArrow.setOpacity(1);
+      downPane.setOpacity(1);
+      speakerLabel.setText("You're getting further!");
+    }
+    lastWordPred = wordPred;
   }
 
   @FXML
   private void onHoverClear() {
-    clearImage.setFitHeight(35);
-    clearImage.setFitWidth(35);
+    textToSpeechBackground.backgroundSpeak("Clear Canvas", textToSpeech);
+    clearImage.setFitHeight(83);
+    clearImage.setFitWidth(83);
+  }
+
+  @FXML
+  private void onHoverPen() {
+    textToSpeechBackground.backgroundSpeak(
+        "pen tool", textToSpeech); // uses background task to read name
+    penButton.setStyle(" -fx-background-color: #99F4B3;");
+    penImage.setFitHeight(72); // enlarges button to make reactive
+    penImage.setFitWidth(72);
+  }
+
+  @FXML
+  public void onHoverEraser() {
+    textToSpeechBackground.backgroundSpeak(
+        "eraser tool", textToSpeech); // uses background thread to read name
+    eraseButton.setStyle("-fx-background-color: #99F4B3;");
+    eraseImage.setFitHeight(72); // makes button reactive
+    eraseImage.setFitWidth(72);
   }
 
   @FXML
   private void onHoverSave() {
-    saveImage.setFitHeight(35);
-    saveImage.setFitWidth(35);
+    saveButton.setStyle(
+        "-fx-border-radius: 10; fx-background-border: 10; -fx-background-color: #99F4B3; -fx-border-color: #99F4B3;");
   }
 
   @FXML
-  private void onBlackExit() {
-    blackPenImage.setFitHeight(32);
-    blackPenImage.setFitWidth(32);
+  private void onHoverTextToSpeechLabel() {
+    textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
   }
 
   @FXML
-  private void onRedExit() {
-    redPenImage.setFitHeight(32);
-    redPenImage.setFitWidth(32);
+  private void onHoverTextToSpeech() {
+    textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
+    volumeImage.setFitHeight(48);
+    volumeImage.setFitWidth(48);
+  }
+
+  // Below is list of methods for when mouse exits a button
+  @FXML
+  private void exitPen() {
+    if (!pen) { // if eraser is curently active
+      penButton.setStyle("-fx-background-color: transparent; -fx-border-color: white");
+      penImage.setFitHeight(70);
+      penImage.setFitWidth(70);
+    }
   }
 
   @FXML
-  private void onOrangeExit() {
-    orangePenImage.setFitHeight(32);
-    orangePenImage.setFitWidth(32);
+  private void exitEraser() {
+    if (pen) { // if pen too is active
+      eraseButton.setStyle("-fx-background-color: transparent; -fx-border-color: white");
+      eraseImage.setFitHeight(70);
+      eraseImage.setFitWidth(70);
+    }
   }
 
   @FXML
-  private void onGreenExit() {
-    greenPenImage.setFitHeight(32);
-    greenPenImage.setFitWidth(32);
+  private void exitClear() {
+    clearImage.setFitHeight(80);
+    clearImage.setFitWidth(80);
   }
 
   @FXML
-  private void onBlueExit() {
-    bluePenImage.setFitHeight(32);
-    bluePenImage.setFitWidth(32);
-  }
-
-  @FXML
-  private void onEraserExit() {
-    eraserImage.setFitHeight(32);
-    eraserImage.setFitWidth(32);
-  }
-
-  @FXML
-  private void onClearExit() {
-    clearImage.setFitHeight(32);
-    clearImage.setFitWidth(32);
+  private void onVolumeExit() {
+    volumeImage.setFitHeight(45);
+    volumeImage.setFitWidth(45);
   }
 
   @FXML
   private void onSaveExit() {
-    saveImage.setFitHeight(32);
-    saveImage.setFitWidth(32);
-  }
-
-  @FXML
-  private void onBackExit() {
-    backImage.setFitHeight(76);
-    backImage.setFitWidth(73);
+    saveButton.setStyle(
+        "-fx-text-fill: white; -fx-background-color: transparent; "
+            + "-fx-border-radius: 10; -fx-border-color: white");
   }
 }

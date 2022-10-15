@@ -5,148 +5,180 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-  prefHeight="560.0" prefWidth="1000.0" style="-fx-background-color: green;"
-  xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="nz.ac.auckland.se206.words.ZenWordPageController">
-  <children>
-    <ImageView fitHeight="565.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-        <Image url="@../images/fish-yin-and-yang-symbols-zen-koi-wallpaper-preview.jpg"/>
-      </image>
-    </ImageView>
-    <ImageView fitHeight="70.0" fitWidth="73.0" layoutX="117.0" layoutY="7.0" pickOnBounds="true"
-      preserveRatio="true" style="-fx-opacity: 0.8;">
-      <image>
-        <Image url="@../images/drawicom.png"/>
-      </image>
-    </ImageView>
-    <Label layoutX="14.0" layoutY="19.0" prefHeight="47.0" prefWidth="202.0" text="JUST DRAW"
-      textFill="WHITE">
-      <font>
-        <Font name="Bank Gothic Light BT" size="30.0"/>
-      </font>
-    </Label>
-    <Text fx:id="wordLabel" fill="WHITE" layoutX="326.0" layoutY="292.0" strokeType="OUTSIDE"
-      strokeWidth="0.0" text="The great wall of china" textAlignment="CENTER"
-      wrappingWidth="368.240234375">
-      <font>
-        <Font name="Bank Gothic Light BT" size="40.0"/>
-      </font>
-    </Text>
-    <Text fill="WHITE" layoutX="393.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0"
-      text="Zen Mode">
-      <font>
-        <Font name="Bank Gothic Medium BT" size="40.0"/>
-      </font>
-    </Text>
-    <Pane layoutX="267.0" layoutY="56.0" prefHeight="457.0" prefWidth="466.0"
-      style="-fx-border-color: white; -fx-border-radius: 20;">
-      <children>
-        <Button layoutX="372.0" layoutY="28.0" mnemonicParsing="false" onAction="#onNewWord"
-          onMouseEntered="#onHoverNew" onMouseExited="#onNewExit" prefHeight="60.0" prefWidth="60.0"
-          style="-fx-background-color: transparent; -fx-border-width: 2; -fx-text-fill: black; -fx-border-radius: 10; -fx-background-radius: 10;">
-          <graphic>
-            <ImageView fx:id="newImage" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true"
-              preserveRatio="true">
-              <image>
-                <Image url="@../images/refresh-page-option.png"/>
-              </image>
-            </ImageView>
-          </graphic>
-        </Button>
-        <Button fx:id="readyButton" layoutX="179.0" layoutY="431.0" mnemonicParsing="false"
-          onAction="#onZenCanvas" onMouseEntered="#onHoverReady" onMouseExited="#onReadyExit"
-          prefHeight="47.0" prefWidth="119.0"
-          style="-fx-background-color: white; -fx-background-radius: 50;" text="Ready">
-          <font>
-            <Font name="Bank Gothic Light BT" size="25.0"/>
-          </font>
-        </Button>
-      </children>
-    </Pane>
-    <VBox alignment="TOP_CENTER" layoutX="31.0" layoutY="109.0" prefHeight="390.0" prefWidth="205.0"
-      spacing="6.0" style="-fx-background-color: #CFD2CF; -fx-background-radius: 20;">
-      <children>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Practice Previously">
-          <font>
-            <Font name="System Bold" size="19.0"/>
-          </font>
-          <VBox.margin>
-            <Insets top="5.0"/>
-          </VBox.margin>
-        </Text>
-        <Text layoutX="29.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0"
-          text="played words">
-          <font>
-            <Font name="System Bold" size="19.0"/>
-          </font>
-          <VBox.margin>
-            <Insets top="-5.0"/>
-          </VBox.margin>
-        </Text>
-        <Label fx:id="lostWord1" text="1.The great wall of china">
-          <VBox.margin>
-            <Insets/>
-          </VBox.margin>
-          <padding>
-            <Insets top="5.0"/>
-          </padding>
-        </Label>
-        <Button layoutX="92.0" layoutY="30.0" mnemonicParsing="false" onAction="#onClickPlay1"
-          style="-fx-background-color: #EB4A5A#EB4A5A; -fx-background-radius: 25; -fx-background-insets: 0; -fx-border-radius: 20; -fx-border-color: #000000;"
-          text="Choose 1."/>
-        <Label fx:id="lostWord2" layoutX="52.0" layoutY="63.0" text="2.The great wall of china">
-          <VBox.margin>
-            <Insets/>
-          </VBox.margin>
-          <padding>
-            <Insets top="5.0"/>
-          </padding>
-        </Label>
-        <Button layoutX="92.0" layoutY="85.0" mnemonicParsing="false" onAction="#onClickPlay2"
-          style="-fx-background-color: #EB4A5A#EB4A5A; -fx-background-radius: 25; -fx-background-insets: 0; -fx-border-radius: 20; -fx-border-color: #000000;"
-          text="Choose 2."/>
-        <Label fx:id="lostWord3" layoutX="52.0" layoutY="118.0" text="3.The great wall of china">
-          <padding>
-            <Insets top="5.0"/>
-          </padding>
-        </Label>
-        <Button layoutX="92.0" layoutY="140.0" mnemonicParsing="false" onAction="#onClickPlay3"
-          style="-fx-background-color: #EB4A5A#EB4A5A; -fx-background-radius: 25; -fx-background-insets: 0; -fx-border-radius: 20; -fx-border-color: #000000;"
-          text="Choose 3."/>
-        <Label fx:id="lostWord4" layoutX="52.0" layoutY="173.0" text="4.The great wall of china">
-          <padding>
-            <Insets top="5.0"/>
-          </padding>
-        </Label>
-        <Button layoutX="92.0" layoutY="195.0" mnemonicParsing="false" onAction="#onClickPlay4"
-          style="-fx-background-color: #EB4A5A#EB4A5A; -fx-background-radius: 25; -fx-background-insets: 0; -fx-border-radius: 20; -fx-border-color: #000000;"
-          text="Choose 4."/>
-        <Label fx:id="lostWord5" layoutX="52.0" layoutY="228.0" text="5.The great wall of china">
-          <padding>
-            <Insets top="5.0"/>
-          </padding>
-        </Label>
-        <Button layoutX="92.0" layoutY="245.0" mnemonicParsing="false" onAction="#onClickPlay5"
-          style="-fx-background-color: #EB4A5A#EB4A5A; -fx-background-radius: 25; -fx-background-insets: 0; -fx-border-radius: 20; -fx-border-color: #000000;"
-          text="Choose 5.">
-          <VBox.margin>
-            <Insets bottom="10.0"/>
-          </VBox.margin>
-        </Button>
-      </children>
-      <opaqueInsets>
-        <Insets/>
-      </opaqueInsets>
-      <padding>
-        <Insets top="10.0"/>
-      </padding>
-    </VBox>
-  </children>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: #696d7d; -fx-border-color: white; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.words.ZenWordPageController">
+   <children>
+      <HBox alignment="CENTER" layoutY="137.0" prefHeight="454.0" prefWidth="1000.0">
+         <children>
+            <Pane prefHeight="464.0" prefWidth="875.0" style="-fx-border-color: white;">
+               <children>
+                  <Button fx:id="readyButton" layoutX="709.0" layoutY="372.0" mnemonicParsing="false" onAction="#onZenCanvas" onMouseEntered="#onHoverReady" onMouseExited="#onReadyExit" prefHeight="74.0" prefWidth="157.0" style="-fx-background-color: transparent; -fx-border-radius: 10; -fx-border-color: white;" text="READY" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Black" size="29.0" />
+                     </font>
+                  </Button>
+                  <Text fx:id="wordLabel" fill="WHITE" layoutX="356.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The great wall of china" textAlignment="CENTER" wrappingWidth="506.9068908691406">
+                     <font>
+                        <Font name="Arial Black" size="37.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="374.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CHOSEN WORD:" wrappingWidth="371.6907958984375">
+                     <font>
+                        <Font name="Arial Black" size="38.0" />
+                     </font>
+                  </Text>
+                  <Label layoutX="39.0" layoutY="8.0" prefHeight="42.0" prefWidth="303.0" text="PREVIOUS LOSSES" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Black" size="28.0" />
+                     </font>
+                  </Label>
+                  <Pane layoutX="14.0" layoutY="365.0" prefHeight="78.0" prefWidth="339.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10;">
+                     <children>
+                        <Button layoutX="2.0" layoutY="1.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-background-radius: 25; -fx-border-radius: 25;">
+                           <graphic>
+                              <ImageView fx:id="userImage" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/ProfilePics/GuestPic.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label fx:id="userLabel" layoutX="105.0" layoutY="42.0" prefHeight="27.0" prefWidth="237.0" text="Guest">
+                           <font>
+                              <Font name="SansSerif Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="105.0" layoutY="5.0" prefHeight="33.0" prefWidth="232.0" text="Current User:">
+                           <font>
+                              <Font name="SansSerif" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="14.0" layoutY="47.0" prefHeight="305.0" prefWidth="339.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                     <children>
+                        <VBox layoutX="4.0" layoutY="14.0" prefHeight="284.0" prefWidth="334.0" spacing="25.0">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <Label fx:id="lostWord1" prefHeight="33.0" prefWidth="276.0" text="1.The great wall of china">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Arial Black" size="19.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" onAction="#onClickPlay1" prefHeight="40.0" prefWidth="40.0" stylesheets="@../css/ZenButtonStyler.css" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label fx:id="lostWord2" prefHeight="33.0" prefWidth="276.0" text="2.The great wall of china">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Arial Black" size="19.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" onAction="#onClickPlay2" prefHeight="40.0" prefWidth="40.0" stylesheets="@../css/ZenButtonStyler.css" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label fx:id="lostWord3" prefHeight="33.0" prefWidth="276.0" text="3.The great wall of china">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Arial Black" size="19.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" onAction="#onClickPlay3" prefHeight="40.0" prefWidth="40.0" stylesheets="@../css/ZenButtonStyler.css" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label fx:id="lostWord4" prefHeight="33.0" prefWidth="276.0" text="4.The great wall of china">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Arial Black" size="19.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" onAction="#onClickPlay4" prefHeight="40.0" prefWidth="40.0" stylesheets="@../css/ZenButtonStyler.css" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label fx:id="lostWord5" prefHeight="33.0" prefWidth="276.0" text="5.The great wall of china">
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Arial Black" size="19.0" />
+                                       </font>
+                                    </Label>
+                                    <Button mnemonicParsing="false" onAction="#onClickPlay5" prefHeight="40.0" prefWidth="40.0" stylesheets="@../css/ZenButtonStyler.css" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
+                  <Button layoutX="791.0" layoutY="15.0" mnemonicParsing="false" onAction="#onNewWord" onMouseEntered="#onHoverNew" onMouseExited="#onNewExit" prefHeight="56.0" prefWidth="65.0" style="-fx-background-color: transparent; -fx-border-width: 2; -fx-text-fill: black; -fx-border-radius: 10; -fx-background-radius: 10;">
+                     <font>
+                        <Font name="Arial Black" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fx:id="newImage" fitHeight="55.0" fitWidth="55.0" onMouseEntered="#onHoverNew" onMouseExited="#onNewExit" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/refresh-page-option.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+      <ImageView fitHeight="85.0" fitWidth="78.0" layoutX="128.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.8;">
+         <image>
+            <Image url="@../images/drawicom.png" />
+         </image>
+      </ImageView>
+      <Pane layoutY="-6.0" prefHeight="47.0" prefWidth="1000.0" style="-fx-background-color: white; -fx-background-radius: 10;" />
+      <Label layoutX="21.0" layoutY="59.0" prefHeight="47.0" prefWidth="195.0" text="JUST DRAW" textFill="WHITE">
+         <font>
+            <Font name="Leelawadee UI Bold" size="32.0" />
+         </font>
+      </Label>
+      <Label fx:id="textToSpeechLabel" layoutX="922.0" layoutY="595.0" onMouseEntered="#onHoverTextToSpeechLabel" prefHeight="25.0" prefWidth="34.0" text="OFF">
+         <font>
+            <Font name="Arial Black" size="12.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="volumeImage" fitHeight="45.0" fitWidth="45.0" layoutX="914.0" layoutY="619.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech" onMouseEntered="#onHoverTextToSpeech" onMouseExited="#onVolumeExit" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/speaker-filled-audio-tool.png" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="336.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ZEN MODE" wrappingWidth="378.59521484375">
+         <font>
+            <Font name="Arial Black" size="63.0" />
+         </font>
+      </Text>
+      <Button fx:id="backButton" layoutX="861.0" layoutY="19.0" mnemonicParsing="false" onAction="#onBack" onMouseEntered="#onHoverBack" onMouseExited="#onBackExit" prefHeight="35.0" prefWidth="125.0" style="-fx-background-radius: 100px; -fx-text-fill: white; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;" text="BACK" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Black" size="21.0" />
+         </font>
+      </Button>
+   </children>
 </Pane>

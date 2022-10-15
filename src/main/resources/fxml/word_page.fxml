@@ -76,7 +76,7 @@
             <Font name="Arial Black" size="40.0" />
           </font>
         </Text>
-        <HBox layoutX="172.0" layoutY="311.0" prefWidth="464.0">
+        <HBox layoutX="172.0" layoutY="324.0" prefWidth="464.0">
           <children>
             <Button fx:id="readyButton" mnemonicParsing="false" onAction="#onReady" onMouseEntered="#onHoverReady" onMouseExited="#onExitReady" prefHeight="77.0" prefWidth="300.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-radius: 25;">
               <font>

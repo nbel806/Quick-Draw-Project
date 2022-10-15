@@ -74,9 +74,10 @@ public class MainMenuController {
         new FXMLLoader(App.class.getResource("/fxml/zen_word_page.fxml")); // creates a new instance
     // of
     // word page
-    Scene scene = new Scene(loader.load(), 1000, 565);
+    Scene scene = new Scene(loader.load(), 1000, 680);
     ZenWordPageController ctrl = loader.getController();
-    ctrl.getUsername(currentUsername);
+    ctrl.getUsername(currentUsername, currentProfilePic);
+    ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
     stage.setScene(scene);
     stage.show();
   }
