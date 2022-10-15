@@ -16,6 +16,11 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class ProfilePageController {
 
+  @FXML private Label masterWinLabel;
+  @FXML private Label hardWinLabel;
+  @FXML private Label mediumWinLabel;
+  @FXML private Label easyWinLabel;
+
   @FXML private Button backButton;
   @FXML private Label usernameLabel;
   @FXML private Label winLabel;
@@ -136,7 +141,6 @@ public class ProfilePageController {
       if (!currentWord.equals("none")) {
         historyListView.getItems().addAll(historyWords);
       }
-
       // Set badges
       setBadges();
       badgeLabel.setText("You've unlocked " + numberBadges + "/15" + " Badges");
@@ -158,6 +162,10 @@ public class ProfilePageController {
       gameLabel.setText("-");
       winrateLabel.setText("-");
       winstreakLabel.setText("-");
+      easyWinLabel.setText("-");
+      mediumWinLabel.setText("-");
+      hardWinLabel.setText("-");
+      masterWinLabel.setText("-");
 
       // Set badges
       badgeLabel.setText("You've unlocked 0/15 Badges");
@@ -255,6 +263,10 @@ public class ProfilePageController {
 
     SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
     int[] difficultyWins = sheetReaderWriter.getDifWins(currentUsername);
+    easyWinLabel.setText(String.valueOf(difficultyWins[0]));
+    mediumWinLabel.setText(String.valueOf(difficultyWins[1]));
+    hardWinLabel.setText(String.valueOf(difficultyWins[2]));
+    masterWinLabel.setText(String.valueOf(difficultyWins[3]));
     if (difficultyWins[0] >= 10) { // easy wins
       easyWins.setOpacity(1);
     }
