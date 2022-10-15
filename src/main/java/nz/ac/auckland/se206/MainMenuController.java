@@ -31,11 +31,7 @@ public class MainMenuController {
   private TextToSpeechBackground textToSpeechBackground;
   private String currentUsername = null;
   private String currentProfilePic = null;
-
-  private int accuracy = 3;
-  private int time = 60;
-  private int words = 1;
-  private int confidence = 1;
+  private int words;
 
   public void give(TextToSpeechBackground tts, Boolean textToSpeech) {
     textToSpeechBackground = tts; // passes through the text to speech instance
@@ -52,19 +48,10 @@ public class MainMenuController {
       currentUsername = username;
       currentProfilePic = profilePic;
       userLabel.setText(currentUsername);
-      setDifficulty(currentUsername);
 
     } else {
       userLabel.setText("Guest");
     }
-  }
-
-  private void setDifficulty(String currentUsername) throws IOException, CsvException {
-    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
-    accuracy = sheetReaderWriter.getUsersAccuracy(currentUsername);
-    confidence = sheetReaderWriter.getUsersConfidence(currentUsername);
-    time = sheetReaderWriter.getUsersTime(currentUsername);
-    words = sheetReaderWriter.getUsersWords(currentUsername);
   }
 
   @FXML
@@ -92,7 +79,6 @@ public class MainMenuController {
     Scene scene = new Scene(loader.load(), 1000, 680);
     WordPageController ctrl = loader.getController(); // need controller to pass information
     ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
-    ctrl.setDifficulty(accuracy, confidence, words, time);
     ctrl.getUsername(currentUsername, currentProfilePic); // passes username
     stage.setScene(scene);
     stage.show();
@@ -222,101 +208,25 @@ public class MainMenuController {
   }
 
   @FXML
-  private void onSetAccuracyTop3() throws IOException, CsvException {
-    updateUserAccuracy(3);
+  private void onClickWordsUp() throws IOException, CsvException {
+    if (words != 4) {
+      words++;
+    }
+    updateUserWords(words);
   }
 
   @FXML
-  private void onSetAccuracyTop2() throws IOException, CsvException {
-    updateUserAccuracy(2);
-  }
-
-  @FXML
-  private void onSetAccuracyTop1() throws IOException, CsvException {
-    updateUserAccuracy(1);
-  }
-
-  private void updateUserAccuracy(int accuracy) throws IOException, CsvException {
-    this.accuracy = accuracy;
-    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
-    sheetReaderWriter.updateUsersAccuracy(accuracy, currentUsername);
-  }
-
-  @FXML
-  private void onSetConfidence1() throws IOException, CsvException {
-    updateUserConfidence(1);
-  }
-
-  @FXML
-  private void onSetConfidence10() throws IOException, CsvException {
-    updateUserConfidence(10);
-  }
-
-  @FXML
-  private void onSetConfidence25() throws IOException, CsvException {
-    updateUserConfidence(25);
-  }
-
-  @FXML
-  private void onSetConfidence50() throws IOException, CsvException {
-    updateUserConfidence(50);
-  }
-
-  private void updateUserConfidence(int confidence) throws IOException, CsvException {
-    this.confidence = confidence;
-    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
-    sheetReaderWriter.updateUsersConfidence(confidence, currentUsername);
-  }
-
-  @FXML
-  private void onSetWordsE() throws IOException, CsvException {
-    updateUserWords(1);
-  }
-
-  @FXML
-  private void onSetWordsEM() throws IOException, CsvException {
-    updateUserWords(2);
-  }
-
-  @FXML
-  private void onSetWordsEMH() throws IOException, CsvException {
-    updateUserWords(3);
-  }
-
-  @FXML
-  private void onSetWordsH() throws IOException, CsvException {
-    updateUserWords(4);
+  private void onClickWordsDown() throws IOException, CsvException {
+    if (words != 1) {
+      words--;
+    }
+    updateUserWords(words);
   }
 
   private void updateUserWords(int words) throws IOException, CsvException {
     this.words = words;
     SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
     sheetReaderWriter.updateUsersWords(words, currentUsername);
-  }
-
-  @FXML
-  private void onSetTime60() throws IOException, CsvException {
-    updateUserTime(60);
-  }
-
-  @FXML
-  private void onSetTime45() throws IOException, CsvException {
-    updateUserTime(45);
-  }
-
-  @FXML
-  private void onSetTime30() throws IOException, CsvException {
-    updateUserTime(30);
-  }
-
-  @FXML
-  private void onSetTime15() throws IOException, CsvException {
-    updateUserTime(15);
-  }
-
-  private void updateUserTime(int time) throws IOException, CsvException {
-    this.time = time;
-    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
-    sheetReaderWriter.updateUsersTime(time, currentUsername);
+    // TODO: 16/10/22 add label change
   }
 }

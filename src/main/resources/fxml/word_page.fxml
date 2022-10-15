@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -14,8 +15,30 @@
   <children>
     <Pane layoutX="187.0" layoutY="115.0" prefHeight="476.0" prefWidth="644.0" style="-fx-border-color: white; -fx-border-width: 2; -fx-border-radius: 25;">
       <children>
-        <HBox layoutX="58.0" layoutY="135.0" prefHeight="128.0" prefWidth="483.0" spacing="50.0">
+        <HBox layoutX="8.0" layoutY="135.0" prefHeight="176.0" prefWidth="639.0" spacing="20.0">
           <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="176.0" prefWidth="40.0" spacing="15.0">
+                     <children>
+                        <Button fx:id="plusTime" mnemonicParsing="false" onAction="#onClickTimeUp" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="+" />
+                        <Button fx:id="plusAccuracy" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onClickAccuracyUp" prefHeight="28.0" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="+" />
+                        <Button layoutX="10.0" layoutY="58.0" mnemonicParsing="false" opacity="0.0" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="+" />
+                        <Button fx:id="plusConfidence" layoutX="10.0" layoutY="106.0" mnemonicParsing="false" onAction="#onClickConfidenceUp" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="+" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="176.0" prefWidth="33.0" spacing="15.0">
+                     <children>
+                        <Button fx:id="minusTime" mnemonicParsing="false" onAction="#onClickTimeDown" prefHeight="28.0" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="-" />
+                        <Button fx:id="minusAccuracy" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onClickAccuracyDown" prefHeight="28.0" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="-" />
+                        <Button layoutX="10.0" layoutY="58.0" mnemonicParsing="false" opacity="0.0" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="-" />
+                        <Button fx:id="minusConfidence" layoutX="10.0" layoutY="106.0" mnemonicParsing="false" onAction="#onClickConfidenceDown" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="-" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
             <VBox prefHeight="93.0" prefWidth="248.0">
               <children>
                 <Text fill="WHITE" onMouseEntered="#onHoverTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="TIME: " wrappingWidth="190.35748291015625">
@@ -40,7 +63,7 @@
                 </Text>
               </children>
             </VBox>
-            <VBox prefHeight="106.0" prefWidth="193.0">
+            <VBox prefHeight="176.0" prefWidth="219.0">
               <children>
                 <Text fx:id="timeLabel" fill="WHITE" onMouseEntered="#onHoverTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="60 seconds" wrappingWidth="235.56802368164062">
                   <font>
@@ -65,6 +88,9 @@
               </children>
             </VBox>
           </children>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
         </HBox>
         <Text fill="WHITE" layoutX="18.0" layoutY="54.419921875" onMouseEntered="#onHoverTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="CHOSEN WORD:" wrappingWidth="331.157470703125">
           <font>
