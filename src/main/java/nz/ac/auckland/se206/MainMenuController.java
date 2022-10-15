@@ -221,17 +221,17 @@ public class MainMenuController {
   }
 
   @FXML
-  private void setAccuracyTop3() throws IOException, CsvException {
+  private void onSetAccuracyTop3() throws IOException, CsvException {
     updateUserAccuracy(3);
   }
 
   @FXML
-  private void setAccuracyTop2() throws IOException, CsvException {
+  private void onSetAccuracyTop2() throws IOException, CsvException {
     updateUserAccuracy(2);
   }
 
   @FXML
-  private void setAccuracyTop1() throws IOException, CsvException {
+  private void onSetAccuracyTop1() throws IOException, CsvException {
     updateUserAccuracy(1);
   }
 
@@ -242,22 +242,22 @@ public class MainMenuController {
   }
 
   @FXML
-  private void setConfidence1() throws IOException, CsvException {
+  private void onSetConfidence1() throws IOException, CsvException {
     updateUserConfidence(1);
   }
 
   @FXML
-  private void setConfidence10() throws IOException, CsvException {
+  private void onSetConfidence10() throws IOException, CsvException {
     updateUserConfidence(10);
   }
 
   @FXML
-  private void setConfidence25() throws IOException, CsvException {
+  private void onSetConfidence25() throws IOException, CsvException {
     updateUserConfidence(25);
   }
 
   @FXML
-  private void setConfidence50() throws IOException, CsvException {
+  private void onSetConfidence50() throws IOException, CsvException {
     updateUserConfidence(50);
   }
 
@@ -268,22 +268,22 @@ public class MainMenuController {
   }
 
   @FXML
-  private void setWordsE() throws IOException, CsvException {
+  private void onSetWordsE() throws IOException, CsvException {
     updateUserWords(1);
   }
 
   @FXML
-  private void setWordsEM() throws IOException, CsvException {
+  private void onSetWordsEM() throws IOException, CsvException {
     updateUserWords(2);
   }
 
   @FXML
-  private void setWordsEMH() throws IOException, CsvException {
+  private void onSetWordsEMH() throws IOException, CsvException {
     updateUserWords(3);
   }
 
   @FXML
-  private void setWordsH() throws IOException, CsvException {
+  private void onSetWordsH() throws IOException, CsvException {
     updateUserWords(4);
   }
 
@@ -294,22 +294,22 @@ public class MainMenuController {
   }
 
   @FXML
-  private void setTime60() throws IOException, CsvException {
+  private void onSetTime60() throws IOException, CsvException {
     updateUserTime(60);
   }
 
   @FXML
-  private void setTime45() throws IOException, CsvException {
+  private void onSetTime45() throws IOException, CsvException {
     updateUserTime(45);
   }
 
   @FXML
-  private void setTime30() throws IOException, CsvException {
+  private void onSetTime30() throws IOException, CsvException {
     updateUserTime(30);
   }
 
   @FXML
-  private void setTime15() throws IOException, CsvException {
+  private void onSetTime15() throws IOException, CsvException {
     updateUserTime(15);
   }
 

@@ -55,7 +55,7 @@ public class ZenWordPageController {
   }
 
   @FXML
-  public void onZenCanvas() throws IOException {
+  private void onZenCanvas() throws IOException {
     Stage stage = (Stage) readyButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/zen_canvas.fxml")); // creates a new instance of
@@ -77,13 +77,14 @@ public class ZenWordPageController {
     wordLabel.setText(currentWord);
   }
 
-  public void onNewWord() throws IOException, URISyntaxException, CsvException {
-    setWordToDraw();
-  }
-
   public void getUsername(String currentUsername) throws IOException, CsvException {
     this.currentUsername = currentUsername;
     setPreviousWords();
+  }
+
+  @FXML
+  private void onNewWord() throws IOException, URISyntaxException, CsvException {
+    setWordToDraw();
   }
 
   @FXML

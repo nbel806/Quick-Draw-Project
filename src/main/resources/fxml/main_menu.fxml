@@ -12,81 +12,104 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: #EB4A5A; -fx-border-color: white; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.MainMenuController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+  prefHeight="680.0" prefWidth="1000.0"
+  style="-fx-background-color: #EB4A5A; -fx-border-color: white; -fx-border-width: 3;"
+  xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="nz.ac.auckland.se206.MainMenuController">
   <children>
-    <Pane layoutY="-10.0" prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: white; -fx-background-radius: 10;" />
+    <Pane layoutY="-10.0" prefHeight="50.0" prefWidth="1000.0"
+      style="-fx-background-color: white; -fx-background-radius: 10;"/>
     <HBox alignment="CENTER" layoutY="540.0" prefHeight="78.0" prefWidth="1000.0">
       <children>
-        <Pane prefHeight="78.0" prefWidth="475.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-radius: 25;">
+        <Pane prefHeight="78.0" prefWidth="475.0"
+          style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-radius: 25;">
           <children>
-                <Button fx:id="zenModeButton" layoutX="-1.0" mnemonicParsing="false" onAction="#onZenModeCanvas" onMouseEntered="#onHoverZen" onMouseExited="#onZenExit" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: transparent;">
-                     <graphic>
-                        <ImageView fx:id="zenImage" fitHeight="59.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/icons8-ying-yang-64.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
+            <Button layoutX="-1.0" mnemonicParsing="false"
+              onAction="#onZenModeCanvas" onMouseEntered="#onHoverZen" onMouseExited="#onZenExit"
+              prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: transparent;">
+              <graphic>
+                <ImageView fx:id="zenImage" fitHeight="59.0" fitWidth="61.0" pickOnBounds="true"
+                  preserveRatio="true">
+                  <image>
+                    <Image url="@../images/icons8-ying-yang-64.png"/>
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
 
-                  <Button fx:id="profileButton" layoutX="76.0" mnemonicParsing="false" onAction="#onProfile" onMouseEntered="#onHoverProfile" onMouseExited="#onProfileExit" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: transparent; -fx-background-radius: 25; -fx-border-radius: 25;">
+            <Button fx:id="profileButton" layoutX="76.0" mnemonicParsing="false"
+              onAction="#onProfile" onMouseEntered="#onHoverProfile" onMouseExited="#onProfileExit"
+              prefHeight="75.0" prefWidth="75.0"
+              style="-fx-background-color: transparent; -fx-background-radius: 25; -fx-border-radius: 25;">
               <graphic>
-                <ImageView fx:id="userImage" fitHeight="60.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="userImage" fitHeight="60.0" fitWidth="66.0" pickOnBounds="true"
+                  preserveRatio="true">
                   <image>
-                    <Image url="@../images/usericon.png" />
+                    <Image url="@../images/usericon.png"/>
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-            <Button fx:id="loginButton" layoutX="156.60000610351562" mnemonicParsing="false" onAction="#onLogin" onMouseEntered="#onHoverLogin" onMouseExited="#onLoginExit" prefHeight="75.0" prefWidth="75.0" style="-fx-background-color: transparent; -fx-background-radius: 25; -fx-border-radius: 25;">
+            <Button fx:id="loginButton" layoutX="156.60000610351562" mnemonicParsing="false"
+              onAction="#onLogin" onMouseEntered="#onHoverLogin" onMouseExited="#onLoginExit"
+              prefHeight="75.0" prefWidth="75.0"
+              style="-fx-background-color: transparent; -fx-background-radius: 25; -fx-border-radius: 25;">
               <graphic>
-                <ImageView fx:id="loginImage" fitHeight="60.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="loginImage" fitHeight="60.0" fitWidth="70.0" pickOnBounds="true"
+                  preserveRatio="true">
                   <image>
-                    <Image url="@../images/loginicon.png" />
+                    <Image url="@../images/loginicon.png"/>
                   </image>
                 </ImageView>
               </graphic>
             </Button>
-                  <VBox layoutX="244.0" layoutY="9.0" prefHeight="61.0" prefWidth="206.0">
-                     <children>
-                  <Label prefHeight="33.0" prefWidth="214.0" text="Current User:">
-                    <font>
-                      <Font name="SansSerif" size="24.0" />
-                    </font>
-                  </Label>
-                  <Label fx:id="userLabel" prefHeight="27.0" prefWidth="221.0" text="Guest">
-                    <font>
-                      <Font name="SansSerif Bold" size="20.0" />
-                    </font>
-                  </Label>
-                     </children>
-                  </VBox>
+            <VBox layoutX="244.0" layoutY="9.0" prefHeight="61.0" prefWidth="206.0">
+              <children>
+                <Label prefHeight="33.0" prefWidth="214.0" text="Current User:">
+                  <font>
+                    <Font name="SansSerif" size="24.0"/>
+                  </font>
+                </Label>
+                <Label fx:id="userLabel" prefHeight="27.0" prefWidth="221.0" text="Guest">
+                  <font>
+                    <Font name="SansSerif Bold" size="20.0"/>
+                  </font>
+                </Label>
+              </children>
+            </VBox>
           </children>
         </Pane>
       </children>
     </HBox>
-    <ImageView fitHeight="260.0" fitWidth="272.0" layoutX="581.0" layoutY="50.0" onMouseEntered="#onHoverLogo" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.8;">
+    <ImageView fitHeight="260.0" fitWidth="272.0" layoutX="581.0" layoutY="50.0"
+      onMouseEntered="#onHoverLogo" pickOnBounds="true" preserveRatio="true"
+      style="-fx-opacity: 0.8;">
       <image>
-        <Image url="@../images/drawicom.png" />
+        <Image url="@../images/drawicom.png"/>
       </image>
     </ImageView>
-    <Label layoutX="149.0" layoutY="122.0" onMouseEntered="#onHoverTitle" prefHeight="182.0" prefWidth="717.0" text="JUST DRAW" textFill="WHITE">
+    <Label layoutX="149.0" layoutY="122.0" onMouseEntered="#onHoverTitle" prefHeight="182.0"
+      prefWidth="717.0" text="JUST DRAW" textFill="WHITE">
       <font>
-        <Font name="Leelawadee UI Bold" size="125.0" />
+        <Font name="Leelawadee UI Bold" size="125.0"/>
       </font>
     </Label>
     <HBox alignment="CENTER" layoutY="318.0" prefHeight="128.0" prefWidth="1000.0">
       <children>
-        <Button fx:id="playButton" mnemonicParsing="false" onAction="#onPlay" onMouseEntered="#onHoverPlay" onMouseExited="#onPlayExit" prefHeight="77.0" prefWidth="279.0" style="-fx-background-color: transparent; -fx-background-radius: 25; -fx-border-radius: 25; -fx-border-color: white;">
+        <Button fx:id="playButton" mnemonicParsing="false" onAction="#onPlay"
+          onMouseEntered="#onHoverPlay" onMouseExited="#onPlayExit" prefHeight="77.0"
+          prefWidth="279.0"
+          style="-fx-background-color: transparent; -fx-background-radius: 25; -fx-border-radius: 25; -fx-border-color: white;">
           <font>
-            <Font name="Arial Black" size="30.0" />
+            <Font name="Arial Black" size="30.0"/>
           </font>
           <graphic>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
               <children>
                 <Label prefHeight="55.0" prefWidth="145.0" text="START" textFill="WHITE">
                   <font>
-                    <Font name="SansSerif Bold" size="40.0" />
+                    <Font name="SansSerif Bold" size="40.0"/>
                   </font>
                 </Label>
               </children>
@@ -95,113 +118,120 @@
         </Button>
       </children>
     </HBox>
-    <ImageView fx:id="volumeImage" fitHeight="45.0" fitWidth="45.0" layoutX="903.0" layoutY="602.0" onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech" onMouseEntered="#onHoverTextToSpeech" onMouseExited="#onVolumeExit" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="volumeImage" fitHeight="45.0" fitWidth="45.0" layoutX="903.0" layoutY="602.0"
+      onMouseClicked="#onTextToSpeech" onMouseDragEntered="#onHoverTextToSpeech"
+      onMouseEntered="#onHoverTextToSpeech" onMouseExited="#onVolumeExit" pickOnBounds="true"
+      preserveRatio="true">
       <image>
-        <Image url="@../images/speaker-filled-audio-tool.png" />
+        <Image url="@../images/speaker-filled-audio-tool.png"/>
       </image>
     </ImageView>
-    <Label fx:id="textToSpeechLabel" layoutX="912.0" layoutY="584.0" onMouseEntered="#onHoverTextToSpeechLabel" text="OFF">
+    <Label fx:id="textToSpeechLabel" layoutX="912.0" layoutY="584.0"
+      onMouseEntered="#onHoverTextToSpeechLabel" text="OFF">
       <font>
-        <Font name="Arial Black" size="12.0" />
+        <Font name="Arial Black" size="12.0"/>
       </font>
     </Label>
-    <Text layoutX="63.0" layoutY="635.0" onMouseEntered="#onHoverCreators" strokeType="OUTSIDE" strokeWidth="0.0" text="Brought to you by Speedy Sketchers and Team 15" textAlignment="CENTER" wrappingWidth="83.84553078687838">
+    <Text layoutX="63.0" layoutY="635.0" onMouseEntered="#onHoverCreators" strokeType="OUTSIDE"
+      strokeWidth="0.0" text="Brought to you by Speedy Sketchers and Team 15" textAlignment="CENTER"
+      wrappingWidth="83.84553078687838">
       <font>
-        <Font size="10.0" />
+        <Font size="10.0"/>
       </font>
     </Text>
-    <ImageView fitHeight="36.0" fitWidth="39.0" layoutX="15.0" layoutY="625.0" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="36.0" fitWidth="39.0" layoutX="15.0" layoutY="625.0" pickOnBounds="true"
+      preserveRatio="true">
       <image>
-        <Image url="@../images/logo-speedy-sketchersblackandwhite.png" />
+        <Image url="@../images/logo-speedy-sketchersblackandwhite.png"/>
       </image>
     </ImageView>
     <MenuButton layoutX="33.0" layoutY="446.0" mnemonicParsing="false" text="Accuracy">
       <items>
-        <MenuItem mnemonicParsing="false" onAction="#setAccuracyTop3" text="Top 3">
+        <MenuItem mnemonicParsing="false" onAction="#onSetAccuracyTop3" text="Top 3">
           <graphic>
-            <Button mnemonicParsing="false" text="Easy" />
+            <Button mnemonicParsing="false" text="Easy"/>
           </graphic>
         </MenuItem>
-        <MenuItem mnemonicParsing="false" onAction="#setAccuracyTop2" text="Top 2">
+        <MenuItem mnemonicParsing="false" onAction="#onSetAccuracyTop2" text="Top 2">
           <graphic>
-            <Button mnemonicParsing="false" text="Medium" />
+            <Button mnemonicParsing="false" text="Medium"/>
           </graphic>
         </MenuItem>
-        <MenuItem mnemonicParsing="false" onAction="#setAccuracyTop1" text="Top 1">
+        <MenuItem mnemonicParsing="false" onAction="#onSetAccuracyTop1" text="Top 1">
           <graphic>
-            <Button mnemonicParsing="false" text="Hard" />
+            <Button mnemonicParsing="false" text="Hard"/>
           </graphic>
         </MenuItem>
       </items>
     </MenuButton>
     <MenuButton layoutX="33.0" layoutY="491.0" mnemonicParsing="false" text="Words">
       <items>
-        <MenuItem mnemonicParsing="false" onAction="#setWordsE" text="E">
+        <MenuItem mnemonicParsing="false" onAction="#onSetWordsE" text="E">
           <graphic>
-            <Button mnemonicParsing="false" text="Easy" />
+            <Button mnemonicParsing="false" text="Easy"/>
           </graphic>
         </MenuItem>
-        <MenuItem mnemonicParsing="false" onAction="#setWordsEM" text="E, M">
+        <MenuItem mnemonicParsing="false" onAction="#onSetWordsEM" text="E, M">
           <graphic>
-            <Button mnemonicParsing="false" text="Medium" />
+            <Button mnemonicParsing="false" text="Medium"/>
           </graphic>
         </MenuItem>
-        <MenuItem mnemonicParsing="false" onAction="#setWordsEMH" text="E, M, H">
+        <MenuItem mnemonicParsing="false" onAction="#onSetWordsEMH" text="E, M, H">
           <graphic>
-            <Button mnemonicParsing="false" text="Hard" />
+            <Button mnemonicParsing="false" text="Hard"/>
           </graphic>
         </MenuItem>
-        <MenuItem mnemonicParsing="false" onAction="#setWordsH" text="H">
+        <MenuItem mnemonicParsing="false" onAction="#onSetWordsH" text="H">
           <graphic>
-            <Button mnemonicParsing="false" text="Master" />
+            <Button mnemonicParsing="false" text="Master"/>
           </graphic>
         </MenuItem>
       </items>
     </MenuButton>
     <MenuButton layoutX="183.0" layoutY="491.0" mnemonicParsing="false" text="Time">
       <items>
-        <MenuItem mnemonicParsing="false" onAction="#setTime60" text="60s">
+        <MenuItem mnemonicParsing="false" onAction="#onSetTime60" text="60s">
           <graphic>
-            <Button mnemonicParsing="false" text="Easy" />
+            <Button mnemonicParsing="false" text="Easy"/>
           </graphic>
         </MenuItem>
-        <MenuItem mnemonicParsing="false" onAction="#setTime45" text="45s">
+        <MenuItem mnemonicParsing="false" onAction="#onSetTime45" text="45s">
           <graphic>
-            <Button mnemonicParsing="false" text="Medium" />
+            <Button mnemonicParsing="false" text="Medium"/>
           </graphic>
         </MenuItem>
-        <MenuItem mnemonicParsing="false" onAction="#setTime30" text="30s">
+        <MenuItem mnemonicParsing="false" onAction="#onSetTime30" text="30s">
           <graphic>
-            <Button mnemonicParsing="false" text="Hard" />
+            <Button mnemonicParsing="false" text="Hard"/>
           </graphic>
         </MenuItem>
-        <MenuItem mnemonicParsing="false" onAction="#setTime15" text="15s">
+        <MenuItem mnemonicParsing="false" onAction="#onSetTime15" text="15s">
           <graphic>
-            <Button mnemonicParsing="false" text="Master" />
+            <Button mnemonicParsing="false" text="Master"/>
           </graphic>
         </MenuItem>
       </items>
     </MenuButton>
     <MenuButton layoutX="184.0" layoutY="446.0" mnemonicParsing="false" text="Confidence">
       <items>
-        <MenuItem mnemonicParsing="false" onAction="#setConfidence1" text="&gt;= 1%">
+        <MenuItem mnemonicParsing="false" onAction="#onSetConfidence1" text="&gt;= 1%">
           <graphic>
-            <Button mnemonicParsing="false" text="Easy" />
+            <Button mnemonicParsing="false" text="Easy"/>
           </graphic>
         </MenuItem>
-        <MenuItem mnemonicParsing="false" onAction="#setConfidence10" text="&gt;= 10%">
+        <MenuItem mnemonicParsing="false" onAction="#onSetConfidence10" text="&gt;= 10%">
           <graphic>
-            <Button mnemonicParsing="false" text="Medium" />
+            <Button mnemonicParsing="false" text="Medium"/>
           </graphic>
         </MenuItem>
-        <MenuItem mnemonicParsing="false" onAction="#setConfidence25" text="&gt;= 25%">
+        <MenuItem mnemonicParsing="false" onAction="#onSetConfidence25" text="&gt;= 25%">
           <graphic>
-            <Button mnemonicParsing="false" text="Hard" />
+            <Button mnemonicParsing="false" text="Hard"/>
           </graphic>
         </MenuItem>
-        <MenuItem mnemonicParsing="false" onAction="#setConfidence50" text="&gt;= 50%">
+        <MenuItem mnemonicParsing="false" onAction="#onSetConfidence50" text="&gt;= 50%">
           <graphic>
-            <Button mnemonicParsing="false" text="Master" />
+            <Button mnemonicParsing="false" text="Master"/>
           </graphic>
         </MenuItem>
       </items>

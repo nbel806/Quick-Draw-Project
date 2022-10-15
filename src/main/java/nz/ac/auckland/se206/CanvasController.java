@@ -452,7 +452,7 @@ public class CanvasController {
   }
 
   @FXML
-  public void onHoverEraser() {
+  private void onHoverEraser() {
     textToSpeechBackground.backgroundSpeak(
         "eraser tool", textToSpeech); // uses background thread to read name
     eraseButton.setStyle(
