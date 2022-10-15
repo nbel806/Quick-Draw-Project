@@ -51,10 +51,6 @@ public class CategorySelector {
         .get(new Random().nextInt(difficultyListMap.get(difficulty).size()));
   }
 
-  public List<String> getCategory(Difficulty difficulty) {
-    return difficultyListMap.get(difficulty);
-  }
-
   public String getRandomCategory(int words, String[] history, String currentUsername)
       throws IOException, CsvException {
     ArrayList<Object> randomWords = new ArrayList<>();
@@ -80,5 +76,9 @@ public class CategorySelector {
       spreadSheetReaderWriter.resetUserHistory(currentUsername);
     }
     return (String) randomWords.get(new Random().nextInt(randomWords.size()));
+  }
+
+  public List<String> getCategory(Difficulty difficulty) {
+    return difficultyListMap.get(difficulty);
   }
 }

@@ -7,7 +7,6 @@ import ai.djl.translate.TranslateException;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import javafx.animation.KeyFrame;
@@ -61,10 +60,6 @@ public class ZenCanvasController {
   private boolean greenPen = false;
   private boolean startedDrawing;
 
-  // mouse coordinates for drawings
-  private double currentX;
-  private double currentY;
-
   public void initialize() throws ModelException, IOException {
 
     graphic = zenCanvas.getGraphicsContext2D();
@@ -77,9 +72,6 @@ public class ZenCanvasController {
     // save coordinates when mouse is pressed on the canvas
     zenCanvas.setOnMousePressed(
         e -> {
-          currentX = e.getX();
-          currentY = e.getY();
-
           if (!startedDrawing) {
             startedDrawing = true;
             doPredictions();
@@ -113,15 +105,11 @@ public class ZenCanvasController {
           } else {
             graphic.clearRect(x, y, size, size);
           }
-
-          // update the coordinates
-          currentX = x;
-          currentY = y;
         });
   }
 
   @FXML
-  public void onMainMenu() throws IOException {
+  private void onMainMenu() throws IOException {
 
     Stage stage = (Stage) backButton.getScene().getWindow();
     FXMLLoader loader =
@@ -133,7 +121,7 @@ public class ZenCanvasController {
   }
 
   @FXML
-  public void onBlackPen() {
+  private void onBlackPen() {
     blackPen = true;
     redPen = false;
     orangePen = false;
@@ -143,7 +131,7 @@ public class ZenCanvasController {
   }
 
   @FXML
-  public void onRedPen() throws FileNotFoundException {
+  private void onRedPen() {
     blackPen = false;
     redPen = true;
     orangePen = false;
@@ -153,7 +141,7 @@ public class ZenCanvasController {
   }
 
   @FXML
-  public void onOrangePen() {
+  private void onOrangePen() {
     blackPen = false;
     redPen = false;
     orangePen = true;
@@ -163,7 +151,7 @@ public class ZenCanvasController {
   }
 
   @FXML
-  public void onBluePen() {
+  private void onBluePen() {
     blackPen = false;
     redPen = false;
     orangePen = false;
@@ -173,7 +161,7 @@ public class ZenCanvasController {
   }
 
   @FXML
-  public void onGreenPen() {
+  private void onGreenPen() {
     blackPen = false;
     redPen = false;
     orangePen = false;
@@ -183,7 +171,7 @@ public class ZenCanvasController {
   }
 
   @FXML
-  public void onEraser() {
+  private void onEraser() {
     blackPen = false;
     redPen = false;
     orangePen = false;
@@ -193,7 +181,7 @@ public class ZenCanvasController {
   }
 
   @FXML
-  public void onClear() {
+  private void onClear() {
     graphic.clearRect(0, 0, zenCanvas.getWidth(), zenCanvas.getHeight());
   }
 
@@ -202,7 +190,7 @@ public class ZenCanvasController {
   }
 
   @FXML
-  public void onSave() {
+  private void onSave() {
     Stage stage = (Stage) onSaveButton.getScene().getWindow(); // gets the stage from the button
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Save Image");
