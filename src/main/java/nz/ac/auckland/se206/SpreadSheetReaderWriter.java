@@ -256,8 +256,11 @@ public class SpreadSheetReaderWriter {
       lastWords[2] = "Play normal mode first";
       lastWords[3] = "Play normal mode first";
       lastWords[4] = "Play normal mode first";
-      for (int i = 1; i < words.length; i++) {
-        lastWords[i - 1] = words[words.length - i];
+      for (int i = 0; i < words.length; i++) {
+        if (words[i].equals("")) {
+          break;
+        }
+        lastWords[i] = words[i];
       }
     } else {
       for (int i = 1; i < 6; i++) {
