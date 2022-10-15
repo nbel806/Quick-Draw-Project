@@ -135,6 +135,9 @@ public class ZenCanvasController {
                 16); // then will clear a rectangle of 5 either side
             // of the pixel the user is on
           }
+          // update the coordinates
+          currentX = x;
+          currentY = y;
         });
   }
 
