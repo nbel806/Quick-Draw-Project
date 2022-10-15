@@ -195,7 +195,7 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT">
                           <children>
-                            <Label alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="101.0" text="10000" textAlignment="RIGHT">
+                            <Label fx:id="easyWinLabel" alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="101.0" text="10000" textAlignment="RIGHT">
                               <font>
                                 <Font name="Arial Black" size="30.0" />
                               </font>
@@ -204,7 +204,7 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="195.0">
                           <children>
-                            <Label alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="102.0" text="10000" textAlignment="RIGHT">
+                            <Label fx:id="mediumWinLabel" alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="102.0" text="10000" textAlignment="RIGHT">
                               <font>
                                 <Font name="Arial Black" size="30.0" />
                               </font>
@@ -213,7 +213,7 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT">
                           <children>
-                            <Label alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="102.0" text="10000" textAlignment="RIGHT">
+                            <Label fx:id="hardWinLabel" alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="102.0" text="10000" textAlignment="RIGHT">
                               <font>
                                 <Font name="Arial Black" size="30.0" />
                               </font>
@@ -222,7 +222,7 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT">
                           <children>
-                            <Label alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="102.0" text="10000" textAlignment="RIGHT">
+                            <Label fx:id="masterWinLabel" alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="102.0" text="10000" textAlignment="RIGHT">
                               <font>
                                 <Font name="Arial Black" size="30.0" />
                               </font>
