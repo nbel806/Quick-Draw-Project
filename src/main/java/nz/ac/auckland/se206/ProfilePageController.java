@@ -23,7 +23,8 @@ public class ProfilePageController {
   @FXML private Label winrateLabel;
   @FXML private Label fastestLabel;
   @FXML private Label textToSpeechLabel;
-  @FXML private Label badgeLabel, badgePercentage;
+  @FXML private Label badgeLabel;
+  @FXML private Label badgePercentage;
   @FXML private Label historyLabel;
   @FXML private Label winstreakLabel;
   @FXML private ImageView volumeImage;
@@ -32,9 +33,18 @@ public class ProfilePageController {
   @FXML private ListView<String> historyListView;
   // Badges
   @FXML private ImageView secTen, secThirty;
-  @FXML private ImageView fiveGames, tenGames, fiftyGames, hundredGames;
-  @FXML public ImageView fiveStreak, tenStreak, fiftyStreak, hundredStreak;
-  @FXML public ImageView easyWins, mediumWins, hardWins, masterWins;
+  @FXML private ImageView fiveGames;
+  @FXML private ImageView tenGames;
+  @FXML private ImageView fiftyGames;
+  @FXML private ImageView hundredGames;
+  @FXML private ImageView fiveStreak;
+  @FXML private ImageView tenStreak;
+  @FXML private ImageView fiftyStreak;
+  @FXML private ImageView hundredStreak;
+  @FXML private ImageView easyWins;
+  @FXML private ImageView mediumWins;
+  @FXML private ImageView hardWins;
+  @FXML private ImageView masterWins;
   @FXML private ImageView godArtist;
   @FXML private ProgressBar badgeProgress;
 

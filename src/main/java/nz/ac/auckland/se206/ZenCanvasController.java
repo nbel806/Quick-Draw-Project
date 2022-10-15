@@ -107,7 +107,7 @@ public class ZenCanvasController {
     zenCanvas.setOnMousePressed(
         e -> {
           currentX = e.getX();
-          currentY = e.getY();
+          currentY = e.getY();    
           if (!startedDrawing) {
             startedDrawing = true;
             doPredictions();
@@ -134,17 +134,12 @@ public class ZenCanvasController {
                 16); // then will clear a rectangle of 5 either side
             // of the pixel the user is on
           }
-
-          // update the coordinates
-          currentX = x;
-          currentY = y;
         });
   }
 
   @FXML
   public void onMainMenu() throws IOException, CsvException {
-
-    Stage stage = (Stage) backButton.getScene().getWindow();
+    Stage stage = (Stage)  mainmenuButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml")); // creates a new instance of
     // main menu
@@ -158,6 +153,7 @@ public class ZenCanvasController {
   }
 
   @FXML
+
   public void onBack() throws IOException, CsvException {
     Stage stage = (Stage) backButton.getScene().getWindow();
     FXMLLoader loader =
@@ -199,16 +195,17 @@ public class ZenCanvasController {
       Image image = new Image(file.toURI().toString());
       userImage.setImage(image);
     }
-  }
+
 
   // "https://www.flaticon.com/free-icons/eraser" title="eraser icons">Eraser
   // icons created by Freepik - Flaticon
   @FXML
+
   private void onSwitchToEraser() {
     pen = false;
     setTool();
-
-    // Changes button to show it is clicked
+   
+   // Changes button to show it is clicked
     eraseButton.setStyle("-fx-background-color: #99F4B3;");
     eraseImage.setFitHeight(72); // enlarges button
     eraseImage.setFitWidth(72);
@@ -218,13 +215,12 @@ public class ZenCanvasController {
   }
 
   @FXML
-  private void
-      onSwitchToPen() { // "https://www.flaticon.com/free-icons/brush" title="brush icons">Brush
+  private void onSwitchToPen() { // "https://www.flaticon.com/free-icons/brush" title="brush icons">Brush
     // icons
     // created by Freepik - Flaticon
     pen = true;
     setTool();
-
+ 
     // Change button
     penButton.setStyle("-fx-background-color: #99F4B3;");
     penImage.setFitHeight(72); // reactive
@@ -235,7 +231,7 @@ public class ZenCanvasController {
   }
 
   @FXML
-  public void onClear() {
+  private void onClear() {
     graphic.clearRect(0, 0, zenCanvas.getWidth(), zenCanvas.getHeight());
   }
 

@@ -92,7 +92,7 @@ public class ZenWordPageController {
     lostWord4.setText("4. " + lastWords[3]);
     lostWord5.setText("5. " + lastWords[4]);
   }
-
+  
   public void setWordToDraw() throws IOException, URISyntaxException, CsvException {
     CategorySelector categorySelector = new CategorySelector(); // picks random easy word
     String[] words = new String[3];
