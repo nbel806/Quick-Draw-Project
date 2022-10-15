@@ -239,6 +239,7 @@ public class SpreadSheetReaderWriter {
     difWins[3] = Integer.parseInt(allData.get(index)[11]); // master wins
     return difWins;
   }
+
   public String[] getUsersLostWords(String currentUsername) throws IOException, CsvException {
     if (currentUsername == null) {
       return new String[] {"log in", "log in", "log in", "log in", "log in"};
