@@ -67,6 +67,7 @@ public class MainMenuController {
       userLabel.setText(currentUsername);
       SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
       words = sheetReaderWriter.getUsersWords(currentUsername);
+      // updates opacity after getting values stored
     } else {
       userLabel.setText("Guest");
     }
@@ -125,7 +126,7 @@ public class MainMenuController {
   @FXML
   private void onProfile() throws IOException, CsvException {
     Stage stage = (Stage) profileButton.getScene().getWindow();
-    LoadPage loadPage = new LoadPage();
+    LoadPage loadPage = new LoadPage(); // loads a new screen
     loadPage.extractedProfile(
         textToSpeechBackground, textToSpeech, currentUsername, currentProfilePic, stage);
   }
@@ -264,16 +265,22 @@ public class MainMenuController {
     zenImage.setFitWidth(59);
   }
 
+  /**
+   * when clicked word dif increases by one
+   *
+   * @throws IOException throwen if file isnt found
+   * @throws CsvException throwen if out of bound
+   */
   @FXML
   private void onClickWordsUp() throws IOException, CsvException {
     if (words != 4) {
       words++;
     }
-    updateUserWords(words);
+    updateUserWords(words); // sets opacity
   }
 
   /**
-   * set word category hard
+   * decrease the word difficulty
    *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user info cannot be found locally
@@ -283,7 +290,7 @@ public class MainMenuController {
     if (words != 1) {
       words--;
     }
-    updateUserWords(words);
+    updateUserWords(words); // sets opacity
   }
 
   /**
@@ -297,24 +304,24 @@ public class MainMenuController {
     this.words = words;
     SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
     sheetReaderWriter.updateUsersWords(words, currentUsername);
-    if (words == 1) {
-      wordDifLabel.setText("E");
+    if (words == 1) { // sets text and opacity for buttons
+      wordDifLabel.setText("E"); // text for readability
       minusWords.setOpacity(0.2);
       plusWords.setOpacity(1);
     } else if (words == 2) {
-      wordDifLabel.setText("E,M");
+      wordDifLabel.setText("E,M"); // text for readability
       minusWords.setOpacity(1);
       plusWords.setOpacity(1);
     } else if (words == 3) {
-      wordDifLabel.setText("E,M,H");
+      wordDifLabel.setText("E,M,H"); // text for readability
       plusWords.setOpacity(1);
       minusWords.setOpacity(1);
     } else if (words == 4) {
-      wordDifLabel.setText("H");
+      wordDifLabel.setText("H"); // text for readability
       plusWords.setOpacity(0.2);
       minusWords.setOpacity(1);
     } else {
-      wordDifLabel.setText("ERROR");
+      wordDifLabel.setText("ERROR"); // error state shouldnt be reached
     }
   }
 }
