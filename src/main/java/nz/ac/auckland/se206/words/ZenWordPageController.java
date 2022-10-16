@@ -117,6 +117,7 @@ public class ZenWordPageController {
     lostWord4.setText("4. " + lastWords[3]);
     lostWord5.setText("5. " + lastWords[4]);
   }
+
   
   /**
    * generate and display the word from all category

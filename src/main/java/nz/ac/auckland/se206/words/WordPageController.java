@@ -287,7 +287,7 @@ public class WordPageController {
       // text to speech
       // and whether it is on or not
       hiddenWordCanvasController.setDefinitionList(currentWord);
-      hiddenWordCanvasController.getUsername(currentUsername);
+      hiddenWordCanvasController.getUsername(currentUsername, currentProfilePic);
     }
     stage.show();
   }

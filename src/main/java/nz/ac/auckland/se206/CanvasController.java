@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -21,11 +22,13 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.shape.Arc;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
@@ -44,17 +47,17 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
  * the canvas and brush sizes, make sure that the prediction works fine.
  */
 public class CanvasController {
-
-  @FXML private Circle upArrowCircle;
-  @FXML private Circle downArrowCircle;
-
   @FXML private Canvas canvas;
+
+  @FXML private Pane upPane;
+  @FXML private Pane downPane;
 
   @FXML private Label wordLabel;
   @FXML private Label timerLabel;
   @FXML private Label userLabel;
   @FXML private Label topTenLabel;
   @FXML private Label textToSpeechLabel;
+  @FXML private Label speakerLabel;
 
   @FXML private Button penButton;
   @FXML private Button eraseButton;
@@ -67,6 +70,8 @@ public class CanvasController {
   @FXML private ImageView upArrow;
   @FXML private ImageView userImage;
   @FXML private ImageView downArrow;
+  @FXML private ColorPicker colorPicker;
+  @FXML private Arc timerArc;
 
   private GraphicsContext graphic;
   private DoodlePrediction model;
@@ -108,18 +113,17 @@ public class CanvasController {
     setTool(); // calls method to set pen/eraser and size
 
     // Set pen button
-    penButton.setStyle(
-        "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: #99F4B3;");
+    penButton.setStyle("-fx-background-color: #99F4B3;");
     penImage.setFitHeight(71);
     penImage.setFitWidth(71);
-
     model = new DoodlePrediction();
     setTimerLabel(seconds); // sets timer to specified number of seconds
     doTimer();
-    upArrow.setOpacity(0.1);
-    upArrowCircle.setOpacity(0.1);
-    downArrow.setOpacity(0.1);
-    downArrowCircle.setOpacity(0.1);
+    // Set up and down images
+    upArrow.setOpacity(0.3);
+    upPane.setOpacity(0.3);
+    downArrow.setOpacity(0.3);
+    downPane.setOpacity(0.3);
   }
 
   
@@ -150,7 +154,7 @@ public class CanvasController {
 
           // This is the colour of the brush.
           if (pen) {
-            graphic.setFill(Color.BLACK);
+            graphic.setStroke(colorPicker.getValue());
             graphic.setLineWidth(size);
             graphic.strokeLine(
                 currentX, currentY, x, y); // Create a line that goes from the point (currentX,
@@ -219,8 +223,12 @@ public class CanvasController {
    */
   private void doTimer() {
     Timeline time = new Timeline();
+    Timeline timeArc = new Timeline();
     time.setCycleCount(Timeline.INDEFINITE);
+    timeArc.setCycleCount(Timeline.INDEFINITE);
     time.stop();
+    timeArc.stop();
+
     KeyFrame keyFrame =
         new KeyFrame(
             Duration.seconds(1),
@@ -229,9 +237,11 @@ public class CanvasController {
               setTimerLabel(seconds); // decrements the timer and updates label
               if (end) {
                 time.stop(); // if the game is over or time is up the timer stops
+                timeArc.stop();
               }
               if (seconds <= 0) { // timer is over then end timer
                 time.stop();
+                timeArc.stop();
                 end = true;
                 try {
                   whenTimerEnds(); // runs to progress to next page
@@ -240,8 +250,12 @@ public class CanvasController {
                 }
               }
             });
+    KeyValue kv = new KeyValue(timerArc.lengthProperty(), -360);
+    KeyFrame kf = new KeyFrame(Duration.seconds(60), kv);
+    timeArc.getKeyFrames().add(kf);
     time.getKeyFrames().add(keyFrame);
     time.playFromStart();
+    timeArc.playFromStart();
   }
 
   /**
@@ -371,19 +385,24 @@ public class CanvasController {
 
     if (wordPred > lastWordPred) { // increase
       upArrow.setOpacity(1);
-      upArrowCircle.setOpacity(1);
-      downArrow.setOpacity(0.1);
-      downArrowCircle.setOpacity(0.1);
+      upPane.setOpacity(1);
+      downArrow.setOpacity(0.3);
+      downPane.setOpacity(0.3);
+      // Set predict label
+      speakerLabel.setText("You're getting closer!");
     } else if (wordPred == lastWordPred) {
-      upArrow.setOpacity(0.1);
-      upArrowCircle.setOpacity(0.1);
-      downArrow.setOpacity(0.1);
-      downArrowCircle.setOpacity(0.1);
+      upArrow.setOpacity(0.3);
+      upPane.setOpacity(0.3);
+      downArrow.setOpacity(0.3);
+      downPane.setOpacity(0.3);
+      // Set predict label
+      speakerLabel.setText("");
     } else { // decrease
-      upArrow.setOpacity(0.1);
-      upArrowCircle.setOpacity(0.1);
+      upArrow.setOpacity(0.3);
+      upPane.setOpacity(0.3);
       downArrow.setOpacity(1);
-      downArrowCircle.setOpacity(1);
+      downPane.setOpacity(1);
+      speakerLabel.setText("You're getting further!");
     }
     lastWordPred = wordPred;
   }
@@ -407,7 +426,8 @@ public class CanvasController {
     // information
     gameOverController.getUsername(currentUsername, currentProfilePic);
     gameOverController.give(
-        textToSpeechBackground, textToSpeech, bufferedImage); // passes text to speech and boolean
+        textToSpeechBackground, textToSpeech, bufferedImage); // passes text to speech and
+    // boolean
     gameOverController.timeLeft(seconds);
     gameOverController.setWinLoseLabel(winLose, this, overallDif);
     gameOverController.setTimeAccuracy(time, userAccuracy, confidence, words);
@@ -463,8 +483,8 @@ public class CanvasController {
   @FXML
   private void onHoverClear() {
     textToSpeechBackground.backgroundSpeak("Clear Canvas", textToSpeech);
-    clearImage.setFitHeight(83);
-    clearImage.setFitWidth(83);
+    clearImage.setFitHeight(73);
+    clearImage.setFitWidth(73);
   }
 
   /**
@@ -506,10 +526,9 @@ public class CanvasController {
   private void onHoverPen() {
     textToSpeechBackground.backgroundSpeak(
         "pen tool", textToSpeech); // uses background task to read name
-    penButton.setStyle(
-        "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: #99F4B3;");
-    penImage.setFitHeight(73); // enlarges button to make reactive
-    penImage.setFitWidth(73);
+    penButton.setStyle(" -fx-background-color: #99F4B3;");
+    penImage.setFitHeight(72); // enlarges button to make reactive
+    penImage.setFitWidth(72);
   }
 
   /**
@@ -519,10 +538,9 @@ public class CanvasController {
   private void onHoverEraser() {
     textToSpeechBackground.backgroundSpeak(
         "eraser tool", textToSpeech); // uses background thread to read name
-    eraseButton.setStyle(
-        "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: #99F4B3;");
-    eraseImage.setFitHeight(73); // makes button reactive
-    eraseImage.setFitWidth(73);
+    eraseButton.setStyle("-fx-background-color: #99F4B3;");
+    eraseImage.setFitHeight(72); // makes button reactive
+    eraseImage.setFitWidth(72);
   }
 
   /**
@@ -568,14 +586,12 @@ public class CanvasController {
     setTool();
 
     // Change button
-    penButton.setStyle(
-        "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: #99F4B3;");
-    penImage.setFitHeight(71); // reactive
-    penImage.setFitWidth(71);
-    eraseButton.setStyle(
-        "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: white");
-    eraseImage.setFitHeight(71); // reactive
-    eraseImage.setFitWidth(71);
+    penButton.setStyle("-fx-background-color: #99F4B3;");
+    penImage.setFitHeight(72); // reactive
+    penImage.setFitWidth(72);
+    eraseButton.setStyle("-fx-background-color: transparent; -fx-border-color: white");
+    eraseImage.setFitHeight(70); // reactive
+    eraseImage.setFitWidth(70);
   }
 
   
@@ -591,14 +607,12 @@ public class CanvasController {
     setTool();
 
     // Changes button to show it is clicked
-    eraseButton.setStyle(
-        "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: #99F4B3;");
-    eraseImage.setFitHeight(71); // enlarges button
-    eraseImage.setFitWidth(71);
-    penButton.setStyle(
-        "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: white");
-    penImage.setFitHeight(71); // enlarges button
-    penImage.setFitWidth(71);
+    eraseButton.setStyle("-fx-background-color: #99F4B3;");
+    eraseImage.setFitHeight(72); // enlarges button
+    eraseImage.setFitWidth(72);
+    penButton.setStyle("-fx-background-color: transparent; -fx-border-color: white;");
+    penImage.setFitHeight(70); // enlarges button
+    penImage.setFitWidth(70);
   }
 
   /**
@@ -616,10 +630,9 @@ public class CanvasController {
   @FXML
   private void exitPen() {
     if (!pen) { // if eraser is curently active
-      penButton.setStyle(
-          "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: white");
-      penImage.setFitHeight(71);
-      penImage.setFitWidth(71);
+      penButton.setStyle("-fx-background-color: transparent; -fx-border-color: white");
+      penImage.setFitHeight(70);
+      penImage.setFitWidth(70);
     }
   }
 
@@ -629,10 +642,9 @@ public class CanvasController {
   @FXML
   private void exitEraser() {
     if (pen) { // if pen too is active
-      eraseButton.setStyle(
-          "-fx-background-radius: 100px; -fx-border-radius: 100px; -fx-background-color: white");
-      eraseImage.setFitHeight(71);
-      eraseImage.setFitWidth(71);
+      eraseButton.setStyle("-fx-background-color: transparent; -fx-border-color: white");
+      eraseImage.setFitHeight(70);
+      eraseImage.setFitWidth(70);
     }
   }
 
@@ -641,8 +653,8 @@ public class CanvasController {
    */
   @FXML
   private void exitClear() {
-    clearImage.setFitHeight(80);
-    clearImage.setFitWidth(80);
+    clearImage.setFitHeight(70);
+    clearImage.setFitWidth(70);
   }
 
   /**
