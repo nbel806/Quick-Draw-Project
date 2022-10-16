@@ -297,7 +297,8 @@ public class LoginController {
   private void onHoverLogin() {
     textToSpeechBackground.backgroundSpeak("Login", textToSpeech);
     loginButton.setStyle(
-        "-fx-background-radius: 10;  -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
+        "-fx-background-radius: 10;  -fx-background-color: #EB4A5A; -fx-text-fill: white; "
+            + "-fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
   }
 
   /** label speaks out and button style changes when mouse hovers on */
@@ -305,7 +306,8 @@ public class LoginController {
   private void onHoverNewUser() {
     textToSpeechBackground.backgroundSpeak("Create", textToSpeech);
     newuserButton.setStyle(
-        "-fx-background-radius: 10;  -fx-background-color: #99DAF4; -fx-text-fill: white; -fx-border-color: #99DAF4; -fx-border-radius: 10; -fx-border-width: 3;");
+        "-fx-background-radius: 10;  -fx-background-color: #99DAF4; "
+            + "-fx-text-fill: white; -fx-border-color: #99DAF4; -fx-border-radius: 10; -fx-border-width: 3;");
   }
 
   /** label speaks out and button style changes when mouse hovers on */
@@ -313,7 +315,8 @@ public class LoginController {
   private void onHoverLogout() {
     textToSpeechBackground.backgroundSpeak("Logout", textToSpeech);
     logoutButton.setStyle(
-        "-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
+        "-fx-background-radius: 10; -fx-background-color: #EB4A5A;"
+            + " -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
   }
 
   /** label speaks out and button style changes when mouse hovers on */
@@ -321,35 +324,40 @@ public class LoginController {
   private void onHoverBack() {
     textToSpeechBackground.backgroundSpeak("Back", textToSpeech);
     backButton.setStyle(
-        "-fx-background-radius: 100px;  -fx-text-fill: white; -fx-border-radius: 100px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
+        "-fx-background-radius: 100px;  -fx-text-fill: white; "
+            + "-fx-border-radius: 100px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
   /** button style changes when mouse is away */
   @FXML
   private void onLoginExit() {
     loginButton.setStyle(
-        "-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
+        "-fx-background-radius: 10; -fx-background-color: #EB4A5A; "
+            + "-fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
   }
 
   /** button style changes when mouse is away */
   @FXML
   private void onNewUserExit() {
     newuserButton.setStyle(
-        "-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3");
+        "-fx-background-radius: 10; -fx-background-color: #EB4A5A; "
+            + "-fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3");
   }
 
   /** button style changes when mouse is away */
   @FXML
   private void onLogoutExit() {
     logoutButton.setStyle(
-        "-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
+        "-fx-background-radius: 10; -fx-background-color: #EB4A5A; "
+            + "-fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
   }
 
   /** button style changes when mouse is away */
   @FXML
   private void onBackExit() {
     backButton.setStyle(
-        "-fx-background-radius: 100px; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
+        "-fx-background-radius: 100px; -fx-background-color: #EB4A5A; "
+            + "-fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
   }
 
   /** image restores its size when mouse is away */

@@ -415,14 +415,16 @@ public class ProfilePageController {
   private void onHoverBack() {
     textToSpeechBackground.backgroundSpeak("Back Button", textToSpeech);
     backButton.setStyle(
-        "-fx-background-radius: 100px; -fx-text-fill: white; -fx-border-radius: 100px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
+        "-fx-background-radius: 100px; -fx-text-fill: white; "
+            + "-fx-border-radius: 100px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
   /** button style changes when mouse hovers on */
   @FXML
   private void onBackExit() {
     backButton.setStyle(
-        "-fx-background-radius: 100px; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
+        "-fx-background-radius: 100px; -fx-background-color: #EB4A5A;"
+            + " -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
   }
 
   /** image restores its size when mouse is away */

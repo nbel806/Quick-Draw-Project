@@ -188,7 +188,8 @@ public class MainMenuController {
   private void onHoverPlay() {
     textToSpeechBackground.backgroundSpeak("Start", textToSpeech);
     playButton.setStyle(
-        "-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
+        "-fx-background-radius: 15px; -fx-border-radius: 15px; "
+            + "-fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
   /** label speaks out and image gets slightly when mouse hovers on */
@@ -225,7 +226,8 @@ public class MainMenuController {
   @FXML
   private void onPlayExit() {
     playButton.setStyle(
-        "-fx-background-radius: 25px; -fx-border-radius: 25px; -fx-background-color: transparent; -fx-border-color: white;");
+        "-fx-background-radius: 25px; -fx-border-radius: 25px; -fx-background-color: transparent; "
+            + "-fx-border-color: white;");
   }
 
   /** image restores when mouse is away */

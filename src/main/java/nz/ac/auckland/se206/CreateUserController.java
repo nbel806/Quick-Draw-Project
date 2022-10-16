@@ -297,7 +297,8 @@ public class CreateUserController {
   private void onHoverBack() {
     textToSpeechBackground.backgroundSpeak("Back", textToSpeech);
     backButton.setStyle(
-        "-fx-background-radius: 100px; -fx-text-fill: white; -fx-border-radius: 100px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
+        "-fx-background-radius: 100px; -fx-text-fill: white; -fx-border-radius: 100px; "
+            + "-fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
   /** label speaks out and image becomes slightly larger when mouse is moved on */
@@ -305,7 +306,8 @@ public class CreateUserController {
   private void onHoverMainMenu() {
     textToSpeechBackground.backgroundSpeak("Main Menu", textToSpeech);
     mainmenuButton.setStyle(
-        "-fx-background-radius: 100px;-fx-text-fill: white; -fx-border-radius: 100px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
+        "-fx-background-radius: 100px;-fx-text-fill: white; -fx-border-radius: 100px;"
+            + " -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
   /** label speaks out and image becomes slightly larger when mouse is moved on */
@@ -313,7 +315,8 @@ public class CreateUserController {
   private void onHoverCreate() {
     textToSpeechBackground.backgroundSpeak("Create", textToSpeech);
     createButton.setStyle(
-        "-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
+        "-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; "
+            + "-fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
   }
 
   /** images restores when mouse is moved away */
@@ -327,20 +330,23 @@ public class CreateUserController {
   @FXML
   private void onBackExit() {
     backButton.setStyle(
-        "-fx-background-radius: 100px; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
+        "-fx-background-radius: 100px; -fx-background-color: #EB4A5A; -fx-text-fill: white; "
+            + "-fx-border-color: white; -fx-border-radius: 100px;");
   }
 
   /** button restores when mouse is moved away */
   @FXML
   private void onMainMenuExit() {
     mainmenuButton.setStyle(
-        "-fx-background-radius: 100px;-fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
+        "-fx-background-radius: 100px;-fx-background-color: #EB4A5A; -fx-text-fill: white; "
+            + "-fx-border-color: white; -fx-border-radius: 100px;");
   }
 
   /** button restores when mouse is moved away */
   @FXML
   private void onCreateExit() {
     createButton.setStyle(
-        "-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
+        "-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; "
+            + "-fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
   }
 }
