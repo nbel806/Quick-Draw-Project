@@ -1,0 +1,17 @@
+.down-button{
+	-fx-border-color: black;
+	-fx-background-color:  #EB4A5A;
+}
+
+.down-button:hover{
+	-fx-opacity: 0.7;
+}
+
+.up-button{
+	-fx-border-color: black;
+	-fx-background-color:   #45f248;
+}
+
+.up-button:hover{
+	-fx-opacity: 0.7;
+}

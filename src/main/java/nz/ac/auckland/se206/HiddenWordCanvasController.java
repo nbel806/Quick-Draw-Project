@@ -553,9 +553,8 @@ public class HiddenWordCanvasController {
 
   /** disconnects the pen and image restores its size when clicked */
   @FXML
-  private void
-      onSwitchToEraser() { // "https://www.flaticon.com/free-icons/eraser" title="eraser
-                           // icons">Eraser
+  private void onSwitchToEraser() { // "https://www.flaticon.com/free-icons/eraser" title="eraser
+    // icons">Eraser
     // icons
     // created by Freepik - Flaticon
     pen = false;
