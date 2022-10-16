@@ -10,6 +10,13 @@ import javafx.scene.text.TextFlow;
 
 public class WordPane {
 
+	/**
+	 * create and display information on a new pane
+	 * 
+	 * @param word word to be drew
+	 * @param wordResult word definition
+	 * @return return the pane containing relevant info
+	 */
   public static TitledPane generateWordPane(String word, WordInfo wordResult) {
     List<WordEntry> entries = wordResult.getWordEntries();
 
@@ -47,6 +54,12 @@ public class WordPane {
     return pane;
   }
 
+  /**
+   * creates and displays a new pane containing alerts
+   * 
+   * @param error word not found exception
+   * @return  return a pane saying the exception
+   */
   public static TitledPane generateErrorPane(WordNotFoundException error) {
 
     TextFlow textFlow = new TextFlow();
