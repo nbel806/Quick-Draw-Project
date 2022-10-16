@@ -158,9 +158,9 @@
             <Font name="Arial Black" size="21.0" />
          </font>
       </Button>
-      <Pane layoutX="435.0" layoutY="292.0" prefHeight="117.0" prefWidth="482.0" style="-fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 2;">
+      <Pane layoutX="435.0" layoutY="292.0" prefHeight="117.0" prefWidth="494.0" style="-fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 2;">
          <children>
-            <Text fx:id="wordLabel" fill="WHITE" layoutX="8.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="the great wall of china" textAlignment="CENTER" wrappingWidth="466.3735046386719">
+            <Text fx:id="wordLabel" fill="WHITE" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Great Wall Of China" textAlignment="CENTER" wrappingWidth="494.0">
                <font>
                   <Font name="Arial Black" size="37.0" />
                </font>

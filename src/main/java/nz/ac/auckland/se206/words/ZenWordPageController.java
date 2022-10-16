@@ -131,7 +131,7 @@ public class ZenWordPageController {
     words[0] = categorySelector.getRandomCategory(CategorySelector.Difficulty.E);
     words[1] = categorySelector.getRandomCategory(CategorySelector.Difficulty.M);
     words[2] = categorySelector.getRandomCategory(CategorySelector.Difficulty.H);
-    currentWord = words[new Random().nextInt(words.length)];
+    currentWord = words[new Random().nextInt(words.length)]; // random of the 3 words
     wordLabel.setText(currentWord);
   }
 
@@ -181,9 +181,9 @@ public class ZenWordPageController {
   @FXML
   private void onClickPlay1() {
     if (currentUsername == null || lostWord1.getText().equals("1. Play normal mode first")) {
-      return;
+      return; // guest
     }
-    currentWord = lostWord1.getText();
+    currentWord = lostWord1.getText().substring(3);
     wordLabel.setText(currentWord);
   }
 
@@ -191,9 +191,9 @@ public class ZenWordPageController {
   @FXML
   private void onClickPlay2() {
     if (currentUsername == null || lostWord2.getText().equals("2. Play normal mode first")) {
-      return;
+      return; // guest
     }
-    currentWord = lostWord2.getText();
+    currentWord = lostWord2.getText().substring(3);
     wordLabel.setText(currentWord);
   }
 
@@ -201,9 +201,9 @@ public class ZenWordPageController {
   @FXML
   private void onClickPlay3() {
     if (currentUsername == null || lostWord3.getText().equals("3. Play normal mode first")) {
-      return;
+      return; // guest
     }
-    currentWord = lostWord3.getText();
+    currentWord = lostWord3.getText().substring(3);
     wordLabel.setText(currentWord);
   }
 
@@ -211,9 +211,9 @@ public class ZenWordPageController {
   @FXML
   private void onClickPlay4() {
     if (currentUsername == null || lostWord4.getText().equals("4. Play normal mode first")) {
-      return;
+      return; // guest
     }
-    currentWord = lostWord4.getText();
+    currentWord = lostWord4.getText().substring(3);
     wordLabel.setText(currentWord);
   }
 
@@ -221,9 +221,9 @@ public class ZenWordPageController {
   @FXML
   private void onClickPlay5() {
     if (currentUsername == null || lostWord5.getText().equals("5. Play normal mode first")) {
-      return;
+      return; // guest
     }
-    currentWord = lostWord5.getText();
+    currentWord = lostWord5.getText().substring(3);
     wordLabel.setText(currentWord);
   }
 
