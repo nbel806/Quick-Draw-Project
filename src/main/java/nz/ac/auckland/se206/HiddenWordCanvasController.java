@@ -41,7 +41,6 @@ import nz.ac.auckland.se206.words.CategorySelector;
 import nz.ac.auckland.se206.words.DictionaryLookup;
 import nz.ac.auckland.se206.words.WordEntry;
 import nz.ac.auckland.se206.words.WordInfo;
-import nz.ac.auckland.se206.words.WordNotFoundException;
 
 public class HiddenWordCanvasController {
 
@@ -102,7 +101,6 @@ public class HiddenWordCanvasController {
   private double currentY;
   private double confidenceUser;
   private double lastWordPred = 0;
-  private String hint1;
   private char hint2;
   private char hint3;
   private int hints;
@@ -207,7 +205,7 @@ public class HiddenWordCanvasController {
         new Task<>() {
 
           @Override
-          protected Void call() throws Exception {
+          protected Void call() {
             // speaks out how much time left
             if (time == 40) {
               textToSpeechAlert.speak("forty seconds left");
@@ -493,18 +491,6 @@ public class HiddenWordCanvasController {
     textToSpeechBackground.backgroundSpeak(String.valueOf(seconds), textToSpeech);
   }
 
-  /** label speaks out when mouse is moved on */
-  @FXML
-  private void onHoverTop10() {
-    textToSpeechBackground.backgroundSpeak("List of Top 10 guesses", textToSpeech);
-  }
-
-  /** label speaks out when mouse is moved on */
-  @FXML
-  private void onHoverCanvas() {
-    textToSpeechBackground.backgroundSpeak("draw here", textToSpeech);
-  }
-
   /** label speaks out and image becomes slightly larger when mouse is moved on */
   @FXML
   private void onHoverPen() {
@@ -627,12 +613,6 @@ public class HiddenWordCanvasController {
     volumeImage.setFitWidth(45);
   }
 
-  /** label speaks out when mouse is moved on */
-  @FXML
-  private void onHoverPredictions() {
-    textToSpeechBackground.backgroundSpeak("Predictions", textToSpeech);
-  }
-
   /**
    * set and pass the current difficulties combination
    *
@@ -662,7 +642,8 @@ public class HiddenWordCanvasController {
    *
    * @param wordToDraw current guessed word
    * @throws IOException If the model cannot be found on the file system.
-   * @throws WordNotFoundException If the word is not found in API
+   * @throws URISyntaxException cant find information
+   * @throws CsvException cant find file
    */
   public void setDefinitionList(String wordToDraw)
       throws IOException, URISyntaxException, CsvException {
@@ -683,7 +664,7 @@ public class HiddenWordCanvasController {
     definitionTextArea.setText(wordEntry.getDefinitions().get(0));
 
     // setting the hints
-    hint1 = (String.valueOf(wordToDraw.length()));
+    String hint1 = (String.valueOf(wordToDraw.length()));
     hint2 = (wordToDraw.charAt(0));
     hint3 = (wordToDraw.charAt(wordToDraw.length() - 1));
   }
@@ -719,7 +700,7 @@ public class HiddenWordCanvasController {
   /**
    * This method returns a formatted string for the hint
    *
-   * @return
+   * @return String that is the length of word
    */
   private String getLength() {
     String formattedLength = "";
@@ -742,5 +723,10 @@ public class HiddenWordCanvasController {
       index++;
     }
     return formattedLength;
+  }
+
+  @FXML
+  private void onHoverHint() {
+    textToSpeechBackground.backgroundSpeak("hint", textToSpeech);
   }
 }

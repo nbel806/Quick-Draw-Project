@@ -1,7 +1,6 @@
 package nz.ac.auckland.se206;
 
 import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.BufferedReader;
 import java.io.File;
@@ -92,8 +91,7 @@ public class LoginController {
    * @param username current username
    * @param profilePic profile picture selected
    */
-  public void setUsername(String username, String profilePic)
-      throws IOException, CsvValidationException {
+  public void setUsername(String username, String profilePic) {
     // Set current username
     currentUsername = username;
 
@@ -158,10 +156,9 @@ public class LoginController {
    * Methods goes to new user page
    *
    * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If file does not exist
    */
   @FXML
-  private void onNewUser() throws IOException, CsvException {
+  private void onNewUser() throws IOException {
     Stage stage = (Stage) newuserButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/create_user_page.fxml")); // creates a new
@@ -193,14 +190,9 @@ public class LoginController {
     }
   }
 
-  /**
-   * show the notifications to the user that whether logged in successfully
-   *
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvValidationException If file name does not exist
-   */
+  /** show the notifications to the user that whether logged in successfully */
   @FXML
-  private void onLogin() throws IOException, CsvValidationException {
+  private void onLogin() {
     String username = userListView.getSelectionModel().getSelectedItem();
 
     if (username == null || username.isEmpty()) { // if user not selected
@@ -228,14 +220,9 @@ public class LoginController {
     }
   }
 
-  /**
-   * show the notifications to the user that whether logged out successfully
-   *
-   * @throws CsvValidationException If file name does not exist
-   * @throws IOException If the model cannot be found on the file system.
-   */
+  /** show the notifications to the user that whether logged out successfully */
   @FXML
-  private void onLogout() throws CsvValidationException, IOException {
+  private void onLogout() {
     if (currentUsername != null) { // logs user out sets to guest
       currentUsername = null;
       outputLabel.setText("Logout Success");
@@ -260,7 +247,7 @@ public class LoginController {
    * @throws IOException if name of file is not found
    */
   @FXML
-  private void onBack() throws IOException, CsvException {
+  private void onBack() throws IOException {
     Stage stage = (Stage) backButton.getScene().getWindow();
     LoadPage loadPage = new LoadPage();
     loadPage.extractedMainMenu(
@@ -357,11 +344,5 @@ public class LoginController {
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
-  }
-
-  /** label speaks out when mouse hovers on */
-  @FXML
-  private void onHoverTitle() {
-    textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
   }
 }

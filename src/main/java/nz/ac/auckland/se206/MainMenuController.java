@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import nz.ac.auckland.se206.speech.BackgroundSound;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 import nz.ac.auckland.se206.words.WordPageController;
 import nz.ac.auckland.se206.words.ZenWordPageController;
@@ -38,8 +39,7 @@ public class MainMenuController {
    * @param tts generates tts functionality from tts class
    * @param textToSpeech activates tts functionality if is true
    */
-  public void give(TextToSpeechBackground tts, Boolean textToSpeech)
-      throws IOException, CsvException {
+  public void give(TextToSpeechBackground tts, Boolean textToSpeech) {
     textToSpeechBackground = tts; // passes through the text to speech instance
     this.textToSpeech = textToSpeech;
     if (textToSpeech) {
@@ -96,6 +96,8 @@ public class MainMenuController {
    */
   @FXML
   private void onPlay() throws IOException, URISyntaxException, CsvException {
+    BackgroundSound backgroundSound = new BackgroundSound();
+    backgroundSound.play("/sounds/mixkit-unlock-game-notification-253_1.wav");
     Stage stage = (Stage) playButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/word_page.fxml")); // creates a new instance of
@@ -145,17 +147,6 @@ public class MainMenuController {
     stage.show();
   }
 
-  /** initialize or disconnect the tts feature */
-  @FXML
-  private void onTextToSpeech() {
-    textToSpeech = !textToSpeech; // inverts boolean
-    if (textToSpeech) { // then sets label accordingly
-      textToSpeechLabel.setText("ON");
-    } else {
-      textToSpeechLabel.setText("OFF");
-    }
-  }
-
   /** label speaks out when mouser hovers on */
   @FXML
   private void onHoverCreators() {
@@ -171,7 +162,7 @@ public class MainMenuController {
 
   /** label speaks out and images becomes slightly larger when mouser hovers on */
   @FXML
-  private void onHoverTextToSpeech() {
+  private void onHoverTextToSpeech1() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
     volumeImage.setFitHeight(48);
     volumeImage.setFitWidth(48);
@@ -179,7 +170,7 @@ public class MainMenuController {
 
   /** label speaks out when mouser hovers on */
   @FXML
-  private void onHoverTextToSpeechLabel() {
+  private void onHoverTextToSpeechLabel1() {
     textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
   }
 
@@ -244,7 +235,7 @@ public class MainMenuController {
 
   /** image restores when mouse is away */
   @FXML
-  private void onVolumeExit() {
+  private void onVolumeExit1() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
   }
@@ -254,5 +245,17 @@ public class MainMenuController {
   private void onZenExit() {
     zenImage.setFitHeight(61);
     zenImage.setFitWidth(59);
+  }
+
+  /** initialize or disconnect the tts feature */
+  @FXML
+  private void onTextToSpeech1() {
+
+    textToSpeech = !textToSpeech; // inverts boolean
+    if (textToSpeech) { // then sets label accordingly
+      textToSpeechLabel.setText("ON");
+    } else {
+      textToSpeechLabel.setText("OFF");
+    }
   }
 }

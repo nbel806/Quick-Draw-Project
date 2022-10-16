@@ -214,7 +214,7 @@ public class CanvasController {
         new Task<>() {
 
           @Override
-          protected Void call() throws Exception {
+          protected Void call() {
 
             // speaks out what is the current word to be drew
             textToSpeechAlert.speak("Can you draw a " + currentWord);
@@ -240,7 +240,7 @@ public class CanvasController {
         new Task<>() {
 
           @Override
-          protected Void call() throws Exception {
+          protected Void call() {
             // speaks out how much time left
             if (time == 40) {
               textToSpeechAlert.speak("forty seconds left");
@@ -529,24 +529,6 @@ public class CanvasController {
     textToSpeechBackground.backgroundSpeak(String.valueOf(seconds), textToSpeech);
   }
 
-  /** label speaks out when mouse is moved on */
-  @FXML
-  private void onHoverTop10() {
-    textToSpeechBackground.backgroundSpeak("List of Top 10 guesses", textToSpeech);
-  }
-
-  /** label speaks out when mouse is moved on */
-  @FXML
-  private void onHoverCanvas() {
-    textToSpeechBackground.backgroundSpeak("draw here", textToSpeech);
-  }
-
-  /** label speaks out when mouse is moved on */
-  @FXML
-  private void onHoverWord() {
-    textToSpeechBackground.backgroundSpeak(currentWord, textToSpeech);
-  }
-
   /** label speaks out and image becomes slightly larger when mouse is moved on */
   @FXML
   private void onHoverPen() {
@@ -667,12 +649,6 @@ public class CanvasController {
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
-  }
-
-  /** label speaks out when mouse is moved on */
-  @FXML
-  private void onHoverPredictions() {
-    textToSpeechBackground.backgroundSpeak("Predictions", textToSpeech);
   }
 
   /**

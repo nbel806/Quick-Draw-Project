@@ -38,8 +38,6 @@ public class GameOverController {
 
   private CanvasController canvasController;
 
-  private HiddenWordCanvasController hiddenWordCanvasController;
-
   private Boolean textToSpeech;
 
   private TextToSpeechBackground textToSpeechBackground;
@@ -171,17 +169,18 @@ public class GameOverController {
    */
   public void setHiddenWinLoseLabel(
       boolean winLose, HiddenWordCanvasController ctrl, int overallDif) {
+    BackgroundSound backgroundSound = new BackgroundSound();
     // hidden word mode does not count profile stats
     if (winLose) { // if user won display message and time
       winLoseLabel.setText("YOU WON");
       timeLabel.setText("TIME LEFT: " + timeLeft + " seconds");
       winLoseString = "You won with " + timeLeft + "Seconds left!";
-
+      backgroundSound.play("/sounds/mixkit-audience-light-applause-354.wav");
       Task<Void> backgroundTask =
           new Task<Void>() {
 
             @Override
-            protected Void call() throws Exception {
+            protected Void call() {
 
               textToSpeechAlert = new TextToSpeech();
               textToSpeechAlert.speak("Congratulation, you are an artist");
@@ -197,15 +196,15 @@ public class GameOverController {
       winLoseLabel.setText("YOU LOST");
       timeLabel.setText("TIME LIMIT REACHED");
       winLoseString = "You lost!";
-
+      backgroundSound.play("/sounds/mixkit-audience-light-applause-354.wav");
       Task<Void> backgroundTask =
           new Task<Void>() {
 
             @Override
-            protected Void call() throws Exception {
+            protected Void call() {
 
               textToSpeechAlert = new TextToSpeech();
-              textToSpeechAlert.speak("haha, you are a loser");
+              textToSpeechAlert.speak("you lost");
 
               return null;
             }
@@ -214,7 +213,6 @@ public class GameOverController {
       Thread backgroundThread = new Thread(backgroundTask);
       backgroundThread.start();
     }
-    hiddenWordCanvasController = ctrl;
   }
 
   /**
@@ -271,10 +269,11 @@ public class GameOverController {
    * switch to the main menu
    *
    * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user cannot be found locally.
    */
   @FXML
-  private void onClickMenu() throws IOException, CsvException {
+  private void onClickMenu() throws IOException {
+    BackgroundSound backgroundSound = new BackgroundSound();
+    backgroundSound.play("/sounds/mixkit-unlock-game-notification-253_1.wav");
     Stage stage = (Stage) menuButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml")); // reset to a new word_page
@@ -301,6 +300,8 @@ public class GameOverController {
    */
   @FXML
   private void onPlayAgain() throws IOException, URISyntaxException, CsvException {
+    BackgroundSound backgroundSound = new BackgroundSound();
+    backgroundSound.play("/sounds/mixkit-unlock-game-notification-253_1.wav");
     Stage stage = (Stage) playAgainButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/word_page.fxml")); // reset to a new word_page
