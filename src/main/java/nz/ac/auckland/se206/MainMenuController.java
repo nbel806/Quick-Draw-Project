@@ -36,12 +36,10 @@ public class MainMenuController {
   private String currentProfilePic = null;
   private int words = 1;
 
-
-  
   /**
    * pass the text to speech functionality
-   * 
-   * @param textToSpeechBackground generates tts functionality from tts class
+   *
+   * @param tts generates tts functionality from tts class
    * @param textToSpeech activates tts functionality if is true
    */
   public void give(TextToSpeechBackground tts, Boolean textToSpeech)
@@ -56,7 +54,7 @@ public class MainMenuController {
 
   /**
    * create the current username and select a profile picture
-   * 
+   *
    * @param username current username
    * @param profilePic profile picture selected
    */
@@ -77,7 +75,7 @@ public class MainMenuController {
 
   /**
    * switch to zen mode word page
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user info cannot be found locally
    */
@@ -98,7 +96,7 @@ public class MainMenuController {
 
   /**
    * switch to normal and hidden word page
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws URISyntaxException If URI does not exist
    * @throws CsvException If the user info cannot be found locally
@@ -120,7 +118,7 @@ public class MainMenuController {
 
   /**
    * switch to profile page
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user info cannot be found locally
    */
@@ -134,7 +132,7 @@ public class MainMenuController {
 
   /**
    * switch to login page
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvValidationException If the file is invalid
    */
@@ -155,9 +153,7 @@ public class MainMenuController {
     stage.show();
   }
 
-  /**
-   * initialize or disconnect the tts feature
-   */
+  /** initialize or disconnect the tts feature */
   @FXML
   private void onTextToSpeech() {
     textToSpeech = !textToSpeech; // inverts boolean
@@ -168,26 +164,20 @@ public class MainMenuController {
     }
   }
 
-  /**
-   * label speaks out when mouser hovers on
-   */
+  /** label speaks out when mouser hovers on */
   @FXML
   private void onHoverCreators() {
     textToSpeechBackground.backgroundSpeak(
         "Bought to you by speedy sketcher and Team 15", textToSpeech);
   }
 
-  /**
-   * label speaks out when mouser hovers on
-   */
+  /** label speaks out when mouser hovers on */
   @FXML
   private void onHoverLogo() {
     textToSpeechBackground.backgroundSpeak("Speedy Sketchers logo", textToSpeech);
   }
 
-  /**
-   * label speaks out and images becomes slightly larger when mouser hovers on
-   */
+  /** label speaks out and images becomes slightly larger when mouser hovers on */
   @FXML
   private void onHoverTextToSpeech() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
@@ -195,17 +185,13 @@ public class MainMenuController {
     volumeImage.setFitWidth(48);
   }
 
-  /**
-   * label speaks out when mouser hovers on
-   */
+  /** label speaks out when mouser hovers on */
   @FXML
   private void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
   }
 
-  /**
-   * label speaks out and button style changes when mouse hovers on
-   */
+  /** label speaks out and button style changes when mouse hovers on */
   @FXML
   private void onHoverPlay() {
     textToSpeechBackground.backgroundSpeak("Start", textToSpeech);
@@ -213,9 +199,7 @@ public class MainMenuController {
         "-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
-  /**
-   * label speaks out and image gets slightly when mouse hovers on 
-   */
+  /** label speaks out and image gets slightly when mouse hovers on */
   @FXML
   private void onHoverProfile() {
     textToSpeechBackground.backgroundSpeak("Profile", textToSpeech);
@@ -223,9 +207,7 @@ public class MainMenuController {
     userImage.setFitWidth(63);
   }
 
-  /**
-   * label speaks out and image gets slightly when mouse hovers on 
-   */
+  /** label speaks out and image gets slightly when mouse hovers on */
   @FXML
   private void onHoverLogin() {
     textToSpeechBackground.backgroundSpeak("Login", textToSpeech);
@@ -233,17 +215,13 @@ public class MainMenuController {
     loginImage.setFitWidth(62);
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverTitle() {
     textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
   }
 
-  /**
-   * label speaks out and image gets slightly when mouse hovers on 
-   */
+  /** label speaks out and image gets slightly when mouse hovers on */
   @FXML
   private void onHoverZen() {
     textToSpeechBackground.backgroundSpeak("Zen Mode", textToSpeech);
@@ -251,51 +229,42 @@ public class MainMenuController {
     zenImage.setFitWidth(62);
   }
 
-  /**
-   * button style stores when mouse is away
-   */
+  /** button style stores when mouse is away */
   @FXML
   private void onPlayExit() {
     playButton.setStyle(
         "-fx-background-radius: 25px; -fx-border-radius: 25px; -fx-background-color: transparent; -fx-border-color: white;");
   }
 
-  /**
-   * image restores when mouse is away
-   */
+  /** image restores when mouse is away */
   @FXML
   private void onProfileExit() {
     userImage.setFitHeight(66);
     userImage.setFitWidth(60);
   }
 
-  /**
-   * image restores when mouse is away
-   */
+  /** image restores when mouse is away */
   @FXML
   private void onLoginExit() {
     loginImage.setFitHeight(70);
     loginImage.setFitWidth(60);
   }
 
-  /**
-   * image restores when mouse is away
-   */
+  /** image restores when mouse is away */
   @FXML
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
   }
 
-  /**
-   * image restores when mouse is away
-   */
+  /** image restores when mouse is away */
   @FXML
   private void onZenExit() {
     zenImage.setFitHeight(61);
     zenImage.setFitWidth(59);
   }
 
+  @FXML
   private void onClickWordsUp() throws IOException, CsvException {
     if (words != 4) {
       words++;
@@ -305,7 +274,7 @@ public class MainMenuController {
 
   /**
    * set word category hard
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user info cannot be found locally
    */
@@ -319,7 +288,7 @@ public class MainMenuController {
 
   /**
    * update word category for the current user
-   * 
+   *
    * @param words current word category
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user info cannot be found locally
