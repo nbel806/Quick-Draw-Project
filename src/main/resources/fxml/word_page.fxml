@@ -103,7 +103,7 @@
                   <children>
                     <HBox prefHeight="26.0" prefWidth="62.0">
                       <children>
-                        <Button fx:id="minusWords" mnemonicParsing="false"
+                        <Button fx:id="minusWordsButton" mnemonicParsing="false"
                           onAction="#onClickWordsDown" prefHeight="27.0" prefWidth="27.0"
                           styleClass="down-button" stylesheets="@../css/WordPageButtonStyler.css">
                           <effect>
@@ -118,7 +118,8 @@
                             </ImageView>
                           </graphic>
                         </Button>
-                        <Button fx:id="plusWords" mnemonicParsing="false" onAction="#onClickWordsUp"
+                        <Button fx:id="plusWordsButton" mnemonicParsing="false"
+                          onAction="#onClickWordsUp"
                           prefHeight="27.0" prefWidth="27.0" styleClass="up-button"
                           stylesheets="@../css/WordPageButtonStyler.css">
                           <effect>
@@ -137,7 +138,7 @@
                     </HBox>
                     <HBox prefHeight="26.0" prefWidth="62.0">
                       <children>
-                        <Button fx:id="minusTime" mnemonicParsing="false"
+                        <Button fx:id="minusTimeButton" mnemonicParsing="false"
                           onAction="#onClickTimeDown" prefHeight="27.0" prefWidth="27.0"
                           styleClass="down-button" stylesheets="@../css/WordPageButtonStyler.css">
                           <effect>
@@ -152,7 +153,8 @@
                             </ImageView>
                           </graphic>
                         </Button>
-                        <Button fx:id="plusTime" mnemonicParsing="false" onAction="#onClickTimeUp"
+                        <Button fx:id="plusTimeButton" mnemonicParsing="false"
+                          onAction="#onClickTimeUp"
                           prefHeight="27.0" prefWidth="27.0" styleClass="up-button"
                           stylesheets="@../css/WordPageButtonStyler.css">
                           <effect>
@@ -171,7 +173,7 @@
                     </HBox>
                     <HBox prefHeight="26.0" prefWidth="62.0">
                       <children>
-                        <Button fx:id="minusAccuracy" mnemonicParsing="false"
+                        <Button fx:id="minusAccuracyButton" mnemonicParsing="false"
                           onAction="#onClickAccuracyDown" prefHeight="27.0" prefWidth="27.0"
                           styleClass="down-button" stylesheets="@../css/WordPageButtonStyler.css">
                           <effect>
@@ -186,7 +188,7 @@
                             </ImageView>
                           </graphic>
                         </Button>
-                        <Button fx:id="plusAccuracy" mnemonicParsing="false"
+                        <Button fx:id="plusAccuracyButton" mnemonicParsing="false"
                           onAction="#onClickAccuracyUp" prefHeight="27.0" prefWidth="27.0"
                           styleClass="up-button" stylesheets="@../css/WordPageButtonStyler.css">
                           <effect>
@@ -205,7 +207,7 @@
                     </HBox>
                     <HBox prefHeight="26.0" prefWidth="62.0">
                       <children>
-                        <Button fx:id="minusConfidence" mnemonicParsing="false"
+                        <Button fx:id="minusConfidenceButton" mnemonicParsing="false"
                           onAction="#onClickConfidenceDown" prefHeight="27.0" prefWidth="27.0"
                           styleClass="down-button" stylesheets="@../css/WordPageButtonStyler.css">
                           <effect>
@@ -220,7 +222,7 @@
                             </ImageView>
                           </graphic>
                         </Button>
-                        <Button fx:id="plusConfidence" mnemonicParsing="false"
+                        <Button fx:id="plusConfidenceButton" mnemonicParsing="false"
                           onAction="#onClickConfidenceUp" prefHeight="27.0" prefWidth="27.0"
                           styleClass="up-button" stylesheets="@../css/WordPageButtonStyler.css">
                           <effect>

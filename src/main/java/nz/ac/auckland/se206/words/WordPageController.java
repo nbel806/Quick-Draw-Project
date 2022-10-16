@@ -20,14 +20,15 @@ import nz.ac.auckland.se206.SpreadSheetReaderWriter;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class WordPageController {
-  @FXML private Button plusWords;
-  @FXML private Button minusWords;
-  @FXML private Button minusConfidence;
-  @FXML private Button minusAccuracy;
-  @FXML private Button minusTime;
-  @FXML private Button plusTime;
-  @FXML private Button plusConfidence;
-  @FXML private Button plusAccuracy;
+
+  @FXML private Button plusWordsButton;
+  @FXML private Button minusWordsButton;
+  @FXML private Button minusConfidenceButton;
+  @FXML private Button minusAccuracyButton;
+  @FXML private Button minusTimeButton;
+  @FXML private Button plusTimeButton;
+  @FXML private Button plusConfidenceButton;
+  @FXML private Button plusAccuracyButton;
 
   @FXML private Text confidenceLabel;
   @FXML private Text wordsLabel;
@@ -41,13 +42,10 @@ public class WordPageController {
 
   @FXML private Label textToSpeechLabel;
   @FXML private Label userLabel;
-  @FXML private Label wordLabel;
   @FXML private Label modeLabel;
-
   @FXML private ImageView volumeImage;
   @FXML private ImageView newImage;
   @FXML private ImageView userImage;
-  @FXML private ImageView hiddenWordModeImage;
 
   private String currentWord;
   private Boolean isHiddenWordMode = false;
@@ -309,28 +307,28 @@ public class WordPageController {
 
     if (words == 1) { // sets text and opacity for buttons
       wordsLabel.setText("E"); // text for readability
-      minusWords.setOpacity(0.2);
-      plusWords.setOpacity(1);
-      plusWords.setDisable(false);
-      minusWords.setDisable(true);
+      minusWordsButton.setOpacity(0.2);
+      plusWordsButton.setOpacity(1);
+      plusWordsButton.setDisable(false);
+      minusWordsButton.setDisable(true);
     } else if (words == 2) {
       wordsLabel.setText("E,M"); // text for readability
-      minusWords.setOpacity(1);
-      plusWords.setOpacity(1);
-      plusWords.setDisable(false);
-      minusWords.setDisable(false);
+      minusWordsButton.setOpacity(1);
+      plusWordsButton.setOpacity(1);
+      plusWordsButton.setDisable(false);
+      minusWordsButton.setDisable(false);
     } else if (words == 3) {
       wordsLabel.setText("E,M,H"); // text for readability
-      plusWords.setOpacity(1);
-      minusWords.setOpacity(1);
-      plusWords.setDisable(false);
-      minusWords.setDisable(false);
+      plusWordsButton.setOpacity(1);
+      minusWordsButton.setOpacity(1);
+      plusWordsButton.setDisable(false);
+      minusWordsButton.setDisable(false);
     } else if (words == 4) {
       wordsLabel.setText("H"); // text for readability
-      plusWords.setOpacity(0.2);
-      minusWords.setOpacity(1);
-      plusWords.setDisable(true);
-      minusWords.setDisable(false);
+      plusWordsButton.setOpacity(0.2);
+      minusWordsButton.setOpacity(1);
+      plusWordsButton.setDisable(true);
+      minusWordsButton.setDisable(false);
     } else {
       wordsLabel.setText("ERROR"); // error state shouldnt be reached
     }
@@ -342,40 +340,40 @@ public class WordPageController {
   /** sets the opacity of the + - labeles */
   private void setPlusMinusLabels() {
     if (time == 60) { // disables plus by greying out
-      plusTime.setOpacity(0.2);
-      plusTime.setDisable(true);
+      plusTimeButton.setOpacity(0.2);
+      plusTimeButton.setDisable(true);
     }
     if (time == 15) { // disables minus by greying out button
-      minusTime.setOpacity(0.2);
-      minusTime.setDisable(true);
+      minusTimeButton.setOpacity(0.2);
+      minusTimeButton.setDisable(true);
     }
     if (confidence == 50) { // disables plus by greying out
-      plusConfidence.setOpacity(0.2);
-      plusConfidence.setDisable(true);
-      minusConfidence.setDisable(false);
+      plusConfidenceButton.setOpacity(0.2);
+      plusConfidenceButton.setDisable(true);
+      minusConfidenceButton.setDisable(false);
     }
     if (confidence == 1) { // disables minus by greying outbutton
-      minusConfidence.setOpacity(0.2);
-      minusConfidence.setDisable(true);
-      plusConfidence.setDisable(false);
+      minusConfidenceButton.setOpacity(0.2);
+      minusConfidenceButton.setDisable(true);
+      plusConfidenceButton.setDisable(false);
     }
     if (accuracy == 1) { // disables minus by greying out
-      minusAccuracy.setOpacity(0.2);
-      minusAccuracy.setDisable(true);
-      plusAccuracy.setOpacity(1); // enables plus
-      plusAccuracy.setDisable(false);
+      minusAccuracyButton.setOpacity(0.2);
+      minusAccuracyButton.setDisable(true);
+      plusAccuracyButton.setOpacity(1); // enables plus
+      plusAccuracyButton.setDisable(false);
     }
     if (accuracy == 3) { // disables plus by greying out
-      plusAccuracy.setOpacity(0.2);
-      plusAccuracy.setDisable(true);
-      minusAccuracy.setOpacity(1); // enables minus
-      minusAccuracy.setDisable(false);
+      plusAccuracyButton.setOpacity(0.2);
+      plusAccuracyButton.setDisable(true);
+      minusAccuracyButton.setOpacity(1); // enables minus
+      minusAccuracyButton.setDisable(false);
     }
     if (accuracy == 2) { // enables both
-      minusAccuracy.setOpacity(1);
-      minusAccuracy.setDisable(false);
-      plusAccuracy.setOpacity(1);
-      plusAccuracy.setDisable(false);
+      minusAccuracyButton.setOpacity(1);
+      minusAccuracyButton.setDisable(false);
+      plusAccuracyButton.setOpacity(1);
+      plusAccuracyButton.setDisable(false);
     }
   }
 
@@ -425,14 +423,14 @@ public class WordPageController {
   private void onClickTimeUp() throws IOException, CsvException {
     if (time == 15) { // increase time dif
       time = 30;
-      minusTime.setOpacity(1);
-      minusTime.setDisable(false);
+      minusTimeButton.setOpacity(1);
+      minusTimeButton.setDisable(false);
     } else if (time == 30) {
       time = 45;
-      minusTime.setDisable(false);
+      minusTimeButton.setDisable(false);
     } else if (time == 45) {
       time = 60; // if 60 wont increase as limit
-      minusTime.setDisable(false);
+      minusTimeButton.setDisable(false);
     }
     setDifficulty(accuracy, confidence, words, time);
     updateUserTime(time); // writes to csv
@@ -463,14 +461,14 @@ public class WordPageController {
   private void onClickConfidenceUp() throws IOException, CsvException {
     if (confidence == 25) {
       confidence = 50;
-      minusConfidence.setDisable(false);
+      minusConfidenceButton.setDisable(false);
     } else if (confidence == 10) {
       confidence = 25;
-      minusConfidence.setDisable(false);
+      minusConfidenceButton.setDisable(false);
     } else if (confidence == 1) {
       confidence = 10;
-      minusConfidence.setOpacity(1); // cant decrease if 1
-      minusConfidence.setDisable(false);
+      minusConfidenceButton.setOpacity(1); // cant decrease if 1
+      minusConfidenceButton.setDisable(false);
     }
     setDifficulty(accuracy, confidence, words, time); // sets opacity for buttons
     updateUserConfidence(confidence); // writes to csv
@@ -486,14 +484,14 @@ public class WordPageController {
   private void onClickTimeDown() throws IOException, CsvException {
     if (time == 60) { // decreases time setting
       time = 45;
-      plusTime.setOpacity(1);
-      plusTime.setDisable(false);
+      plusTimeButton.setOpacity(1);
+      plusTimeButton.setDisable(false);
     } else if (time == 45) {
       time = 30;
-      plusTime.setDisable(false);
+      plusTimeButton.setDisable(false);
     } else if (time == 30) {
       time = 15;
-      plusTime.setDisable(false);
+      plusTimeButton.setDisable(false);
     } // 15 cant be decreased
     setDifficulty(accuracy, confidence, words, time); // updates opacity
     updateUserTime(time); // writes to csv
@@ -524,14 +522,14 @@ public class WordPageController {
   private void onClickConfidenceDown() throws IOException, CsvException {
     if (confidence == 50) { // decrements confidence
       confidence = 25;
-      plusConfidence.setOpacity(1);
-      plusConfidence.setDisable(false);
+      plusConfidenceButton.setOpacity(1);
+      plusConfidenceButton.setDisable(false);
     } else if (confidence == 25) {
       confidence = 10;
-      plusConfidence.setDisable(false);
+      plusConfidenceButton.setDisable(false);
     } else if (confidence == 10) {
       confidence = 1;
-      plusConfidence.setDisable(false);
+      plusConfidenceButton.setDisable(false);
     }
     setDifficulty(accuracy, confidence, words, time); // changes opacity
     updateUserConfidence(confidence); // writes to csv

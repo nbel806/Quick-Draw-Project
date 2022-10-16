@@ -230,10 +230,9 @@ public class ZenWordPageController {
    * switch to main menu
    *
    * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
    */
   @FXML
-  private void onBack() throws IOException, CsvException {
+  private void onBack() throws IOException {
     Stage stage = (Stage) backButton.getScene().getWindow();
     LoadPage loadPage = new LoadPage();
     loadPage.extractedMainMenu(
