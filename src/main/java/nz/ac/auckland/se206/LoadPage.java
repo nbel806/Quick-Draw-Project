@@ -9,17 +9,17 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class LoadPage {
 
-	/**
-	 * load the user info and text to speech functionalities into main menu
-	 * 
-	 * @param textToSpeechBackground generates tts functionality from tts class
-	 * @param textToSpeech activates tts functionality if is true
-	 * @param currentUsername current username
-	 * @param currentProfilePic current user picture
-	 * @param stage the stage we need to jump in
-	 * @throws IOException If the model cannot be found on the file system.
-	 * @throws CsvException If the user cannot be found locally.
-	 */
+  /**
+   * load the user info and text to speech functionalities into main menu
+   *
+   * @param textToSpeechBackground generates tts functionality from tts class
+   * @param textToSpeech activates tts functionality if is true
+   * @param currentUsername current username
+   * @param currentProfilePic current user picture
+   * @param stage the stage we need to jump in
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If the user cannot be found locally.
+   */
   public void extractedMainMenu(
       TextToSpeechBackground textToSpeechBackground,
       Boolean textToSpeech,
@@ -41,8 +41,8 @@ public class LoadPage {
 
   /**
    * load the user info and text to speech functionalities into profile page
-   * 
-   *@param textToSpeechBackground generates tts functionality from tts class
+   *
+   * @param textToSpeechBackground generates tts functionality from tts class
    * @param textToSpeech activates tts functionality if is true
    * @param currentUsername current username
    * @param currentProfilePic current user picture
@@ -72,7 +72,7 @@ public class LoadPage {
 
   /**
    * load the user info and text to speech functionalities into login page
-   * 
+   *
    * @param textToSpeechBackground generates tts functionality from tts class
    * @param textToSpeech activates tts functionality if is true
    * @param currentUsername current username

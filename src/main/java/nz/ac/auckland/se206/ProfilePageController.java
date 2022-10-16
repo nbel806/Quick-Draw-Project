@@ -70,25 +70,19 @@ public class ProfilePageController {
 
   public void initialize() {}
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   public void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
   }
 
-  /**
-   * label speaks out and image gets larger when mouse hovers on
-   */
+  /** label speaks out and image gets larger when mouse hovers on */
   public void onHoverTextToSpeech() {
     textToSpeechBackground.backgroundSpeak("On", textToSpeech);
     volumeImage.setFitHeight(48);
     volumeImage.setFitWidth(48);
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverNumBadges() {
     textToSpeechBackground.backgroundSpeak("You have " + numberBadges + "badges", textToSpeech);
@@ -96,7 +90,7 @@ public class ProfilePageController {
 
   /**
    * pass the text to speech functionality
-   * 
+   *
    * @param textToSpeechBackground generates tts functionality from tts class
    * @param textToSpeech activates tts functionality if is true
    */
@@ -110,7 +104,7 @@ public class ProfilePageController {
 
   /**
    * create the current username and the corresponding info and select a profile picture
-   * 
+   *
    * @param username current username
    * @param profilePic profile picture selected
    */
@@ -196,7 +190,7 @@ public class ProfilePageController {
 
   /**
    * switch to previous page
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user cannot be found on the file system.
    */
@@ -208,9 +202,7 @@ public class ProfilePageController {
         textToSpeechBackground, textToSpeech, currentUsername, currentProfilePic, stage);
   }
 
-  /**
-   * initialize or disconnect the tts feature
-   */
+  /** initialize or disconnect the tts feature */
   @FXML
   private void onTextToSpeech() {
     textToSpeech = !textToSpeech; // inverts boolean of text to speech
@@ -221,9 +213,7 @@ public class ProfilePageController {
     }
   }
 
-  /**
-   * Method to display selected word in list of words
-   */
+  /** Method to display selected word in list of words */
   @FXML
   private void onSelectWord() {
     String word = historyListView.getSelectionModel().getSelectedItem();
@@ -235,9 +225,7 @@ public class ProfilePageController {
     }
   }
 
-  /**
-   * set all badges
-   */
+  /** set all badges */
   private void setAllBadgesClear() {
     // streak badges set to transparent
     fiveStreak.setOpacity(0.2);
@@ -266,7 +254,7 @@ public class ProfilePageController {
 
   /**
    * initialize all the badges
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user cannot be found on the file system.
    */
@@ -280,7 +268,7 @@ public class ProfilePageController {
 
   /**
    * initialize extra badges
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user cannot be found on the file system.
    */
@@ -302,7 +290,7 @@ public class ProfilePageController {
 
   /**
    * initialize difficulties and win/loss badges
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user cannot be found on the file system.
    */
@@ -334,7 +322,7 @@ public class ProfilePageController {
 
   /**
    * initialize win streak badges
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user cannot be found on the file system.
    */
@@ -364,10 +352,9 @@ public class ProfilePageController {
     }
   }
 
-  
   /**
    * initialize the badges relate to the number of game played
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user cannot be found on the file system.
    */
@@ -401,7 +388,7 @@ public class ProfilePageController {
 
   /**
    * initialize the badges relate to remaining time
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user cannot be found on the file system.
    */
@@ -423,9 +410,7 @@ public class ProfilePageController {
     }
   }
 
-  /**
-   * label speaks out and button style changes when mouse hovers on
-   */
+  /** label speaks out and button style changes when mouse hovers on */
   @FXML
   private void onHoverBack() {
     textToSpeechBackground.backgroundSpeak("Back Button", textToSpeech);
@@ -433,75 +418,57 @@ public class ProfilePageController {
         "-fx-background-radius: 100px; -fx-text-fill: white; -fx-border-radius: 100px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
-  /**
-   * button style changes when mouse hovers on
-   */
+  /** button style changes when mouse hovers on */
   @FXML
   private void onBackExit() {
     backButton.setStyle(
         "-fx-background-radius: 100px; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
   }
 
-  /**
-   * image restores its size when mouse is away
-   */
+  /** image restores its size when mouse is away */
   @FXML
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverUser() {
     textToSpeechBackground.backgroundSpeak(currentUsername, textToSpeech);
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverWinRate() {
     textToSpeechBackground.backgroundSpeak(winRate + "win rate", textToSpeech);
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverHistory() {
     textToSpeechBackground.backgroundSpeak("History of words played", textToSpeech);
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverTitle() {
     textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverGamesPlayed() {
     textToSpeechBackground.backgroundSpeak("Played" + totalGames + "Games", textToSpeech);
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverGamesWon() {
     textToSpeechBackground.backgroundSpeak("you have won" + usersWins, textToSpeech);
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverFastest() {
     textToSpeechBackground.backgroundSpeak(

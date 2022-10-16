@@ -12,7 +12,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * update the words for the current user
-   * 
+   *
    * @param word current word to be drew
    * @param currentUser current use name
    * @throws IOException If the model cannot be found on the file system.
@@ -33,7 +33,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * search the position of the current user
-   * 
+   *
    * @param currentUsername current user name
    * @return return an index
    * @throws IOException If the model cannot be found on the file system.
@@ -54,7 +54,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * update the profile stats after a game ends
-   * 
+   *
    * @param win win or lose
    * @param currentUsername current user name
    * @param overallDif difficulty combination
@@ -102,7 +102,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * update time spent
-   * 
+   *
    * @param timeTaken time spent on drawing
    * @param currentUsername current use name
    * @throws IOException If the model cannot be found on the file system.
@@ -128,7 +128,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * gets the number of wins for the current user
-   * 
+   *
    * @param username current user name
    * @return return the number of wins
    * @throws IOException If the model cannot be found on the file system.
@@ -143,7 +143,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * gets the number of wins for the current user
-   * 
+   *
    * @param username current user name
    * @return return the number of losses
    * @throws IOException If the model cannot be found on the file system.
@@ -158,7 +158,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * get the fastest time spent
-   * 
+   *
    * @param username current user name
    * @return return the fastest time spent
    * @throws IOException If the model cannot be found on the file system.
@@ -173,7 +173,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * gets all the history words
-   * 
+   *
    * @param username current user name
    * @return return the list containing all history words encountered
    * @throws IOException If the model cannot be found on the file system.
@@ -188,7 +188,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * gets the streak for the current user
-   * 
+   *
    * @param username current user name
    * @return return the streak
    * @throws IOException If the model cannot be found on the file system.
@@ -203,7 +203,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * update time spent for the current user
-   * 
+   *
    * @param time time spent
    * @param currentUsername current user
    * @throws IOException If the model cannot be found on the file system.
@@ -225,7 +225,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * update current word category
-   * 
+   *
    * @param words word category
    * @param currentUsername current user name
    * @throws IOException If the model cannot be found on the file system.
@@ -247,7 +247,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * gets the confidence percentage for the current user
-   * 
+   *
    * @param confidence confidence percentage
    * @param currentUsername current user name
    * @throws IOException If the model cannot be found on the file system.
@@ -270,8 +270,8 @@ public class SpreadSheetReaderWriter {
   }
 
   /**
-   * update if the user wants the result is within top 1/2/3 prediction 
-   * 
+   * update if the user wants the result is within top 1/2/3 prediction
+   *
    * @param accuracy top 1/2/3 prediction
    * @param currentUsername current user name
    * @throws IOException If the model cannot be found on the file system.
@@ -295,7 +295,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * get if the user wants the result is within top 1/2/3 prediction
-   * 
+   *
    * @param currentUsername current user name
    * @return accuracy top 1/2/3 prediction
    * @throws IOException If the model cannot be found on the file system.
@@ -310,7 +310,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * get the time limit for the current user
-   * 
+   *
    * @param currentUsername current user name
    * @return time limit
    * @throws IOException If the model cannot be found on the file system.
@@ -325,7 +325,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * gets the word category for the current use
-   * 
+   *
    * @param currentUsername current user name
    * @return word category
    * @throws IOException If the model cannot be found on the file system.
@@ -340,7 +340,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * gets the confidence percentage for the current user
-   * 
+   *
    * @param currentUsername current user name
    * @return confidence percentage
    * @throws IOException If the model cannot be found on the file system.
@@ -355,7 +355,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * clear user history words
-   * 
+   *
    * @param currentUsername current user name
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If file does not exist
@@ -373,7 +373,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * gets the number of wins for the current difficulty
-   * 
+   *
    * @param currentUsername current user name
    * @return the number of wins for the current difficulty
    * @throws IOException If the model cannot be found on the file system.
@@ -394,7 +394,7 @@ public class SpreadSheetReaderWriter {
 
   /**
    * gets the last lost word for the current user
-   * 
+   *
    * @param currentUsername current user name
    * @return lost words
    * @throws IOException If the model cannot be found on the file system.

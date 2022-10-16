@@ -26,7 +26,7 @@ public class CategorySelector {
 
   /**
    * select a category; E, M, or H
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws URISyntaxException If URI does not exist
    * @throws CsvException If file does not exist
@@ -46,7 +46,7 @@ public class CategorySelector {
 
   /**
    * gets all words from the chosen category
-   * 
+   *
    * @return all words from indicated category
    * @throws IOException If the model cannot be found on the file system.
    * @throws URISyntaxException If URI does not exist
@@ -62,7 +62,7 @@ public class CategorySelector {
 
   /**
    * gets a random word from the chosen category
-   * 
+   *
    * @param difficulty word category; E, M, H
    * @return a random word
    */
@@ -74,7 +74,7 @@ public class CategorySelector {
 
   /**
    * gets a random word from all category with no repeated word (no history word)
-   * 
+   *
    * @param words word to be drew
    * @param history history words
    * @param currentUsername current user name
@@ -111,7 +111,7 @@ public class CategorySelector {
 
   /**
    * get the current category
-   * 
+   *
    * @param difficulty category E, M, H
    * @return category; E, M, H
    */

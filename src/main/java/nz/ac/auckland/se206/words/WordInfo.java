@@ -9,7 +9,7 @@ public class WordInfo {
 
   /**
    * WordInfo constructor
-   * 
+   *
    * @param word word to be drew
    * @param entries amount of different definitions
    */
@@ -20,7 +20,7 @@ public class WordInfo {
 
   /**
    * gets the current word
-   *  
+   *
    * @return word to be drew
    */
   public String getWord() {
@@ -29,7 +29,7 @@ public class WordInfo {
 
   /**
    * gets a list contains different definitions
-   * 
+   *
    * @return a list contains different definitions
    */
   public List<WordEntry> getWordEntries() {
@@ -38,7 +38,7 @@ public class WordInfo {
 
   /**
    * gets the amount of different definitions
-   * 
+   *
    * @return amount of different definitions
    */
   public int getNumberOfEntries() {

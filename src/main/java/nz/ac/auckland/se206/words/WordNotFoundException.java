@@ -8,7 +8,7 @@ public class WordNotFoundException extends Exception {
 
   /**
    * Exception constructor
-   * 
+   *
    * @param word word to be drew
    * @param message alert message 1
    * @param subMessage alert message 2
@@ -21,7 +21,7 @@ public class WordNotFoundException extends Exception {
 
   /**
    * gets the word to be drew
-   * 
+   *
    * @return word to be drew
    */
   public String getWord() {
@@ -30,7 +30,7 @@ public class WordNotFoundException extends Exception {
 
   /**
    * get the second alert message
-   * 
+   *
    * @return alert message 2
    */
   public String getSubMessage() {

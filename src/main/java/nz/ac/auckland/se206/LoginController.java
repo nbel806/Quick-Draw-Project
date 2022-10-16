@@ -88,7 +88,7 @@ public class LoginController {
 
   /**
    * create the current username and select a profile picture
-   * 
+   *
    * @param username current username
    * @param profilePic profile picture selected
    */
@@ -118,7 +118,7 @@ public class LoginController {
 
   /**
    * pass the text to speech functionality
-   * 
+   *
    * @param textToSpeechBackground generates tts functionality from tts class
    * @param textToSpeech activates tts functionality if is true
    */
@@ -132,7 +132,7 @@ public class LoginController {
 
   /**
    * search and display usernames and picture
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvValidationException If file name does not exist
    */
@@ -175,9 +175,7 @@ public class LoginController {
     stage.show();
   }
 
-  /**
-   * Method to display selected word in list ofusers
-   */
+  /** Method to display selected word in list ofusers */
   @FXML
   private void onSelectWord() {
     String word = userListView.getSelectionModel().getSelectedItem();
@@ -197,7 +195,7 @@ public class LoginController {
 
   /**
    * show the notifications to the user that whether logged in successfully
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvValidationException If file name does not exist
    */
@@ -211,7 +209,7 @@ public class LoginController {
       outputLabel.setOpacity(0.5);
     } else {
       if (!username.equals(currentUsername)) {
-    	// logged in successfully
+        // logged in successfully
         outputLabel.setText("Login Success");
         outputLabel.setStyle("-fx-text-fill: green;");
         outputLabel.setOpacity(0.5);
@@ -222,7 +220,7 @@ public class LoginController {
         currentProfilePic = profilePicData.get(currentIndex);
         this.setUsername(username, currentProfilePic);
       } else {
-    	// user already logged in
+        // user already logged in
         outputLabel.setText("Already logged in");
         outputLabel.setStyle("-fx-text-fill: red;");
         outputLabel.setOpacity(0.5);
@@ -232,7 +230,7 @@ public class LoginController {
 
   /**
    * show the notifications to the user that whether logged out successfully
-   * 
+   *
    * @throws CsvValidationException If file name does not exist
    * @throws IOException If the model cannot be found on the file system.
    */
@@ -269,9 +267,7 @@ public class LoginController {
         textToSpeechBackground, textToSpeech, currentUsername, currentProfilePic, stage);
   }
 
-  /**
-   * initialize or disconnect the tts feature
-   */
+  /** initialize or disconnect the tts feature */
   @FXML
   private void onTextToSpeech() {
     textToSpeech = !textToSpeech; // inverts boolean of text to speech
@@ -282,17 +278,13 @@ public class LoginController {
     }
   }
 
-  /**
-   * label speaks out when mouse is moved on
-   */
+  /** label speaks out when mouse is moved on */
   @FXML
   private void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
   }
 
-  /**
-   * label speaks out and image becomes slightly larger when mouse is moved on
-   */
+  /** label speaks out and image becomes slightly larger when mouse is moved on */
   @FXML
   private void onHoverTextToSpeech() {
     textToSpeechBackground.backgroundSpeak("On", textToSpeech);
@@ -300,9 +292,7 @@ public class LoginController {
     volumeImage.setFitWidth(48);
   }
 
-  /**
-   * label speaks out and button style changes when mouse hovers on
-   */
+  /** label speaks out and button style changes when mouse hovers on */
   @FXML
   private void onHoverLogin() {
     textToSpeechBackground.backgroundSpeak("Login", textToSpeech);
@@ -310,9 +300,7 @@ public class LoginController {
         "-fx-background-radius: 10;  -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
   }
 
-  /**
-   * label speaks out and button style changes when mouse hovers on
-   */
+  /** label speaks out and button style changes when mouse hovers on */
   @FXML
   private void onHoverNewUser() {
     textToSpeechBackground.backgroundSpeak("Create", textToSpeech);
@@ -320,9 +308,7 @@ public class LoginController {
         "-fx-background-radius: 10;  -fx-background-color: #99DAF4; -fx-text-fill: white; -fx-border-color: #99DAF4; -fx-border-radius: 10; -fx-border-width: 3;");
   }
 
-  /**
-   * label speaks out and button style changes when mouse hovers on
-   */
+  /** label speaks out and button style changes when mouse hovers on */
   @FXML
   private void onHoverLogout() {
     textToSpeechBackground.backgroundSpeak("Logout", textToSpeech);
@@ -330,9 +316,7 @@ public class LoginController {
         "-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
   }
 
-  /**
-   * label speaks out and button style changes when mouse hovers on
-   */
+  /** label speaks out and button style changes when mouse hovers on */
   @FXML
   private void onHoverBack() {
     textToSpeechBackground.backgroundSpeak("Back", textToSpeech);
@@ -340,54 +324,42 @@ public class LoginController {
         "-fx-background-radius: 100px;  -fx-text-fill: white; -fx-border-radius: 100px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
-  /**
-   * button style changes when mouse is away
-   */
+  /** button style changes when mouse is away */
   @FXML
   private void onLoginExit() {
     loginButton.setStyle(
         "-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
   }
 
-  /**
-   * button style changes when mouse is away
-   */
+  /** button style changes when mouse is away */
   @FXML
   private void onNewUserExit() {
     newuserButton.setStyle(
         "-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3");
   }
 
-  /**
-   * button style changes when mouse is away
-   */
+  /** button style changes when mouse is away */
   @FXML
   private void onLogoutExit() {
     logoutButton.setStyle(
         "-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 1;");
   }
 
-  /**
-   * button style changes when mouse is away
-   */
+  /** button style changes when mouse is away */
   @FXML
   private void onBackExit() {
     backButton.setStyle(
         "-fx-background-radius: 100px; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
   }
 
-  /**
-   * image restores its size when mouse is away
-   */
+  /** image restores its size when mouse is away */
   @FXML
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverTitle() {
     textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
