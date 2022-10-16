@@ -17,7 +17,7 @@ public class DictionaryLookup {
 
   /**
    * gets a searched word and its definition
-   * 
+   *
    * @param query word to be search
    * @return current word and its definition
    * @throws IOException If the model cannot be found on the file system.

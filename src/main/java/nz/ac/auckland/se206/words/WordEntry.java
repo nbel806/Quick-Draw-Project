@@ -9,7 +9,7 @@ public class WordEntry {
 
   /**
    * constructor: a new instance of word entry
-   * 
+   *
    * @param partOfSpeech part of speech
    * @param definitions word definition
    */
@@ -20,7 +20,7 @@ public class WordEntry {
 
   /**
    * get the current part of speech
-   * 
+   *
    * @return part of speech
    */
   public String getPartOfSpeech() {
@@ -29,7 +29,7 @@ public class WordEntry {
 
   /**
    * get the current word definition
-   * 
+   *
    * @return word definition
    */
   public List<String> getDefinitions() {
