@@ -215,7 +215,6 @@ public class HiddenWordCanvasController {
     return imageBinary;
   }
 
-
   /**
    * main Timer label is set through
    *
@@ -225,25 +224,26 @@ public class HiddenWordCanvasController {
     timerLabel.setText(String.valueOf(time));
     textToSpeechAlert = new TextToSpeech();
 
-    //make sure the GUI won't freeze
-    Task<Void> backgroundTask = new Task<Void>() {
+    // make sure the GUI won't freeze
+    Task<Void> backgroundTask =
+        new Task<>() {
 
-      @Override
-      protected Void call() throws Exception {
-        //speaks out how much time left
-        if (time == 40) {
-          textToSpeechAlert.speak("forty seconds left");
-        }
-        if (time == 20) {
-          textToSpeechAlert.speak("twenty seconds left");
-        }
-        if (time == 10) {
-          textToSpeechAlert.speak("ten seconds left");
-        }
+          @Override
+          protected Void call() throws Exception {
+            // speaks out how much time left
+            if (time == 40) {
+              textToSpeechAlert.speak("forty seconds left");
+            }
+            if (time == 20) {
+              textToSpeechAlert.speak("twenty seconds left");
+            }
+            if (time == 10) {
+              textToSpeechAlert.speak("ten seconds left");
+            }
 
-        return null;
-      }
-    };
+            return null;
+          }
+        };
 
     Thread backgroundThread = new Thread(backgroundTask);
     backgroundThread.start();
@@ -725,7 +725,7 @@ public class HiddenWordCanvasController {
    * @throws WordNotFoundException If the word is not found in API
    */
   public void setDefinitionList(String wordToDraw)
-      throws IOException, WordNotFoundException, URISyntaxException, CsvException {
+      throws IOException, URISyntaxException, CsvException {
     currentWord = wordToDraw;
     // find definition of the word
     WordInfo wordResult = DictionaryLookup.searchWordInfo(wordToDraw);

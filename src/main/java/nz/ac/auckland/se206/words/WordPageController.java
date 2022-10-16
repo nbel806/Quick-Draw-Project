@@ -23,46 +23,28 @@ public class WordPageController {
 
   public Button plusWords;
   public Button minusWords;
-  @FXML
-  private Button minusConfidence;
-  @FXML
-  private Button minusAccuracy;
-  @FXML
-  private Button minusTime;
-  @FXML
-  private Button plusTime;
-  @FXML
-  private Button plusConfidence;
-  @FXML
-  private Button plusAccuracy;
+  @FXML private Button minusConfidence;
+  @FXML private Button minusAccuracy;
+  @FXML private Button minusTime;
+  @FXML private Button plusTime;
+  @FXML private Button plusConfidence;
+  @FXML private Button plusAccuracy;
 
-  @FXML
-  private Text confidenceLabel;
-  @FXML
-  private Text wordsLabel;
-  @FXML
-  private Text accuracyLabel;
-  @FXML
-  private Text timeLabel;
-  @FXML
-  private Text wordToDraw;
+  @FXML private Text confidenceLabel;
+  @FXML private Text wordsLabel;
+  @FXML private Text accuracyLabel;
+  @FXML private Text timeLabel;
+  @FXML private Text wordToDraw;
 
-  @FXML
-  private Button readyButton;
+  @FXML private Button readyButton;
 
-  @FXML
-  private Label textToSpeechLabel;
-  @FXML
-  private Label userLabel;
+  @FXML private Label textToSpeechLabel;
+  @FXML private Label userLabel;
 
-  @FXML
-  private ImageView volumeImage;
-  @FXML
-  private ImageView newImage;
-  @FXML
-  private ImageView userImage;
-  @FXML
-  private ImageView hiddenWordModeImage;
+  @FXML private ImageView volumeImage;
+  @FXML private ImageView newImage;
+  @FXML private ImageView userImage;
+  @FXML private ImageView hiddenWordModeImage;
 
   private String currentWord;
   private Boolean isHiddenWordMode = false;
@@ -79,8 +61,8 @@ public class WordPageController {
   /**
    * Picks a random word from the easy category using category selector
    *
-   * @throws IOException        If the model cannot be found on the file system.
-   * @throws CsvException       If file does not exist
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
    * @throws URISyntaxException If URI does not exist
    */
   public void setWordToDraw() throws IOException, URISyntaxException, CsvException {
@@ -93,7 +75,7 @@ public class WordPageController {
    * pass the text to speech functionality
    *
    * @param textToSpeechBackground generates tts functionality from tts class
-   * @param textToSpeech           activates tts functionality if is true
+   * @param textToSpeech activates tts functionality if is true
    */
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
     this.textToSpeechBackground = textToSpeechBackground;
@@ -107,7 +89,7 @@ public class WordPageController {
   /**
    * create the current username and select a profile picture
    *
-   * @param username   current username
+   * @param username current username
    * @param profilePic profile picture selected
    */
   public void getUsername(String username, String profilePic)
@@ -138,9 +120,9 @@ public class WordPageController {
   /**
    * get a new hidden word
    *
-   * @throws IOException        If the model cannot be found on the file system.
+   * @throws IOException If the model cannot be found on the file system.
    * @throws URISyntaxException If the file cannot be found locally
-   * @throws CsvException       If the user info cannot be found locally
+   * @throws CsvException If the user info cannot be found locally
    */
   @FXML
   private void onNewWord() throws IOException, URISyntaxException, CsvException {
@@ -152,46 +134,37 @@ public class WordPageController {
   /**
    * switch to hidden mode
    *
-   * @throws IOException        If the model cannot be found on the file system.
+   * @throws IOException If the model cannot be found on the file system.
    * @throws URISyntaxException If the file cannot be found locally
-   * @throws CsvException       If the user info cannot be found locally
+   * @throws CsvException If the user info cannot be found locally
    */
   @FXML
-  private void onHiddenWordMode()
-      throws IOException, URISyntaxException, CsvException {
+  private void onHiddenWordMode() throws IOException, URISyntaxException, CsvException {
     isHiddenWordMode = true;
     setWordToDraw();
     wordToDraw.setText("?");
   }
 
-  /**
-   * image gets larger when mouse hovers on
-   */
+  /** image gets larger when mouse hovers on */
   @FXML
   private void onHoverNew() {
     newImage.setFitHeight(57);
     newImage.setFitWidth(57);
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverTitle() {
     textToSpeechBackground.backgroundSpeak("you have 60 seconds on easy mode", textToSpeech);
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverWord() {
     textToSpeechBackground.backgroundSpeak(currentWord, textToSpeech);
   }
 
-  /**
-   * label speaks out and button style changes when mouse hovers on
-   */
+  /** label speaks out and button style changes when mouse hovers on */
   @FXML
   private void onHoverReady() {
     textToSpeechBackground.backgroundSpeak("Ready", textToSpeech);
@@ -199,9 +172,7 @@ public class WordPageController {
         "-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-background-color: #99F4B3;");
   }
 
-  /**
-   * label speaks out and image gets larger when mouse hovers on
-   */
+  /** label speaks out and image gets larger when mouse hovers on */
   @FXML
   private void onHoverHidden() {
     textToSpeechBackground.backgroundSpeak("Hidden word mode", textToSpeech);
@@ -209,35 +180,27 @@ public class WordPageController {
     hiddenWordModeImage.setFitHeight(66);
   }
 
-  /**
-   * image gets larger when mouse is away
-   */
+  /** image gets larger when mouse is away */
   @FXML
   private void onHiddenExit() {
     hiddenWordModeImage.setFitWidth(53);
     hiddenWordModeImage.setFitHeight(63);
   }
 
-  /**
-   * button style restores when mouse is away
-   */
+  /** button style restores when mouse is away */
   @FXML
   private void onExitReady() {
     readyButton.setStyle(
         "-fx-background-radius: 25px; -fx-border-radius: 25px; -fx-background-color: white;");
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
   }
 
-  /**
-   * initialize or disconnect the tts feature
-   */
+  /** initialize or disconnect the tts feature */
   @FXML
   private void onTextToSpeech() {
     textToSpeech = !textToSpeech; // toggles text to speech
@@ -248,9 +211,7 @@ public class WordPageController {
     }
   }
 
-  /**
-   * label speaks out and image gets larger when mouse hovers on
-   */
+  /** label speaks out and image gets larger when mouse hovers on */
   @FXML
   private void onHoverTextToSpeech() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
@@ -261,7 +222,7 @@ public class WordPageController {
   /**
    * switch to canvas page or hidden word canvas page
    *
-   * @throws IOException           If the model cannot be found on the file system.
+   * @throws IOException If the model cannot be found on the file system.
    * @throws WordNotFoundException word does not exist
    */
   @FXML
@@ -305,27 +266,21 @@ public class WordPageController {
     stage.show();
   }
 
-  /**
-   * image restores its size when mouse is away
-   */
+  /** image restores its size when mouse is away */
   @FXML
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
   }
 
-  /**
-   * image restores its size when mouse is away
-   */
+  /** image restores its size when mouse is away */
   @FXML
   private void onNewExit() {
     newImage.setFitHeight(55);
     newImage.setFitWidth(55);
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverJustDraw() {
     textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
@@ -334,10 +289,10 @@ public class WordPageController {
   /**
    * set the difficulty selection
    *
-   * @param accuracy   is the result within top 1/2/3 prediction
+   * @param accuracy is the result within top 1/2/3 prediction
    * @param confidence confidence percentage
-   * @param words      word category
-   * @param time       time limit
+   * @param words word category
+   * @param time time limit
    */
   public void setDifficulty(int accuracy, int confidence, int words, int time) {
     this.time = time;
@@ -372,9 +327,7 @@ public class WordPageController {
     overallDifficulty(accuracy, confidence, words, time); // writes to csv
   }
 
-  /**
-   * sets the opacity of the + - labeles
-   */
+  /** sets the opacity of the + - labeles */
   private void setPlusMinusLabels() {
     if (time == 60) { // disables plus by greying out
       plusTime.setOpacity(0.2);
@@ -405,7 +358,7 @@ public class WordPageController {
   /**
    * intitaly called to gather users past settings
    *
-   * @throws IOException  if file is not found
+   * @throws IOException if file is not found
    * @throws CsvException if out of the file range
    */
   private void setFirstDifficulty(String currentUsername) throws IOException, CsvException {
@@ -421,10 +374,10 @@ public class WordPageController {
   /**
    * pass the difficulty selection and get the level under different combination
    *
-   * @param accuracy   is the result within top 1/2/3 prediction
+   * @param accuracy is the result within top 1/2/3 prediction
    * @param confidence confidence percentage
-   * @param words      word category
-   * @param time       time limit
+   * @param words word category
+   * @param time time limit
    */
   private void overallDifficulty(int accuracy, int confidence, int words, int time) {
     if (words == 4 && confidence == 50 && accuracy == 1 && time == 15) { // master level
@@ -441,7 +394,7 @@ public class WordPageController {
   /**
    * increments time
    *
-   * @throws IOException  if file is not found
+   * @throws IOException if file is not found
    * @throws CsvException if out of the file range
    */
   @FXML
@@ -461,7 +414,7 @@ public class WordPageController {
   /**
    * increments accuracy
    *
-   * @throws IOException  if file is not found
+   * @throws IOException if file is not found
    * @throws CsvException if out of the file range
    */
   @FXML
@@ -476,7 +429,7 @@ public class WordPageController {
   /**
    * increments confidence
    *
-   * @throws IOException  if file is not found
+   * @throws IOException if file is not found
    * @throws CsvException if out of the file range
    */
   @FXML
@@ -496,7 +449,7 @@ public class WordPageController {
   /**
    * Decreaments time
    *
-   * @throws IOException  if file is not found
+   * @throws IOException if file is not found
    * @throws CsvException if out of the file range
    */
   @FXML
@@ -516,7 +469,7 @@ public class WordPageController {
   /**
    * Decreaments accuracy
    *
-   * @throws IOException  if file is not found
+   * @throws IOException if file is not found
    * @throws CsvException if out of the file range
    */
   @FXML
@@ -531,7 +484,7 @@ public class WordPageController {
   /**
    * Decreaments confidence
    *
-   * @throws IOException  if file is not found
+   * @throws IOException if file is not found
    * @throws CsvException if out of the file range
    */
   @FXML
@@ -552,7 +505,7 @@ public class WordPageController {
    * updates the users time therough the csv
    *
    * @param time the new input to update on csv
-   * @throws IOException  if file is not found
+   * @throws IOException if file is not found
    * @throws CsvException if out of the file range
    */
   private void updateUserTime(int time) throws IOException, CsvException {
@@ -565,7 +518,7 @@ public class WordPageController {
    * updates the users confidence therough the csv
    *
    * @param confidence the new input to update on csv
-   * @throws IOException  if file is not found
+   * @throws IOException if file is not found
    * @throws CsvException if out of the file range
    */
   private void updateUserConfidence(int confidence) throws IOException, CsvException {
@@ -578,7 +531,7 @@ public class WordPageController {
    * updates the users accuracy therough the csv
    *
    * @param accuracy the new input to update on csv
-   * @throws IOException  if file is not found
+   * @throws IOException if file is not found
    * @throws CsvException if out of the file range
    */
   private void updateUserAccuracy(int accuracy) throws IOException, CsvException {
@@ -590,7 +543,7 @@ public class WordPageController {
   /**
    * when clicked word dif increases by one
    *
-   * @throws IOException  throwen if file isnt found
+   * @throws IOException throwen if file isnt found
    * @throws CsvException throwen if out of bound
    */
   @FXML
@@ -604,7 +557,7 @@ public class WordPageController {
   /**
    * decrease the word difficulty
    *
-   * @throws IOException  If the model cannot be found on the file system.
+   * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user info cannot be found locally
    */
   @FXML
@@ -619,7 +572,7 @@ public class WordPageController {
    * update word category for the current user
    *
    * @param words current word category
-   * @throws IOException  If the model cannot be found on the file system.
+   * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user info cannot be found locally
    */
   private void updateUserWords(int words) throws IOException, CsvException, URISyntaxException {

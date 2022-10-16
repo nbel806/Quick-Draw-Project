@@ -37,30 +37,51 @@ import nz.ac.auckland.se206.words.ZenWordPageController;
 
 public class ZenCanvasController {
 
-  @FXML private Pane upPane;
-  @FXML private Pane downPane;
+  @FXML
+  private Pane upPane;
+  @FXML
+  private Pane downPane;
 
-  @FXML private Button backButton;
-  @FXML private Button mainmenuButton;
-  @FXML private Button saveButton;
-  @FXML private Button penButton;
-  @FXML private Button eraseButton;
+  @FXML
+  private Button backButton;
+  @FXML
+  private Button mainmenuButton;
+  @FXML
+  private Button saveButton;
+  @FXML
+  private Button penButton;
+  @FXML
+  private Button eraseButton;
 
-  @FXML private Label wordLabel;
-  @FXML private Label topTenLabel;
-  @FXML private Label userLabel;
-  @FXML private Label textToSpeechLabel;
-  @FXML private Label speakerLabel;
-  @FXML private Canvas zenCanvas;
+  @FXML
+  private Label wordLabel;
+  @FXML
+  private Label topTenLabel;
+  @FXML
+  private Label userLabel;
+  @FXML
+  private Label textToSpeechLabel;
+  @FXML
+  private Label speakerLabel;
+  @FXML
+  private Canvas zenCanvas;
 
-  @FXML private ImageView volumeImage;
-  @FXML private ImageView userImage;
-  @FXML private ImageView penImage;
-  @FXML private ImageView eraseImage;
-  @FXML private ImageView clearImage;
-  @FXML private ImageView upArrow;
-  @FXML private ImageView downArrow;
-  @FXML private ColorPicker colorPicker;
+  @FXML
+  private ImageView volumeImage;
+  @FXML
+  private ImageView userImage;
+  @FXML
+  private ImageView penImage;
+  @FXML
+  private ImageView eraseImage;
+  @FXML
+  private ImageView clearImage;
+  @FXML
+  private ImageView upArrow;
+  @FXML
+  private ImageView downArrow;
+  @FXML
+  private ColorPicker colorPicker;
 
   private DoodlePrediction model;
   private GraphicsContext graphic;
@@ -83,7 +104,7 @@ public class ZenCanvasController {
    * the drawing, and we load the ML model.
    *
    * @throws ModelException If there is an error in reading the input/output of the DL model.
-   * @throws IOException If the model cannot be found on the file system.
+   * @throws IOException    If the model cannot be found on the file system.
    */
   public void initialize() throws ModelException, IOException {
     graphic = zenCanvas.getGraphicsContext2D();
@@ -108,14 +129,16 @@ public class ZenCanvasController {
   /**
    * Sets word label from word passed
    *
-   * @param wordToDraw word passed from previous screen
+   * @param word is the word passed from previous screen
    */
   public void setWordLabel(String word) {
     currentWord = word;
     wordLabel.setText(word);
   }
 
-  /** this method generates and sets the functionalities of pen and eraser */
+  /**
+   * this method generates and sets the functionalities of pen and eraser
+   */
   private void setTool() {
     // save coordinates when mouse is pressed on the canvas
     zenCanvas.setOnMousePressed(
@@ -157,7 +180,7 @@ public class ZenCanvasController {
   /**
    * switch to main menu
    *
-   * @throws IOException If the model cannot be found on the file system.
+   * @throws IOException  If the model cannot be found on the file system.
    * @throws CsvException If file does not exist
    */
   @FXML
@@ -178,7 +201,7 @@ public class ZenCanvasController {
   /**
    * switch to zen word page
    *
-   * @throws IOException If the model cannot be found on the file system.
+   * @throws IOException  If the model cannot be found on the file system.
    * @throws CsvException If file does not exist
    */
   @FXML
@@ -200,7 +223,7 @@ public class ZenCanvasController {
    * pass the text to speech functionality
    *
    * @param textToSpeechBackground generates tts functionality from tts class
-   * @param textToSpeech activates tts functionality if is true
+   * @param textToSpeech           activates tts functionality if is true
    */
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
     this.textToSpeech = textToSpeech;
@@ -213,7 +236,7 @@ public class ZenCanvasController {
   /**
    * get and pass user's info
    *
-   * @param username current logged in username
+   * @param username   current logged in username
    * @param profilePic user customized profile picture
    */
   public void getUsername(String username, String profilePic) {
@@ -237,11 +260,12 @@ public class ZenCanvasController {
     }
   }
 
-  /** disconnects the pen and image restores its size when clicked */
+  /**
+   * disconnects the pen and image restores its size when clicked
+   */
   @FXML
-  private void
-      onSwitchToEraser() { // "https://www.flaticon.com/free-icons/eraser" title="eraser
-                           // icons">Eraser
+  private void onSwitchToEraser() { // "https://www.flaticon.com/free-icons/eraser" title="eraser
+    // icons">Eraser
     // icons
     //  created by Freepik - Flaticon
     pen = false;
@@ -256,10 +280,12 @@ public class ZenCanvasController {
     penImage.setFitWidth(70);
   }
 
-  /** initializes the pen and image restores its size when clicked */
+  /**
+   * initializes the pen and image restores its size when clicked
+   */
   @FXML
   private void
-      onSwitchToPen() { // "https://www.flaticon.com/free-icons/brush" title="brush icons">Brush
+  onSwitchToPen() { // "https://www.flaticon.com/free-icons/brush" title="brush icons">Brush
     // icons
     // created by Freepik - Flaticon
     pen = true;
@@ -274,13 +300,17 @@ public class ZenCanvasController {
     eraseImage.setFitWidth(70);
   }
 
-  /** This method is called when the "Clear" button is pressed. */
+  /**
+   * This method is called when the "Clear" button is pressed.
+   */
   @FXML
   private void onClear() {
     graphic.clearRect(0, 0, zenCanvas.getWidth(), zenCanvas.getHeight());
   }
 
-  /** save the image by choosing own location */
+  /**
+   * save the image by choosing own location
+   */
   @FXML
   public void onSave() {
     Stage stage = (Stage) saveButton.getScene().getWindow(); // gets the stage from the button
@@ -299,7 +329,9 @@ public class ZenCanvasController {
     }
   }
 
-  /** initialize or disconnect the tts feature */
+  /**
+   * initialize or disconnect the tts feature
+   */
   @FXML
   private void onTextToSpeech() {
     textToSpeech = !textToSpeech; // inverts boolean of text to speech
@@ -335,7 +367,9 @@ public class ZenCanvasController {
     return imageBinary;
   }
 
-  /** Still needs work to not make application lag */
+  /**
+   * Still needs work to not make application lag
+   */
   private void doPredictions() {
     Timeline time = new Timeline();
     time.setCycleCount(Timeline.INDEFINITE);
@@ -446,7 +480,9 @@ public class ZenCanvasController {
     lastWordPred = wordPred;
   }
 
-  /** label speaks out and image gets larger when mouse hovers on */
+  /**
+   * label speaks out and image gets larger when mouse hovers on
+   */
   @FXML
   private void onHoverClear() {
     textToSpeechBackground.backgroundSpeak("Clear Canvas", textToSpeech);
@@ -454,7 +490,9 @@ public class ZenCanvasController {
     clearImage.setFitWidth(83);
   }
 
-  /** label speaks out and image gets larger when mouse hovers on */
+  /**
+   * label speaks out and image gets larger when mouse hovers on
+   */
   @FXML
   private void onHoverPen() {
     textToSpeechBackground.backgroundSpeak(
@@ -464,7 +502,9 @@ public class ZenCanvasController {
     penImage.setFitWidth(72);
   }
 
-  /** label speaks out and image gets larger when mouse hovers on */
+  /**
+   * label speaks out and image gets larger when mouse hovers on
+   */
   @FXML
   public void onHoverEraser() {
     textToSpeechBackground.backgroundSpeak(
@@ -474,20 +514,26 @@ public class ZenCanvasController {
     eraseImage.setFitWidth(72);
   }
 
-  /** buttons style changes when mouse hovers on */
+  /**
+   * buttons style changes when mouse hovers on
+   */
   @FXML
   private void onHoverSave() {
     saveButton.setStyle(
         "-fx-border-radius: 10; fx-background-border: 10; -fx-background-color: #99F4B3; -fx-border-color: #99F4B3;");
   }
 
-  /** label speaks out when mouse hovers on */
+  /**
+   * label speaks out when mouse hovers on
+   */
   @FXML
   private void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
   }
 
-  /** label speaks out and image gets larger when mouse hovers on */
+  /**
+   * label speaks out and image gets larger when mouse hovers on
+   */
   @FXML
   private void onHoverTextToSpeech() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
@@ -495,7 +541,9 @@ public class ZenCanvasController {
     volumeImage.setFitWidth(48);
   }
 
-  /** button style and image size restores when mouse is away */
+  /**
+   * button style and image size restores when mouse is away
+   */
   @FXML
   private void exitPen() {
     if (!pen) { // if eraser is curently active
@@ -505,7 +553,9 @@ public class ZenCanvasController {
     }
   }
 
-  /** button style and image size restores when mouse is away */
+  /**
+   * button style and image size restores when mouse is away
+   */
   @FXML
   private void exitEraser() {
     if (pen) { // if pen too is active
@@ -515,21 +565,27 @@ public class ZenCanvasController {
     }
   }
 
-  /** image size restores when mouse is away */
+  /**
+   * image size restores when mouse is away
+   */
   @FXML
   private void exitClear() {
     clearImage.setFitHeight(80);
     clearImage.setFitWidth(80);
   }
 
-  /** image size restores when mouse is away */
+  /**
+   * image size restores when mouse is away
+   */
   @FXML
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
   }
 
-  /** button style restores when mouse is away */
+  /**
+   * button style restores when mouse is away
+   */
   @FXML
   private void onSaveExit() {
     saveButton.setStyle(
