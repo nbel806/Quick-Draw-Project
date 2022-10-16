@@ -21,7 +21,7 @@
                      <children>
                         <Button fx:id="plusTime" mnemonicParsing="false" onAction="#onClickTimeUp" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="+" />
                         <Button fx:id="plusAccuracy" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onClickAccuracyUp" prefHeight="28.0" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="+" />
-                        <Button layoutX="10.0" layoutY="58.0" mnemonicParsing="false" opacity="0.0" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="+" />
+                        <Button fx:id="plusWords" layoutX="10.0" layoutY="58.0" mnemonicParsing="false" onAction="#onClickWordsUp" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="+" />
                         <Button fx:id="plusConfidence" layoutX="10.0" layoutY="106.0" mnemonicParsing="false" onAction="#onClickConfidenceUp" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="+" />
                      </children>
                      <padding>
@@ -32,7 +32,7 @@
                      <children>
                         <Button fx:id="minusTime" mnemonicParsing="false" onAction="#onClickTimeDown" prefHeight="28.0" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="-" />
                         <Button fx:id="minusAccuracy" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onClickAccuracyDown" prefHeight="28.0" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="-" />
-                        <Button layoutX="10.0" layoutY="58.0" mnemonicParsing="false" opacity="0.0" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="-" />
+                        <Button fx:id="minusWords" layoutX="10.0" layoutY="58.0" mnemonicParsing="false" onAction="#onClickWordsDown" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="-" />
                         <Button fx:id="minusConfidence" layoutX="10.0" layoutY="106.0" mnemonicParsing="false" onAction="#onClickConfidenceDown" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="-" />
                      </children>
                      <padding>

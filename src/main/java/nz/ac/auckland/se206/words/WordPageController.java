@@ -21,6 +21,8 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class WordPageController {
 
+  public Button plusWords;
+  public Button minusWords;
   @FXML
   private Button minusConfidence;
   @FXML
@@ -156,7 +158,7 @@ public class WordPageController {
    */
   @FXML
   private void onHiddenWordMode()
-      throws IOException, URISyntaxException, CsvException, WordNotFoundException {
+      throws IOException, URISyntaxException, CsvException {
     isHiddenWordMode = true;
     setWordToDraw();
     wordToDraw.setText("?");
@@ -346,16 +348,24 @@ public class WordPageController {
     confidenceLabel.setText(confidence + "%"); // adds % for readability
     this.confidence = confidence;
 
-    if (words == 1) { // sets text corosponding to number of words
-      wordsLabel.setText("E");
+    if (words == 1) { // sets text and opacity for buttons
+      wordsLabel.setText("E"); // text for readability
+      minusWords.setOpacity(0.2);
+      plusWords.setOpacity(1);
     } else if (words == 2) {
-      wordsLabel.setText("E,M");
+      wordsLabel.setText("E,M"); // text for readability
+      minusWords.setOpacity(1);
+      plusWords.setOpacity(1);
     } else if (words == 3) {
-      wordsLabel.setText("E,M,H");
+      wordsLabel.setText("E,M,H"); // text for readability
+      plusWords.setOpacity(1);
+      minusWords.setOpacity(1);
     } else if (words == 4) {
-      wordsLabel.setText("H");
+      wordsLabel.setText("H"); // text for readability
+      plusWords.setOpacity(0.2);
+      minusWords.setOpacity(1);
     } else {
-      wordsLabel.setText("ERROR"); // error output shouldnt be reached
+      wordsLabel.setText("ERROR"); // error state shouldnt be reached
     }
     this.words = words;
     setPlusMinusLabels(); // sets opacity
@@ -575,5 +585,48 @@ public class WordPageController {
     this.accuracy = accuracy;
     SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
     sheetReaderWriter.updateUsersAccuracy(accuracy, currentUsername);
+  }
+
+  /**
+   * when clicked word dif increases by one
+   *
+   * @throws IOException  throwen if file isnt found
+   * @throws CsvException throwen if out of bound
+   */
+  @FXML
+  private void onClickWordsUp() throws IOException, CsvException, URISyntaxException {
+    if (words != 4) {
+      words++;
+    }
+    updateUserWords(words); // sets opacity
+  }
+
+  /**
+   * decrease the word difficulty
+   *
+   * @throws IOException  If the model cannot be found on the file system.
+   * @throws CsvException If the user info cannot be found locally
+   */
+  @FXML
+  private void onClickWordsDown() throws IOException, CsvException, URISyntaxException {
+    if (words != 1) {
+      words--;
+    }
+    updateUserWords(words); // sets opacity
+  }
+
+  /**
+   * update word category for the current user
+   *
+   * @param words current word category
+   * @throws IOException  If the model cannot be found on the file system.
+   * @throws CsvException If the user info cannot be found locally
+   */
+  private void updateUserWords(int words) throws IOException, CsvException, URISyntaxException {
+    this.words = words;
+    setDifficulty(accuracy, confidence, words, time);
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    sheetReaderWriter.updateUsersWords(words, currentUsername);
+    onNewWord();
   }
 }
