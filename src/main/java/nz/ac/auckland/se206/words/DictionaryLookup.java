@@ -31,6 +31,11 @@ public class DictionaryLookup {
 
     String jsonString = responseBody.string();
 
+    try {
+      JSONObject jsonObj = (JSONObject) new JSONTokener(jsonString).nextValue();
+    } catch (ClassCastException e) {
+    }
+
     JSONArray jArray = (JSONArray) new JSONTokener(jsonString).nextValue();
     List<WordEntry> entries = new ArrayList<WordEntry>();
 
