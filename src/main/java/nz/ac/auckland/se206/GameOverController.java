@@ -272,6 +272,8 @@ public class GameOverController {
    */
   @FXML
   private void onClickMenu() throws IOException {
+    BackgroundSound backgroundSound = new BackgroundSound();
+    backgroundSound.play("/sounds/mixkit-unlock-game-notification-253_1.wav");
     Stage stage = (Stage) menuButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml")); // reset to a new word_page
@@ -298,6 +300,8 @@ public class GameOverController {
    */
   @FXML
   private void onPlayAgain() throws IOException, URISyntaxException, CsvException {
+    BackgroundSound backgroundSound = new BackgroundSound();
+    backgroundSound.play("/sounds/mixkit-unlock-game-notification-253_1.wav");
     Stage stage = (Stage) playAgainButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/word_page.fxml")); // reset to a new word_page

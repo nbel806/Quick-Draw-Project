@@ -17,6 +17,7 @@ import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.CanvasController;
 import nz.ac.auckland.se206.HiddenWordCanvasController;
 import nz.ac.auckland.se206.SpreadSheetReaderWriter;
+import nz.ac.auckland.se206.speech.BackgroundSound;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class WordPageController {
@@ -236,6 +237,8 @@ public class WordPageController {
    */
   @FXML
   private void onReady() throws IOException, URISyntaxException, CsvException {
+    BackgroundSound backgroundSound = new BackgroundSound();
+    backgroundSound.play("/sounds/mixkit-unlock-game-notification-253_1.wav");
     Stage stage =
         (Stage) readyButton.getScene().getWindow(); // uses the ready button to fine the stage
 

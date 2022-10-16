@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import nz.ac.auckland.se206.speech.BackgroundSound;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 import nz.ac.auckland.se206.words.WordPageController;
 import nz.ac.auckland.se206.words.ZenWordPageController;
@@ -95,6 +96,8 @@ public class MainMenuController {
    */
   @FXML
   private void onPlay() throws IOException, URISyntaxException, CsvException {
+    BackgroundSound backgroundSound = new BackgroundSound();
+    backgroundSound.play("/sounds/mixkit-unlock-game-notification-253_1.wav");
     Stage stage = (Stage) playButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/word_page.fxml")); // creates a new instance of
