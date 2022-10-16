@@ -73,7 +73,7 @@
         <Font name="Leelawadee UI Bold" size="125.0" />
       </font>
     </Label>
-    <HBox alignment="CENTER" layoutY="318.0" prefHeight="128.0" prefWidth="1000.0">
+    <HBox alignment="CENTER" layoutY="304.0" prefHeight="128.0" prefWidth="1000.0">
       <children>
         <Button fx:id="playButton" mnemonicParsing="false" onAction="#onPlay" onMouseEntered="#onHoverPlay" onMouseExited="#onPlayExit" prefHeight="77.0" prefWidth="279.0" style="-fx-background-color: transparent; -fx-background-radius: 25; -fx-border-radius: 25; -fx-border-color: white;">
           <font>
@@ -113,6 +113,22 @@
         <Image url="@../images/logo-speedy-sketchersblackandwhite.png" />
       </image>
     </ImageView>
+      <Text layoutX="373.0" layoutY="461.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Word  Difficulty">
+         <font>
+            <Font size="39.0" />
+         </font>
+      </Text>
+      <HBox alignment="CENTER" layoutX="399.0" layoutY="450.0" prefHeight="84.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Button fx:id="minusWords" mnemonicParsing="false" onAction="#onClickWordsDown" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="-" />
+            <Label fx:id="wordDifLabel" text="E,M,H" textFill="WHITE">
+               <font>
+                  <Font size="37.0" />
+               </font>
+            </Label>
+            <Button fx:id="plusWords" mnemonicParsing="false" onAction="#onClickWordsUp" prefWidth="28.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-background-insets: 0;" text="+" />
+         </children>
+      </HBox>
   </children>
 
 </Pane>

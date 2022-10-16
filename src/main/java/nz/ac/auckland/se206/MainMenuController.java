@@ -17,6 +17,9 @@ import nz.ac.auckland.se206.words.ZenWordPageController;
 
 public class MainMenuController {
 
+  @FXML private Button plusWords;
+  @FXML private Button minusWords;
+  @FXML private Label wordDifLabel;
   @FXML private Button playButton;
   @FXML private Button profileButton;
   @FXML private Button loginButton;
@@ -31,14 +34,16 @@ public class MainMenuController {
   private TextToSpeechBackground textToSpeechBackground;
   private String currentUsername = null;
   private String currentProfilePic = null;
-  private int words;
+  private int words = 1;
 
-  public void give(TextToSpeechBackground tts, Boolean textToSpeech) {
+  public void give(TextToSpeechBackground tts, Boolean textToSpeech)
+      throws IOException, CsvException {
     textToSpeechBackground = tts; // passes through the text to speech instance
     this.textToSpeech = textToSpeech;
     if (textToSpeech) {
       textToSpeechLabel.setText("ON");
     }
+    updateUserWords(words);
   }
 
   public void getUsername(String username, String profilePic) throws IOException, CsvException {
@@ -48,10 +53,12 @@ public class MainMenuController {
       currentUsername = username;
       currentProfilePic = profilePic;
       userLabel.setText(currentUsername);
-
+      SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+      words = sheetReaderWriter.getUsersWords(currentUsername);
     } else {
       userLabel.setText("Guest");
     }
+    updateUserWords(words);
   }
 
   @FXML
@@ -227,6 +234,20 @@ public class MainMenuController {
     this.words = words;
     SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
     sheetReaderWriter.updateUsersWords(words, currentUsername);
-    // TODO: 16/10/22 add label change
+    if (words == 1) {
+      wordDifLabel.setText("E");
+      minusWords.setOpacity(0.2);
+    } else if (words == 2) {
+      wordDifLabel.setText("E,M");
+      minusWords.setOpacity(1);
+    } else if (words == 3) {
+      wordDifLabel.setText("E,M,H");
+      plusWords.setOpacity(1);
+    } else if (words == 4) {
+      wordDifLabel.setText("H");
+      plusWords.setOpacity(0.2);
+    } else {
+      wordDifLabel.setText("ERROR");
+    }
   }
 }
