@@ -51,7 +51,13 @@ public class WordPageController {
   private int words;
   private int overallDif;
 
-  /** Picks a random word from the easy category using category selector */
+  /**
+   * Picks a random word from the easy category using category selector
+   * 
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   * @throws URISyntaxException If URI does not exist
+   */
   private void setWordToDraw() throws IOException, URISyntaxException, CsvException {
     if (currentUsername == null) { // if guest
       CategorySelector categorySelector = new CategorySelector(); // picks random word
@@ -84,6 +90,12 @@ public class WordPageController {
     wordToDraw.setText(currentWord);
   }
 
+  /**
+   * pass the text to speech functionality
+   * 
+   * @param textToSpeechBackground generates tts functionality from tts class
+   * @param textToSpeech activates tts functionality if is true
+   */
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
     this.textToSpeechBackground = textToSpeechBackground;
     this.textToSpeech = textToSpeech;
@@ -93,6 +105,12 @@ public class WordPageController {
     }
   }
 
+  /**
+   * create the current username and select a profile picture
+   * 
+   * @param username current username
+   * @param profilePic profile picture selected
+   */
   public void getUsername(String username, String profilePic)
       throws IOException, URISyntaxException, CsvException {
     // Check if username is not null
@@ -116,6 +134,13 @@ public class WordPageController {
     setWordToDraw();
   }
 
+  /**
+   * get a new hidden word
+   * 
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws URISyntaxException If the file cannot be found locally
+   * @throws CsvException If the user info cannot be found locally
+   */
   @FXML
   private void onNewWord() throws IOException, URISyntaxException, CsvException {
     // Get new word
@@ -123,6 +148,13 @@ public class WordPageController {
     setWordToDraw();
   }
 
+  /**
+   * switch to hidden mode
+   * 
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws URISyntaxException If the file cannot be found locally
+   * @throws CsvException If the user info cannot be found locally
+   */
   @FXML
   private void onHiddenWordMode()
       throws IOException, URISyntaxException, CsvException, WordNotFoundException {
@@ -131,22 +163,34 @@ public class WordPageController {
     wordToDraw.setText("?????");
   }
 
+  /**
+   * image gets larger when mouse hovers on
+   */
   @FXML
   private void onHoverNew() {
     newImage.setFitHeight(57);
     newImage.setFitWidth(57);
   }
 
+  /**
+   * label speaks out when mouse hovers on
+   */
   @FXML
   private void onHoverTitle() {
     textToSpeechBackground.backgroundSpeak("you have 60 seconds on easy mode", textToSpeech);
   }
 
+  /**
+   * label speaks out when mouse hovers on
+   */
   @FXML
   private void onHoverWord() {
     textToSpeechBackground.backgroundSpeak(currentWord, textToSpeech);
   }
 
+  /**
+   * label speaks out and button style changes when mouse hovers on
+   */
   @FXML
   private void onHoverReady() {
     textToSpeechBackground.backgroundSpeak("Ready", textToSpeech);
@@ -154,6 +198,9 @@ public class WordPageController {
         "-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-background-color: #99F4B3;");
   }
 
+  /**
+   * label speaks out and image gets larger when mouse hovers on
+   */
   @FXML
   private void onHoverHidden() {
     textToSpeechBackground.backgroundSpeak("Hidden word mode", textToSpeech);
@@ -161,23 +208,34 @@ public class WordPageController {
     hiddenWordModeImage.setFitHeight(66);
   }
 
+  /**
+   * image gets larger when mouse is away
+   */
   @FXML
   private void onHiddenExit() {
     hiddenWordModeImage.setFitWidth(53);
     hiddenWordModeImage.setFitHeight(63);
   }
-
+  /**
+   * button style restores when mouse is away
+   */
   @FXML
   private void onExitReady() {
     readyButton.setStyle(
         "-fx-background-radius: 25px; -fx-border-radius: 25px; -fx-background-color: white;");
   }
 
+  /**
+   * label speaks out when mouse hovers on
+   */
   @FXML
   private void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
   }
 
+  /**
+   * initialize or disconnect the tts feature
+   */
   @FXML
   private void onTextToSpeech() {
     textToSpeech = !textToSpeech; // toggles text to speech
@@ -188,6 +246,9 @@ public class WordPageController {
     }
   }
 
+  /**
+   * label speaks out and image gets larger when mouse hovers on
+   */
   @FXML
   private void onHoverTextToSpeech() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
@@ -195,6 +256,12 @@ public class WordPageController {
     volumeImage.setFitWidth(48);
   }
 
+  /**
+   * switch to canvas page or hidden word canvas page
+   * 
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws WordNotFoundException word does not exist
+   */
   @FXML
   private void onReady() throws IOException, WordNotFoundException {
     Stage stage =
@@ -235,25 +302,40 @@ public class WordPageController {
     stage.show();
   }
 
-  // Below is list of methods for when mouse exits a button
-
+  /**
+   * image restores its size when mouse is away
+   */
   @FXML
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
   }
 
+  /**
+   * image restores its size when mouse is away
+   */
   @FXML
   private void onNewExit() {
     newImage.setFitHeight(55);
     newImage.setFitWidth(55);
   }
 
+  /**
+   * label speaks out when mouse hovers on
+   */
   @FXML
   private void onHoverJustDraw() {
     textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
   }
 
+  /**
+   * set the difficulty selection
+   * 
+   * @param accuracy is the result within top 1/2/3 prediction
+   * @param confidence confidence percentage
+   * @param words word category
+   * @param time time limit
+   */
   public void setDifficulty(int accuracy, int confidence, int words, int time) {
     this.time = time;
     timeLabel.setText(time + "secs");
@@ -278,6 +360,14 @@ public class WordPageController {
     overallDifficulty(accuracy, confidence, words, time);
   }
 
+  /**
+   * pass the difficulty selection and get the level under different combination
+   * 
+   * @param accuracy is the result within top 1/2/3 prediction
+   * @param confidence confidence percentage
+   * @param words word category
+   * @param time time limit
+   */
   private void overallDifficulty(int accuracy, int confidence, int words, int time) {
     if (words == 4 && confidence == 50 && accuracy == 1 && time == 15) { // master level
       overallDif = 4;

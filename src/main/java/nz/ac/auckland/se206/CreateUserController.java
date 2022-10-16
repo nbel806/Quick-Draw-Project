@@ -141,12 +141,24 @@ public class CreateUserController {
     return flag;
   }
 
+  /**
+   * create the current username and select a profile picture
+   * 
+   * @param username current username
+   * @param profilePic profile picture selected
+   */
   public void setUsername(String username, String profilePic) {
     // Set current username
     currentUsername = username;
     currentProfilePic = profilePic;
   }
 
+  /**
+   * pass the text to speech functionality
+   * 
+   * @param textToSpeechBackground generates tts functionality from tts class
+   * @param textToSpeech activates tts functionality if is true
+   */
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
     this.textToSpeech = textToSpeech;
     this.textToSpeechBackground = (textToSpeechBackground);
@@ -155,7 +167,9 @@ public class CreateUserController {
     }
   }
 
-  /** This method creates a new user */
+  /**
+   * This method creates a new user if clicked
+   */
   @FXML
   private void onCreate() {
     String username = usernameText.getText(); // retrieves name
@@ -195,7 +209,9 @@ public class CreateUserController {
         textToSpeechBackground, textToSpeech, currentUsername, currentProfilePic, stage);
   }
 
-  /** This method toggles the text to speech */
+  /**
+   * initialize or disconnect the tts feature
+   */
   @FXML
   private void onTextToSpeech() {
     textToSpeech = !textToSpeech; // inverts boolean of text to speech
@@ -206,7 +222,9 @@ public class CreateUserController {
     }
   }
 
-  // Profile picture button methods
+  /**
+   * display current created users
+   */
   @FXML
   private void onProfileOne() {
     File file = new File("src/main/resources/images/ProfilePics/ProfilePic1.png");
@@ -216,6 +234,9 @@ public class CreateUserController {
     profileLabel.setText("HUMAN 1");
   }
 
+  /**
+   * display current created users
+   */
   @FXML
   private void onProfileTwo() {
     File file = new File("src/main/resources/images/ProfilePics/ProfilePic2.png");
@@ -225,6 +246,9 @@ public class CreateUserController {
     profileLabel.setText("HUMAN 2");
   }
 
+  /**
+   * display current created users
+   */
   @FXML
   private void onProfileThree() {
     File file = new File("src/main/resources/images/ProfilePics/ProfilePic3.png");
@@ -234,6 +258,9 @@ public class CreateUserController {
     profileLabel.setText("HUMAN 3");
   }
 
+  /**
+   * display current created users
+   */
   @FXML
   private void onProfileFour() {
     File file = new File("src/main/resources/images/ProfilePics/ProfilePic4.png");
@@ -243,6 +270,9 @@ public class CreateUserController {
     profileLabel.setText("WIZARD");
   }
 
+  /**
+   * display current created users
+   */
   @FXML
   private void onProfileFive() {
     File file = new File("src/main/resources/images/ProfilePics/ProfilePic5.png");
@@ -252,6 +282,9 @@ public class CreateUserController {
     profileLabel.setText("SUPERHUMAN");
   }
 
+  /**
+   * display current created users
+   */
   @FXML
   private void onProfileSix() {
     File file = new File("src/main/resources/images/ProfilePics/ProfilePic6.png");
@@ -261,7 +294,9 @@ public class CreateUserController {
     profileLabel.setText("DUCK");
   }
 
-  // Below is a list of methods when mouse hovers a button
+  /**
+   * label speaks out and image becomes slightly larger when mouse is moved on
+   */
   @FXML
   private void onHoverTextToSpeech() {
     textToSpeechBackground.backgroundSpeak("On", textToSpeech);
@@ -269,11 +304,17 @@ public class CreateUserController {
     volumeImage.setFitWidth(48);
   }
 
+  /**
+   * label speaks out when mouse is moved on
+   */
   @FXML
   private void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
   }
 
+  /**
+   * label speaks out and button changes its style when mouse is moved on
+   */
   @FXML
   private void onHoverBack() {
     textToSpeechBackground.backgroundSpeak("Back", textToSpeech);
@@ -281,6 +322,9 @@ public class CreateUserController {
         "-fx-background-radius: 100px; -fx-text-fill: white; -fx-border-radius: 100px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
+  /**
+   * label speaks out and image becomes slightly larger when mouse is moved on
+   */
   @FXML
   private void onHoverMainMenu() {
     textToSpeechBackground.backgroundSpeak("Main Menu", textToSpeech);
@@ -288,6 +332,9 @@ public class CreateUserController {
         "-fx-background-radius: 100px;-fx-text-fill: white; -fx-border-radius: 100px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
+  /**
+   * label speaks out and image becomes slightly larger when mouse is moved on
+   */
   @FXML
   private void onHoverCreate() {
     textToSpeechBackground.backgroundSpeak("Create", textToSpeech);
@@ -295,25 +342,36 @@ public class CreateUserController {
         "-fx-background-radius: 10; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 10; -fx-border-width: 3; -fx-opacity: 0.5;");
   }
 
-  // Below is a list of methods when mouse exits a button
+  /**
+   * images restores when mouse is moved away
+   */
   @FXML
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
   }
 
+  /**
+   * button restores when mouse is moved away
+   */
   @FXML
   private void onBackExit() {
     backButton.setStyle(
         "-fx-background-radius: 100px; -fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
   }
 
+  /**
+   * button restores when mouse is moved away
+   */
   @FXML
   private void onMainMenuExit() {
     mainmenuButton.setStyle(
         "-fx-background-radius: 100px;-fx-background-color: #EB4A5A; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
   }
 
+  /**
+   * button restores when mouse is moved away
+   */
   @FXML
   private void onCreateExit() {
     createButton.setStyle(

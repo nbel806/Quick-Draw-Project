@@ -119,6 +119,9 @@ public class HiddenWordCanvasController {
     downArrowCircle.setOpacity(0.1);
   }
 
+  /**
+   * this method generates and sets the functionalities of pen and eraser
+   */
   private void setTool() {
     // save coordinates when mouse is pressed on the canvas
     canvas.setOnMousePressed(
@@ -197,7 +200,9 @@ public class HiddenWordCanvasController {
     timerLabel.setText(String.valueOf(time));
   }
 
-  /** runs timer through timeline for 60secs until seconds = 0 */
+  /**
+   * runs timer through timeline for 60secs until seconds = 0
+   */
   private void doTimer() {
     Timeline time = new Timeline();
     time.setCycleCount(Timeline.INDEFINITE);
@@ -225,7 +230,9 @@ public class HiddenWordCanvasController {
     time.playFromStart();
   }
 
-  /** Still needs work to not make application lag */
+  /**
+   * Still needs work to not make application lag
+   */
   private void doPredictions() {
     Timeline time = new Timeline();
     time.setCycleCount(Timeline.INDEFINITE);
@@ -282,6 +289,13 @@ public class HiddenWordCanvasController {
     time.playFromStart();
   }
 
+  /**
+   * this methods gets and reads if the result is within top x of the list.
+   * 
+   * @param list the list stores prediction results.
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If the user info cannot be found locally
+   */
   private void getTopX(List<Classifications.Classification> list) throws IOException, CsvException {
     for (int i = 0; i < userAccuracy; i++) { // cycles through top 3
       String strNew =
@@ -300,6 +314,11 @@ public class HiddenWordCanvasController {
     }
   }
 
+  /**
+   * return the top ten prediction results store in the list
+   * 
+   * @param list the list stores prediction results.
+   */
   private void printTopTen(List<Classifications.Classification> list) {
     StringBuilder sb = new StringBuilder();
     sb.append(System.lineSeparator());
@@ -322,6 +341,11 @@ public class HiddenWordCanvasController {
     updateWordPrediction(list);
   }
 
+  /**
+   * update the prediction label and indicates if the prediction is getting closer
+   * 
+   * @param list the list stores prediction results.
+   */
   private void updateWordPrediction(List<Classification> list) {
     double wordPred = 0;
     for (Classifications.Classification classification : list) {
@@ -350,7 +374,12 @@ public class HiddenWordCanvasController {
     lastWordPred = wordPred;
   }
 
-  /** When timer reaches 0secs */
+  /** 
+   * When timer reaches 0secs, user will jump into the game over page
+   * 
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If the user info cannot be found locally.
+   */
   private void whenTimerEnds() throws IOException, CsvException {
     BufferedImage bufferedImage = getCurrentSnapshot();
     Stage stage =
@@ -371,6 +400,12 @@ public class HiddenWordCanvasController {
     gameOverController.setTimeAccuracy(time, userAccuracy, confidence, words);
   }
 
+  /**
+   * pass the text to speech functionality
+   * 
+   * @param textToSpeechBackground generates tts functionality from tts class
+   * @param textToSpeech activates tts functionality if is true
+   */
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
     this.textToSpeech = textToSpeech;
     this.textToSpeechBackground = (textToSpeechBackground);
@@ -379,6 +414,12 @@ public class HiddenWordCanvasController {
     }
   }
 
+  /**
+   * get and pass user's info
+   * 
+   * @param username current logged in username
+   * @param profilePic user customized profile picture
+   */
   public void getUsername(String username) {
     // Check if username is not null
     if (username != null) {
@@ -390,6 +431,9 @@ public class HiddenWordCanvasController {
     }
   }
 
+  /**
+   * image becomes slightly larger when mouse is moved on
+   */
   @FXML
   private void onHoverClear() {
     textToSpeechBackground.backgroundSpeak("Clear Canvas", textToSpeech);
@@ -397,21 +441,33 @@ public class HiddenWordCanvasController {
     clearImage.setFitWidth(83);
   }
 
+  /**
+   * label speaks out when mouse is moved on
+   */
   @FXML
   private void onHoverTimer() {
     textToSpeechBackground.backgroundSpeak(String.valueOf(seconds), textToSpeech);
   }
 
+  /**
+   * label speaks out when mouse is moved on
+   */
   @FXML
   private void onHoverTop10() {
     textToSpeechBackground.backgroundSpeak("List of Top 10 guesses", textToSpeech);
   }
 
+  /**
+   * label speaks out when mouse is moved on
+   */
   @FXML
   private void onHoverCanvas() {
     textToSpeechBackground.backgroundSpeak("draw here", textToSpeech);
   }
-
+  
+  /**
+   * label speaks out and image becomes slightly larger when mouse is moved on
+   */
   @FXML
   private void onHoverPen() {
     textToSpeechBackground.backgroundSpeak(
@@ -422,6 +478,9 @@ public class HiddenWordCanvasController {
     penImage.setFitWidth(73);
   }
 
+  /**
+   * label speaks out and image becomes slightly larger when mouse is moved on
+   */
   @FXML
   public void onHoverEraser() {
     textToSpeechBackground.backgroundSpeak(
@@ -432,6 +491,9 @@ public class HiddenWordCanvasController {
     eraseImage.setFitWidth(73);
   }
 
+  /**
+   * initialize or disconnect the tts feature
+   */
   @FXML
   private void onTextToSpeech() {
     textToSpeech = !textToSpeech; // inverts boolean of text to speech
@@ -442,11 +504,17 @@ public class HiddenWordCanvasController {
     }
   }
 
+  /**
+   * label speaks out when mouse is moved on
+   */
   @FXML
   private void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
   }
 
+  /**
+   * label speaks out and image becomes slightly larger when mouse is moved on
+   */
   @FXML
   private void onHoverTextToSpeech() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
@@ -454,6 +522,9 @@ public class HiddenWordCanvasController {
     volumeImage.setFitWidth(48);
   }
 
+  /**
+   * initializes the pen and image restores its size when clicked
+   */
   @FXML
   private void
       onSwitchToPen() { // "https://www.flaticon.com/free-icons/brush" title="brush icons">Brush
@@ -473,10 +544,14 @@ public class HiddenWordCanvasController {
     eraseImage.setFitWidth(71);
   }
 
-  // "https://www.flaticon.com/free-icons/eraser" title="eraser icons">Eraser
-  // icons created by Freepik - Flaticon
+  /**
+   * disconnects the pen and image restores its size when clicked
+   */
   @FXML
-  private void onSwitchToEraser() {
+  private void 
+       onSwitchToEraser() { // "https://www.flaticon.com/free-icons/eraser" title="eraser icons">Eraser
+	// icons 
+	// created by Freepik - Flaticon
     pen = false;
     setTool();
 
@@ -491,14 +566,18 @@ public class HiddenWordCanvasController {
     penImage.setFitWidth(71);
   }
 
-  /** This method is called when the "Clear" button is pressed. */
+  /**
+   * This method is called when the "Clear" button is pressed.
+   */
   @FXML
   private void onClear() {
     graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
   } // https://www.flaticon.com/free-icons/recycle-bin title="recycle bin
   // icons">Recycle bin icons created by lakonicon - Flaticon
 
-  // Below is list of methods for when mouse exits a button
+  /**
+   * image and button restores when clicked
+   */
   @FXML
   private void exitPen() {
     if (!pen) { // if eraser is curently active
@@ -509,6 +588,9 @@ public class HiddenWordCanvasController {
     }
   }
 
+  /**
+   * image and button restores when clicked
+   */
   @FXML
   private void exitEraser() {
     if (pen) { // if pen too is active
@@ -519,23 +601,41 @@ public class HiddenWordCanvasController {
     }
   }
 
+  /**
+   * image restores its size when mouse is away
+   */
   @FXML
   private void exitClear() {
     clearImage.setFitHeight(80);
     clearImage.setFitWidth(80);
   }
 
+  /**
+   * image restores its size when mouse is away
+   */
   @FXML
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
   }
 
+  /**
+   * label speaks out when mouse is moved on
+   */
   @FXML
   private void onHoverPredictions() {
     textToSpeechBackground.backgroundSpeak("Predictions", textToSpeech);
   }
 
+  /**
+   * set and pass the current difficulties combination
+   * 
+   * @param time user has to draw within this time
+   * @param accuracy results of drawing has to be within top x of the prediciton list
+   * @param confidence user confidence percentage
+   * @param words words category; E, M, H
+   * @param overallDif current difficulty combination
+   */
   public void setTimeAccuracy(int time, int accuracy, int confidence, int words, int overallDif) {
     seconds = time;
     this.time = time;
@@ -551,6 +651,13 @@ public class HiddenWordCanvasController {
     this.overallDif = overallDif;
   }
 
+  /**
+   * set and display the definition of the word
+   * 
+   * @param wordToDraw current guessed word
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws WordNotFoundException If the word is not found in API
+   */
   public void setDefinitionList(String wordToDraw) throws IOException, WordNotFoundException {
     currentWord = wordToDraw;
     resultsAccordion.getPanes().clear();

@@ -24,6 +24,13 @@ public class CategorySelector {
 
   private final Map<Difficulty, List<String>> difficultyListMap;
 
+  /**
+   * select a category; E, M, or H
+   * 
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws URISyntaxException If URI does not exist
+   * @throws CsvException If file does not exist
+   */
   public CategorySelector() throws IOException, URISyntaxException, CsvException {
     difficultyListMap = new HashMap<>();
     for (Difficulty difficulty :
@@ -37,6 +44,14 @@ public class CategorySelector {
     }
   }
 
+  /**
+   * gets all words from the chosen category
+   * 
+   * @return all words from indicated category
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws URISyntaxException If URI does not exist
+   * @throws CsvException If file does not exist
+   */
   protected List<String[]> getLines() throws IOException, CsvException, URISyntaxException {
     File file = new File(CategorySelector.class.getResource("/category_difficulty.csv").toURI());
     try (FileReader fr = new FileReader(file, StandardCharsets.UTF_8);
@@ -45,12 +60,28 @@ public class CategorySelector {
     }
   }
 
+  /**
+   * gets a random word from the chosen category
+   * 
+   * @param difficulty word category; E, M, H
+   * @return a random word
+   */
   public String getRandomCategory(Difficulty difficulty) {
     return difficultyListMap
         .get(difficulty)
         .get(new Random().nextInt(difficultyListMap.get(difficulty).size()));
   }
 
+  /**
+   * gets a random word from all category with no repeated word (no history word)
+   * 
+   * @param words word to be drew
+   * @param history history words
+   * @param currentUsername current user name
+   * @return a random word from all category
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public String getRandomCategory(int words, String[] history, String currentUsername)
       throws IOException, CsvException {
     ArrayList<Object> randomWords = new ArrayList<>();
@@ -78,6 +109,12 @@ public class CategorySelector {
     return (String) randomWords.get(new Random().nextInt(randomWords.size()));
   }
 
+  /**
+   * get the current category
+   * 
+   * @param difficulty category E, M, H
+   * @return category; E, M, H
+   */
   public List<String> getCategory(Difficulty difficulty) {
     return difficultyListMap.get(difficulty);
   }

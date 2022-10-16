@@ -15,6 +15,14 @@ public class DictionaryLookup {
 
   private static final String API_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
+  /**
+   * gets a searched word and its definition
+   * 
+   * @param query word to be search
+   * @return current word and its definition
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws WordNotFoundException word does not exist
+   */
   public static WordInfo searchWordInfo(String query) throws IOException, WordNotFoundException {
 
     OkHttpClient client = new OkHttpClient();

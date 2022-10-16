@@ -43,10 +43,23 @@ public class ZenWordPageController {
   private Boolean textToSpeech = false;
   private TextToSpeechBackground textToSpeechBackground;
 
+  /**
+   * initialize the word page
+   * 
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws URISyntaxException If the file cannot be found locally
+   * @throws CsvException If the user info cannot be found locally
+   */
   public void initialize() throws IOException, URISyntaxException, CsvException {
     setWordToDraw();
   }
 
+  /**
+   * pass the text to speech functionality
+   * 
+   * @param textToSpeechBackground generates tts functionality from tts class
+   * @param textToSpeech activates tts functionality if is true
+   */
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
     this.textToSpeech = textToSpeech;
     this.textToSpeechBackground = (textToSpeechBackground);
@@ -55,6 +68,12 @@ public class ZenWordPageController {
     }
   }
 
+  /**
+   * create the current username and select a profile picture
+   * 
+   * @param username current username
+   * @param profilePic profile picture selected
+   */
   public void getUsername(String username, String profilePic) throws IOException, CsvException {
     // Check if username is not null
     if (username != null) {
@@ -76,6 +95,12 @@ public class ZenWordPageController {
     setPreviousWords();
   }
 
+  /**
+   * set the words that the user drew unsuccessfully
+   * 
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If the user info cannot be found locally
+   */
   private void setPreviousWords() throws IOException, CsvException {
     SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
     String[] lastWords = spreadSheetReaderWriter.getUsersLostWords(currentUsername);
@@ -93,6 +118,13 @@ public class ZenWordPageController {
     lostWord5.setText("5. " + lastWords[4]);
   }
   
+  /**
+   * generate and display the word from all category
+   * 
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws URISyntaxException If the file cannot be found locally
+   * @throws CsvException If the user info cannot be found locally
+   */
   public void setWordToDraw() throws IOException, URISyntaxException, CsvException {
     CategorySelector categorySelector = new CategorySelector(); // picks random easy word
     String[] words = new String[3];
@@ -103,6 +135,11 @@ public class ZenWordPageController {
     wordLabel.setText(currentWord);
   }
 
+  /**
+   * switch to zen canvas page
+   * 
+   * @throws IOException If the model cannot be found on the file system.
+   */
   @FXML
   public void onZenCanvas() throws IOException {
     Stage stage = (Stage) readyButton.getScene().getWindow();
@@ -118,10 +155,20 @@ public class ZenWordPageController {
     ctrl.setWordLabel(currentWord);
   }
 
+  /**
+   * refresh and get a new word
+   * 
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws URISyntaxException If the file cannot be found locally
+   * @throws CsvException If the user info cannot be found locally
+   */
   public void onNewWord() throws IOException, URISyntaxException, CsvException {
     setWordToDraw();
   }
 
+  /**
+   * initialize or disconnect the tts feature
+   */
   @FXML
   private void onTextToSpeech() {
     textToSpeech = !textToSpeech; // inverts boolean
@@ -132,6 +179,9 @@ public class ZenWordPageController {
     }
   }
 
+  /**
+   * get the 1st previous word
+   */
   @FXML
   private void onClickPlay1() {
     if (currentUsername == null || lostWord1.getText().equals("1. Play normal mode first")) {
@@ -141,6 +191,9 @@ public class ZenWordPageController {
     wordLabel.setText(currentWord);
   }
 
+  /**
+   * get the 2nd previous word
+   */
   @FXML
   private void onClickPlay2() {
     if (currentUsername == null || lostWord2.getText().equals("2. Play normal mode first")) {
@@ -150,6 +203,9 @@ public class ZenWordPageController {
     wordLabel.setText(currentWord);
   }
 
+  /**
+   * get the 3rd previous word
+   */
   @FXML
   private void onClickPlay3() {
     if (currentUsername == null || lostWord3.getText().equals("3. Play normal mode first")) {
@@ -159,6 +215,9 @@ public class ZenWordPageController {
     wordLabel.setText(currentWord);
   }
 
+  /**
+   * get the 4th previous word
+   */
   @FXML
   private void onClickPlay4() {
     if (currentUsername == null || lostWord4.getText().equals("4. Play normal mode first")) {
@@ -168,6 +227,9 @@ public class ZenWordPageController {
     wordLabel.setText(currentWord);
   }
 
+  /**
+   * get the 5th previous word
+   */
   @FXML
   private void onClickPlay5() {
     if (currentUsername == null || lostWord5.getText().equals("5. Play normal mode first")) {
@@ -177,6 +239,12 @@ public class ZenWordPageController {
     wordLabel.setText(currentWord);
   }
 
+  /**
+   * switch to main menu 
+   * 
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If the user info cannot be found locally
+   */
   @FXML
   private void onBack() throws IOException, CsvException {
     Stage stage = (Stage) backButton.getScene().getWindow();
@@ -185,7 +253,9 @@ public class ZenWordPageController {
         textToSpeechBackground, textToSpeech, currentUsername, currentProfilePic, stage);
   }
 
-  // Below is a list of methods when mouse hovers a button
+  /**
+   * label speaks out and image gets larger when mouse hovers on
+   */
   @FXML
   private void onHoverTextToSpeech() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
@@ -193,11 +263,17 @@ public class ZenWordPageController {
     volumeImage.setFitWidth(48);
   }
 
+  /**
+   * label speaks out when mouse hovers on
+   */
   @FXML
   private void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
   }
 
+  /**
+   * image gets larger when mouse hovers on
+   */
   @FXML
   private void onHoverNew() {
     newImage.setFitHeight(57);
@@ -205,12 +281,18 @@ public class ZenWordPageController {
     newImage.setLayoutX(20);
   }
 
+  /**
+   * button style changes when mouser hovers on
+   */
   @FXML
   private void onHoverReady() {
     readyButton.setStyle(
         "-fx-border-radius: 10; fx-background-border: 10; -fx-background-color: #99F4B3; -fx-border-color: #99F4B3;");
   }
 
+  /**
+   * label speaks out and button style changes when mouse hovers on
+   */
   @FXML
   private void onHoverBack() {
     textToSpeechBackground.backgroundSpeak("Back Button", textToSpeech);
@@ -219,19 +301,27 @@ public class ZenWordPageController {
             + "-fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
-  // Below is a list of methods when mouse exits a button
+  /**
+   * image restores when mouse is away
+   */
   @FXML
   private void onNewExit() {
     newImage.setFitHeight(55);
     newImage.setFitWidth(55);
   }
 
+  /**
+   * button style restores when mouse is away
+   */
   @FXML
   private void onReadyExit() {
     readyButton.setStyle(
         "-fx-border-radius: 10; fx-background-border: 10; -fx-background-color: transparent; -fx-border-color: white");
   }
 
+  /**
+   * button style restores when mouse is away
+   */
   @FXML
   private void onBackExit() {
     backButton.setStyle(
@@ -239,6 +329,9 @@ public class ZenWordPageController {
             + "-fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 100px;");
   }
 
+  /**
+   * image restores when mouse is away
+   */
   @FXML
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
