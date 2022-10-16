@@ -21,7 +21,9 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class WordPageController {
 
-
+  @FXML Button wordButton;
+  @FXML private Button modeButton;
+  @FXML private Label modeLabel;
   @FXML private Button plusWords;
   @FXML private Button minusWords;
   @FXML private Button minusConfidence;
@@ -344,18 +346,26 @@ public class WordPageController {
       wordsLabel.setText("E"); // text for readability
       minusWords.setOpacity(0.2);
       plusWords.setOpacity(1);
+      plusWords.setDisable(false);
+      minusWords.setDisable(true);
     } else if (words == 2) {
       wordsLabel.setText("E,M"); // text for readability
       minusWords.setOpacity(1);
       plusWords.setOpacity(1);
+      plusWords.setDisable(false);
+      minusWords.setDisable(false);
     } else if (words == 3) {
       wordsLabel.setText("E,M,H"); // text for readability
       plusWords.setOpacity(1);
       minusWords.setOpacity(1);
+      plusWords.setDisable(false);
+      minusWords.setDisable(false);
     } else if (words == 4) {
       wordsLabel.setText("H"); // text for readability
       plusWords.setOpacity(0.2);
       minusWords.setOpacity(1);
+      plusWords.setDisable(true);
+      minusWords.setDisable(false);
     } else {
       wordsLabel.setText("ERROR"); // error state shouldnt be reached
     }
@@ -611,8 +621,8 @@ public class WordPageController {
   private void onClickWordsUp() throws IOException, CsvException, URISyntaxException {
     if (words != 4) {
       words++;
+      updateUserWords(words); // sets opacity
     }
-    updateUserWords(words); // sets opacity
   }
 
   /**
@@ -625,8 +635,8 @@ public class WordPageController {
   private void onClickWordsDown() throws IOException, CsvException, URISyntaxException {
     if (words != 1) {
       words--;
+      updateUserWords(words); // sets opacity
     }
-    updateUserWords(words); // sets opacity
   }
 
   /**
