@@ -20,10 +20,6 @@ import nz.ac.auckland.se206.SpreadSheetReaderWriter;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class WordPageController {
-
-  @FXML Button wordButton;
-  @FXML private Button modeButton;
-  @FXML private Label modeLabel;
   @FXML private Button plusWords;
   @FXML private Button minusWords;
   @FXML private Button minusConfidence;
@@ -40,9 +36,13 @@ public class WordPageController {
   @FXML private Text wordToDraw;
 
   @FXML private Button readyButton;
+  @FXML private Button modeButton;
+  @FXML private Button wordButton;
 
   @FXML private Label textToSpeechLabel;
   @FXML private Label userLabel;
+  @FXML private Label wordLabel;
+  @FXML private Label modeLabel;
 
   @FXML private ImageView volumeImage;
   @FXML private ImageView newImage;
