@@ -342,7 +342,8 @@ public class GameOverController {
   private void onHoverSave() {
     textToSpeechBackground.backgroundSpeak("Save", textToSpeech);
     saveButton.setStyle(
-        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
+        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; "
+            + "-fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
   /** label speaks out and button changes its style when mouse hovers on */
@@ -350,7 +351,8 @@ public class GameOverController {
   private void onHoverPlayAgain() {
     textToSpeechBackground.backgroundSpeak("Play Again", textToSpeech);
     playAgainButton.setStyle(
-        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
+        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; "
+            + "-fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
   /** label speaks out and button changes its style when mouse hovers on */
@@ -358,7 +360,8 @@ public class GameOverController {
   private void onHoverMenu() {
     textToSpeechBackground.backgroundSpeak("Main Menu", textToSpeech);
     menuButton.setStyle(
-        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
+        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; "
+            + "-fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
   /** label speaks out when mouse hovers on */
@@ -386,21 +389,24 @@ public class GameOverController {
   @FXML
   private void onSaveExit() {
     saveButton.setStyle(
-        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 2");
+        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; "
+            + "-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 2");
   }
 
   /** button restores it style when mouse is moved away */
   @FXML
   private void onMenuExit() {
     menuButton.setStyle(
-        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 2");
+        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; "
+            + "-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 2");
   }
 
   /** button restores it style when mouse is moved away */
   @FXML
   private void onPlayAgainExit() {
     playAgainButton.setStyle(
-        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 2");
+        "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; "
+            + "-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 2");
   }
 
   /** label speaks out when mouse hovers on */
