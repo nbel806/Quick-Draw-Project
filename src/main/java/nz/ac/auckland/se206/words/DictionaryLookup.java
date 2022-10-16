@@ -23,18 +23,27 @@ public class DictionaryLookup {
    * @throws IOException If the model cannot be found on the file system.
    */
   public static WordInfo searchWordInfo(String query) throws IOException {
-
+    // searches the api for the word
     OkHttpClient client = new OkHttpClient();
     Request request = new Request.Builder().url(API_URL + query).build();
     Response response = client.newCall(request).execute();
     ResponseBody responseBody = response.body();
 
     String jsonString = responseBody.string();
-
-    JSONArray jArray = (JSONArray) new JSONTokener(jsonString).nextValue();
+    // catches incase cast exception
+    try {
+      JSONObject jsonObj = (JSONObject) new JSONTokener(jsonString).nextValue();
+    } catch (ClassCastException e) {
+    }
+    // catches incase cast exception
+    JSONArray jArray = null;
+    try {
+      jArray = (JSONArray) new JSONTokener(jsonString).nextValue();
+    } catch (ClassCastException e) {
+    }
     List<WordEntry> entries = new ArrayList<WordEntry>();
 
-    for (int e = 0; e < jArray.length(); e++) {
+    for (int e = 0; e < jArray.length(); e++) { // loops though for deffinition
       JSONObject jsonEntryObj = jArray.getJSONObject(e);
       JSONArray jsonMeanings = jsonEntryObj.getJSONArray("meanings");
 
@@ -50,19 +59,19 @@ public class DictionaryLookup {
         }
 
         JSONArray jsonDefinitions = jsonMeaningObj.getJSONArray("definitions");
-        for (int d = 0; d < jsonDefinitions.length(); d++) {
+        for (int d = 0; d < jsonDefinitions.length(); d++) { // adds definition
           JSONObject jsonDefinitionObj = jsonDefinitions.getJSONObject(d);
 
           String definition = jsonDefinitionObj.getString("definition");
-          if (!definition.isEmpty()) {
+          if (!definition.isEmpty()) { // adds definition to array
             definitions.add(definition);
           }
         }
       }
       WordEntry wordEntry = new WordEntry(partOfSpeech, definitions);
-      entries.add(wordEntry);
+      entries.add(wordEntry); // adds to final path
     }
 
-    return new WordInfo(query, entries);
+    return new WordInfo(query, entries); // return map of both
   }
 }
