@@ -17,9 +17,6 @@ import nz.ac.auckland.se206.words.ZenWordPageController;
 
 public class MainMenuController {
 
-  @FXML private Button plusWords;
-  @FXML private Button minusWords;
-  @FXML private Label wordDifLabel;
   @FXML private Button playButton;
   @FXML private Button profileButton;
   @FXML private Button loginButton;
@@ -34,7 +31,6 @@ public class MainMenuController {
   private TextToSpeechBackground textToSpeechBackground;
   private String currentUsername = null;
   private String currentProfilePic = null;
-  private int words = 1;
 
   /**
    * pass the text to speech functionality
@@ -49,7 +45,6 @@ public class MainMenuController {
     if (textToSpeech) {
       textToSpeechLabel.setText("ON");
     }
-    updateUserWords(words);
   }
 
   /**
@@ -58,20 +53,17 @@ public class MainMenuController {
    * @param username current username
    * @param profilePic profile picture selected
    */
-  public void getUsername(String username, String profilePic) throws IOException, CsvException {
+  public void getUsername(String username, String profilePic) {
     // Check if username is not null
     if (username != null) {
       // If not null, update label as current username
       currentUsername = username;
       currentProfilePic = profilePic;
       userLabel.setText(currentUsername);
-      SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
-      words = sheetReaderWriter.getUsersWords(currentUsername);
       // updates opacity after getting values stored
     } else {
       userLabel.setText("Guest");
     }
-    updateUserWords(words);
   }
 
   /**
@@ -82,7 +74,7 @@ public class MainMenuController {
    */
   @FXML
   private void onZenModeCanvas() throws IOException, CsvException {
-    Stage stage = (Stage) playButton.getScene().getWindow();
+    Stage stage = (Stage) loginButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/zen_word_page.fxml")); // creates a new instance
     // of
@@ -139,7 +131,7 @@ public class MainMenuController {
    */
   @FXML
   private void onLogin() throws IOException, CsvValidationException {
-    Stage stage = (Stage) loginButton.getScene().getWindow();
+    Stage stage = (Stage) profileButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/login_page.fxml")); // creates a new instance
     // of word page
@@ -263,65 +255,5 @@ public class MainMenuController {
   private void onZenExit() {
     zenImage.setFitHeight(61);
     zenImage.setFitWidth(59);
-  }
-
-  /**
-   * when clicked word dif increases by one
-   *
-   * @throws IOException throwen if file isnt found
-   * @throws CsvException throwen if out of bound
-   */
-  @FXML
-  private void onClickWordsUp() throws IOException, CsvException {
-    if (words != 4) {
-      words++;
-    }
-    updateUserWords(words); // sets opacity
-  }
-
-  /**
-   * decrease the word difficulty
-   *
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  @FXML
-  private void onClickWordsDown() throws IOException, CsvException {
-    if (words != 1) {
-      words--;
-    }
-    updateUserWords(words); // sets opacity
-  }
-
-  /**
-   * update word category for the current user
-   *
-   * @param words current word category
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  private void updateUserWords(int words) throws IOException, CsvException {
-    this.words = words;
-    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
-    sheetReaderWriter.updateUsersWords(words, currentUsername);
-    if (words == 1) { // sets text and opacity for buttons
-      wordDifLabel.setText("E"); // text for readability
-      minusWords.setOpacity(0.2);
-      plusWords.setOpacity(1);
-    } else if (words == 2) {
-      wordDifLabel.setText("E,M"); // text for readability
-      minusWords.setOpacity(1);
-      plusWords.setOpacity(1);
-    } else if (words == 3) {
-      wordDifLabel.setText("E,M,H"); // text for readability
-      plusWords.setOpacity(1);
-      minusWords.setOpacity(1);
-    } else if (words == 4) {
-      wordDifLabel.setText("H"); // text for readability
-      plusWords.setOpacity(0.2);
-      minusWords.setOpacity(1);
-    } else {
-      wordDifLabel.setText("ERROR"); // error state shouldnt be reached
-    }
   }
 }

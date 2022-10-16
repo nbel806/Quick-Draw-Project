@@ -27,9 +27,9 @@ public class CategorySelector {
   /**
    * select a category; E, M, or H
    *
-   * @throws IOException        If the model cannot be found on the file system.
+   * @throws IOException If the model cannot be found on the file system.
    * @throws URISyntaxException If URI does not exist
-   * @throws CsvException       If file does not exist
+   * @throws CsvException If file does not exist
    */
   public CategorySelector() throws IOException, URISyntaxException, CsvException {
     difficultyListMap = new HashMap<>();
@@ -48,9 +48,9 @@ public class CategorySelector {
    * gets all words from the chosen category
    *
    * @return all words from indicated category
-   * @throws IOException        If the model cannot be found on the file system.
+   * @throws IOException If the model cannot be found on the file system.
    * @throws URISyntaxException If URI does not exist
-   * @throws CsvException       If file does not exist
+   * @throws CsvException If file does not exist
    */
   protected List<String[]> getLines() throws IOException, CsvException, URISyntaxException {
     File file = new File(CategorySelector.class.getResource("/category_difficulty.csv").toURI());
@@ -75,11 +75,11 @@ public class CategorySelector {
   /**
    * gets a random word from all category with no repeated word (no history word)
    *
-   * @param words           word to be drew
-   * @param history         history words
+   * @param words word to be drew
+   * @param history history words
    * @param currentUsername current user name
    * @return a random word from all category
-   * @throws IOException  If the model cannot be found on the file system.
+   * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If file does not exist
    */
   public String getRandomCategory(int words, String[] history, String currentUsername)
@@ -122,8 +122,8 @@ public class CategorySelector {
   /**
    * Picks a random word from the easy category using category selector
    *
-   * @throws IOException        If the model cannot be found on the file system.
-   * @throws CsvException       If file does not exist
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
    * @throws URISyntaxException If URI does not exist
    */
   public String setWordToDraw(String currentUsername, int words)
@@ -134,7 +134,7 @@ public class CategorySelector {
       ArrayList<Object> randomWords = new ArrayList<>();
       switch (words) {
         case 1 -> // easy
-            randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.E));
+        randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.E));
         case 2 -> { // easy and medium
           randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.E));
           randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.M));
@@ -145,7 +145,7 @@ public class CategorySelector {
           randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.H));
         }
         case 4 -> // just hard
-            randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.H));
+        randomWords.add(categorySelector.getRandomCategory(CategorySelector.Difficulty.H));
       }
       currentWord = (String) randomWords.get(new Random().nextInt(randomWords.size()));
     } else { // if user chosen from their pool of words left

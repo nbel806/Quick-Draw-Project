@@ -29,6 +29,7 @@
                               <Font name="Arial Black" size="37.0" />
                            </font>
                         </Text>
+
                      </children>
                   </Pane>
                   <Text layoutX="374.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CHOSEN WORD:" wrappingWidth="371.6907958984375">
