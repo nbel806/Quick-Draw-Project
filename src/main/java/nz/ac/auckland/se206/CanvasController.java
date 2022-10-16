@@ -32,6 +32,7 @@ import javafx.scene.shape.Arc;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
+import nz.ac.auckland.se206.speech.TextToSpeech;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 /**
@@ -84,6 +85,8 @@ public class CanvasController {
   private boolean startedDrawing;
 
   private TextToSpeechBackground textToSpeechBackground;
+  
+  private TextToSpeech textToSpeechAlert;
 
   private double currentX;
   private double currentY;
@@ -117,6 +120,7 @@ public class CanvasController {
     penImage.setFitHeight(71);
     penImage.setFitWidth(71);
     model = new DoodlePrediction();
+    
     setTimerLabel(seconds); // sets timer to specified number of seconds
     doTimer();
     // Set up and down images
@@ -203,6 +207,24 @@ public class CanvasController {
   public void setWordLabel(String wordToDraw) {
     currentWord = wordToDraw;
     wordLabel.setText(currentWord);
+    textToSpeechAlert = new TextToSpeech();
+    
+    // make sure the GUI won't freeze
+    Task<Void> backgroundTask = new Task<Void>(){
+
+		@Override
+		protected Void call() throws Exception {
+			
+			// speaks out what is the current word to be drew
+		    textToSpeechAlert.speak("Can you draw a " + currentWord);
+		    
+			return null;
+		}
+    };
+    
+    Thread backgroundThread = new Thread(backgroundTask);
+    backgroundThread.start();
+    
   }
 
   /**
@@ -212,6 +234,31 @@ public class CanvasController {
    */
   private void setTimerLabel(int time) {
     timerLabel.setText(String.valueOf(time));
+    textToSpeechAlert = new TextToSpeech();
+    
+    //make sure the GUI won't freeze
+    Task<Void> backgroundTask = new Task<Void>(){
+
+		@Override
+		protected Void call() throws Exception {
+			//speaks out how much time left
+		    if (time == 40) {
+		    	textToSpeechAlert.speak("forty seconds left");
+		    }
+		    if (time == 20) {
+		    	textToSpeechAlert.speak("twenty seconds left");
+		    }
+		    if (time == 10) {
+		    	textToSpeechAlert.speak("ten seconds left");
+		    }
+		    
+			return null;
+		}
+    };
+    
+    Thread backgroundThread = new Thread(backgroundTask);
+    backgroundThread.start();
+    
   }
 
   /** runs timer through timeline for 60secs until seconds = 0 */

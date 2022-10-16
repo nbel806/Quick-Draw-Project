@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -21,62 +22,77 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
+import nz.ac.auckland.se206.speech.TextToSpeech;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
+import nz.ac.auckland.se206.words.CategorySelector;
 import nz.ac.auckland.se206.words.DictionaryLookup;
+import nz.ac.auckland.se206.words.WordEntry;
 import nz.ac.auckland.se206.words.WordInfo;
 import nz.ac.auckland.se206.words.WordNotFoundException;
-import nz.ac.auckland.se206.words.WordPane;
 
 public class HiddenWordCanvasController {
-  @FXML private Pane upPane;
-  @FXML private Pane downPane;
 
-  @FXML private ImageView downArrow;
-  @FXML private ImageView upArrow;
-  @FXML private ImageView userImage;
-  @FXML private ImageView penImage;
-  @FXML private ImageView eraseImage;
-  @FXML private ImageView clearImage;
-  @FXML private ImageView volumeImage;
+  @FXML
+  private Button hintButton;
+  @FXML
+  private TextArea hintTextArea;
+  @FXML
+  private TextArea definitionTextArea;
+  @FXML
+  private Pane upPane;
+  @FXML
+  private Pane downPane;
 
-  @FXML private Canvas canvas;
+  @FXML
+  private ImageView downArrow;
+  @FXML
+  private ImageView upArrow;
+  @FXML
+  private ImageView userImage;
+  @FXML
+  private ImageView penImage;
+  @FXML
+  private ImageView eraseImage;
+  @FXML
+  private ImageView clearImage;
+  @FXML
+  private ImageView volumeImage;
 
-  @FXML private Label wordLabel;
-  @FXML private Label timerLabel;
-  @FXML private Label userLabel;
-  @FXML private Label topTenLabel;
-  @FXML private Label textToSpeechLabel;
-  @FXML private Label speakerLabel;
+  @FXML
+  private Canvas canvas;
 
-  @FXML private Text hintText1;
-  @FXML private Text hintText2;
-  @FXML private Text hintText3;
+  @FXML
+  private Label timerLabel;
+  @FXML
+  private Label userLabel;
+  @FXML
+  private Label topTenLabel;
+  @FXML
+  private Label textToSpeechLabel;
+  @FXML
+  private Label speakerLabel;
 
-  @FXML private Circle upArrowCircle;
-  @FXML private Circle downArrowCircle;
+  @FXML
+  private Button penButton;
+  @FXML
+  private Button eraseButton;
+  @FXML
+  private ColorPicker colorPicker;
 
-  @FXML private Button penButton;
-  @FXML private Button eraseButton;
-  @FXML private Button profileButton;
-  @FXML private ColorPicker colorPicker;
-  @FXML private Accordion resultsAccordion;
-
-  @FXML private Arc timerArc;
+  @FXML
+  private Arc timerArc;
 
   private GraphicsContext graphic;
   private DoodlePrediction model;
@@ -89,6 +105,8 @@ public class HiddenWordCanvasController {
   private boolean startedDrawing;
 
   private TextToSpeechBackground textToSpeechBackground;
+
+  private TextToSpeech textToSpeechAlert;
 
   private String currentUsername = null;
   private String currentProfilePic;
@@ -104,13 +122,17 @@ public class HiddenWordCanvasController {
   private double currentY;
   private double confidenceUser;
   private double lastWordPred = 0;
+  private String hint1;
+  private String hint2;
+  private String hint3;
+  private int hints;
 
   /**
    * JavaFX calls this method once the GUI elements are loaded. In our case we create a listener for
    * the drawing, and we load the ML model.
    *
    * @throws ModelException If there is an error in reading the input/output of the DL model.
-   * @throws IOException If the model cannot be found on the file system.
+   * @throws IOException    If the model cannot be found on the file system.
    */
   public void initialize() throws ModelException, IOException {
     graphic = canvas.getGraphicsContext2D();
@@ -131,7 +153,9 @@ public class HiddenWordCanvasController {
     downPane.setOpacity(0.3);
   }
 
-  /** this method generates and sets the functionalities of pen and eraser */
+  /**
+   * this method generates and sets the functionalities of pen and eraser
+   */
   private void setTool() {
     // save coordinates when mouse is pressed on the canvas
     canvas.setOnMousePressed(
@@ -191,26 +215,43 @@ public class HiddenWordCanvasController {
     return imageBinary;
   }
 
-  /**
-   * Sets word label from word passed
-   *
-   * @param wordToDraw word passed from previous screen
-   */
-  public void setWordLabel(String wordToDraw) {
-    currentWord = wordToDraw;
-    wordLabel.setText(currentWord);
-  }
 
   /**
-   * Timer label is set through
+   * main Timer label is set through
    *
    * @param time value of timer
    */
   private void setTimerLabel(int time) {
     timerLabel.setText(String.valueOf(time));
+    textToSpeechAlert = new TextToSpeech();
+
+    //make sure the GUI won't freeze
+    Task<Void> backgroundTask = new Task<Void>() {
+
+      @Override
+      protected Void call() throws Exception {
+        //speaks out how much time left
+        if (time == 40) {
+          textToSpeechAlert.speak("forty seconds left");
+        }
+        if (time == 20) {
+          textToSpeechAlert.speak("twenty seconds left");
+        }
+        if (time == 10) {
+          textToSpeechAlert.speak("ten seconds left");
+        }
+
+        return null;
+      }
+    };
+
+    Thread backgroundThread = new Thread(backgroundTask);
+    backgroundThread.start();
   }
 
-  /** runs timer through timeline for 60secs until seconds = 0 */
+  /**
+   * runs timer through timeline for 60secs until seconds = 0
+   */
   private void doTimer() {
     Timeline time = new Timeline();
     Timeline timeArc = new Timeline();
@@ -248,7 +289,9 @@ public class HiddenWordCanvasController {
     timeArc.playFromStart();
   }
 
-  /** Still needs work to not make application lag */
+  /**
+   * Still needs work to not make application lag
+   */
   private void doPredictions() {
     Timeline time = new Timeline();
     time.setCycleCount(Timeline.INDEFINITE);
@@ -309,7 +352,7 @@ public class HiddenWordCanvasController {
    * this methods gets and reads if the result is within top x of the list.
    *
    * @param list the list stores prediction results.
-   * @throws IOException If the model cannot be found on the file system.
+   * @throws IOException  If the model cannot be found on the file system.
    * @throws CsvException If the user info cannot be found locally
    */
   private void getTopX(List<Classifications.Classification> list) throws IOException, CsvException {
@@ -398,13 +441,13 @@ public class HiddenWordCanvasController {
   /**
    * When timer reaches 0secs, user will jump into the game over page
    *
-   * @throws IOException If the model cannot be found on the file system.
+   * @throws IOException  If the model cannot be found on the file system.
    * @throws CsvException If the user info cannot be found locally.
    */
   private void whenTimerEnds() throws IOException, CsvException {
     BufferedImage bufferedImage = getCurrentSnapshot();
     Stage stage =
-        (Stage) wordLabel.getScene().getWindow(); // finds current stage from the word label
+        (Stage) hintButton.getScene().getWindow(); // finds current stage from the word label
     FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/game_over.fxml"));
     Scene scene = new Scene(loader.load(), 1000, 680);
     stage.setScene(scene);
@@ -425,7 +468,7 @@ public class HiddenWordCanvasController {
    * pass the text to speech functionality
    *
    * @param textToSpeechBackground generates tts functionality from tts class
-   * @param textToSpeech activates tts functionality if is true
+   * @param textToSpeech           activates tts functionality if is true
    */
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
     this.textToSpeech = textToSpeech;
@@ -438,7 +481,7 @@ public class HiddenWordCanvasController {
   /**
    * get and pass user's info
    *
-   * @param username current logged in username
+   * @param username   current logged in username
    * @param profilePic user customized profile picture
    */
   public void getUsername(String username, String profilePic) {
@@ -462,7 +505,9 @@ public class HiddenWordCanvasController {
     }
   }
 
-  /** image becomes slightly larger when mouse is moved on */
+  /**
+   * image becomes slightly larger when mouse is moved on
+   */
   @FXML
   private void onHoverClear() {
     textToSpeechBackground.backgroundSpeak("Clear Canvas", textToSpeech);
@@ -470,25 +515,33 @@ public class HiddenWordCanvasController {
     clearImage.setFitWidth(73);
   }
 
-  /** label speaks out when mouse is moved on */
+  /**
+   * label speaks out when mouse is moved on
+   */
   @FXML
   private void onHoverTimer() {
     textToSpeechBackground.backgroundSpeak(String.valueOf(seconds), textToSpeech);
   }
 
-  /** label speaks out when mouse is moved on */
+  /**
+   * label speaks out when mouse is moved on
+   */
   @FXML
   private void onHoverTop10() {
     textToSpeechBackground.backgroundSpeak("List of Top 10 guesses", textToSpeech);
   }
 
-  /** label speaks out when mouse is moved on */
+  /**
+   * label speaks out when mouse is moved on
+   */
   @FXML
   private void onHoverCanvas() {
     textToSpeechBackground.backgroundSpeak("draw here", textToSpeech);
   }
 
-  /** label speaks out and image becomes slightly larger when mouse is moved on */
+  /**
+   * label speaks out and image becomes slightly larger when mouse is moved on
+   */
   @FXML
   private void onHoverPen() {
     textToSpeechBackground.backgroundSpeak(
@@ -498,7 +551,9 @@ public class HiddenWordCanvasController {
     penImage.setFitWidth(72);
   }
 
-  /** label speaks out and image becomes slightly larger when mouse is moved on */
+  /**
+   * label speaks out and image becomes slightly larger when mouse is moved on
+   */
   @FXML
   public void onHoverEraser() {
     textToSpeechBackground.backgroundSpeak(
@@ -508,7 +563,9 @@ public class HiddenWordCanvasController {
     eraseImage.setFitWidth(72);
   }
 
-  /** initialize or disconnect the tts feature */
+  /**
+   * initialize or disconnect the tts feature
+   */
   @FXML
   private void onTextToSpeech() {
     textToSpeech = !textToSpeech; // inverts boolean of text to speech
@@ -519,13 +576,17 @@ public class HiddenWordCanvasController {
     }
   }
 
-  /** label speaks out when mouse is moved on */
+  /**
+   * label speaks out when mouse is moved on
+   */
   @FXML
   private void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
   }
 
-  /** label speaks out and image becomes slightly larger when mouse is moved on */
+  /**
+   * label speaks out and image becomes slightly larger when mouse is moved on
+   */
   @FXML
   private void onHoverTextToSpeech() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
@@ -533,10 +594,12 @@ public class HiddenWordCanvasController {
     volumeImage.setFitWidth(48);
   }
 
-  /** initializes the pen and image restores its size when clicked */
+  /**
+   * initializes the pen and image restores its size when clicked
+   */
   @FXML
   private void
-      onSwitchToPen() { // "https://www.flaticon.com/free-icons/brush" title="brush icons">Brush
+  onSwitchToPen() { // "https://www.flaticon.com/free-icons/brush" title="brush icons">Brush
     // icons
     // created by Freepik - Flaticon
     pen = true;
@@ -551,7 +614,9 @@ public class HiddenWordCanvasController {
     eraseImage.setFitWidth(70);
   }
 
-  /** disconnects the pen and image restores its size when clicked */
+  /**
+   * disconnects the pen and image restores its size when clicked
+   */
   @FXML
   private void onSwitchToEraser() { // "https://www.flaticon.com/free-icons/eraser" title="eraser
     // icons">Eraser
@@ -569,14 +634,18 @@ public class HiddenWordCanvasController {
     penImage.setFitWidth(70);
   }
 
-  /** This method is called when the "Clear" button is pressed. */
+  /**
+   * This method is called when the "Clear" button is pressed.
+   */
   @FXML
   private void onClear() {
     graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
   } // https://www.flaticon.com/free-icons/recycle-bin title="recycle bin
   // icons">Recycle bin icons created by lakonicon - Flaticon
 
-  /** image and button restores when clicked */
+  /**
+   * image and button restores when clicked
+   */
   @FXML
   private void exitPen() {
     if (!pen) { // if eraser is curently active
@@ -586,7 +655,9 @@ public class HiddenWordCanvasController {
     }
   }
 
-  /** image and button restores when clicked */
+  /**
+   * image and button restores when clicked
+   */
   @FXML
   private void exitEraser() {
     if (pen) { // if pen too is active
@@ -596,21 +667,27 @@ public class HiddenWordCanvasController {
     }
   }
 
-  /** image restores its size when mouse is away */
+  /**
+   * image restores its size when mouse is away
+   */
   @FXML
   private void exitClear() {
     clearImage.setFitHeight(80);
     clearImage.setFitWidth(80);
   }
 
-  /** image restores its size when mouse is away */
+  /**
+   * image restores its size when mouse is away
+   */
   @FXML
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
   }
 
-  /** label speaks out when mouse is moved on */
+  /**
+   * label speaks out when mouse is moved on
+   */
   @FXML
   private void onHoverPredictions() {
     textToSpeechBackground.backgroundSpeak("Predictions", textToSpeech);
@@ -619,10 +696,10 @@ public class HiddenWordCanvasController {
   /**
    * set and pass the current difficulties combination
    *
-   * @param time user has to draw within this time
-   * @param accuracy results of drawing has to be within top x of the prediciton list
+   * @param time       user has to draw within this time
+   * @param accuracy   results of drawing has to be within top x of the prediciton list
    * @param confidence user confidence percentage
-   * @param words words category; E, M, H
+   * @param words      words category; E, M, H
    * @param overallDif current difficulty combination
    */
   public void setTimeAccuracy(int time, int accuracy, int confidence, int words, int overallDif) {
@@ -644,19 +721,48 @@ public class HiddenWordCanvasController {
    * set and display the definition of the word
    *
    * @param wordToDraw current guessed word
-   * @throws IOException If the model cannot be found on the file system.
+   * @throws IOException           If the model cannot be found on the file system.
    * @throws WordNotFoundException If the word is not found in API
    */
-  public void setDefinitionList(String wordToDraw) throws IOException, WordNotFoundException {
+  public void setDefinitionList(String wordToDraw)
+      throws IOException, WordNotFoundException, URISyntaxException, CsvException {
     currentWord = wordToDraw;
-    resultsAccordion.getPanes().clear();
+    // find definition of the word
     WordInfo wordResult = DictionaryLookup.searchWordInfo(wordToDraw);
-    TitledPane pane = WordPane.generateWordPane(wordToDraw, wordResult);
-    resultsAccordion.getPanes().add(pane);
+    System.out.println("word is:" + wordResult.getWord());
+    if (wordResult.getNumberOfEntries() == 0) {
+      System.out.println("here 00");
+      CategorySelector categorySelector = new CategorySelector();
+      currentWord = categorySelector.setWordToDraw(currentUsername, words);
+      setDefinitionList(currentWord);
+    }
+    List<WordEntry> list = wordResult.getWordEntries();
+    WordEntry wordEntry = list.get(0);
+
+    // adds the first deffinition to the text area
+    definitionTextArea.setText("Definition: " + wordEntry.getDefinitions().get(0));
 
     // setting the hints
-    hintText1.setText(wordToDraw.length() + " characters");
-    hintText2.setText("first character: " + wordToDraw.charAt(0));
-    hintText3.setText("last character: " + wordToDraw.charAt(wordToDraw.length() - 1));
+    hint1 = (wordToDraw.length() + " characters");
+    hint2 = ("first character: " + wordToDraw.charAt(0));
+    hint3 = ("last character: " + wordToDraw.charAt(wordToDraw.length() - 1));
+  }
+
+  /**
+   * new hint generated to help users on click
+   */
+  @FXML
+  private void onClickHint() {
+    if (hints == 0) { // first hint to help user
+      hintTextArea.setText("Hints:" + "\n" + hint1);
+      hints++;
+    } else if (hints == 1) { // second hint to help user
+      hintTextArea.setText("Hints:" + "\n" + hint1 + "\n" + hint2);
+      hints++;
+    } else if (hints == 2) { // third hint to help user
+      hintTextArea.setText("Hints:" + "\n" + hint1 + "\n" + hint2 + "\n" + hint3);
+      hints++;
+      hintButton.setOpacity(0.2); // grey out button
+    }
   }
 }
