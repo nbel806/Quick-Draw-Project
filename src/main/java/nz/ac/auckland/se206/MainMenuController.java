@@ -300,15 +300,19 @@ public class MainMenuController {
     if (words == 1) {
       wordDifLabel.setText("E");
       minusWords.setOpacity(0.2);
+      plusWords.setOpacity(1);
     } else if (words == 2) {
       wordDifLabel.setText("E,M");
       minusWords.setOpacity(1);
+      plusWords.setOpacity(1);
     } else if (words == 3) {
       wordDifLabel.setText("E,M,H");
       plusWords.setOpacity(1);
+      minusWords.setOpacity(1);
     } else if (words == 4) {
       wordDifLabel.setText("H");
       plusWords.setOpacity(0.2);
+      minusWords.setOpacity(1);
     } else {
       wordDifLabel.setText("ERROR");
     }
