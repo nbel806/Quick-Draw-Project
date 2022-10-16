@@ -20,6 +20,7 @@ import nz.ac.auckland.se206.words.CategorySelector;
 import nz.ac.auckland.se206.words.CategorySelector.Difficulty;
 
 public class CreateUserController {
+
   // Set name of the file to set user data
   private static final String fileName = "userdata.csv";
 
@@ -41,7 +42,7 @@ public class CreateUserController {
   /**
    * This method ensures all parameters are valid before a profile is created
    *
-   * @param username
+   * @param username current logged in user
    */
   private void createProfile(String username) {
     String[] profile = new String[17];
@@ -200,7 +201,7 @@ public class CreateUserController {
    * @throws IOException if name of file is not found
    */
   @FXML
-  private void onMainMenu() throws IOException, CsvException {
+  private void onMainMenu() throws IOException {
     Stage stage = (Stage) backButton.getScene().getWindow();
     LoadPage loadPage = new LoadPage();
     loadPage.extractedMainMenu(

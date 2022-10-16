@@ -159,7 +159,7 @@ public class SpreadSheetReaderWriter {
   /**
    * get the fastest time spent
    *
-   * @param username current user name
+   * @param currentUsername current user name
    * @return return the fastest time spent
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If file does not exist
@@ -174,7 +174,7 @@ public class SpreadSheetReaderWriter {
   /**
    * gets all the history words
    *
-   * @param username current user name
+   * @param currentUsername current user name
    * @return return the list containing all history words encountered
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If file does not exist
@@ -189,7 +189,7 @@ public class SpreadSheetReaderWriter {
   /**
    * gets the streak for the current user
    *
-   * @param username current user name
+   * @param currentUsername current user name
    * @return return the streak
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If file does not exist
