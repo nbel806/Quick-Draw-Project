@@ -24,24 +24,16 @@ import nz.ac.auckland.se206.words.WordPageController;
 
 public class GameOverController {
 
-  @FXML
-  private ImageView usersImage;
-  @FXML
-  private Label timeLabel;
-  @FXML
-  private Label winLoseLabel;
-  @FXML
-  private Label textToSpeechLabel;
+  @FXML private ImageView usersImage;
+  @FXML private Label timeLabel;
+  @FXML private Label winLoseLabel;
+  @FXML private Label textToSpeechLabel;
 
-  @FXML
-  private Button playAgainButton;
-  @FXML
-  private Button menuButton;
-  @FXML
-  private Button saveButton;
+  @FXML private Button playAgainButton;
+  @FXML private Button menuButton;
+  @FXML private Button saveButton;
 
-  @FXML
-  private ImageView volumeImage;
+  @FXML private ImageView volumeImage;
 
   private CanvasController canvasController;
 
@@ -67,7 +59,7 @@ public class GameOverController {
    * pass the text to speech functionality
    *
    * @param textToSpeechBackground generates tts functionality from tts class
-   * @param textToSpeech           activates tts functionality if is true
+   * @param textToSpeech activates tts functionality if is true
    */
   public void give(
       TextToSpeechBackground textToSpeechBackground,
@@ -88,7 +80,7 @@ public class GameOverController {
    * by Dan
    *
    * @param bufferedImage takes a buffered image that is a screenshot of the final drawing the user
-   *                      did
+   *     did
    * @return Image, is a image that can be used in java fx image view.
    */
   private static Image convertToFxImage(BufferedImage bufferedImage) {
@@ -109,10 +101,10 @@ public class GameOverController {
   /**
    * set all the labels relating to the difficulty selection and game results from normal mode
    *
-   * @param winLose    win or lose
-   * @param ctrl       pass the canvas controller
+   * @param winLose win or lose
+   * @param ctrl pass the canvas controller
    * @param overallDif current difficulty combination
-   * @throws IOException  If the model cannot be found on the file system.
+   * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user cannot be found locally.
    */
   public void setWinLoseLabel(boolean winLose, CanvasController ctrl, int overallDif)
@@ -170,8 +162,8 @@ public class GameOverController {
   /**
    * set all the labels relating to the difficulty selection and game results from hidden mode
    *
-   * @param winLose    win or lose
-   * @param ctrl       pass the hidden mode canvas controller
+   * @param winLose win or lose
+   * @param ctrl pass the hidden mode canvas controller
    * @param overallDif current difficulty combination
    */
   public void setHiddenWinLoseLabel(
@@ -226,7 +218,7 @@ public class GameOverController {
    * calculate the amount of time spent on the sketch
    *
    * @param sec spent time
-   * @throws IOException  If the model cannot be found on the file system.
+   * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user cannot be found locally.
    */
   public void timeLeft(int sec) throws IOException, CsvException {
@@ -238,7 +230,7 @@ public class GameOverController {
   /**
    * pass the username and the profile picture
    *
-   * @param username   current username
+   * @param username current username
    * @param profilePic profile picture
    */
   public void getUsername(String username, String profilePic) {
@@ -250,9 +242,7 @@ public class GameOverController {
     }
   }
 
-  /**
-   * save the image by choosing own location
-   */
+  /** save the image by choosing own location */
   @FXML
   private void onSave() {
     Stage stage = (Stage) playAgainButton.getScene().getWindow(); // gets the stage from the button
@@ -277,7 +267,7 @@ public class GameOverController {
   /**
    * switch to the main menu
    *
-   * @throws IOException  If the model cannot be found on the file system.
+   * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user cannot be found locally.
    */
   @FXML
@@ -302,9 +292,9 @@ public class GameOverController {
   /**
    * switch to the word page to play again
    *
-   * @throws IOException        If the model cannot be found on the file system.
+   * @throws IOException If the model cannot be found on the file system.
    * @throws URISyntaxException If the URI is valid
-   * @throws CsvException       If the user cannot be found locally.
+   * @throws CsvException If the user cannot be found locally.
    */
   @FXML
   private void onPlayAgain() throws IOException, URISyntaxException, CsvException {
@@ -326,9 +316,7 @@ public class GameOverController {
     ctrl.getUsername(currentUsername, currentProfilePic);
   }
 
-  /**
-   * initialize or disconnect the tts feature
-   */
+  /** initialize or disconnect the tts feature */
   @FXML
   private void onTextToSpeech() {
     textToSpeech = !textToSpeech; // inverts boolean
@@ -339,17 +327,13 @@ public class GameOverController {
     }
   }
 
-  /**
-   * label speaks out when mouse is moved on
-   */
+  /** label speaks out when mouse is moved on */
   @FXML
   private void onHoverWinLose() {
     textToSpeechBackground.backgroundSpeak(winLoseString, textToSpeech);
   }
 
-  /**
-   * label speaks out and button changes its style when mouse hovers on
-   */
+  /** label speaks out and button changes its style when mouse hovers on */
   @FXML
   private void onHoverSave() {
     textToSpeechBackground.backgroundSpeak("Save", textToSpeech);
@@ -357,9 +341,7 @@ public class GameOverController {
         "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
-  /**
-   * label speaks out and button changes its style when mouse hovers on
-   */
+  /** label speaks out and button changes its style when mouse hovers on */
   @FXML
   private void onHoverPlayAgain() {
     textToSpeechBackground.backgroundSpeak("Play Again", textToSpeech);
@@ -367,9 +349,7 @@ public class GameOverController {
         "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
-  /**
-   * label speaks out and button changes its style when mouse hovers on
-   */
+  /** label speaks out and button changes its style when mouse hovers on */
   @FXML
   private void onHoverMenu() {
     textToSpeechBackground.backgroundSpeak("Main Menu", textToSpeech);
@@ -377,17 +357,13 @@ public class GameOverController {
         "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
   }
 
-  /**
-   * label speaks out and image becomes larger slightly when mouse hovers on
-   */
+  /** label speaks out and image becomes larger slightly when mouse hovers on */
   @FXML
   private void onHoverTextToSpeech() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
@@ -395,53 +371,41 @@ public class GameOverController {
     volumeImage.setFitWidth(48);
   }
 
-  /**
-   * image restores its size when mouse is moved away
-   */
+  /** image restores its size when mouse is moved away */
   @FXML
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
   }
 
-  /**
-   * button restores it style when mouse is moved away
-   */
+  /** button restores it style when mouse is moved away */
   @FXML
   private void onSaveExit() {
     saveButton.setStyle(
         "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 2");
   }
 
-  /**
-   * button restores it style when mouse is moved away
-   */
+  /** button restores it style when mouse is moved away */
   @FXML
   private void onMenuExit() {
     menuButton.setStyle(
         "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 2");
   }
 
-  /**
-   * button restores it style when mouse is moved away
-   */
+  /** button restores it style when mouse is moved away */
   @FXML
   private void onPlayAgainExit() {
     playAgainButton.setStyle(
         "-fx-background-radius: 10px; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 2");
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   public void onHoverTimeLeft() {
     textToSpeechBackground.backgroundSpeak(timeLeft + "seconds left", textToSpeech);
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverTitle() {
     textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
@@ -450,10 +414,10 @@ public class GameOverController {
   /**
    * pass the difficulties selections
    *
-   * @param time         user has to draw within this time
+   * @param time user has to draw within this time
    * @param userAccuracy is the result within top x of the prediction list
-   * @param confidence   confidence percentages
-   * @param words        words category
+   * @param confidence confidence percentages
+   * @param words words category
    */
   public void setTimeAccuracy(int time, int userAccuracy, int confidence, int words) {
     this.time = time;

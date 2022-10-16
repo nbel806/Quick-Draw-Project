@@ -42,60 +42,38 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
  *
  * <p>!! IMPORTANT !!
  *
- * <p>Although we added the scale of the image, you need to be careful when changing the size of
- * the
+ * <p>Although we added the scale of the image, you need to be careful when changing the size of the
  * drawable canvas and the brush size. If you make the brush too big or too small with respect to
  * the canvas size, the ML model will not work correctly. So be careful. If you make some changes in
  * the canvas and brush sizes, make sure that the prediction works fine.
  */
 public class CanvasController {
 
-  @FXML
-  private Canvas canvas;
+  @FXML private Canvas canvas;
 
-  @FXML
-  private Pane upPane;
-  @FXML
-  private Pane downPane;
+  @FXML private Pane upPane;
+  @FXML private Pane downPane;
 
-  @FXML
-  private Label wordLabel;
-  @FXML
-  private Label timerLabel;
-  @FXML
-  private Label userLabel;
-  @FXML
-  private Label topTenLabel;
-  @FXML
-  private Label textToSpeechLabel;
-  @FXML
-  private Label speakerLabel;
+  @FXML private Label wordLabel;
+  @FXML private Label timerLabel;
+  @FXML private Label userLabel;
+  @FXML private Label topTenLabel;
+  @FXML private Label textToSpeechLabel;
+  @FXML private Label speakerLabel;
 
-  @FXML
-  private Button penButton;
-  @FXML
-  private Button eraseButton;
-  @FXML
-  private Button profileButton;
+  @FXML private Button penButton;
+  @FXML private Button eraseButton;
+  @FXML private Button profileButton;
 
-  @FXML
-  private ImageView penImage;
-  @FXML
-  private ImageView eraseImage;
-  @FXML
-  private ImageView clearImage;
-  @FXML
-  private ImageView volumeImage;
-  @FXML
-  private ImageView upArrow;
-  @FXML
-  private ImageView userImage;
-  @FXML
-  private ImageView downArrow;
-  @FXML
-  private ColorPicker colorPicker;
-  @FXML
-  private Arc timerArc;
+  @FXML private ImageView penImage;
+  @FXML private ImageView eraseImage;
+  @FXML private ImageView clearImage;
+  @FXML private ImageView volumeImage;
+  @FXML private ImageView upArrow;
+  @FXML private ImageView userImage;
+  @FXML private ImageView downArrow;
+  @FXML private ColorPicker colorPicker;
+  @FXML private Arc timerArc;
 
   private GraphicsContext graphic;
   private DoodlePrediction model;
@@ -131,7 +109,7 @@ public class CanvasController {
    * the drawing, and we load the ML model.
    *
    * @throws ModelException If there is an error in reading the input/output of the DL model.
-   * @throws IOException    If the model cannot be found on the file system.
+   * @throws IOException If the model cannot be found on the file system.
    */
   public void initialize() throws ModelException, IOException {
     graphic = canvas.getGraphicsContext2D();
@@ -153,9 +131,7 @@ public class CanvasController {
     downPane.setOpacity(0.3);
   }
 
-  /**
-   * this method generates and sets the functionalities of pen and eraser
-   */
+  /** this method generates and sets the functionalities of pen and eraser */
   private void setTool() {
 
     // save coordinates when mouse is pressed on the canvas
@@ -286,9 +262,7 @@ public class CanvasController {
     backgroundThread.start();
   }
 
-  /**
-   * runs timer through timeline for 60secs until seconds = 0
-   */
+  /** runs timer through timeline for 60secs until seconds = 0 */
   private void doTimer() {
     Timeline time = new Timeline();
     Timeline timeArc = new Timeline();
@@ -326,9 +300,7 @@ public class CanvasController {
     timeArc.playFromStart();
   }
 
-  /**
-   * Still needs work to not make application lag
-   */
+  /** Still needs work to not make application lag */
   private void doPredictions() {
     Timeline time = new Timeline();
     time.setCycleCount(Timeline.INDEFINITE);
@@ -389,7 +361,7 @@ public class CanvasController {
    * this methods gets and reads if the result is within top x of the list.
    *
    * @param list the list stores prediction results.
-   * @throws IOException  If the model cannot be found on the file system.
+   * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user info cannot be found locally
    */
   private void getTopX(List<Classifications.Classification> list) throws IOException, CsvException {
@@ -478,7 +450,7 @@ public class CanvasController {
   /**
    * When timer reaches 0secs, user will jump into the game over page
    *
-   * @throws IOException  If the model cannot be found on the file system.
+   * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user info cannot be found locally.
    */
   private void whenTimerEnds() throws IOException, CsvException {
@@ -508,7 +480,7 @@ public class CanvasController {
    * pass the text to speech functionality
    *
    * @param textToSpeechBackground generates tts functionality from tts class
-   * @param textToSpeech           activates tts functionality if is true
+   * @param textToSpeech activates tts functionality if is true
    */
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
     this.textToSpeech = textToSpeech;
@@ -521,7 +493,7 @@ public class CanvasController {
   /**
    * get and pass user's info
    *
-   * @param username   current logged in username
+   * @param username current logged in username
    * @param profilePic user customized profile picture
    */
   public void getUsername(String username, String profilePic) {
@@ -545,9 +517,7 @@ public class CanvasController {
     }
   }
 
-  /**
-   * image becomes slightly larger when mouse is moved on
-   */
+  /** image becomes slightly larger when mouse is moved on */
   @FXML
   private void onHoverClear() {
     textToSpeechBackground.backgroundSpeak("Clear Canvas", textToSpeech);
@@ -555,41 +525,31 @@ public class CanvasController {
     clearImage.setFitWidth(73);
   }
 
-  /**
-   * label speaks out when mouse is moved on
-   */
+  /** label speaks out when mouse is moved on */
   @FXML
   private void onHoverTimer() {
     textToSpeechBackground.backgroundSpeak(String.valueOf(seconds), textToSpeech);
   }
 
-  /**
-   * label speaks out when mouse is moved on
-   */
+  /** label speaks out when mouse is moved on */
   @FXML
   private void onHoverTop10() {
     textToSpeechBackground.backgroundSpeak("List of Top 10 guesses", textToSpeech);
   }
 
-  /**
-   * label speaks out when mouse is moved on
-   */
+  /** label speaks out when mouse is moved on */
   @FXML
   private void onHoverCanvas() {
     textToSpeechBackground.backgroundSpeak("draw here", textToSpeech);
   }
 
-  /**
-   * label speaks out when mouse is moved on
-   */
+  /** label speaks out when mouse is moved on */
   @FXML
   private void onHoverWord() {
     textToSpeechBackground.backgroundSpeak(currentWord, textToSpeech);
   }
 
-  /**
-   * label speaks out and image becomes slightly larger when mouse is moved on
-   */
+  /** label speaks out and image becomes slightly larger when mouse is moved on */
   @FXML
   private void onHoverPen() {
     textToSpeechBackground.backgroundSpeak(
@@ -599,9 +559,7 @@ public class CanvasController {
     penImage.setFitWidth(72);
   }
 
-  /**
-   * label speaks out and image becomes slightly larger when mouse is moved on
-   */
+  /** label speaks out and image becomes slightly larger when mouse is moved on */
   @FXML
   private void onHoverEraser() {
     textToSpeechBackground.backgroundSpeak(
@@ -611,9 +569,7 @@ public class CanvasController {
     eraseImage.setFitWidth(72);
   }
 
-  /**
-   * initialize or disconnect the tts feature
-   */
+  /** initialize or disconnect the tts feature */
   @FXML
   private void onTextToSpeech() {
     textToSpeech = !textToSpeech; // inverts boolean of text to speech
@@ -624,17 +580,13 @@ public class CanvasController {
     }
   }
 
-  /**
-   * label speaks out when mouse is moved on
-   */
+  /** label speaks out when mouse is moved on */
   @FXML
   private void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
   }
 
-  /**
-   * label speaks out and image becomes slightly larger when mouse is moved on
-   */
+  /** label speaks out and image becomes slightly larger when mouse is moved on */
   @FXML
   private void onHoverTextToSpeech() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
@@ -642,12 +594,10 @@ public class CanvasController {
     volumeImage.setFitWidth(48);
   }
 
-  /**
-   * initializes the pen and image restores its size when clicked
-   */
+  /** initializes the pen and image restores its size when clicked */
   @FXML
   private void
-  onSwitchToPen() { // "https://www.flaticon.com/free-icons/brush" title="brush icons">Brush
+      onSwitchToPen() { // "https://www.flaticon.com/free-icons/brush" title="brush icons">Brush
     // icons
     // created by Freepik - Flaticon
     pen = true;
@@ -662,9 +612,7 @@ public class CanvasController {
     eraseImage.setFitWidth(70);
   }
 
-  /**
-   * disconnects the pen and image restores its size when clicked
-   */
+  /** disconnects the pen and image restores its size when clicked */
   @FXML
   private void onSwitchToEraser() { // "https://www.flaticon.com/free-icons/eraser" title="eraser
     // icons">Eraser
@@ -682,18 +630,14 @@ public class CanvasController {
     penImage.setFitWidth(70);
   }
 
-  /**
-   * This method is called when the "Clear" button is pressed.
-   */
+  /** This method is called when the "Clear" button is pressed. */
   @FXML
   private void onClear() {
     graphic.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
   } // https://www.flaticon.com/free-icons/recycle-bin title="recycle bin
   // icons">Recycle bin icons created by lakonicon - Flaticon
 
-  /**
-   * image restores its size when clicked
-   */
+  /** image restores its size when clicked */
   @FXML
   private void exitPen() {
     if (!pen) { // if eraser is curently active
@@ -703,9 +647,7 @@ public class CanvasController {
     }
   }
 
-  /**
-   * image restores its size when clicked
-   */
+  /** image restores its size when clicked */
   @FXML
   private void exitEraser() {
     if (pen) { // if pen too is active
@@ -715,27 +657,21 @@ public class CanvasController {
     }
   }
 
-  /**
-   * image restores its size when mouse is away
-   */
+  /** image restores its size when mouse is away */
   @FXML
   private void exitClear() {
     clearImage.setFitHeight(70);
     clearImage.setFitWidth(70);
   }
 
-  /**
-   * image restores its size when mouse is away
-   */
+  /** image restores its size when mouse is away */
   @FXML
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
   }
 
-  /**
-   * label speaks out when mouse is moved on
-   */
+  /** label speaks out when mouse is moved on */
   @FXML
   private void onHoverPredictions() {
     textToSpeechBackground.backgroundSpeak("Predictions", textToSpeech);
@@ -744,10 +680,10 @@ public class CanvasController {
   /**
    * set and pass the current difficulties combination
    *
-   * @param time       user has to draw within this time
-   * @param accuracy   results of drawing has to be within top x of the prediciton list
+   * @param time user has to draw within this time
+   * @param accuracy results of drawing has to be within top x of the prediciton list
    * @param confidence user confidence percentage
-   * @param words      words category; E, M, H
+   * @param words words category; E, M, H
    * @param overallDif current difficulty combination
    */
   public void setTimeAccuracy(int time, int accuracy, int confidence, int words, int overallDif) {

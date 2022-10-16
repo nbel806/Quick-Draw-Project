@@ -1,6 +1,7 @@
 .down-button{
 	-fx-border-color: black;
 	-fx-background-color:  #EB4A5A;
+	-fx-background-insets: 0;
 }
 
 .down-button:hover{
@@ -10,6 +11,7 @@
 .up-button{
 	-fx-border-color: black;
 	-fx-background-color:   #45f248;
+	-fx-background-insets: 0;
 }
 
 .up-button:hover{
