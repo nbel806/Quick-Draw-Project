@@ -6,6 +6,8 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
@@ -36,10 +38,21 @@ public class App extends Application {
     MainMenuController ctrl = loader.getController(); // need controller to pass information
     ctrl.give(new TextToSpeechBackground(tts), false);
     stage.show();
+    Media sound =
+        new Media(
+            this.getClass()
+                .getResource("/sounds/mixkit-motivating-mornings-33.mp3")
+                .toExternalForm());
+    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+    mediaPlayer.setCycleCount(1000);
+    mediaPlayer.play();
+
+    mediaPlayer.setVolume(0.14);
     stage.setOnCloseRequest(
         e -> {
           Platform.exit();
           tts.terminate(); // ensures that upon close the tts will terminate
+          mediaPlayer.stop();
         });
     LoginController.createDataBase(); // Create csv file
   }

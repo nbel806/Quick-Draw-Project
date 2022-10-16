@@ -265,8 +265,7 @@ public class WordPageController {
    * @throws WordNotFoundException word does not exist
    */
   @FXML
-  private void onReady()
-      throws IOException, WordNotFoundException, URISyntaxException, CsvException {
+  private void onReady() throws IOException, URISyntaxException, CsvException {
     Stage stage =
         (Stage) readyButton.getScene().getWindow(); // uses the ready button to fine the stage
 
