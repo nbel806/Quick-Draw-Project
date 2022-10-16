@@ -17,6 +17,9 @@ import nz.ac.auckland.se206.words.ZenWordPageController;
 
 public class MainMenuController {
 
+  @FXML private Button plusWords;
+  @FXML private Button minusWords;
+  @FXML private Label wordDifLabel;
   @FXML private Button playButton;
   @FXML private Button profileButton;
   @FXML private Button loginButton;
@@ -31,29 +34,27 @@ public class MainMenuController {
   private TextToSpeechBackground textToSpeechBackground;
   private String currentUsername = null;
   private String currentProfilePic = null;
-
-  private int accuracy = 3;
-  private int time = 60;
   private int words = 1;
-  private int confidence = 1;
 
   /**
    * pass the text to speech functionality
-   * 
-   * @param textToSpeechBackground generates tts functionality from tts class
+   *
+   * @param tts generates tts functionality from tts class
    * @param textToSpeech activates tts functionality if is true
    */
-  public void give(TextToSpeechBackground tts, Boolean textToSpeech) {
+  public void give(TextToSpeechBackground tts, Boolean textToSpeech)
+      throws IOException, CsvException {
     textToSpeechBackground = tts; // passes through the text to speech instance
     this.textToSpeech = textToSpeech;
     if (textToSpeech) {
       textToSpeechLabel.setText("ON");
     }
+    updateUserWords(words);
   }
 
   /**
    * create the current username and select a profile picture
-   * 
+   *
    * @param username current username
    * @param profilePic profile picture selected
    */
@@ -64,31 +65,17 @@ public class MainMenuController {
       currentUsername = username;
       currentProfilePic = profilePic;
       userLabel.setText(currentUsername);
-      setDifficulty(currentUsername);
-
+      SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+      words = sheetReaderWriter.getUsersWords(currentUsername);
     } else {
       userLabel.setText("Guest");
     }
-  }
-
-  /**
-   * get the difficulties that user chose from last time
-   * 
-   * @param currentUsername curren user name that is passed into
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  private void setDifficulty(String currentUsername) throws IOException, CsvException {
-    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
-    accuracy = sheetReaderWriter.getUsersAccuracy(currentUsername);
-    confidence = sheetReaderWriter.getUsersConfidence(currentUsername);
-    time = sheetReaderWriter.getUsersTime(currentUsername);
-    words = sheetReaderWriter.getUsersWords(currentUsername);
+    updateUserWords(words);
   }
 
   /**
    * switch to zen mode word page
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user info cannot be found locally
    */
@@ -109,7 +96,7 @@ public class MainMenuController {
 
   /**
    * switch to normal and hidden word page
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws URISyntaxException If URI does not exist
    * @throws CsvException If the user info cannot be found locally
@@ -124,7 +111,6 @@ public class MainMenuController {
     Scene scene = new Scene(loader.load(), 1000, 680);
     WordPageController ctrl = loader.getController(); // need controller to pass information
     ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
-    ctrl.setDifficulty(accuracy, confidence, words, time);
     ctrl.getUsername(currentUsername, currentProfilePic); // passes username
     stage.setScene(scene);
     stage.show();
@@ -132,7 +118,7 @@ public class MainMenuController {
 
   /**
    * switch to profile page
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user info cannot be found locally
    */
@@ -146,7 +132,7 @@ public class MainMenuController {
 
   /**
    * switch to login page
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvValidationException If the file is invalid
    */
@@ -167,9 +153,7 @@ public class MainMenuController {
     stage.show();
   }
 
-  /**
-   * initialize or disconnect the tts feature
-   */
+  /** initialize or disconnect the tts feature */
   @FXML
   private void onTextToSpeech() {
     textToSpeech = !textToSpeech; // inverts boolean
@@ -180,26 +164,20 @@ public class MainMenuController {
     }
   }
 
-  /**
-   * label speaks out when mouser hovers on
-   */
+  /** label speaks out when mouser hovers on */
   @FXML
   private void onHoverCreators() {
     textToSpeechBackground.backgroundSpeak(
         "Bought to you by speedy sketcher and Team 15", textToSpeech);
   }
 
-  /**
-   * label speaks out when mouser hovers on
-   */
+  /** label speaks out when mouser hovers on */
   @FXML
   private void onHoverLogo() {
     textToSpeechBackground.backgroundSpeak("Speedy Sketchers logo", textToSpeech);
   }
 
-  /**
-   * label speaks out and images becomes slightly larger when mouser hovers on
-   */
+  /** label speaks out and images becomes slightly larger when mouser hovers on */
   @FXML
   private void onHoverTextToSpeech() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
@@ -207,17 +185,13 @@ public class MainMenuController {
     volumeImage.setFitWidth(48);
   }
 
-  /**
-   * label speaks out when mouser hovers on
-   */
+  /** label speaks out when mouser hovers on */
   @FXML
   private void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
   }
 
-  /**
-   * label speaks out and button style changes when mouse hovers on
-   */
+  /** label speaks out and button style changes when mouse hovers on */
   @FXML
   private void onHoverPlay() {
     textToSpeechBackground.backgroundSpeak("Start", textToSpeech);
@@ -225,9 +199,7 @@ public class MainMenuController {
         "-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-background-color: #99DAF4; -fx-border-color: #99DAF4;");
   }
 
-  /**
-   * label speaks out and image gets slightly when mouse hovers on 
-   */
+  /** label speaks out and image gets slightly when mouse hovers on */
   @FXML
   private void onHoverProfile() {
     textToSpeechBackground.backgroundSpeak("Profile", textToSpeech);
@@ -235,9 +207,7 @@ public class MainMenuController {
     userImage.setFitWidth(63);
   }
 
-  /**
-   * label speaks out and image gets slightly when mouse hovers on 
-   */
+  /** label speaks out and image gets slightly when mouse hovers on */
   @FXML
   private void onHoverLogin() {
     textToSpeechBackground.backgroundSpeak("Login", textToSpeech);
@@ -245,17 +215,13 @@ public class MainMenuController {
     loginImage.setFitWidth(62);
   }
 
-  /**
-   * label speaks out when mouse hovers on
-   */
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverTitle() {
     textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
   }
 
-  /**
-   * label speaks out and image gets slightly when mouse hovers on 
-   */
+  /** label speaks out and image gets slightly when mouse hovers on */
   @FXML
   private void onHoverZen() {
     textToSpeechBackground.backgroundSpeak("Zen Mode", textToSpeech);
@@ -263,201 +229,66 @@ public class MainMenuController {
     zenImage.setFitWidth(62);
   }
 
-  /**
-   * button style stores when mouse is away
-   */
+  /** button style stores when mouse is away */
   @FXML
   private void onPlayExit() {
     playButton.setStyle(
         "-fx-background-radius: 25px; -fx-border-radius: 25px; -fx-background-color: transparent; -fx-border-color: white;");
   }
 
-  /**
-   * image restores when mouse is away
-   */
+  /** image restores when mouse is away */
   @FXML
   private void onProfileExit() {
     userImage.setFitHeight(66);
     userImage.setFitWidth(60);
   }
 
-  /**
-   * image restores when mouse is away
-   */
+  /** image restores when mouse is away */
   @FXML
   private void onLoginExit() {
     loginImage.setFitHeight(70);
     loginImage.setFitWidth(60);
   }
 
-  /**
-   * image restores when mouse is away
-   */
+  /** image restores when mouse is away */
   @FXML
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
   }
 
-  /**
-   * image restores when mouse is away
-   */
+  /** image restores when mouse is away */
   @FXML
   private void onZenExit() {
     zenImage.setFitHeight(61);
     zenImage.setFitWidth(59);
   }
 
-  /**
-   * set prediction result within top 3
-   * 
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
   @FXML
-  private void onSetAccuracyTop3() throws IOException, CsvException {
-    updateUserAccuracy(3);
-  }
-
-  /**
-   * set prediction result within top 2
-   * 
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  @FXML
-  private void onSetAccuracyTop2() throws IOException, CsvException {
-    updateUserAccuracy(2);
-  }
-
-  /**
-   * set prediction result within top 1
-   * 
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  @FXML
-  private void onSetAccuracyTop1() throws IOException, CsvException {
-    updateUserAccuracy(1);
-  }
-
-  /**
-   * update current accuracy for current user
-   * 
-   * @param accuracy current accuracy
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  private void updateUserAccuracy(int accuracy) throws IOException, CsvException {
-    this.accuracy = accuracy;
-    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
-    sheetReaderWriter.updateUsersAccuracy(accuracy, currentUsername);
-  }
-
-  /**
-   * set the current confidence to be 1%
-   * 
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  @FXML
-  private void onSetConfidence1() throws IOException, CsvException {
-    updateUserConfidence(1);
-  }
-
-  /**
-   * set the current confidence to be 10%
-   * 
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  @FXML
-  private void onSetConfidence10() throws IOException, CsvException {
-    updateUserConfidence(10);
-  }
-
-  /**
-   * set the current confidence to be 25%
-   * 
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  @FXML
-  private void onSetConfidence25() throws IOException, CsvException {
-    updateUserConfidence(25);
-  }
-
-  /**
-   * set the current confidence to be 50%
-   * 
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  @FXML
-  private void onSetConfidence50() throws IOException, CsvException {
-    updateUserConfidence(50);
-  }
-
-  /**
-   * update confidence for current user
-   * 
-   * @param confidence current confidence percentage
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  private void updateUserConfidence(int confidence) throws IOException, CsvException {
-    this.confidence = confidence;
-    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
-    sheetReaderWriter.updateUsersConfidence(confidence, currentUsername);
-  }
-
-  /**
-   * set word category easy
-   * 
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  @FXML
-  private void onSetWordsE() throws IOException, CsvException {
-    updateUserWords(1);
-  }
-
-  /**
-   * set word category easy and medium
-   * 
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  @FXML
-  private void onSetWordsEM() throws IOException, CsvException {
-    updateUserWords(2);
-  }
-
-  /**
-   * set word category easy, medium, and hard
-   * 
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  @FXML
-  private void onSetWordsEMH() throws IOException, CsvException {
-    updateUserWords(3);
+  private void onClickWordsUp() throws IOException, CsvException {
+    if (words != 4) {
+      words++;
+    }
+    updateUserWords(words);
   }
 
   /**
    * set word category hard
-   * 
+   *
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user info cannot be found locally
    */
   @FXML
-  private void onSetWordsH() throws IOException, CsvException {
-    updateUserWords(4);
+  private void onClickWordsDown() throws IOException, CsvException {
+    if (words != 1) {
+      words--;
+    }
+    updateUserWords(words);
   }
 
   /**
    * update word category for the current user
-   * 
+   *
    * @param words current word category
    * @throws IOException If the model cannot be found on the file system.
    * @throws CsvException If the user info cannot be found locally
@@ -466,61 +297,24 @@ public class MainMenuController {
     this.words = words;
     SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
     sheetReaderWriter.updateUsersWords(words, currentUsername);
-  }
-
-  /**
-   * set time limit 60s
-   * 
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  @FXML
-  private void onSetTime60() throws IOException, CsvException {
-    updateUserTime(60);
-  }
-
-  /**
-   * set time limit 45s
-   * 
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  @FXML
-  private void onSetTime45() throws IOException, CsvException {
-    updateUserTime(45);
-  }
-  
-  /**
-   * set time limit 30s
-   * 
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  @FXML
-  private void onSetTime30() throws IOException, CsvException {
-    updateUserTime(30);
-  }
-
-  /**
-   * set time limit 15s
-   * 
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  @FXML
-  private void onSetTime15() throws IOException, CsvException {
-    updateUserTime(15);
-  }
-
-  /**
-   * update time limit for current user
-   * 
-   * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
-   */
-  private void updateUserTime(int time) throws IOException, CsvException {
-    this.time = time;
-    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
-    sheetReaderWriter.updateUsersTime(time, currentUsername);
+    if (words == 1) {
+      wordDifLabel.setText("E");
+      minusWords.setOpacity(0.2);
+      plusWords.setOpacity(1);
+    } else if (words == 2) {
+      wordDifLabel.setText("E,M");
+      minusWords.setOpacity(1);
+      plusWords.setOpacity(1);
+    } else if (words == 3) {
+      wordDifLabel.setText("E,M,H");
+      plusWords.setOpacity(1);
+      minusWords.setOpacity(1);
+    } else if (words == 4) {
+      wordDifLabel.setText("H");
+      plusWords.setOpacity(0.2);
+      minusWords.setOpacity(1);
+    } else {
+      wordDifLabel.setText("ERROR");
+    }
   }
 }

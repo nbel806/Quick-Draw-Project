@@ -23,6 +23,13 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class WordPageController {
 
+  @FXML private Button minusConfidence;
+  @FXML private Button minusAccuracy;
+  @FXML private Button minusTime;
+  @FXML private Button plusTime;
+  @FXML private Button plusConfidence;
+  @FXML private Button plusAccuracy;
+
   @FXML private Text confidenceLabel;
   @FXML private Text wordsLabel;
   @FXML private Text accuracyLabel;
@@ -45,11 +52,11 @@ public class WordPageController {
   private TextToSpeechBackground textToSpeechBackground;
   private String currentUsername = null;
   private String currentProfilePic = null;
-  private int time;
-  private int accuracy;
-  private int confidence;
-  private int words;
-  private int overallDif;
+  private int time = 60;
+  private int accuracy = 3;
+  private int confidence = 1;
+  private int words = 1;
+  private int overallDif = 1;
 
   /**
    * Picks a random word from the easy category using category selector
@@ -124,12 +131,14 @@ public class WordPageController {
       Image image = new Image(file.toURI().toString());
       userImage.setImage(image);
       currentProfilePic = profilePic;
+      setFirstDifficulty(currentUsername);
     } else {
       userLabel.setText("Guest");
       // Set guest pic
       File file = new File("src/main/resources/images/ProfilePics/GuestPic.png");
       Image image = new Image(file.toURI().toString());
       userImage.setImage(image);
+      setDifficulty(accuracy, confidence, words, time);
     }
     setWordToDraw();
   }
@@ -357,7 +366,45 @@ public class WordPageController {
       wordsLabel.setText("ERROR");
     }
     this.words = words;
+    setPlusMinusLabels();
     overallDifficulty(accuracy, confidence, words, time);
+  }
+
+
+  private void setPlusMinusLabels() {
+    if (time == 60) { // disables plus by greying out
+      plusTime.setOpacity(0.2);
+    }
+    if (time == 15) { // disables minus by greying out button
+      minusTime.setOpacity(0.2);
+    }
+    if (confidence == 50) { // disables plus by greying out
+      plusConfidence.setOpacity(0.2);
+    }
+    if (confidence == 1) { // disables minus by greying outbutton
+      minusConfidence.setOpacity(0.2);
+    }
+    if (accuracy == 1) { // disables minus by greying out
+      minusAccuracy.setOpacity(0.2);
+      plusAccuracy.setOpacity(1); // enables plus
+    }
+    if (accuracy == 3) { // disables plus by greying out
+      plusAccuracy.setOpacity(0.2);
+      minusAccuracy.setOpacity(1); // enables minus
+    }
+    if (accuracy == 2) { // enables both
+      minusAccuracy.setOpacity(1);
+      plusAccuracy.setOpacity(1);
+    }
+  }
+
+  private void setFirstDifficulty(String currentUsername) throws IOException, CsvException {
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    accuracy = sheetReaderWriter.getUsersAccuracy(currentUsername);
+    confidence = sheetReaderWriter.getUsersConfidence(currentUsername);
+    time = sheetReaderWriter.getUsersTime(currentUsername);
+    words = sheetReaderWriter.getUsersWords(currentUsername);
+    setDifficulty(accuracy, confidence, words, time);
   }
 
   /**
@@ -378,5 +425,97 @@ public class WordPageController {
     } else { // easy level
       overallDif = 1;
     }
+  }
+
+  @FXML
+  private void onClickTimeUp() throws IOException, CsvException {
+    if (time == 15) {
+      time = 30;
+      minusTime.setOpacity(1);
+    } else if (time == 30) {
+      time = 45;
+    } else if (time == 45) {
+      time = 60;
+    }
+    setDifficulty(accuracy, confidence, words, time);
+    updateUserTime(time);
+  }
+
+  @FXML
+  private void onClickAccuracyUp() throws IOException, CsvException {
+    if (accuracy != 3) {
+      accuracy++;
+    }
+    setDifficulty(accuracy, confidence, words, time);
+    updateUserAccuracy(accuracy);
+  }
+
+  @FXML
+  private void onClickConfidenceUp() throws IOException, CsvException {
+    if (confidence == 25) {
+      confidence = 50;
+    } else if (confidence == 10) {
+      confidence = 25;
+    } else if (confidence == 1) {
+      confidence = 10;
+      minusConfidence.setOpacity(1);
+    }
+    setDifficulty(accuracy, confidence, words, time);
+    updateUserConfidence(confidence);
+  }
+
+  @FXML
+  private void onClickTimeDown() throws IOException, CsvException {
+    if (time == 60) {
+      time = 45;
+      plusTime.setOpacity(1);
+    } else if (time == 45) {
+      time = 30;
+    } else if (time == 30) {
+      time = 15;
+    }
+    setDifficulty(accuracy, confidence, words, time);
+    updateUserTime(time);
+  }
+
+  @FXML
+  private void onClickAccuracyDown() throws IOException, CsvException {
+    if (accuracy != 1) {
+      accuracy--;
+    }
+    setDifficulty(accuracy, confidence, words, time);
+    updateUserAccuracy(accuracy);
+  }
+
+  @FXML
+  private void onClickConfidenceDown() throws IOException, CsvException {
+    if (confidence == 50) {
+      confidence = 25;
+      plusConfidence.setOpacity(1);
+    } else if (confidence == 25) {
+      confidence = 10;
+    } else if (confidence == 10) {
+      confidence = 1;
+    }
+    setDifficulty(accuracy, confidence, words, time);
+    updateUserConfidence(confidence);
+  }
+
+  private void updateUserTime(int time) throws IOException, CsvException {
+    this.time = time;
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    sheetReaderWriter.updateUsersTime(time, currentUsername);
+  }
+
+  private void updateUserConfidence(int confidence) throws IOException, CsvException {
+    this.confidence = confidence;
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    sheetReaderWriter.updateUsersConfidence(confidence, currentUsername);
+  }
+
+  private void updateUserAccuracy(int accuracy) throws IOException, CsvException {
+    this.accuracy = accuracy;
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    sheetReaderWriter.updateUsersAccuracy(accuracy, currentUsername);
   }
 }
