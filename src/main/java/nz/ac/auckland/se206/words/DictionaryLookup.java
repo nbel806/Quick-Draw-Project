@@ -21,9 +21,8 @@ public class DictionaryLookup {
    * @param query word to be search
    * @return current word and its definition
    * @throws IOException If the model cannot be found on the file system.
-   * @throws WordNotFoundException word does not exist
    */
-  public static WordInfo searchWordInfo(String query) throws IOException, WordNotFoundException {
+  public static WordInfo searchWordInfo(String query) throws IOException {
 
     OkHttpClient client = new OkHttpClient();
     Request request = new Request.Builder().url(API_URL + query).build();
@@ -31,14 +30,6 @@ public class DictionaryLookup {
     ResponseBody responseBody = response.body();
 
     String jsonString = responseBody.string();
-
-    try {
-      JSONObject jsonObj = (JSONObject) new JSONTokener(jsonString).nextValue();
-      String title = jsonObj.getString("title");
-      String subMessage = jsonObj.getString("message");
-      throw new WordNotFoundException(query, title, subMessage);
-    } catch (ClassCastException e) {
-    }
 
     JSONArray jArray = (JSONArray) new JSONTokener(jsonString).nextValue();
     List<WordEntry> entries = new ArrayList<WordEntry>();
@@ -68,10 +59,8 @@ public class DictionaryLookup {
           }
         }
       }
-      if (partOfSpeech.equals("noun")) {
-        WordEntry wordEntry = new WordEntry(partOfSpeech, definitions);
-        entries.add(wordEntry);
-      }
+      WordEntry wordEntry = new WordEntry(partOfSpeech, definitions);
+      entries.add(wordEntry);
     }
 
     return new WordInfo(query, entries);
