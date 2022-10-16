@@ -33,7 +33,6 @@ public class ZenWordPageController {
   @FXML private Button backButton;
   @FXML private Text wordLabel;
   @FXML private ImageView newImage;
-  @FXML private ImageView saveImage;
   @FXML private ImageView userImage;
   @FXML private ImageView volumeImage;
 
@@ -258,6 +257,7 @@ public class ZenWordPageController {
   /** image gets larger when mouse hovers on */
   @FXML
   private void onHoverNew() {
+    textToSpeechBackground.backgroundSpeak("New Word Button", textToSpeech);
     newImage.setFitHeight(57);
     newImage.setFitWidth(57);
     newImage.setLayoutX(20);
@@ -266,6 +266,7 @@ public class ZenWordPageController {
   /** button style changes when mouser hovers on */
   @FXML
   private void onHoverReady() {
+    textToSpeechBackground.backgroundSpeak("Ready Button", textToSpeech);
     readyButton.setStyle(
         "-fx-border-radius: 10; fx-background-border: 10; -fx-background-color: #99F4B3; -fx-border-color: #99F4B3;");
   }
@@ -306,5 +307,10 @@ public class ZenWordPageController {
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
+  }
+
+  @FXML
+  private void onHoverWordLabel() {
+    textToSpeechBackground.backgroundSpeak("Draw a " + wordLabel.getText(), textToSpeech);
   }
 }
