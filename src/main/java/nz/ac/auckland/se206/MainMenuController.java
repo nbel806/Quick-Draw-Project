@@ -145,17 +145,6 @@ public class MainMenuController {
     stage.show();
   }
 
-  /** initialize or disconnect the tts feature */
-  @FXML
-  private void onTextToSpeech() {
-    textToSpeech = !textToSpeech; // inverts boolean
-    if (textToSpeech) { // then sets label accordingly
-      textToSpeechLabel.setText("ON");
-    } else {
-      textToSpeechLabel.setText("OFF");
-    }
-  }
-
   /** label speaks out when mouser hovers on */
   @FXML
   private void onHoverCreators() {
@@ -171,7 +160,7 @@ public class MainMenuController {
 
   /** label speaks out and images becomes slightly larger when mouser hovers on */
   @FXML
-  private void onHoverTextToSpeech() {
+  private void onHoverTextToSpeech1() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
     volumeImage.setFitHeight(48);
     volumeImage.setFitWidth(48);
@@ -179,7 +168,7 @@ public class MainMenuController {
 
   /** label speaks out when mouser hovers on */
   @FXML
-  private void onHoverTextToSpeechLabel() {
+  private void onHoverTextToSpeechLabel1() {
     textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
   }
 
@@ -244,7 +233,7 @@ public class MainMenuController {
 
   /** image restores when mouse is away */
   @FXML
-  private void onVolumeExit() {
+  private void onVolumeExit1() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
   }
@@ -254,5 +243,17 @@ public class MainMenuController {
   private void onZenExit() {
     zenImage.setFitHeight(61);
     zenImage.setFitWidth(59);
+  }
+
+  /** initialize or disconnect the tts feature */
+  @FXML
+  private void onTextToSpeech1() {
+
+    textToSpeech = !textToSpeech; // inverts boolean
+    if (textToSpeech) { // then sets label accordingly
+      textToSpeechLabel.setText("ON");
+    } else {
+      textToSpeechLabel.setText("OFF");
+    }
   }
 }
