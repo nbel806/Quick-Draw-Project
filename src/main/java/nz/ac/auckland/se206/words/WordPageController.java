@@ -140,11 +140,10 @@ public class WordPageController {
    * @throws CsvException If the user info cannot be found locally
    */
   @FXML
-  private void onHiddenWordMode()
-      throws IOException, URISyntaxException, CsvException, WordNotFoundException {
+  private void onHiddenWordMode() throws IOException, URISyntaxException, CsvException {
     isHiddenWordMode = !isHiddenWordMode;
 
-    if (isHiddenWordMode == true) {
+    if (isHiddenWordMode) {
       setWordToDraw();
       wordToDraw.setText("??????");
       modeLabel.setText("HIDDEN-WORD MODE");
@@ -175,20 +174,9 @@ public class WordPageController {
   /** image gets larger when mouse hovers on */
   @FXML
   private void onHoverNew() {
+    textToSpeechBackground.backgroundSpeak("new word button", textToSpeech);
     newImage.setFitHeight(57);
     newImage.setFitWidth(57);
-  }
-
-  /** label speaks out when mouse hovers on */
-  @FXML
-  private void onHoverTitle() {
-    textToSpeechBackground.backgroundSpeak("you have 60 seconds on easy mode", textToSpeech);
-  }
-
-  /** label speaks out when mouse hovers on */
-  @FXML
-  private void onHoverWord() {
-    textToSpeechBackground.backgroundSpeak(currentWord, textToSpeech);
   }
 
   /** label speaks out and button style changes when mouse hovers on */
@@ -203,21 +191,6 @@ public class WordPageController {
   @FXML
   private void onHoverMode() {
     modeButton.setOpacity(0.7);
-  }
-
-  /** label speaks out and image gets larger when mouse hovers on */
-  @FXML
-  private void onHoverHidden() {
-    textToSpeechBackground.backgroundSpeak("Hidden word mode", textToSpeech);
-    hiddenWordModeImage.setFitWidth(56);
-    hiddenWordModeImage.setFitHeight(66);
-  }
-
-  /** image gets larger when mouse is away */
-  @FXML
-  private void onHiddenExit() {
-    hiddenWordModeImage.setFitWidth(53);
-    hiddenWordModeImage.setFitHeight(63);
   }
 
   /** button style restores when mouse is away */
@@ -262,7 +235,6 @@ public class WordPageController {
    * switch to canvas page or hidden word canvas page
    *
    * @throws IOException If the model cannot be found on the file system.
-   * @throws WordNotFoundException word does not exist
    */
   @FXML
   private void onReady() throws IOException, URISyntaxException, CsvException {
@@ -316,12 +288,6 @@ public class WordPageController {
   private void onNewExit() {
     newImage.setFitHeight(55);
     newImage.setFitWidth(55);
-  }
-
-  /** label speaks out when mouse hovers on */
-  @FXML
-  private void onHoverJustDraw() {
-    textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
   }
 
   /**
