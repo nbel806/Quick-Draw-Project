@@ -10,8 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 import nz.ac.auckland.se206.words.WordPageController;
@@ -33,7 +31,6 @@ public class MainMenuController {
   private TextToSpeechBackground textToSpeechBackground;
   private String currentUsername = null;
   private String currentProfilePic = null;
-  private MediaPlayer mediaPlayer;
 
   /**
    * pass the text to speech functionality
@@ -48,14 +45,6 @@ public class MainMenuController {
     if (textToSpeech) {
       textToSpeechLabel.setText("ON");
     }
-    Media sound =
-        new Media(
-            this.getClass()
-                .getResource("/sounds/mixkit-motivating-mornings-33.mp3")
-                .toExternalForm());
-    mediaPlayer = new MediaPlayer(sound);
-    mediaPlayer.play();
-    mediaPlayer.setVolume(0.14);
   }
 
   /**
@@ -85,7 +74,6 @@ public class MainMenuController {
    */
   @FXML
   private void onZenModeCanvas() throws IOException, CsvException {
-    mediaPlayer.stop();
     Stage stage = (Stage) loginButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/zen_word_page.fxml")); // creates a new instance
@@ -116,7 +104,6 @@ public class MainMenuController {
     WordPageController ctrl = loader.getController(); // need controller to pass information
     ctrl.give(textToSpeechBackground, textToSpeech); // passes text to speech instance and boolean
     ctrl.getUsername(currentUsername, currentProfilePic); // passes username
-    ctrl.media(mediaPlayer);
     stage.setScene(scene);
     stage.show();
   }
@@ -129,7 +116,6 @@ public class MainMenuController {
    */
   @FXML
   private void onProfile() throws IOException, CsvException {
-    mediaPlayer.stop();
     Stage stage = (Stage) profileButton.getScene().getWindow();
     LoadPage loadPage = new LoadPage(); // loads a new screen
     loadPage.extractedProfile(
@@ -144,7 +130,6 @@ public class MainMenuController {
    */
   @FXML
   private void onLogin() throws IOException, CsvValidationException {
-    mediaPlayer.stop();
     Stage stage = (Stage) profileButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/login_page.fxml")); // creates a new instance

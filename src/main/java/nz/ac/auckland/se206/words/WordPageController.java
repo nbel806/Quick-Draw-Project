@@ -11,7 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
@@ -61,7 +60,6 @@ public class WordPageController {
   private int confidence = 1;
   private int words = 1;
   private int overallDif = 1;
-  private MediaPlayer mediaPlayer;
 
   /**
    * Picks a random word from the easy category using category selector
@@ -653,9 +651,5 @@ public class WordPageController {
     SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
     sheetReaderWriter.updateUsersWords(words, currentUsername);
     onNewWord();
-  }
-
-  public void media(MediaPlayer mediaPlayer) {
-    this.mediaPlayer = mediaPlayer;
   }
 }
