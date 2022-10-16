@@ -209,7 +209,6 @@ public class CanvasController {
     currentWord = wordToDraw;
     wordLabel.setText(currentWord);
     textToSpeechAlert = new TextToSpeech();
-
     // make sure the GUI won't freeze
     Task<Void> backgroundTask =
         new Task<>() {
@@ -219,7 +218,6 @@ public class CanvasController {
 
             // speaks out what is the current word to be drew
             textToSpeechAlert.speak("Can you draw a " + currentWord);
-
             return null;
           }
         };

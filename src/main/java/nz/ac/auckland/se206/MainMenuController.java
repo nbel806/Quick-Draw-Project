@@ -96,7 +96,6 @@ public class MainMenuController {
    */
   @FXML
   private void onPlay() throws IOException, URISyntaxException, CsvException {
-
     Stage stage = (Stage) playButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/word_page.fxml")); // creates a new instance of

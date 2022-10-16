@@ -78,7 +78,7 @@
                            <children>
                               <HBox prefHeight="26.0" prefWidth="62.0">
                                  <children>
-                                    <Button fx:id="minusWords" mnemonicParsing="false" prefHeight="27.0" prefWidth="27.0" styleClass="down-button" stylesheets="@../css/WordPageButtonStyler.css">
+                                    <Button fx:id="minusWords" mnemonicParsing="false" onAction="#onClickWordsDown" prefHeight="27.0" prefWidth="27.0" styleClass="down-button" stylesheets="@../css/WordPageButtonStyler.css">
                                        <effect>
                                           <Glow />
                                        </effect>
@@ -90,7 +90,7 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <Button fx:id="plusWords" mnemonicParsing="false" prefHeight="27.0" prefWidth="27.0" styleClass="up-button" stylesheets="@../css/WordPageButtonStyler.css">
+                                    <Button fx:id="plusWords" mnemonicParsing="false" onAction="#onClickWordsUp" prefHeight="27.0" prefWidth="27.0" styleClass="up-button" stylesheets="@../css/WordPageButtonStyler.css">
                                        <effect>
                                           <Glow />
                                        </effect>

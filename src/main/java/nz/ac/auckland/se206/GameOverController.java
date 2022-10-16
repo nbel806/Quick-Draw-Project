@@ -18,6 +18,7 @@ import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+import nz.ac.auckland.se206.speech.BackgroundSound;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 import nz.ac.auckland.se206.words.WordPageController;
@@ -109,11 +110,12 @@ public class GameOverController {
    */
   public void setWinLoseLabel(boolean winLose, CanvasController ctrl, int overallDif)
       throws IOException, CsvException {
+    BackgroundSound backgroundSound = new BackgroundSound();
     if (winLose) { // if user won display message, time, and congratulate
       winLoseLabel.setText("YOU WON");
       timeLabel.setText("TIME LEFT: " + timeLeft + " seconds");
       winLoseString = "You won with " + timeLeft + "Seconds left!";
-
+      backgroundSound.play("/sounds/mixkit-audience-light-applause-354.wav");
       Task<Void> backgroundTask =
           new Task<Void>() {
 
@@ -131,6 +133,7 @@ public class GameOverController {
       backgroundThread.start();
 
     } else { // if user looses display message and laugh at the user
+      backgroundSound.play("/sounds/mixkit-arcade-retro-game-over-213.wav");
       winLoseLabel.setText("YOU LOST");
       timeLabel.setText("TIME LIMIT REACHED");
       winLoseString = "You lost!";
