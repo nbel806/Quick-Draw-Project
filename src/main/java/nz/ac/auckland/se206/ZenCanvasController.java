@@ -158,10 +158,9 @@ public class ZenCanvasController {
    * switch to main menu
    *
    * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If file does not exist
    */
   @FXML
-  public void onMainMenu() throws IOException, CsvException {
+  public void onMainMenu() throws IOException {
     Stage stage = (Stage) mainmenuButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml")); // creates a new instance of

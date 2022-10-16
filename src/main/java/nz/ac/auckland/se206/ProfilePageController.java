@@ -64,8 +64,6 @@ public class ProfilePageController {
   private final DecimalFormat df = new DecimalFormat("#.#");
   private int numberBadges = 0;
 
-  public void initialize() {}
-
   /** label speaks out when mouse hovers on */
   public void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
@@ -188,10 +186,9 @@ public class ProfilePageController {
    * switch to previous page
    *
    * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user cannot be found on the file system.
    */
   @FXML
-  private void onBack() throws IOException, CsvException {
+  private void onBack() throws IOException {
     Stage stage = (Stage) backButton.getScene().getWindow();
     LoadPage loadPage = new LoadPage();
     loadPage.extractedMainMenu(

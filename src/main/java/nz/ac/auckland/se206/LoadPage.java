@@ -18,7 +18,6 @@ public class LoadPage {
    * @param currentProfilePic current user picture
    * @param stage the stage we need to jump in
    * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user cannot be found locally.
    */
   public void extractedMainMenu(
       TextToSpeechBackground textToSpeechBackground,
@@ -26,7 +25,7 @@ public class LoadPage {
       String currentUsername,
       String currentProfilePic,
       Stage stage)
-      throws IOException, CsvException {
+      throws IOException {
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml")); // creates a new instance of
     // menu page

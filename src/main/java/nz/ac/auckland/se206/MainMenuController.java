@@ -38,8 +38,7 @@ public class MainMenuController {
    * @param tts generates tts functionality from tts class
    * @param textToSpeech activates tts functionality if is true
    */
-  public void give(TextToSpeechBackground tts, Boolean textToSpeech)
-      throws IOException, CsvException {
+  public void give(TextToSpeechBackground tts, Boolean textToSpeech) {
     textToSpeechBackground = tts; // passes through the text to speech instance
     this.textToSpeech = textToSpeech;
     if (textToSpeech) {
