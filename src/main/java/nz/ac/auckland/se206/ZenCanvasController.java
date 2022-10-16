@@ -158,10 +158,9 @@ public class ZenCanvasController {
    * switch to main menu
    *
    * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If file does not exist
    */
   @FXML
-  public void onMainMenu() throws IOException, CsvException {
+  public void onMainMenu() throws IOException {
     Stage stage = (Stage) mainmenuButton.getScene().getWindow();
     FXMLLoader loader =
         new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml")); // creates a new instance of
@@ -476,6 +475,7 @@ public class ZenCanvasController {
   /** buttons style changes when mouse hovers on */
   @FXML
   private void onHoverSave() {
+    textToSpeechBackground.backgroundSpeak("save button", textToSpeech);
     saveButton.setStyle(
         "-fx-border-radius: 10; fx-background-border: 10; -fx-background-color: #99F4B3; -fx-border-color: #99F4B3;");
   }
@@ -534,5 +534,15 @@ public class ZenCanvasController {
     saveButton.setStyle(
         "-fx-text-fill: white; -fx-background-color: transparent; "
             + "-fx-border-radius: 10; -fx-border-color: white");
+  }
+
+  @FXML
+  private void onHoverBackButton() {
+    textToSpeechBackground.backgroundSpeak("back button", textToSpeech);
+  }
+
+  @FXML
+  private void onHoverMainMenuButton() {
+    textToSpeechBackground.backgroundSpeak("main menu button", textToSpeech);
   }
 }

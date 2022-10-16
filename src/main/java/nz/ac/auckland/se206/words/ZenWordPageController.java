@@ -33,7 +33,6 @@ public class ZenWordPageController {
   @FXML private Button backButton;
   @FXML private Text wordLabel;
   @FXML private ImageView newImage;
-  @FXML private ImageView saveImage;
   @FXML private ImageView userImage;
   @FXML private ImageView volumeImage;
 
@@ -131,7 +130,7 @@ public class ZenWordPageController {
     words[0] = categorySelector.getRandomCategory(CategorySelector.Difficulty.E);
     words[1] = categorySelector.getRandomCategory(CategorySelector.Difficulty.M);
     words[2] = categorySelector.getRandomCategory(CategorySelector.Difficulty.H);
-    currentWord = words[new Random().nextInt(words.length)];
+    currentWord = words[new Random().nextInt(words.length)]; // random of the 3 words
     wordLabel.setText(currentWord);
   }
 
@@ -181,9 +180,9 @@ public class ZenWordPageController {
   @FXML
   private void onClickPlay1() {
     if (currentUsername == null || lostWord1.getText().equals("1. Play normal mode first")) {
-      return;
+      return; // guest
     }
-    currentWord = lostWord1.getText();
+    currentWord = lostWord1.getText().substring(3);
     wordLabel.setText(currentWord);
   }
 
@@ -191,9 +190,9 @@ public class ZenWordPageController {
   @FXML
   private void onClickPlay2() {
     if (currentUsername == null || lostWord2.getText().equals("2. Play normal mode first")) {
-      return;
+      return; // guest
     }
-    currentWord = lostWord2.getText();
+    currentWord = lostWord2.getText().substring(3);
     wordLabel.setText(currentWord);
   }
 
@@ -201,9 +200,9 @@ public class ZenWordPageController {
   @FXML
   private void onClickPlay3() {
     if (currentUsername == null || lostWord3.getText().equals("3. Play normal mode first")) {
-      return;
+      return; // guest
     }
-    currentWord = lostWord3.getText();
+    currentWord = lostWord3.getText().substring(3);
     wordLabel.setText(currentWord);
   }
 
@@ -211,9 +210,9 @@ public class ZenWordPageController {
   @FXML
   private void onClickPlay4() {
     if (currentUsername == null || lostWord4.getText().equals("4. Play normal mode first")) {
-      return;
+      return; // guest
     }
-    currentWord = lostWord4.getText();
+    currentWord = lostWord4.getText().substring(3);
     wordLabel.setText(currentWord);
   }
 
@@ -221,9 +220,9 @@ public class ZenWordPageController {
   @FXML
   private void onClickPlay5() {
     if (currentUsername == null || lostWord5.getText().equals("5. Play normal mode first")) {
-      return;
+      return; // guest
     }
-    currentWord = lostWord5.getText();
+    currentWord = lostWord5.getText().substring(3);
     wordLabel.setText(currentWord);
   }
 
@@ -231,10 +230,9 @@ public class ZenWordPageController {
    * switch to main menu
    *
    * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user info cannot be found locally
    */
   @FXML
-  private void onBack() throws IOException, CsvException {
+  private void onBack() throws IOException {
     Stage stage = (Stage) backButton.getScene().getWindow();
     LoadPage loadPage = new LoadPage();
     loadPage.extractedMainMenu(
@@ -258,6 +256,7 @@ public class ZenWordPageController {
   /** image gets larger when mouse hovers on */
   @FXML
   private void onHoverNew() {
+    textToSpeechBackground.backgroundSpeak("New Word Button", textToSpeech);
     newImage.setFitHeight(57);
     newImage.setFitWidth(57);
     newImage.setLayoutX(20);
@@ -266,6 +265,7 @@ public class ZenWordPageController {
   /** button style changes when mouser hovers on */
   @FXML
   private void onHoverReady() {
+    textToSpeechBackground.backgroundSpeak("Ready Button", textToSpeech);
     readyButton.setStyle(
         "-fx-border-radius: 10; fx-background-border: 10; -fx-background-color: #99F4B3; -fx-border-color: #99F4B3;");
   }
@@ -306,5 +306,10 @@ public class ZenWordPageController {
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
+  }
+
+  @FXML
+  private void onHoverWordLabel() {
+    textToSpeechBackground.backgroundSpeak("Draw a " + wordLabel.getText(), textToSpeech);
   }
 }

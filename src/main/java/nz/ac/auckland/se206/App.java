@@ -1,6 +1,5 @@
 package nz.ac.auckland.se206;
 
-import com.opencsv.exceptions.CsvException;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -31,7 +30,7 @@ public class App extends Application {
    * @throws IOException If "src/main/resources/fxml/canvas.fxml" is not found.
    */
   @Override
-  public void start(final Stage stage) throws IOException, CsvException {
+  public void start(final Stage stage) throws IOException {
     FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/main_menu.fxml"));
     Scene scene = new Scene(loader.load(), 1000, 680);
     stage.setScene(scene);

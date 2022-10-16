@@ -57,18 +57,12 @@ public class ProfilePageController {
   private TextToSpeechBackground textToSpeechBackground;
   private String currentUsername;
   private String currentProfilePic;
-  private String currentWord;
-  private int usersLosses;
   private int usersWins;
   private int totalGames;
   private int fastestTime;
-  private double badgeRatio;
   private double winRate;
-  private DecimalFormat df = new DecimalFormat("#.#");
+  private final DecimalFormat df = new DecimalFormat("#.#");
   private int numberBadges = 0;
-  private String[] historyWords;
-
-  public void initialize() {}
 
   /** label speaks out when mouse hovers on */
   public void onHoverTextToSpeechLabel() {
@@ -126,10 +120,10 @@ public class ProfilePageController {
 
       // Assign wins
       usersWins = spreadSheetReaderWriter.getWins(currentUsername);
-      usersLosses = spreadSheetReaderWriter.getLosses(currentUsername);
+      int usersLosses = spreadSheetReaderWriter.getLosses(currentUsername);
       fastestTime = spreadSheetReaderWriter.getFastest(currentUsername);
-      historyWords = spreadSheetReaderWriter.getHistory(currentUsername).split(",");
-      currentWord = spreadSheetReaderWriter.getHistory(currentUsername);
+      String[] historyWords = spreadSheetReaderWriter.getHistory(currentUsername).split(",");
+      String currentWord = spreadSheetReaderWriter.getHistory(currentUsername);
 
       // Calculate games
       totalGames = usersWins + usersLosses;
@@ -160,7 +154,7 @@ public class ProfilePageController {
       badgeLabel.setText("You've unlocked " + numberBadges + "/15" + " Badges");
 
       // Calculate percentage of badges completed
-      badgeRatio = (((double) numberBadges * 100) / (double) 15);
+      double badgeRatio = (((double) numberBadges * 100) / (double) 15);
       badgePercentage.setText("(" + String.format("%.0f", badgeRatio) + "%)");
       badgeProgress.setProgress(badgeRatio / 100);
 
@@ -192,10 +186,9 @@ public class ProfilePageController {
    * switch to previous page
    *
    * @throws IOException If the model cannot be found on the file system.
-   * @throws CsvException If the user cannot be found on the file system.
    */
   @FXML
-  private void onBack() throws IOException, CsvException {
+  private void onBack() throws IOException {
     Stage stage = (Stage) backButton.getScene().getWindow();
     LoadPage loadPage = new LoadPage();
     loadPage.extractedMainMenu(
