@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,6 +19,8 @@ import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+
+import nz.ac.auckland.se206.speech.TextToSpeech;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 import nz.ac.auckland.se206.words.WordPageController;
 
@@ -40,12 +44,14 @@ public class GameOverController {
   private Boolean textToSpeech;
 
   private TextToSpeechBackground textToSpeechBackground;
+  
+  private TextToSpeech textToSpeechAlert;
 
   private String winLoseString;
-  private int timeLeft;
   private String currentUsername;
   private String currentProfilePic;
-
+  
+  private int timeLeft;
   private int accuracy;
   private int time;
   private int confidence;
@@ -105,15 +111,47 @@ public class GameOverController {
    */
   public void setWinLoseLabel(boolean winLose, CanvasController ctrl, int overallDif)
       throws IOException, CsvException {
-    if (winLose) { // if user won display message and time
+    if (winLose) { // if user won display message, time, and congratulate 
       winLoseLabel.setText("YOU WON");
       timeLabel.setText("TIME LEFT: " + timeLeft + " seconds");
       winLoseString = "You won with " + timeLeft + "Seconds left!";
+      
+      Task<Void> backgroundTask = new Task<Void>() {
 
-    } else { // if user looses display message
+		@Override
+		protected Void call() throws Exception {
+			
+			textToSpeechAlert = new TextToSpeech();
+		    textToSpeechAlert.speak("Congratulation, you are an artist");
+		    
+			return null;
+		} 
+      };
+      
+      Thread backgroundThread = new Thread(backgroundTask);
+      backgroundThread.start();
+      
+    } else { // if user looses display message and laugh at the user
       winLoseLabel.setText("YOU LOST");
       timeLabel.setText("TIME LIMIT REACHED");
       winLoseString = "You lost!";
+      textToSpeechAlert = new TextToSpeech();
+
+      Task<Void> backgroundTask = new Task<Void>() {
+
+  		@Override
+  		protected Void call() throws Exception {
+  			
+  			textToSpeechAlert = new TextToSpeech();
+  		    textToSpeechAlert.speak("haha, you are a loser");
+  		    
+  			return null;
+  		} 
+        };
+        
+        Thread backgroundThread = new Thread(backgroundTask);
+        backgroundThread.start();
+      
     }
     canvasController = ctrl;
     SpreadSheetReaderWriter spreadSheetReaderWriter = new SpreadSheetReaderWriter();
@@ -139,10 +177,42 @@ public class GameOverController {
       winLoseLabel.setText("YOU WON");
       timeLabel.setText("TIME LEFT: " + timeLeft + " seconds");
       winLoseString = "You won with " + timeLeft + "Seconds left!";
+      
+      Task<Void> backgroundTask = new Task<Void>() {
+
+  		@Override
+  		protected Void call() throws Exception {
+  			
+  			textToSpeechAlert = new TextToSpeech();
+  		    textToSpeechAlert.speak("Congratulation, you are an artist");
+  		    
+  			return null;
+  		} 
+        };
+        
+        Thread backgroundThread = new Thread(backgroundTask);
+        backgroundThread.start();
+      
     } else { // if user looses display message
       winLoseLabel.setText("YOU LOST");
       timeLabel.setText("TIME LIMIT REACHED");
       winLoseString = "You lost!";
+      
+      Task<Void> backgroundTask = new Task<Void>() {
+
+    		@Override
+    		protected Void call() throws Exception {
+    			
+    			textToSpeechAlert = new TextToSpeech();
+    		    textToSpeechAlert.speak("haha, you are a loser");
+    		    
+    			return null;
+    		} 
+          };
+          
+          Thread backgroundThread = new Thread(backgroundTask);
+          backgroundThread.start();
+      
     }
     hiddenWordCanvasController = ctrl;
   }

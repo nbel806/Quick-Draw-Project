@@ -36,6 +36,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.ml.DoodlePrediction;
+import nz.ac.auckland.se206.speech.TextToSpeech;
 import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 import nz.ac.auckland.se206.words.DictionaryLookup;
 import nz.ac.auckland.se206.words.WordInfo;
@@ -89,6 +90,8 @@ public class HiddenWordCanvasController {
   private boolean startedDrawing;
 
   private TextToSpeechBackground textToSpeechBackground;
+  
+  private TextToSpeech textToSpeechAlert;
 
   private String currentUsername = null;
   private String currentProfilePic;
@@ -192,7 +195,7 @@ public class HiddenWordCanvasController {
   }
 
   /**
-   * Sets word label from word passed
+   * Sets word label from word passed, but only pass the current word here
    *
    * @param wordToDraw word passed from previous screen
    */
@@ -208,6 +211,30 @@ public class HiddenWordCanvasController {
    */
   private void setTimerLabel(int time) {
     timerLabel.setText(String.valueOf(time));
+    textToSpeechAlert = new TextToSpeech();
+    
+    //make sure the GUI won't freeze
+    Task<Void> backgroundTask = new Task<Void>(){
+
+		@Override
+		protected Void call() throws Exception {
+			//speaks out how much time left
+		    if (time == 40) {
+		    	textToSpeechAlert.speak("forty seconds left");
+		    }
+		    if (time == 20) {
+		    	textToSpeechAlert.speak("twenty seconds left");
+		    }
+		    if (time == 10) {
+		    	textToSpeechAlert.speak("ten seconds left");
+		    }
+		    
+			return null;
+		}
+    };
+    
+    Thread backgroundThread = new Thread(backgroundTask);
+    backgroundThread.start();
   }
 
   /** runs timer through timeline for 60secs until seconds = 0 */
