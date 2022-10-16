@@ -10,6 +10,14 @@ import java.util.List;
 
 public class SpreadSheetReaderWriter {
 
+  /**
+   * update the words for the current user
+   * 
+   * @param word current word to be drew
+   * @param currentUser current use name
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public void updateWords(String word, String currentUser) throws IOException, CsvException {
     if (currentUser == null) {
       return;
@@ -23,6 +31,14 @@ public class SpreadSheetReaderWriter {
     csvWriter.flush();
   }
 
+  /**
+   * search the position of the current user
+   * 
+   * @param currentUsername current user name
+   * @return return an index
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   private int findUserName(String currentUsername) throws IOException, CsvException {
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
     List<String[]> allData =
@@ -36,6 +52,15 @@ public class SpreadSheetReaderWriter {
     return i;
   }
 
+  /**
+   * update the profile stats after a game ends
+   * 
+   * @param win win or lose
+   * @param currentUsername current user name
+   * @param overallDif difficulty combination
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public void updateResult(boolean win, String currentUsername, int overallDif)
       throws IOException, CsvException {
     if (currentUsername == null) {
@@ -75,6 +100,14 @@ public class SpreadSheetReaderWriter {
     csvWriter.flush();
   }
 
+  /**
+   * update time spent
+   * 
+   * @param timeTaken time spent on drawing
+   * @param currentUsername current use name
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public void updateTime(int timeTaken, String currentUsername) throws IOException, CsvException {
     if (currentUsername == null) { // this is a guest user
       return;
@@ -93,6 +126,14 @@ public class SpreadSheetReaderWriter {
     csvWriter.flush();
   }
 
+  /**
+   * gets the number of wins for the current user
+   * 
+   * @param username current user name
+   * @return return the number of wins
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public int getWins(String username) throws IOException, CsvException {
     int index = findUserName(username);
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
@@ -100,6 +141,14 @@ public class SpreadSheetReaderWriter {
     return Integer.parseInt(allData.get(index)[2]);
   }
 
+  /**
+   * gets the number of wins for the current user
+   * 
+   * @param username current user name
+   * @return return the number of losses
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public int getLosses(String username) throws IOException, CsvException {
     int index = findUserName(username);
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
@@ -107,6 +156,14 @@ public class SpreadSheetReaderWriter {
     return Integer.parseInt(allData.get(index)[3]);
   }
 
+  /**
+   * get the fastest time spent
+   * 
+   * @param username current user name
+   * @return return the fastest time spent
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public int getFastest(String currentUsername) throws IOException, CsvException {
     int index = findUserName(currentUsername);
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
@@ -114,6 +171,14 @@ public class SpreadSheetReaderWriter {
     return Integer.parseInt(allData.get(index)[4]);
   }
 
+  /**
+   * gets all the history words
+   * 
+   * @param username current user name
+   * @return return the list containing all history words encountered
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public String getHistory(String currentUsername) throws IOException, CsvException {
     int index = findUserName(currentUsername);
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
@@ -121,6 +186,14 @@ public class SpreadSheetReaderWriter {
     return allData.get(index)[5];
   }
 
+  /**
+   * gets the streak for the current user
+   * 
+   * @param username current user name
+   * @return return the streak
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public int getStreak(String currentUsername) throws IOException, CsvException {
     int index = findUserName(currentUsername);
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
@@ -128,6 +201,14 @@ public class SpreadSheetReaderWriter {
     return Integer.parseInt(allData.get(index)[6]);
   }
 
+  /**
+   * update time spent for the current user
+   * 
+   * @param time time spent
+   * @param currentUsername current user
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public void updateUsersTime(int time, String currentUsername) throws IOException, CsvException {
     if (currentUsername == null) {
       return; // guest doesnt save difficulty
@@ -142,6 +223,14 @@ public class SpreadSheetReaderWriter {
     csvWriter.flush();
   }
 
+  /**
+   * update current word category
+   * 
+   * @param words word category
+   * @param currentUsername current user name
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public void updateUsersWords(int words, String currentUsername) throws IOException, CsvException {
     if (currentUsername == null) {
       return; // guest doesnt save difficulty
@@ -156,6 +245,14 @@ public class SpreadSheetReaderWriter {
     csvWriter.flush();
   }
 
+  /**
+   * gets the confidence percentage for the current user
+   * 
+   * @param confidence confidence percentage
+   * @param currentUsername current user name
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public void updateUsersConfidence(int confidence, String currentUsername)
       throws IOException, CsvException {
     if (currentUsername == null) {
@@ -172,6 +269,14 @@ public class SpreadSheetReaderWriter {
     csvWriter.flush();
   }
 
+  /**
+   * update if the user wants the result is within top 1/2/3 prediction 
+   * 
+   * @param accuracy top 1/2/3 prediction
+   * @param currentUsername current user name
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public void updateUsersAccuracy(int accuracy, String currentUsername)
       throws IOException, CsvException {
     if (currentUsername == null) {
@@ -188,6 +293,14 @@ public class SpreadSheetReaderWriter {
     csvWriter.flush();
   }
 
+  /**
+   * get if the user wants the result is within top 1/2/3 prediction
+   * 
+   * @param currentUsername current user name
+   * @return accuracy top 1/2/3 prediction
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public int getUsersAccuracy(String currentUsername) throws IOException, CsvException {
     int index = findUserName(currentUsername);
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
@@ -195,6 +308,14 @@ public class SpreadSheetReaderWriter {
     return Integer.parseInt(allData.get(index)[15]);
   }
 
+  /**
+   * get the time limit for the current user
+   * 
+   * @param currentUsername current user name
+   * @return time limit
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public int getUsersTime(String currentUsername) throws IOException, CsvException {
     int index = findUserName(currentUsername);
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
@@ -202,6 +323,14 @@ public class SpreadSheetReaderWriter {
     return Integer.parseInt(allData.get(index)[12]);
   }
 
+  /**
+   * gets the word category for the current use
+   * 
+   * @param currentUsername current user name
+   * @return word category
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public int getUsersWords(String currentUsername) throws IOException, CsvException {
     int index = findUserName(currentUsername);
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
@@ -209,6 +338,14 @@ public class SpreadSheetReaderWriter {
     return Integer.parseInt(allData.get(index)[13]);
   }
 
+  /**
+   * gets the confidence percentage for the current user
+   * 
+   * @param currentUsername current user name
+   * @return confidence percentage
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public int getUsersConfidence(String currentUsername) throws IOException, CsvException {
     int index = findUserName(currentUsername);
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
@@ -216,6 +353,13 @@ public class SpreadSheetReaderWriter {
     return Integer.parseInt(allData.get(index)[14]);
   }
 
+  /**
+   * clear user history words
+   * 
+   * @param currentUsername current user name
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public void resetUserHistory(String currentUsername) throws IOException, CsvException {
     int index = findUserName(currentUsername);
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
@@ -227,6 +371,14 @@ public class SpreadSheetReaderWriter {
     csvWriter.flush();
   }
 
+  /**
+   * gets the number of wins for the current difficulty
+   * 
+   * @param currentUsername current user name
+   * @return the number of wins for the current difficulty
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public int[] getDifWins(String currentUsername) throws IOException, CsvException {
     int index = findUserName(currentUsername); // find username place in csv
     CSVReader csvReader = new CSVReader(new FileReader("userdata.csv"));
@@ -240,6 +392,14 @@ public class SpreadSheetReaderWriter {
     return difWins;
   }
 
+  /**
+   * gets the last lost word for the current user
+   * 
+   * @param currentUsername current user name
+   * @return lost words
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   */
   public String[] getUsersLostWords(String currentUsername) throws IOException, CsvException {
     if (currentUsername == null) {
       return new String[] {"log in", "log in", "log in", "log in", "log in"};

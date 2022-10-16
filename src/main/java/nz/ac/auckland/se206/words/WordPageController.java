@@ -23,6 +23,13 @@ import nz.ac.auckland.se206.speech.TextToSpeechBackground;
 
 public class WordPageController {
 
+  @FXML private Button minusConfidence;
+  @FXML private Button minusAccuracy;
+  @FXML private Button minusTime;
+  @FXML private Button plusTime;
+  @FXML private Button plusConfidence;
+  @FXML private Button plusAccuracy;
+
   @FXML private Text confidenceLabel;
   @FXML private Text wordsLabel;
   @FXML private Text accuracyLabel;
@@ -45,13 +52,19 @@ public class WordPageController {
   private TextToSpeechBackground textToSpeechBackground;
   private String currentUsername = null;
   private String currentProfilePic = null;
-  private int time;
-  private int accuracy;
-  private int confidence;
-  private int words;
-  private int overallDif;
+  private int time = 60;
+  private int accuracy = 3;
+  private int confidence = 1;
+  private int words = 1;
+  private int overallDif = 1;
 
-  /** Picks a random word from the easy category using category selector */
+  /**
+   * Picks a random word from the easy category using category selector
+   *
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws CsvException If file does not exist
+   * @throws URISyntaxException If URI does not exist
+   */
   private void setWordToDraw() throws IOException, URISyntaxException, CsvException {
     if (currentUsername == null) { // if guest
       CategorySelector categorySelector = new CategorySelector(); // picks random word
@@ -84,6 +97,12 @@ public class WordPageController {
     wordToDraw.setText(currentWord);
   }
 
+  /**
+   * pass the text to speech functionality
+   *
+   * @param textToSpeechBackground generates tts functionality from tts class
+   * @param textToSpeech activates tts functionality if is true
+   */
   public void give(TextToSpeechBackground textToSpeechBackground, Boolean textToSpeech) {
     this.textToSpeechBackground = textToSpeechBackground;
     this.textToSpeech = textToSpeech;
@@ -93,6 +112,12 @@ public class WordPageController {
     }
   }
 
+  /**
+   * create the current username and select a profile picture
+   *
+   * @param username current username
+   * @param profilePic profile picture selected
+   */
   public void getUsername(String username, String profilePic)
       throws IOException, URISyntaxException, CsvException {
     // Check if username is not null
@@ -106,16 +131,25 @@ public class WordPageController {
       Image image = new Image(file.toURI().toString());
       userImage.setImage(image);
       currentProfilePic = profilePic;
+      setFirstDifficulty(currentUsername);
     } else {
       userLabel.setText("Guest");
       // Set guest pic
       File file = new File("src/main/resources/images/ProfilePics/GuestPic.png");
       Image image = new Image(file.toURI().toString());
       userImage.setImage(image);
+      setDifficulty(accuracy, confidence, words, time);
     }
     setWordToDraw();
   }
 
+  /**
+   * get a new hidden word
+   *
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws URISyntaxException If the file cannot be found locally
+   * @throws CsvException If the user info cannot be found locally
+   */
   @FXML
   private void onNewWord() throws IOException, URISyntaxException, CsvException {
     // Get new word
@@ -123,6 +157,13 @@ public class WordPageController {
     setWordToDraw();
   }
 
+  /**
+   * switch to hidden mode
+   *
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws URISyntaxException If the file cannot be found locally
+   * @throws CsvException If the user info cannot be found locally
+   */
   @FXML
   private void onHiddenWordMode()
       throws IOException, URISyntaxException, CsvException, WordNotFoundException {
@@ -131,22 +172,26 @@ public class WordPageController {
     wordToDraw.setText("?????");
   }
 
+  /** image gets larger when mouse hovers on */
   @FXML
   private void onHoverNew() {
     newImage.setFitHeight(57);
     newImage.setFitWidth(57);
   }
 
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverTitle() {
     textToSpeechBackground.backgroundSpeak("you have 60 seconds on easy mode", textToSpeech);
   }
 
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverWord() {
     textToSpeechBackground.backgroundSpeak(currentWord, textToSpeech);
   }
 
+  /** label speaks out and button style changes when mouse hovers on */
   @FXML
   private void onHoverReady() {
     textToSpeechBackground.backgroundSpeak("Ready", textToSpeech);
@@ -154,6 +199,7 @@ public class WordPageController {
         "-fx-background-radius: 15px; -fx-border-radius: 15px; -fx-background-color: #99F4B3;");
   }
 
+  /** label speaks out and image gets larger when mouse hovers on */
   @FXML
   private void onHoverHidden() {
     textToSpeechBackground.backgroundSpeak("Hidden word mode", textToSpeech);
@@ -161,23 +207,27 @@ public class WordPageController {
     hiddenWordModeImage.setFitHeight(66);
   }
 
+  /** image gets larger when mouse is away */
   @FXML
   private void onHiddenExit() {
     hiddenWordModeImage.setFitWidth(53);
     hiddenWordModeImage.setFitHeight(63);
   }
 
+  /** button style restores when mouse is away */
   @FXML
   private void onExitReady() {
     readyButton.setStyle(
         "-fx-background-radius: 25px; -fx-border-radius: 25px; -fx-background-color: white;");
   }
 
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverTextToSpeechLabel() {
     textToSpeechBackground.backgroundSpeak("ON", textToSpeech);
   }
 
+  /** initialize or disconnect the tts feature */
   @FXML
   private void onTextToSpeech() {
     textToSpeech = !textToSpeech; // toggles text to speech
@@ -188,6 +238,7 @@ public class WordPageController {
     }
   }
 
+  /** label speaks out and image gets larger when mouse hovers on */
   @FXML
   private void onHoverTextToSpeech() {
     textToSpeechBackground.backgroundSpeak("toggle text to speech", textToSpeech);
@@ -195,6 +246,12 @@ public class WordPageController {
     volumeImage.setFitWidth(48);
   }
 
+  /**
+   * switch to canvas page or hidden word canvas page
+   *
+   * @throws IOException If the model cannot be found on the file system.
+   * @throws WordNotFoundException word does not exist
+   */
   @FXML
   private void onReady() throws IOException, WordNotFoundException {
     Stage stage =
@@ -235,35 +292,44 @@ public class WordPageController {
     stage.show();
   }
 
-  // Below is list of methods for when mouse exits a button
-
+  /** image restores its size when mouse is away */
   @FXML
   private void onVolumeExit() {
     volumeImage.setFitHeight(45);
     volumeImage.setFitWidth(45);
   }
 
+  /** image restores its size when mouse is away */
   @FXML
   private void onNewExit() {
     newImage.setFitHeight(55);
     newImage.setFitWidth(55);
   }
 
+  /** label speaks out when mouse hovers on */
   @FXML
   private void onHoverJustDraw() {
     textToSpeechBackground.backgroundSpeak("Just Draw", textToSpeech);
   }
 
+  /**
+   * set the difficulty selection
+   *
+   * @param accuracy is the result within top 1/2/3 prediction
+   * @param confidence confidence percentage
+   * @param words word category
+   * @param time time limit
+   */
   public void setDifficulty(int accuracy, int confidence, int words, int time) {
     this.time = time;
-    timeLabel.setText(time + "secs");
+    timeLabel.setText(time + "secs"); // adds secs for readability
     this.accuracy = accuracy;
     accuracyLabel.setText("Top " + accuracy);
 
-    confidenceLabel.setText(confidence + "%");
+    confidenceLabel.setText(confidence + "%"); // adds % for readability
     this.confidence = confidence;
 
-    if (words == 1) {
+    if (words == 1) { // sets text corosponding to number of words
       wordsLabel.setText("E");
     } else if (words == 2) {
       wordsLabel.setText("E,M");
@@ -272,12 +338,65 @@ public class WordPageController {
     } else if (words == 4) {
       wordsLabel.setText("H");
     } else {
-      wordsLabel.setText("ERROR");
+      wordsLabel.setText("ERROR"); // error output shouldnt be reached
     }
     this.words = words;
-    overallDifficulty(accuracy, confidence, words, time);
+    setPlusMinusLabels(); // sets opacity
+    overallDifficulty(accuracy, confidence, words, time); // writes to csv
   }
 
+  /** sets the opacity of the + - labeles */
+  private void setPlusMinusLabels() {
+    if (time == 60) { // disables plus by greying out
+      plusTime.setOpacity(0.2);
+    }
+    if (time == 15) { // disables minus by greying out button
+      minusTime.setOpacity(0.2);
+    }
+    if (confidence == 50) { // disables plus by greying out
+      plusConfidence.setOpacity(0.2);
+    }
+    if (confidence == 1) { // disables minus by greying outbutton
+      minusConfidence.setOpacity(0.2);
+    }
+    if (accuracy == 1) { // disables minus by greying out
+      minusAccuracy.setOpacity(0.2);
+      plusAccuracy.setOpacity(1); // enables plus
+    }
+    if (accuracy == 3) { // disables plus by greying out
+      plusAccuracy.setOpacity(0.2);
+      minusAccuracy.setOpacity(1); // enables minus
+    }
+    if (accuracy == 2) { // enables both
+      minusAccuracy.setOpacity(1);
+      plusAccuracy.setOpacity(1);
+    }
+  }
+
+  /**
+   * intitaly called to gather users past settings
+   *
+   * @throws IOException if file is not found
+   * @throws CsvException if out of the file range
+   */
+  private void setFirstDifficulty(String currentUsername) throws IOException, CsvException {
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    accuracy = sheetReaderWriter.getUsersAccuracy(currentUsername);
+    confidence =
+        sheetReaderWriter.getUsersConfidence(currentUsername); // gathers conf from prev settings
+    time = sheetReaderWriter.getUsersTime(currentUsername);
+    words = sheetReaderWriter.getUsersWords(currentUsername);
+    setDifficulty(accuracy, confidence, words, time); // sets opacitys
+  }
+
+  /**
+   * pass the difficulty selection and get the level under different combination
+   *
+   * @param accuracy is the result within top 1/2/3 prediction
+   * @param confidence confidence percentage
+   * @param words word category
+   * @param time time limit
+   */
   private void overallDifficulty(int accuracy, int confidence, int words, int time) {
     if (words == 4 && confidence == 50 && accuracy == 1 && time == 15) { // master level
       overallDif = 4;
@@ -288,5 +407,154 @@ public class WordPageController {
     } else { // easy level
       overallDif = 1;
     }
+  }
+
+  /**
+   * increments time
+   *
+   * @throws IOException if file is not found
+   * @throws CsvException if out of the file range
+   */
+  @FXML
+  private void onClickTimeUp() throws IOException, CsvException {
+    if (time == 15) { // increase time dif
+      time = 30;
+      minusTime.setOpacity(1);
+    } else if (time == 30) {
+      time = 45;
+    } else if (time == 45) {
+      time = 60; // if 60 wont increase as limit
+    }
+    setDifficulty(accuracy, confidence, words, time);
+    updateUserTime(time); // writes to csv
+  }
+
+  /**
+   * increments accuracy
+   *
+   * @throws IOException if file is not found
+   * @throws CsvException if out of the file range
+   */
+  @FXML
+  private void onClickAccuracyUp() throws IOException, CsvException {
+    if (accuracy != 3) { // cant increase if 3
+      accuracy++;
+    }
+    setDifficulty(accuracy, confidence, words, time);
+    updateUserAccuracy(accuracy); // writes to csv
+  }
+
+  /**
+   * increments confidence
+   *
+   * @throws IOException if file is not found
+   * @throws CsvException if out of the file range
+   */
+  @FXML
+  private void onClickConfidenceUp() throws IOException, CsvException {
+    if (confidence == 25) {
+      confidence = 50;
+    } else if (confidence == 10) {
+      confidence = 25;
+    } else if (confidence == 1) {
+      confidence = 10;
+      minusConfidence.setOpacity(1); // cant decrease if 1
+    }
+    setDifficulty(accuracy, confidence, words, time); // sets opacity for buttons
+    updateUserConfidence(confidence); // writes to csv
+  }
+
+  /**
+   * Decreaments time
+   *
+   * @throws IOException if file is not found
+   * @throws CsvException if out of the file range
+   */
+  @FXML
+  private void onClickTimeDown() throws IOException, CsvException {
+    if (time == 60) { // decreases time setting
+      time = 45;
+      plusTime.setOpacity(1);
+    } else if (time == 45) {
+      time = 30;
+    } else if (time == 30) {
+      time = 15;
+    } // 15 cant be decreased
+    setDifficulty(accuracy, confidence, words, time); // updates opacity
+    updateUserTime(time); // writes to csv
+  }
+
+  /**
+   * Decreaments accuracy
+   *
+   * @throws IOException if file is not found
+   * @throws CsvException if out of the file range
+   */
+  @FXML
+  private void onClickAccuracyDown() throws IOException, CsvException {
+    if (accuracy != 1) { // unless accuray is one will decrement
+      accuracy--;
+    }
+    setDifficulty(accuracy, confidence, words, time);
+    updateUserAccuracy(accuracy); // writes to csv
+  }
+
+  /**
+   * Decreaments confidence
+   *
+   * @throws IOException if file is not found
+   * @throws CsvException if out of the file range
+   */
+  @FXML
+  private void onClickConfidenceDown() throws IOException, CsvException {
+    if (confidence == 50) { // decrements confidence
+      confidence = 25;
+      plusConfidence.setOpacity(1);
+    } else if (confidence == 25) {
+      confidence = 10;
+    } else if (confidence == 10) {
+      confidence = 1;
+    }
+    setDifficulty(accuracy, confidence, words, time); // changes opacity
+    updateUserConfidence(confidence); // writes to csv
+  }
+
+  /**
+   * updates the users time therough the csv
+   *
+   * @param time the new input to update on csv
+   * @throws IOException if file is not found
+   * @throws CsvException if out of the file range
+   */
+  private void updateUserTime(int time) throws IOException, CsvException {
+    this.time = time;
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    sheetReaderWriter.updateUsersTime(time, currentUsername);
+  }
+
+  /**
+   * updates the users confidence therough the csv
+   *
+   * @param confidence the new input to update on csv
+   * @throws IOException if file is not found
+   * @throws CsvException if out of the file range
+   */
+  private void updateUserConfidence(int confidence) throws IOException, CsvException {
+    this.confidence = confidence;
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    sheetReaderWriter.updateUsersConfidence(confidence, currentUsername);
+  }
+
+  /**
+   * updates the users accuracy therough the csv
+   *
+   * @param accuracy the new input to update on csv
+   * @throws IOException if file is not found
+   * @throws CsvException if out of the file range
+   */
+  private void updateUserAccuracy(int accuracy) throws IOException, CsvException {
+    this.accuracy = accuracy;
+    SpreadSheetReaderWriter sheetReaderWriter = new SpreadSheetReaderWriter();
+    sheetReaderWriter.updateUsersAccuracy(accuracy, currentUsername);
   }
 }
