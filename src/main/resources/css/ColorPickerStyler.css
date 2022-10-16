@@ -7,8 +7,7 @@
     -fx-pref-width: 85px;
     -fx-pref-height: 50px;
     -fx-background-color: transparent;
-    -fx-border-color: white;
-   
+  
 }
 .color-picker .arrow, .color-picker .arrow-button{
     -fx-background-color: transparent;
