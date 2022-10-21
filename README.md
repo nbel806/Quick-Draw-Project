@@ -39,4 +39,4 @@ Unix/MacOsX:
 `./mvnw git-code-format:format-code `
 
 Windows:  
-`.\mvnw.cmd git-code-format:format-code `
+`.\mvnw.cmd git-code-format:format-code `"# SOFTENG-206-quick-draw-project" 
